@@ -13,7 +13,7 @@ import BannerSection from "./components/BannerSection";
 import ContactSection from "./components/ContactSection";
 import FAQSection from "./components/FAQSection";
 import TestimonialSection from "./components/TestimonialSection";
-// import Footer from "./components/Footer";
+import FooterSection from "./components/FooterSection";
 
 
 const App: React.FC = () => {
@@ -40,7 +40,7 @@ const App: React.FC = () => {
         <BannerSection />
         <ContactSection />
         <FAQSection />
-        {/* <Footer /> */}
+        <FooterSection />
       </Container>
     </Box>
   );

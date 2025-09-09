@@ -1,26 +1,27 @@
 import React from "react";
 import { Box, Button, Typography, Stack } from "@mui/material";
-import bgArrows from "../assets/banner_section_bg_image.png";
-import blueCard from "../assets/banner_section_blue_image.png";
-import phoneStack from "../assets/banner_section_phone_image.png";
+import bgArrows from "../assets/banner_section_bg_image.png"; // Background arrows image
+import blueCard from "../assets/banner_section_blue_image.png";  // Blue card background image
+import phoneStack from "../assets/banner_section_phone_image.png"; // Phone stack image
 
 const BannerSection: React.FC = () => (
   <Box
     sx={{
       position: "relative",
-      width: "100vw",
-      height: "100vh",
       left: "50%",
       transform: "translateX(-50%)",
+      width: "100vw",
+      minHeight: "100vh",
       bgcolor: "#f9f9f9",
+      overflow: "hidden",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      overflow: "hidden",
+      px: 2,
       py: 0,
     }}
   >
-    {/* Arrows in background */}
+    {/* Background arrows */}
     <Box
       component="img"
       src={bgArrows}
@@ -30,142 +31,137 @@ const BannerSection: React.FC = () => (
         width: "100%",
         height: "100%",
         objectFit: "cover",
-        left: 0,
         top: 0,
-        zIndex: 1,
+        left: 0,
+        zIndex: 0,
         pointerEvents: "none",
       }}
     />
 
-    {/* Blue card as flex row */}
+    {/* Blue card container with two equal halves */}
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-start",
         position: "relative",
-        width: { xs: "96vw", md: "130vw" },
-        maxWidth: 1200,
-        minHeight: { xs: 420, md: 520 },
+        width: "100%",
+        maxWidth: 1300,
+        height: { xs: 500, md: 600 },
+        borderRadius: 4,
         backgroundImage: `url(${blueCard})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        borderRadius: 5,
-        boxShadow: 6,
-        mx: "auto",
-        zIndex: 2,
+        boxShadow: "0 10px 40px rgba(0, 0, 0, 0.25)",
+        display: "flex",
         overflow: "visible",
+        zIndex: 1,
       }}
     >
-      {/* Phone image left */}
+      {/* Left half: Phone image */}
       <Box
         sx={{
-          flexShrink: 0,
-          width: { xs: 170, sm: 230, md: 340 },
-          height: { xs: 340, sm: 420, md: 800 },
+          width: "50%",
           position: "relative",
+          pl: { xs: 2, sm: 3, md: 5 },
           display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          zIndex: 3,
-          mt: { xs: -40, md: -50 }, // Pull phone up for overlap with card edge
-          ml: { xs: 0, md: 15 }, // Left margin
+          justifyContent: "flex-start",
+          alignItems: "center",
+          overflow: "visible",
         }}
       >
         <Box
           component="img"
           src={phoneStack}
-          alt="App preview"
+          alt="Product preview phones"
           sx={{
-            width: "155%",
+            width: { xs: 170, sm: 250, md: 610 },
             height: "auto",
-            display: "block",
+            mb: { xs: 4, md: 10 },
+            ml: { xs: 6, sm: 8, md: 8 },
+            // Allows part of phones to overflow left
+            position: "relative",
+            left: { xs: "-50px", sm: "-70px", md: "-100px" },
             userSelect: "none",
             pointerEvents: "none",
           }}
         />
       </Box>
 
-      {/* Content column - always right of phone */}
-      <Stack
-        spacing={3.5}
-        justifyContent="center"
-        alignItems="flex-start"
+      {/* Right half: Text and buttons */}
+      <Box
         sx={{
+          width: "50%",
+          pr: { xs: 3, sm: 6, md: 8 },
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
           color: "#fff",
-          pl: { xs: 3, sm: 4, md: 7 },
-          pr: { xs: 2, md: 4 },
-          py: { xs: 3, md: 0 },
-          width: { xs: "60%", md: "62%" },
         }}
       >
         <Typography
           variant="h3"
           sx={{
-            fontFamily: "'Earth Orbiter', 'Orbitron', 'Roboto', sans-serif",
+            fontFamily: "'Earth Orbiter', 'Orbitron', sans-serif",
             fontWeight: 700,
-            letterSpacing: 2,
-            color: "#fff",
-            textAlign: "right",
-            ml: "auto",
-
+            fontSize: { xs: 26, md: 44 },
+            letterSpacing: "0.16em",
             textTransform: "uppercase",
-            fontSize: { xs: 26, sm: 38, md: 48 },
-            mb: 1,
+            mb: 3,
           }}
         >
-          LET'S TALK STRATEGY
+          LET’S TALK STRATEGY
         </Typography>
         <Typography
           sx={{
-            color: "#e8e8e8",
-            fontWeight: 400,
-            mb: 2.2,
             fontSize: { xs: 15, md: 18 },
-            textAlign: "left",
-            maxWidth: { xs: 330, sm: 430, md: 530 },
+            mb: 4,
+            lineHeight: 1.6,
+            maxWidth: 480,
           }}
         >
-          Ready to scale your business? Whether you need a cutting-edge website, a high-impact mobile app, or game-changing marketing strategies, Kyptronix is here to help. <br /><br />
-          Book a <span style={{ color: '#fff', fontWeight: 600, textDecoration: 'underline' }}>FREE</span> consultation now and start seeing results. Our team is ready to deliver the future to your business today!
+          Ready to scale your business? Whether you need a cutting-edge website, a high-impact mobile app, or game-changing marketing strategies, Kyptronix is here to help.<br /><br />
+          Book a <strong style={{ color: "#fff", textDecoration: "underline" }}>FREE</strong> consultation now and start seeing results. Our team is ready to deliver the future to your business today!
         </Typography>
-        <Stack direction="row" spacing={2}>
+
+        <Stack direction="row" spacing={3}>
           <Button
             variant="contained"
             sx={{
-              background: "#fff",
-              color: "#0063b3",
-              borderRadius: 6,
+              backgroundColor: "#fff",
+              color: "#1a4ebd",
+              px: 5,
+              py: 1.75,
+              borderRadius: 3,
               fontWeight: 700,
-              px: 4,
-              py: 1.7,
               fontSize: 18,
-              boxShadow: 2,
-              "&:hover": { background: "#e9e9e9" },
+              boxShadow: 3,
+              textTransform: "uppercase",
+              "&:hover": { backgroundColor: "#e6e6ff" },
+              minWidth: 180,
             }}
           >
-            SCHEDULE A MEETING
+            Schedule a Meeting
           </Button>
           <Button
             variant="contained"
             sx={{
               background: "linear-gradient(90deg, #e86d3a 0%, #c8462b 100%)",
               color: "#fff",
-              borderRadius: 6,
+              px: 5,
+              py: 1.75,
+              borderRadius: 3,
               fontWeight: 700,
-              px: 4,
-              py: 1.7,
               fontSize: 18,
-              boxShadow: 2,
-              "&:hover": { background: "linear-gradient(90deg, #c8462b 0%, #e86d3a 100%)" },
+              boxShadow: 3,
+              textTransform: "uppercase",
+              "&:hover": {
+                background: "linear-gradient(90deg, #c8462b 0%, #e86d3a 100%)",
+              },
+              minWidth: 140,
             }}
           >
-            CALL NOW!
+            Call Now
           </Button>
         </Stack>
-      </Stack>
+      </Box>
     </Box>
   </Box>
 );

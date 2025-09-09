@@ -40,7 +40,7 @@ const FAQSection: React.FC = () => {
         position: "relative",
         left: "50%",
         transform: "translateX(-50%)",
-        width: "100vw",              // Full viewport width
+        width: "100vw",
         minHeight: 500,
         bgcolor: "#fafafa",
         pt: { xs: 6, md: 10 },
@@ -48,7 +48,7 @@ const FAQSection: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        overflowX: "hidden",           // Prevent horizontal scrolling
+        overflowX: "hidden",
         backgroundImage: `url(${faqBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -58,10 +58,10 @@ const FAQSection: React.FC = () => {
     >
       <Box
         sx={{
-          width: { xs: "95%", sm: "85%", md: "60%" },  // Control internal width for content
+          width: { xs: "95%", sm: "85%", md: "60%" },
           position: "relative",
           zIndex: 2,
-          px: 0,                  // Remove horizontal padding here to avoid extra space
+          px: 0,
         }}
       >
         {/* FAQ Title */}
@@ -102,6 +102,17 @@ const FAQSection: React.FC = () => {
               }}
             >
               <AccordionSummary
+                disableRipple
+                sx={{
+                  fontWeight: 700,
+                  fontSize: { xs: 16, md: 20 },
+                  bgcolor: "transparent",
+                  py: 2,
+                  borderRadius: 3,
+                  "&.Mui-focused, &:focus, &:active": {
+                    bgcolor: "transparent",
+                  },
+                }}
                 expandIcon={
                   expanded === i ? (
                     <RemoveIcon sx={{ color: "#fff", fontSize: 30 }} />
@@ -109,13 +120,6 @@ const FAQSection: React.FC = () => {
                     <ExpandMoreIcon sx={{ color: "#a34527", fontSize: 30 }} />
                   )
                 }
-                sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: 16, md: 20 },
-                  bgcolor: "transparent",
-                  py: 2,
-                  borderRadius: 3,
-                }}
               >
                 {faq.question}
               </AccordionSummary>

@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
+import Paper from "@mui/material/Paper";
 
 import kaltechImg from "../assets/portfolio_Responsive_design-1.png";
 import gutCheckImg from "../assets/portfolio_Responsive_design-2.png";
@@ -49,7 +50,7 @@ const PortfolioSection: React.FC = () => {
         backgroundRepeat: "no-repeat",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center", // makes all children vertically centered
+        justifyContent: "center",
         alignItems: "center",
         overflowX: "hidden",
         boxSizing: "border-box",
@@ -64,7 +65,7 @@ const PortfolioSection: React.FC = () => {
           mx: "auto",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center", // also vertical align for inner flex
+          justifyContent: "center",
           flex: 1,
         }}
       >
@@ -73,69 +74,108 @@ const PortfolioSection: React.FC = () => {
           variant="h4"
           align="center"
           sx={{
-            fontFamily: "Arial, sans-serif",
-            fontWeight: 700,
+            fontFamily: "'Earth Orbiter Bold', Arial, sans-serif",
+            fontWeight: 400,
+            fontSize: { xs: "24px", md: "48px" },
             letterSpacing: "0.06em",
             color: "#2961A6",
-            mb: 2.5,
+            mb: 0,
           }}
         >
           OUR WORK
         </Typography>
 
-        {/* Category Filter */}
+        {/* Category Pills */}
         <Box
           sx={{
+            width: { xs: "98vw", md: "88vw", lg: "1200px" },
+            maxWidth: "1200px",
+            mx: "auto",
+            mt: { xs: 2, md: 3 },
+            mb: { xs: 3, md: 4 },
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            gap: 2,
-            mb: 4,
             flexWrap: "wrap",
+            gap: { xs: 1.5, md: 2.5 },
+            boxSizing: "border-box",
           }}
         >
-          {categories.map((cat) => (
+          <Paper
+            elevation={0}
+            sx={{
+              bgcolor: "#0861AA1A",
+              borderRadius: "49px",
+              px: { xs: 1.5, sm: 3, md: 1 },
+              py: { xs: 1.1, md: 0.3 },
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 2,
+              flexWrap: { xs: "wrap", md: "nowrap" },
+              overflow: "visible",
+              minWidth: 0,
+              width: "auto",
+              boxSizing: "border-box",
+            }}
+          >
+            {categories.map((cat) => (
+              <Button
+                key={cat.label}
+                variant="text"
+                disableElevation
+                disableRipple
+                sx={{
+                  px: 2.7,
+                  py: 0.7,
+                  borderRadius: "800px",
+                  minWidth: "unset",
+                  fontWeight: cat.label === "All" ? 700 : 500,
+                  fontFamily: "Montserrat, Arial, sans-serif",
+                  fontSize: { xs: "1rem", md: "1rem" },
+                  textTransform: "none",
+                  color: cat.label === "All" ? "#FFF" : "#26405E",
+                  background: cat.label === "All" ? "#B5442C" : "transparent",
+                  boxShadow: "none",
+                  transition: "background 0.18s, color 0.18s",
+                  cursor: "pointer",
+                  "&:hover": {
+                    background: "#B5442C",
+                    color: "#FFF",
+                  },
+                }}
+              >
+                {cat.label}
+              </Button>
+            ))}
+
             <Button
-              key={cat.label}
               variant="text"
+              disableElevation
+              disableRipple
               sx={{
-                px: 3,
-                py: 1.2,
-                borderRadius: "22px",
+                px: 4,
+                py: 0.3,
+                ml: -1,
+                borderRadius: "800px",
                 fontWeight: 700,
-                fontFamily: "Arial, sans-serif",
-                fontSize: { xs: "1rem", md: "1.17rem" },
+                fontFamily: "'Earth Orbiter', Arial, sans-serif",
+                fontSize: { xs: "1rem", md: "1rem" },
                 textTransform: "none",
-                color: cat.active ? "#FFF" : "#2C445A",
-                background: cat.active ? "#B5442C" : "#F6F6F6",
-                boxShadow: cat.active ? "0 2px 8px rgba(181,68,44,0.08)" : "none",
+                color: "#FFF",
+                background: "#212A36",
+                boxShadow: "none",
+                transition: "background 0.18s",
+                cursor: "pointer",
                 "&:hover": {
-                  background: cat.active ? "#B5442C" : "#E1E7ED",
+                  background: "#B5442C",
                 },
               }}
             >
-              {cat.label}
+              VIEW ALL
             </Button>
-          ))}
-          <Button
-            variant="text"
-            sx={{
-              px: 3,
-              py: 1.2,
-              ml: 1,
-              borderRadius: "22px",
-              fontWeight: 700,
-              fontFamily: "Arial, sans-serif",
-              fontSize: "1.15rem",
-              textTransform: "none",
-              color: "#FFF",
-              background: "#212A36",
-              "&:hover": { background: "#B5442C" },
-              boxShadow: "0 2px 8px rgba(33,42,54,0.12)",
-            }}
-          >
-            VIEW ALL
-          </Button>
+          </Paper>
         </Box>
 
         {/* Portfolio Cards Grid */}
@@ -144,10 +184,10 @@ const PortfolioSection: React.FC = () => {
             display: "grid",
             gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
             gap: 4,
-            px: { xs: 2, md: 4 },
-            width: "100%",
+            px: { xs: 2, md: 4, lg: 0 },
+            width: "110%",
             boxSizing: "border-box",
-            mx: "auto",
+            mx: -8,
             alignItems: "center",
           }}
         >

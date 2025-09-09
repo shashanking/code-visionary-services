@@ -85,15 +85,16 @@ const Navbar: React.FC = () => {
         <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", ml: 2 }}>
           <Button
             variant="contained"
+            disableRipple
             sx={{
               textTransform: "uppercase",
-              borderRadius: 29,
+              borderRadius: "58px",
               fontWeight: 600,
               fontFamily: "'Earth Orbiter Bold', Montserrat, sans-serif",
-              height: 60,
-              fontSize: 16,
+              height: 50,
+              fontSize: 14,
               px: 5,
-              boxShadow: "0 2px 8px rgba(181,68,44,0.12)",
+              // boxShadow: "0 2px 8px rgba(181,68,44,0.12)",
               backgroundColor: "#B5442C",
               color: "#fff",
               display: "flex",
@@ -104,10 +105,10 @@ const Navbar: React.FC = () => {
               "&:hover": {
                 backgroundColor: "#8c3320",
                 color: "#ffe2d1",
-                "& .MuiBox-root": {
-                  transform: "translateX(7px) scale(1.16)",
-                  filter: "drop-shadow(0 0 2px #B5442C)",
-                },
+                // "& .MuiBox-root": {
+                //   transform: "translateX(7px) scale(1.16)",
+                //   filter: "drop-shadow(0 0 2px #B5442C)",
+                // },
               },
               userSelect: "none",
             }}

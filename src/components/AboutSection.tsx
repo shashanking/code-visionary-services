@@ -12,7 +12,7 @@ const AboutSection: React.FC = () => (
       position: "relative",
       left: "50%",
       transform: "translateX(-50%)",
-      width: "100vw",
+      width: "100vw",// Full viewport width
       height: "100vh", // Vertically fills the screen
       minHeight: 520,
       display: "flex",
@@ -39,7 +39,7 @@ const AboutSection: React.FC = () => (
         flexDirection: "column",
         justifyContent: "center",
         textAlign: { xs: "center", md: "left" },
-        pl: { xs: 2, sm: 8, md: 13, lg: 20 }, // Use padding-left for text only
+        pl: { xs: 2, sm: 8, md: 13, lg: 13 }, // Use padding-left for text only
         pr: { xs: 2, md: 0 }, // no padding-right so image is flush
         py: 0,
       }}
@@ -50,7 +50,7 @@ const AboutSection: React.FC = () => (
           fontFamily: "'Earth Orbiter', Arial, sans-serif",
           fontWeight: 700,
           textTransform: "uppercase",
-          fontSize: { xs: 28, sm: 42, md: 48 },
+          fontSize: { xs: 28, sm: 42, md: 48, lg: 35 },// responsive font size
           color: "#303030",
           lineHeight: 1.14,
           mb: { xs: 1, md: 1.5 },
@@ -66,9 +66,11 @@ const AboutSection: React.FC = () => (
         sx={{
           fontFamily: "Montserrat, Arial, sans-serif",
           fontWeight: 400,
-          fontSize: { xs: 16, md: 18 },
+          fontSize: { xs: 16, md: 22 }, // responsive font size
+          lineHeight: "30px",
+          letterSpacing:"0%",
           color: "#444",
-          maxWidth: 430,
+          maxWidth: 500,
           mb: 4,
         }}
       >
@@ -85,9 +87,9 @@ const AboutSection: React.FC = () => (
           color: "#fff",
           fontWeight: 700,
           fontFamily: "'Earth Orbiter Bold', Arial, sans-serif",
-          fontSize: 18,
-          borderRadius: 40,
-          px: 5,
+          fontSize: "20px",
+          borderRadius: "34px",
+          px: "40px",
           py: 1.3,
           boxShadow: "0 3px 14px rgba(44,62,80,0.08)",
           textTransform: "none",
@@ -105,7 +107,7 @@ const AboutSection: React.FC = () => (
       sx={{
         flex: 1,
         minWidth: { xs: "100%", md: 460 },
-        maxWidth: { xs: "100%", md: 820 },
+        maxWidth: { xs: "100%", md: 1200 },
         mt: { xs: 6, md: 0 },
         display: "flex",
         justifyContent: { xs: "center", md: "flex-end" },
@@ -118,7 +120,7 @@ const AboutSection: React.FC = () => (
         src={laptopImg}
         alt="Laptop Graphic"
         sx={{
-          width: { xs: "85vw", sm: 440, md: 520, lg: 1000 },
+          width: { xs: "85vw", sm: 440, md: 520, lg: 1125 },
           height: "auto",
           borderRadius: 20,
           position: "relative",

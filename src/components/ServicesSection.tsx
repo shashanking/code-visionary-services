@@ -70,7 +70,7 @@ const ServicesSection: React.FC = () => {
           transform: "translate(-50%, -40%)",
           fontFamily: "Montserrat, sans-serif",
           fontWeight: 700,
-          fontSize: { xs: "12vw", md: "8vw", lg: "8vw" },
+          fontSize: { xs: "12vw", md: "8vw", lg: "9vw" },
           color: "#405fad",
           opacity: 0.07,
           userSelect: "none",

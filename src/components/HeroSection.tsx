@@ -26,7 +26,7 @@ const HeroSection: React.FC = () => (
         sx={{
           fontFamily: "'Earth Orbiter Bold', Montserrat, sans-serif",
           fontWeight: 400,
-          fontSize: { xs: "2.1rem", sm: "2.9rem", md: "4rem", lg: "3.8rem" },
+          fontSize: { xs: "1.8rem", sm: "2.4rem", md: "3rem", lg: "61px" },
           lineHeight: 1.08,
           color: "#222222",
           mb: 1.8,
@@ -34,7 +34,7 @@ const HeroSection: React.FC = () => (
       >
         INNOVATIVE{" "}
         <Box component="span" sx={{ color: "#B5442C", display: "inline" }}>
-          DIGITAL SOLUTIONS
+          DIGITAL SOLUTIONS,
         </Box>
       </Typography>
     </Box>
@@ -57,12 +57,12 @@ const HeroSection: React.FC = () => (
       sx={{
         fontFamily: "Montserrat, sans-serif",
         fontWeight: 400,
-        fontSize: 18,
+        fontSize: "20px",
         color: "#303030",
-        maxWidth: 700,
+        maxWidth: 1000,
         mx: "auto",
         mb: 5,
-        lineHeight: 1.5,
+        lineHeight: "30px",
       }}
     >
       At Code Visionary Services, we craft high-performance websites, software, and visual identities that elevate your brand and drive results. From code to creativity, we turn your ideas into powerful digital experiences.
@@ -70,13 +70,14 @@ const HeroSection: React.FC = () => (
 
     <Button
       variant="contained"
+      disableRipple
       sx={{
         textTransform: "uppercase",
         borderRadius: "50px",
         fontWeight: 700,
         fontFamily: "'Earth Orbiter Bold', Montserrat, sans-serif",
         height: 56,
-        fontSize: 18,
+        fontSize: 14,
         px: 6,
         backgroundColor: "#000000",
         color: "#FFFFFF",
@@ -88,10 +89,10 @@ const HeroSection: React.FC = () => (
         "&:hover": {
           backgroundColor: "#8c3320",
           color: "#ffe2d1",
-          "& .MuiBox-root": {
-            transform: "translateX(7px) scale(1.16)",
-            filter: "drop-shadow(0 0 2px #8c3320)",
-          },
+          // "& .MuiBox-root": {
+          //   transform: "translateX(7px) scale(1.16)",
+          //   filter: "drop-shadow(0 0 2px #8c3320)",
+          // },
         },
         userSelect: "none",
       }}

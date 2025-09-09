@@ -3,11 +3,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import bgImg from "../assets/contact_bg_image.png";
 import sendIcon from "../assets/mingcute_arrow-up-line.png";
+import middleDividerImg from "../assets/contact_section_middle_line_image.png";
 
 const ContactSection: React.FC = () => (
   <Box
@@ -16,8 +16,7 @@ const ContactSection: React.FC = () => (
       width: "100vw",
       left: "50%",
       transform: "translateX(-50%)",
-      minHeight: 600,
-      height: "100vh",
+      minHeight: "100vh",          // Fill full viewport height
       backgroundImage: `url(${bgImg})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -27,6 +26,7 @@ const ContactSection: React.FC = () => (
       alignItems: "center",
       justifyContent: "center",
       overflowX: "hidden",
+      overflowY: "auto",          // Allow vertical scroll within if necessary
       boxSizing: "border-box",
     }}
   >
@@ -36,12 +36,14 @@ const ContactSection: React.FC = () => (
         borderRadius: 5,
         bgcolor: "rgba(255,255,255,0.85)",
         boxShadow: "0 8px 32px rgba(44,62,80,0.13)",
-        py: { xs: 4, md: 7 },
-        px: { xs: 2, sm: 4, md: 8 },
+        py: { xs: 3, md: 5 },        // reduce padding for better fit
+        px: { xs: 2, sm: 4, md: 6 }, // reduced padding horizontally
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         position: "relative",
+        maxHeight: "95vh",           // limit max height to viewport minus margin
+        overflowY: "auto",           // scroll inside content if overflow occurs
       }}
     >
       <Typography
@@ -53,7 +55,7 @@ const ContactSection: React.FC = () => (
           fontSize: { xs: "1.4rem", md: "2rem" },
           textTransform: "uppercase",
           color: "#B5442C",
-          mb: 1.2,
+          mb: 1,
           textAlign: "center",
         }}
       >
@@ -64,7 +66,7 @@ const ContactSection: React.FC = () => (
           fontFamily: "Montserrat, Arial, sans-serif",
           fontSize: "1.07rem",
           color: "#444",
-          mb: 4,
+          mb: 3,
           textAlign: "center",
           maxWidth: 540,
         }}
@@ -73,41 +75,41 @@ const ContactSection: React.FC = () => (
         pretium ut lacinia in, elementum id enim. Done
       </Typography>
 
+      {/* Main card container */}
       <Box
         sx={{
           width: "100%",
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           alignItems: "stretch",
-          borderRadius: 4,
-          bgcolor: "transparent",
+          borderLeft: "2.5px solid #2B7EE0",
+          borderRight: "2.5px solid #B5442C",
+          borderTop: "2.5px solid #e3e6ea",
+          borderBottom: "2.5px solid #e3e6ea",
+          borderRadius: "32px",
           boxSizing: "border-box",
-          position: "relative",
+          background: "rgba(255,255,255,0.94)",
+          flexGrow: 1,
+          minHeight: 0,        // for proper flexbox scroll behavior
+          overflow: "hidden",
         }}
       >
-        {/* FORM SIDE WITH HOVER EFFECT */}
+        {/* FORM SIDE */}
         <Box
           sx={{
-            flex: 1.1,
-            border: "2.5px solid #2980b9",
-            borderRadius: "30px",
+            flex: 1.4,
+            borderRadius: "32px 0 0 32px",
             bgcolor: "rgba(255,255,255,0.94)",
-            boxShadow: "0 2px 12px rgba(44,62,80,0.06)",
-            px: { xs: 2, md: 4 },
-            py: { xs: 4, md: 4 },
+            boxShadow: "none",
+            px: { xs: 1, md: 4 },
+            py: { xs: 2, md: 4 },
             minWidth: 320,
-            maxWidth: 430,
+            maxWidth: 580,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            transition: "all 0.35s cubic-bezier(0.4,0,0.2,1)",
-            '&:hover': {
-              boxShadow: "0 10px 36px rgba(44,62,80,0.18)",
-              borderColor: "#2B7EE0",
-              transform: "scale(1.04) translateY(-8px)",
-              background: "rgba(240,249,255,0.97)",
-              cursor: "pointer",
-            },
+            overflowY: "auto",
+            maxHeight: "90vh",   // to fit inside viewport comfortably
           }}
         >
           <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
@@ -197,6 +199,7 @@ const ContactSection: React.FC = () => (
           />
           <Button
             variant="contained"
+            disableRipple
             endIcon={
               <Box
                 component="img"
@@ -206,7 +209,8 @@ const ContactSection: React.FC = () => (
                   width: 18,
                   height: 18,
                   ml: 1,
-                  transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1), filter 0.35s",
+                  transition:
+                    "transform 0.35s cubic-bezier(0.4,0,0.2,1), filter 0.35s",
                 }}
               />
             }
@@ -239,17 +243,32 @@ const ContactSection: React.FC = () => (
           </Button>
         </Box>
 
-        <Divider
-          orientation="vertical"
-          flexItem
+        {/* MIDDLE DIVIDER with image */}
+        <Box
           sx={{
+            width: "2.5px",
+            minWidth: "2.5px",
+            height: { xs: 150, md: 200 },
+            marginY: "auto",
+            mx: { xs: 1, md: 2 },
             display: { xs: "none", md: "block" },
-            mx: 2,
-            borderColor: "#AD6236",
-            borderWidth: "1.6px",
-            borderRadius: "7px",
+            borderRadius: "12px",
+            overflow: "hidden",
+            background: "#fff0",
+            flexShrink: 0,
           }}
-        />
+        >
+          <img
+            src={middleDividerImg}
+            alt="middle divider"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </Box>
 
         {/* INFO SIDE */}
         <Box
@@ -258,12 +277,13 @@ const ContactSection: React.FC = () => (
             pl: { xs: 0, md: 4 },
             pr: { xs: 0, md: 2 },
             py: { xs: 3, md: 4 },
-            border: "1.6px solid #AD6236",
-            borderRadius: "26px",
+            borderRadius: "0 32px 32px 0",
             background: "rgba(255,255,255,0.86)",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            overflowY: "auto",
+            maxHeight: "90vh",
           }}
         >
           <Typography
@@ -288,7 +308,8 @@ const ContactSection: React.FC = () => (
               maxWidth: 310,
             }}
           >
-            Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Done
+            Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi,
+            pretium ut lacinia in, elementum id enim. Done
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
             <PhoneIcon sx={{ color: "#1a1a1a", mr: 1 }} />
