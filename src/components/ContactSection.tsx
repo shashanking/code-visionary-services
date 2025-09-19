@@ -71,8 +71,8 @@ const ContactSection: React.FC = () => (
           maxWidth: 540,
         }}
       >
-        Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi,
-        pretium ut lacinia in, elementum id enim. Done
+        Tell us a bit about your project and goals. We’ll get back within one
+        business day with next steps and a clear plan to move forward.
       </Typography>
 
       {/* Main card container */}
@@ -82,16 +82,17 @@ const ContactSection: React.FC = () => (
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           alignItems: "stretch",
-          borderLeft: "2.5px solid #2B7EE0",
-          borderRight: "2.5px solid #B5442C",
-          borderTop: "2.5px solid #e3e6ea",
-          borderBottom: "2.5px solid #e3e6ea",
+          borderLeft: { xs: "1.5px solid #2B7EE0", md: "2.5px solid #2B7EE0" },
+          borderRight: { xs: "1.5px solid #B5442C", md: "2.5px solid #B5442C" },
+          borderTop: { xs: "1.5px solid #e3e6ea", md: "2.5px solid #e3e6ea" },
+          borderBottom: { xs: "1.5px solid #e3e6ea", md: "2.5px solid #e3e6ea" },
           borderRadius: "32px",
           boxSizing: "border-box",
           background: "rgba(255,255,255,0.94)",
           flexGrow: 1,
           minHeight: 0,        // for proper flexbox scroll behavior
           overflow: "hidden",
+          gap: { xs: 2, md: 0 },
         }}
       >
         {/* FORM SIDE */}
@@ -103,7 +104,7 @@ const ContactSection: React.FC = () => (
             boxShadow: "none",
             px: { xs: 1, md: 4 },
             py: { xs: 2, md: 4 },
-            minWidth: 320,
+            minWidth: { xs: 0, md: 320 },
             maxWidth: 580,
             display: "flex",
             flexDirection: "column",
@@ -221,13 +222,14 @@ const ContactSection: React.FC = () => (
               fontWeight: 700,
               borderRadius: 20,
               boxShadow: "0 2px 8px rgba(181,68,44,.08)",
-              px: 6,
+              px: { xs: 3, md: 6 },
               py: 1.4,
               letterSpacing: "1px",
               textTransform: "uppercase",
               fontFamily: "Montserrat, Arial, sans-serif",
               fontSize: 17,
-              alignSelf: "flex-start",
+              alignSelf: { xs: "stretch", md: "flex-start" },
+              width: { xs: "100%", md: "auto" },
               transition: "background 0.35s, color 0.35s",
               "&:hover": {
                 background: "#8c3320",
@@ -239,7 +241,7 @@ const ContactSection: React.FC = () => (
               },
             }}
           >
-            SEE ALL
+            Send Message
           </Button>
         </Box>
 
@@ -308,13 +310,13 @@ const ContactSection: React.FC = () => (
               maxWidth: 310,
             }}
           >
-            Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi,
-            pretium ut lacinia in, elementum id enim. Done
+            Prefer to talk? Give us a call—our team is happy to discuss scope,
+            timelines, and the best approach for your needs.
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
             <PhoneIcon sx={{ color: "#1a1a1a", mr: 1 }} />
             <Typography sx={{ fontWeight: 700, fontSize: 16, color: "#232323" }}>
-              +1-323-453-5817
+              +91 8637515632
             </Typography>
           </Box>
           <Typography
@@ -339,12 +341,13 @@ const ContactSection: React.FC = () => (
               maxWidth: 310,
             }}
           >
-            Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id en
+            Want to share docs or a brief? Email us and we’ll follow up with a
+            quick discovery call and a tailored proposal.
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <EmailIcon sx={{ color: "#1a1a1a", mr: 1 }} />
             <Typography sx={{ fontWeight: 700, fontSize: 16, color: "#232323" }}>
-              Example@gmail.com
+              office@codevisionaryservices.com
             </Typography>
           </Box>
         </Box>

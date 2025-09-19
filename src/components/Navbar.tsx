@@ -1,134 +1,180 @@
-// ...other imports remain unchanged
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import logo from "../assets/cvs-logo-navbar.png";
-import arrowIcon from "../assets/mingcute_arrow-up-line.png";
-
-const navItems = [
-  "Home",
-  "About Us",
-  "Services",
-  "Reviews",
-  "Portfolio",
-  "Blog",
-  "Contact",
-];
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import { CTAButton, Logo } from "./shared";
+import { NAV_ITEMS } from "../constants/navigation";
 
 const Navbar: React.FC = () => {
   const [active, setActive] = useState<string>("Home");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', bgcolor: '#1a1a1a', height: '100%' }}>
+      <Typography variant="h6" sx={{ my: 2, color: '#fff' }}>
+        CVS
+      </Typography>
+      <List>
+        {NAV_ITEMS.map((item) => (
+          <ListItem key={item.label} disablePadding>
+            <ListItemButton
+              sx={{ textAlign: 'center' }}
+              onClick={() => setActive(item.label)}
+            >
+              <ListItemText
+                primary={item.label}
+                sx={{
+                  color: active === item.label ? '#444' : '#444',
+                  '& .MuiTypography-root': {
+                    fontWeight: active === item.label ? 600 : 400
+                  }
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
-    <AppBar
-      position="static"
-      color="transparent"
-      elevation={0}
-      sx={{ backdropFilter: "blur(8px)" }}
-    >
-      <Toolbar
-        disableGutters
+    <>
+      <AppBar
+        position="fixed"
+        elevation={0}
         sx={{
-          minHeight: 80,
-          px: { xs: 0, sm: 1, md: 4 },
-          overflowX: "hidden",
-          boxSizing: "border-box",
-          width: "100%",
+          backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
+          backdropFilter: isScrolled ? "blur(10px)" : "none",
+          borderBottom: isScrolled ? "1px solid rgba(0,0,0,0.1)" : "none",
+          transition: "all 0.3s ease-in-out"
         }}
       >
-        {/* Logo Left */}
-        <Box sx={{ display: "flex", alignItems: "center", minWidth: 80, mr: 2 }}>
-          <img src={logo} alt="CVS Logo" style={{ height: 40, maxWidth: "100%" }} />
-        </Box>
-
-        {/* Nav Items Centered */}
-        <Box
+        <Toolbar
+          disableGutters
           sx={{
-            flexGrow: 1,
-            display: { xs: "none", md: "flex" },
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 3,
-            minWidth: 0,
-            maxWidth: "100%",
-            overflowX: "auto",
-            scrollbarWidth: "none",
-            "&::-webkit-scrollbar": { display: "none" },
+            minHeight: 64,
+            px: { xs: 2, md: 4, lg: 6 },
+            maxWidth: "1400px",
+            mx: "auto",
+            width: "100%",
           }}
         >
-          {navItems.map((label) => (
-            <Button
-              key={label}
-              onClick={() => setActive(label)}
-              color="inherit"
-              sx={{
-                textTransform: "none",
-                fontWeight: active === label ? 700 : 400,
-                fontSize: 20,
-                fontFamily: "Montserrat, sans-serif",
-                color: active === label ? "#000000" : `rgba(48,48,48,0.6)`,
-                whiteSpace: "nowrap",
-                transition: "color 0.3s, font-weight 0.3s",
-                "&:hover": {
-                  color: "#000000",
-                },
-                userSelect: "none",
-              }}
-            >
-              {label}
-            </Button>
-          ))}
-        </Box>
+          {/* Logo Left */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Logo variant="navbar" onClick={() => setActive("Home")} />
+          </Box>
 
-        {/* Start a project Right */}
-        <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", ml: 2 }}>
-          <Button
-            variant="contained"
-            disableRipple
+          {/* Spacer */}
+          <Box sx={{ width: { xs: 0, md: 80, lg: 120 } }} />
+
+          {/* Nav Items Right-aligned - Desktop */}
+          <Box
             sx={{
-              textTransform: "uppercase",
-              borderRadius: "58px",
-              fontWeight: 600,
-              fontFamily: "'Earth Orbiter Bold', Montserrat, sans-serif",
-              height: 50,
-              fontSize: 14,
-              px: 5,
-              // boxShadow: "0 2px 8px rgba(181,68,44,0.12)",
-              backgroundColor: "#B5442C",
-              color: "#fff",
-              display: "flex",
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-start",
               alignItems: "center",
-              gap: 1.2,
-              minWidth: 130,
-              transition: "background 0.35s, color 0.35s",
-              "&:hover": {
-                backgroundColor: "#8c3320",
-                color: "#ffe2d1",
-                // "& .MuiBox-root": {
-                //   transform: "translateX(7px) scale(1.16)",
-                //   filter: "drop-shadow(0 0 2px #B5442C)",
-                // },
-              },
-              userSelect: "none",
+              gap: 2,
             }}
           >
-            Start a Project
-            <Box
-              component="img"
-              src={arrowIcon}
-              alt="Arrow Icon"
-              sx={{
-                width: 22,
-                height: 22,
-                transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1), filter 0.35s",
-                ml: 1,
-              }}
-            />
-          </Button>
-        </Box>
-      </Toolbar>
-    </AppBar>
+            {NAV_ITEMS.map((item) => (
+              <Button
+                key={item.label}
+                onClick={() => setActive(item.label)}
+                sx={{
+                  textTransform: "none",
+                  fontWeight: active === item.label ? 600 : 400,
+                  fontSize: "14px",
+                  fontFamily: "Montserrat, sans-serif",
+                  color: active === item.label ? "#D2691E" : isScrolled ? "#333" : "#444",
+                  position: "relative",
+                  transition: "color 0.3s ease",
+                  "&:hover": {
+                    color: "#D2691E",
+                    backgroundColor: "transparent",
+                  },
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    bottom: -2,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: active === item.label ? "100%" : "0%",
+                    height: "2px",
+                    backgroundColor: "#D2691E",
+                    transition: "width 0.3s ease",
+                  },
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Mobile menu button */}
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ display: { md: "none" }, ml: "auto" }}
+          >
+            <MenuIcon sx={{ color: "#fff" }} />
+          </IconButton>
+
+          {/* Start a project Button - Desktop */}
+          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
+            <CTAButton
+              variant="primary"
+              size="small"
+              onClick={() => console.log("Start project clicked")}
+            >
+              Start a Project
+            </CTAButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      {/* Mobile Drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+        }}
+      >
+        {drawer}
+      </Drawer>
+    </>
   );
 };
 

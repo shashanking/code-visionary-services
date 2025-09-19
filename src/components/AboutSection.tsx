@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 
 import bgImg from "../assets/about_section_bg_image.png";
 import laptopImg from "../assets/Laptop.png";
@@ -74,32 +73,69 @@ const AboutSection: React.FC = () => (
           mb: 4,
         }}
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-        quis orci vitae quam aliquam dapibus. Aliquam a tincidunt nunc,
-        posuere fringilla nunc. Ut dignissim scelerisque metus, id
-        sollicitudin justo tincidunt eget.
+        At Code Visionary Studios, we design and build reliable digital
+        products that move businesses forward. Our team blends strategy,
+        clean design, and modern engineering to deliver fast, accessible
+        websites and applications. From concept to launch, we partner with
+        you to create experiences that look great and perform even better.
       </Typography>
-      <Button
-        variant="contained"
+      <Box
         sx={{
-          alignSelf: { xs: "center", md: "flex-start" },
-          backgroundColor: "#232323",
-          color: "#fff",
-          fontWeight: 700,
-          fontFamily: "'Earth Orbiter Bold', Arial, sans-serif",
-          fontSize: "20px",
+          position: "relative",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "20px 40px",
+          gap: "10px",
+          isolation: "isolate",
+          width: "192px",
+          height: "50px",
+          background: "#303030",
           borderRadius: "34px",
-          px: "40px",
-          py: 1.3,
-          boxShadow: "0 3px 14px rgba(44,62,80,0.08)",
-          textTransform: "none",
+          cursor: "pointer",
+          transition: "background 0.3s ease",
           "&:hover": {
-            backgroundColor: "#8c3320",
+            background: "#8c3320",
           },
         }}
       >
-        Learn More
-      </Button>
+        <Typography
+          sx={{
+            width: "132px",
+            height: "20px",
+            fontFamily: "'Earth Orbiter Bold', Montserrat, sans-serif",
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "20px",
+            lineHeight: "20px",
+            textAlign: "center",
+            color: "#F0F0F0",
+            flex: "none",
+            order: 0,
+            flexGrow: 0,
+            zIndex: 0,
+          }}
+        >
+          Learn More
+        </Typography>
+        <Box
+          sx={{
+            position: "absolute",
+            width: "2px",
+            height: "2px",
+            left: "74px",
+            top: "49px",
+            background: "#F0F0F0",
+            opacity: 0,
+            flex: "none",
+            order: 1,
+            flexGrow: 0,
+            zIndex: 1,
+            transition: "opacity 0.3s ease",
+          }}
+        />
+      </Box>
     </Box>
 
     {/* Laptop Image Section */}

@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
+import { useEffect, useState } from "react";
 
 import bgImg from "../assets/tech_stack_section_bg_image.png";
 import reactLogo from "../assets/tech_stack_section_tech1_image.png";
@@ -9,10 +10,39 @@ import laravelLogo from "../assets/tech_stack_section_tech4_image.png";
 import wordpressLogo from "../assets/tech_stack_section_tech3_image.png";
 
 const mainTechs = [
+  // Web Development
   { label: "React", img: reactLogo },
   { label: "Angular", img: angularLogo, active: true },
+  { label: "Next.js" },
+  { label: "Node.js" },
+  { label: "Vue" },
+  { label: "Svelte" },
+  // Back-end & APIs
   { label: "Laravel", img: laravelLogo },
+  { label: "NestJS" },
+  { label: "Express" },
+  // CMS / Platforms
   { label: "WordPress", img: wordpressLogo },
+  { label: "Shopify" },
+  { label: "Webflow" },
+  // Mobile
+  { label: "React Native" },
+  { label: "Flutter" },
+  // Data / DB
+  { label: "MongoDB" },
+  { label: "PostgreSQL" },
+  { label: "MySQL" },
+  // Design
+  { label: "Figma" },
+  { label: "Adobe XD" },
+  // SEO / Analytics
+  { label: "Google Analytics" },
+  { label: "Search Console" },
+  { label: "SEMrush" },
+  { label: "Ahrefs" },
+  // Blockchain
+  { label: "Solidity" },
+  { label: "Ethereum" },
 ];
 
 const techTags = [
@@ -25,14 +55,50 @@ const techTags = [
   { label: "Blockchain" },
 ];
 
-const TechStackSection = () => (
+const TechStackSection = () => {
+  const [activeTag, setActiveTag] = useState<string>("Web Development");
+
+  const tagToTechs: Record<string, string[]> = {
+    "Web Development": [
+      "React",
+      "Angular",
+      "Next.js",
+      "Node.js",
+      "Vue",
+      "Svelte",
+      "Express",
+      "NestJS",
+    ],
+    "App Development": ["React Native", "Flutter"],
+    Marketing: ["Shopify", "Webflow"],
+    AI: ["Next.js", "Node.js"],
+    Design: ["Figma", "Adobe XD"],
+    "SEO Tools": ["Google Analytics", "Search Console", "SEMrush", "Ahrefs"],
+    Blockchain: ["Solidity", "Ethereum"],
+  };
+
+  const visibleTechs = mainTechs.filter((t) =>
+    (tagToTechs[activeTag] || ["React", "Angular", "Laravel", "WordPress"]).includes(t.label)
+  );
+
+  // Auto-rotate selected chip every ~2.5s based on current activeTag
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentIdx = techTags.findIndex((t) => t.label === activeTag);
+      const nextIdx = (currentIdx + 1) % techTags.length;
+      setActiveTag(techTags[nextIdx].label);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [activeTag]);
+
+  return (
   <Box
     sx={{
       position: "relative",
       left: "50%",
       transform: "translateX(-50%)",
       width: "100vw",// Full viewport width
-      height: "100vh", // Vertically fills the screen
+      height: { xs: "auto", md: "100vh" }, // auto height on mobile
       overflow: "hidden",
       backgroundImage: `url(${bgImg})`,
       backgroundRepeat: "no-repeat",
@@ -53,7 +119,7 @@ const TechStackSection = () => (
         flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
         justifyContent: "center",
-        width: "100vw",
+        width: { xs: "100%", md: "100vw" },
         height: { xs: "auto", md: "760px" },
         maxWidth: 1600,
         mx: "auto",
@@ -64,9 +130,9 @@ const TechStackSection = () => (
       <Box
         sx={{
           zIndex: 1,
-      transform: "translateX(-16%)",
-          width: { xs: "100vw", md: "55vw" },
-          maxWidth: { xs: "100vw", lg: "820px" },
+          transform: { xs: "none", md: "translateX(-16%)" },
+          width: { xs: "92vw", md: "55vw" },
+          maxWidth: { xs: "100%", lg: "820px" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -78,11 +144,11 @@ const TechStackSection = () => (
             position: "relative",
             zIndex: 2,
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: { xs: 2, md: 4 },
+            gridTemplateColumns: { xs: "repeat(2, minmax(100px, 1fr))", sm: "repeat(3, 1fr)", md: "repeat(2, 1fr)" },
+            gap: { xs: 1.5, sm: 2, md: 4 },
           }}
         >
-          {mainTechs.map(({ label, img, active }) => (
+          {visibleTechs.map(({ label, img, active }) => (
             <Box
               key={label}
               sx={{
@@ -95,8 +161,8 @@ const TechStackSection = () => (
                   : "0 2px 12px rgba(33,52,100,0.09)",
                 border: active ? "none" : "2px solid #EDF1F6",
                 cursor: "pointer",
-                width: { xs: 120, md: 175 },
-                height: { xs: 120, md: 175 },
+                width: { xs: 108, sm: 120, md: 165 },
+                height: { xs: 108, sm: 120, md: 165 },
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -111,23 +177,44 @@ const TechStackSection = () => (
                 },
               }}
             >
-              <Box
-                component="img"
-                src={img}
-                alt={label}
-                sx={{
-                  width: { xs: 44, md: 63 },
-                  height: { xs: 44, md: 63 },
-                  objectFit: "contain",
-                  filter: active ? "none" : "grayscale(55%)",
-                }}
-              />
+              {img ? (
+                <Box
+                  component="img"
+                  src={img}
+                  alt={label}
+                  sx={{
+                    width: { xs: 36, sm: 44, md: 58 },
+                    height: { xs: 36, sm: 44, md: 58 },
+                    objectFit: "contain",
+                    filter: active ? "none" : "grayscale(55%)",
+                  }}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    width: { xs: 36, sm: 44, md: 58 },
+                    height: { xs: 36, sm: 44, md: 58 },
+                    borderRadius: "50%",
+                    background: active ? "rgba(255,255,255,0.22)" : "#EDF1F6",
+                    color: active ? "#fff" : "#143255",
+                    fontWeight: 800,
+                    fontFamily: "Montserrat, Arial, sans-serif",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textTransform: "uppercase",
+                    letterSpacing: 0.6,
+                  }}
+                >
+                  {label.split(" ").map(w => w[0]).join("").slice(0, 2)}
+                </Box>
+              )}
               <Typography
                 sx={{
                   mt: 2,
                   fontFamily: "Montserrat, Arial, sans-serif",
                   fontWeight: 700,
-                  fontSize: { xs: 18, md: 24 },
+                  fontSize: { xs: 14, sm: 16, md: 22 },
                   textAlign: "center",
                   color: active ? "#fff" : "#143255",
                   letterSpacing: 0,
@@ -144,8 +231,8 @@ const TechStackSection = () => (
       <Box
         sx={{
           zIndex: 2,
-          width: { xs: "100vw", md: "45vw" },
-          maxWidth: { xs: "100vw", lg: "680px" },
+          width: { xs: "100%", md: "45vw" },
+          maxWidth: { xs: "100%", lg: "680px" },
           height: "100%",
           display: "flex",
           flexDirection: "column",
@@ -204,33 +291,36 @@ const TechStackSection = () => (
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            gap: 2,
+            gap: { xs: 1, md: 2 },
             width: "100%",
-            maxWidth: { xs: 320, md: 530 },
+            maxWidth: { xs: 360, md: 530 },
             justifyContent: { xs: "center", md: "flex-start" },
           }}
         >
-          {techTags.map(({ label, highlighted }) => (
+          {techTags.map(({ label }) => (
             <Chip
               key={label}
               label={label}
-              variant={highlighted ? "filled" : "outlined"}
+              variant={activeTag === label ? "filled" : "outlined"}
               sx={{
                 borderRadius: "20px",
-                px: 2.5,
-                py: 1,
+                px: { xs: 1.5, md: 2.5 },
+                py: { xs: 0.6, md: 1 },
                 fontFamily: "Montserrat, Arial, sans-serif",
                 fontWeight: 600,
-                fontSize: 16,
-                color: highlighted ? "#fff" : "#232323",
-                backgroundColor: highlighted ? "#232323" : "#fff",
-                borderColor: highlighted ? "transparent" : "#bbb",
-                boxShadow: highlighted ? "0 4px 12px rgba(0,0,0,0.18)" : "none",
+                fontSize: { xs: 13, md: 16 },
+                color: activeTag === label ? "#fff" : "rgba(22, 22, 22, 1)",
+                backgroundColor: activeTag === label ? "#232323" : "#fff",
+                borderColor: activeTag === label ? "transparent" : "rgba(22, 22, 22, 0.35)",
+                boxShadow: activeTag === label ? "0 4px 12px rgba(0,0,0,0.18)" : "none",
                 cursor: "pointer",
                 "&:hover": {
                   backgroundColor: "#b44a2c",
                   color: "#fff",
                 },
+              }}
+              onClick={() => {
+                setActiveTag(label);
               }}
             />
           ))}
@@ -238,6 +328,7 @@ const TechStackSection = () => (
       </Box>
     </Box>
   </Box>
-);
+  );
+};
 
 export default TechStackSection;

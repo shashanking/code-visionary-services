@@ -4,48 +4,13 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 
 import bgImg from "../assets/our-team-background-section-image.png";
-import sahilColor from "../assets/our_team_sahil_color_image.png";
-import sahilBW from "../assets/our_team_sahil_b&w_image.png";
-import vikashColor from "../assets/our_team_vikash_color_image.png";
-import vikashBW from "../assets/our_team_vikash_b&w_image.png";
-import shashankColor from "../assets/our_team_shashank_color_image.png";
-import shashankBW from "../assets/our_team_shashank_b&w_image.png";
-import sayanColor from "../assets/our_team_shayan_color_image.png";
-import sayanBW from "../assets/our_team_shayan_b&w_image.png";
-import pradipColor from "../assets/our_team_pradep_color_image.png";
-import pradipBW from "../assets/our_team_pradep_b&w_image.png";
 
 const teamMembers = [
-  {
-    name: "Sahil Biswas",
-    role: "Co-founder",
-    colorImg: sahilColor,
-    bwImg: sahilBW,
-  },
-  {
-    name: "Vikash Jha",
-    role: "Co-founder, CEO",
-    colorImg: vikashColor,
-    bwImg: vikashBW,
-  },
-  {
-    name: "Shashank Singh",
-    role: "Co-founder",
-    colorImg: shashankColor,
-    bwImg: shashankBW,
-  },
-  {
-    name: "Sayan Choudhury",
-    role: "Co-founder",
-    colorImg: sayanColor,
-    bwImg: sayanBW,
-  },
-  {
-    name: "Pradip Choudhury",
-    role: "Founder",
-    colorImg: pradipColor,
-    bwImg: pradipBW,
-  },
+  { name: "Sahil Biswas", role: "Co-founder" },
+  { name: "Vikash Jha", role: "Co-founder, CEO" },
+  { name: "Shashank Singh", role: "Co-founder" },
+  { name: "Sayan Choudhury", role: "Co-founder" },
+  { name: "Pradip Choudhury", role: "Founder" },
 ];
 
 const CARD_WIDTH = 220;
@@ -154,39 +119,22 @@ const OurTeamSection = () => {
                 zIndex: isActive ? 10 : 1,
                 display: "flex",
                 flexDirection: "column",
-                background: "transparent",
+                background: isActive
+                  ? "linear-gradient(160deg, #223B5A 0%, #0F2238 100%)"
+                  : "linear-gradient(160deg, #324D6B 0%, #1C3551 100%)",
               }}
             >
-              <Box
-                component="img"
-                src={isActive ? member.colorImg : member.bwImg}
-                alt={member.name}
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  transition: "filter 0.28s, box-shadow 0.25s",
-                  borderRadius: 3,
-                  position: "relative",
-                  zIndex: 0,
-                }}
-              />
+              <Box sx={{ flex: 1 }} />
               <Box
                 sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background:
-                    "linear-gradient(to top, rgba(44,44,44,0.73) 94%, transparent 100%)",
+                  background: "linear-gradient(to top, rgba(0,0,0,0.46) 0%, rgba(0,0,0,0.0) 100%)",
                   borderBottomLeftRadius: 18,
                   borderBottomRightRadius: 18,
                   color: "#fff",
                   p: 2,
-                  zIndex: 1,
                 }}
               >
-                <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.1 }}>
                   {member.name}
                 </Typography>
                 <Typography variant="subtitle2" sx={{ opacity: 0.94 }}>

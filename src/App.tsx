@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import ServicesSection from "./components/ServicesSection";
 import bgLines from "./assets/BG_lines.png"; // Import the background image
 import AboutSection from "./components/AboutSection";
 import PortfolioSection from "./components/PortfolioSection";
@@ -31,7 +30,6 @@ const App: React.FC = () => {
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 8, lg: 12 } }}>
         <Navbar />
         <HeroSection />
-        <ServicesSection />
         <AboutSection />
         <PortfolioSection />
         <TechStackSection />

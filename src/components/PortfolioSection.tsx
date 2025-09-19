@@ -17,7 +17,7 @@ import ospDashboardImg from "../assets/portfolio_Responsive_design-6.png";
 import bgImg from "../assets/portfolio_bg_image.png";
 
 const categories = [
-  { label: "All", active: true },
+  { label: "All" },
   { label: "Websites" },
   { label: "Mobile applications" },
   { label: "Web applications" },
@@ -25,16 +25,21 @@ const categories = [
 ];
 
 const portfolioItems = [
-  { title: "KALTECH CONSULTANCY", img: kaltechImg, url: "#", description: "", bg: "rgba(44, 62, 80, 0.68)" },
-  { title: "GUT CHECK", img: gutCheckImg, url: "#", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis sagittis finibus.", bg: "linear-gradient(180deg, #86E3B3 0%, #7AD1B6 100%)" },
-  { title: "MONEY BLASTER", img: moneyBlasterImg, url: "#", description: "", bg: "linear-gradient(180deg, #FFD6DC 0%, #FEB9C8 100%)" },
-  { title: "DORJI ECOMMERCE", img: dorjiEcommerceImg, url: "#", description: "", bg: "rgba(130, 90, 40, 0.5)" },
-  { title: "HARMONY REHAB", img: harmonyRehabImg, url: "#", description: "", bg: "linear-gradient(180deg, #F8CDFE 0%, #ECBCED 100%)" },
-  { title: "OSP DASHBOARD", img: ospDashboardImg, url: "#", description: "", bg: "rgba(44, 62, 80, 0.88)" },
+  { title: "KALTECH CONSULTANCY", category: "Websites", img: kaltechImg, url: "#", description: "", bg: "rgba(44, 62, 80, 0.68)" },
+  { title: "GUT CHECK", category: "Websites", img: gutCheckImg, url: "#", description: "Website redesign focused on clarity, performance, and higher conversions across devices.", bg: "linear-gradient(180deg, #86E3B3 0%, #7AD1B6 100%)" },
+  { title: "MONEY BLASTER", category: "Websites", img: moneyBlasterImg, url: "#", description: "", bg: "linear-gradient(180deg, #FFD6DC 0%, #FEB9C8 100%)" },
+  { title: "DORJI ECOMMERCE", category: "Web applications", img: dorjiEcommerceImg, url: "#", description: "", bg: "rgba(130, 90, 40, 0.5)" },
+  { title: "HARMONY REHAB", category: "Websites", img: harmonyRehabImg, url: "#", description: "", bg: "linear-gradient(180deg, #F8CDFE 0%, #ECBCED 100%)" },
+  { title: "OSP DASHBOARD", category: "Web applications", img: ospDashboardImg, url: "#", description: "", bg: "rgba(44, 62, 80, 0.88)" },
 ];
 
 const PortfolioSection: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [activeCat, setActiveCat] = useState<string>("All");
+
+  const visibleItems = activeCat === "All"
+    ? portfolioItems
+    : portfolioItems.filter((item) => item.category === activeCat);
 
   return (
     <Box
@@ -43,21 +48,74 @@ const PortfolioSection: React.FC = () => {
         left: "50%",
         transform: "translateX(-50%)",
         width: "100vw",
-        height: "100vh",
-        backgroundImage: `url(${bgImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        minHeight: { xs: "auto", md: "100vh" },
+        backgroundColor: "#F0F0F0",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
-        overflowX: "hidden",
+        overflow: "hidden",
         boxSizing: "border-box",
         px: 0,
         py: 0,
+        pt: { xs: 6, md: 10 },
+        pb: { xs: 6, md: 10 },
       }}
     >
+      {/* Background image layer */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url(${bgImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
+      {/* Top/bottom fade gradient overlay */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(180deg, #F0F0F0 0%, rgba(240,240,240,0) 45%, #F0F0F0 100%)",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
+      {/* Blurred accent ellipses (md+) */}
+      <Box
+        sx={{
+          position: "absolute",
+          width: { xs: 0, md: 546 },
+          height: { xs: 0, md: 546 },
+          left: { md: -120, lg: -180 },
+          top: { md: 40 },
+          background: "#B5442C",
+          opacity: 0.2,
+          filter: "blur(140px)",
+          borderRadius: "50%",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          width: { xs: 0, md: 546 },
+          height: { xs: 0, md: 546 },
+          right: { md: -120, lg: -160 },
+          bottom: { md: 40 },
+          background: "#B5442C",
+          opacity: 0.2,
+          filter: "blur(140px)",
+          borderRadius: "50%",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
       <Box
         sx={{
           width: { xs: "95vw", md: "90vw", lg: "1200px" },
@@ -65,8 +123,10 @@ const PortfolioSection: React.FC = () => {
           mx: "auto",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          flex: 1,
+          justifyContent: "flex-start",
+          flex: "0 0 auto",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         {/* Title */}
@@ -76,9 +136,12 @@ const PortfolioSection: React.FC = () => {
           sx={{
             fontFamily: "'Earth Orbiter Bold', Arial, sans-serif",
             fontWeight: 400,
-            fontSize: { xs: "24px", md: "48px" },
+            fontSize: { xs: "28px", md: "48px" },
             letterSpacing: "0.06em",
-            color: "#2961A6",
+            background: "linear-gradient(180deg, #0861AA 0%, #032744 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
             mb: 0,
           }}
         >
@@ -131,12 +194,12 @@ const PortfolioSection: React.FC = () => {
                   py: 0.7,
                   borderRadius: "800px",
                   minWidth: "unset",
-                  fontWeight: cat.label === "All" ? 700 : 500,
+                  fontWeight: activeCat === cat.label ? 700 : 500,
                   fontFamily: "Montserrat, Arial, sans-serif",
                   fontSize: { xs: "1rem", md: "1rem" },
                   textTransform: "none",
-                  color: cat.label === "All" ? "#FFF" : "#26405E",
-                  background: cat.label === "All" ? "#B5442C" : "transparent",
+                  color: activeCat === cat.label ? "#FFF" : "#303030",
+                  background: activeCat === cat.label ? "#B5442C" : "transparent",
                   boxShadow: "none",
                   transition: "background 0.18s, color 0.18s",
                   cursor: "pointer",
@@ -145,6 +208,7 @@ const PortfolioSection: React.FC = () => {
                     color: "#FFF",
                   },
                 }}
+                onClick={() => setActiveCat(cat.label)}
               >
                 {cat.label}
               </Button>
@@ -183,24 +247,23 @@ const PortfolioSection: React.FC = () => {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
-            gap: 4,
-            px: { xs: 2, md: 4, lg: 0 },
-            width: "110%",
+            gap: { xs: 2.5, md: 4 },
+            px: { xs: 2, md: 0 },
+            width: "100%",
             boxSizing: "border-box",
-            mx: -8,
             alignItems: "center",
           }}
         >
-          {portfolioItems.map(({ title, img, url, description, bg }, idx) => (
+          {visibleItems.map(({ title, img, url, description, bg }, idx) => (
             <Card
               key={title}
               sx={{
-                borderRadius: "24px",
+                borderRadius: "16px",
                 boxShadow: 6,
                 overflow: "hidden",
                 cursor: "pointer",
                 position: "relative",
-                height: 220,
+                height: { xs: 240, sm: 260, md: 300 },
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-end",
@@ -244,8 +307,8 @@ const PortfolioSection: React.FC = () => {
                     zIndex: 1,
                     background:
                       hoveredIdx === idx
-                        ? "linear-gradient(180deg, rgba(44,65,121,0.0) 40%, rgba(44,65,121,0.76) 100%)"
-                        : "linear-gradient(180deg, rgba(44,65,121,0) 60%, rgba(44,65,121,0.6) 100%)",
+                        ? "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.85) 100%)"
+                        : "linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%)",
                     transition: "background 0.35s cubic-bezier(.7,.3,.3,1)",
                   }}
                 >
@@ -259,7 +322,8 @@ const PortfolioSection: React.FC = () => {
                       textTransform: "uppercase",
                       letterSpacing: 2,
                       fontSize: { xs: "1.08rem", md: "1.19rem" },
-                      transition: "margin-bottom 0.3s",
+                      transform: hoveredIdx === idx ? "translateY(-8px)" : "translateY(0)",
+                      transition: "margin-bottom 0.3s ease, transform 0.3s ease",
                     }}
                   >
                     {title}
@@ -270,7 +334,11 @@ const PortfolioSection: React.FC = () => {
                       color: "#fff",
                       fontSize: "1rem",
                       fontWeight: 400,
-                      transition: "opacity 0.25s cubic-bezier(.7,.3,.3,1)",
+                      mt: hoveredIdx === idx && description ? 0.5 : 0,
+                      maxHeight: hoveredIdx === idx && description ? "120px" : 0,
+                      overflow: "hidden",
+                      transform: hoveredIdx === idx && description ? "translateY(0)" : "translateY(8px)",
+                      transition: "opacity 0.3s ease, max-height 0.3s ease, transform 0.3s ease, margin-top 0.3s ease",
                     }}
                   >
                     {description}

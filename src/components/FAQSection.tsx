@@ -6,21 +6,24 @@ import faqBg from "../assets/FAQ_bg_image.png";
 
 const faqs = [
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    question: "What services do you offer?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis sagittis finibus. Morbi lectus augue, sollicitudin non blandit ac, aliquet non purus. Etiam posuere dui nunc, sed bibendum diam tristique id.",
+      "We design and build high‑performing websites and web/mobile applications. Our team also supports branding, UI/UX, and growth services like SEO and analytics—so you get a complete product from strategy to launch.",
   },
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    answer: "",
+    question: "How long does a typical project take?",
+    answer:
+      "Most websites launch in 4–8 weeks, depending on scope and content readiness. Web apps vary more widely—smaller MVPs can ship in 6–10 weeks while larger builds may run multiple phases. We’ll share a detailed timeline after discovery.",
   },
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    answer: "",
+    question: "What is your pricing model?",
+    answer:
+      "We scope fixed‑price packages for clearly defined deliverables and use milestone‑based billing for complex builds. After a quick call we’ll recommend the best approach and provide a transparent estimate with options.",
   },
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    answer: "",
+    question: "Do you provide post‑launch support?",
+    answer:
+      "Yes. We offer ongoing support and optimization plans that include maintenance, security updates, performance tuning, and feature iterations based on real user feedback.",
   },
 ];
 

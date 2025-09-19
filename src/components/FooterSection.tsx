@@ -50,7 +50,7 @@ const FooterSection: React.FC = () => (
         }}>
         <Container maxWidth="lg" sx={{ px: { xs: 1, md: 2 }, width: "100%" }}>
             {/* Newsletter */}
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 4 }}>
+            <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: { xs: "stretch", md: "center" }, justifyContent: { xs: "center", md: "space-between" }, gap: { xs: 2, md: 0 }, mb: 4 }}>
                 <Typography
                     variant="h5"
                     sx={{
@@ -58,7 +58,8 @@ const FooterSection: React.FC = () => (
                         fontWeight: 700,
                         fontFamily: "'Earth Orbiter','Montserrat',sans-serif",
                         letterSpacing: 2,
-                        textTransform: "uppercase"
+                        textTransform: "uppercase",
+                        textAlign: { xs: "center", md: "left" }
                     }}
                 >
                     GET THE LATEST UPDATES,<br />TIPS & INSIGHTS
@@ -71,7 +72,8 @@ const FooterSection: React.FC = () => (
                         display: "flex",
                         alignItems: "center",
                         boxShadow: "none",
-                        maxWidth: 400,
+                        maxWidth: { xs: "100%", md: 400 },
+                        width: { xs: "100%", md: "auto" },
                         pr: 1,
                     }}
                     component="form"
@@ -127,7 +129,8 @@ const FooterSection: React.FC = () => (
                 {/* Left: Logo, desc, socials */}
                 <Box
                     sx={{
-                        minWidth: 280,
+                        minWidth: { xs: 0, md: 280 },
+                        width: { xs: "100%", md: "auto" },
                         borderRadius: "24px",
                         display: "flex",
                         flexDirection: "column",
@@ -157,8 +160,8 @@ const FooterSection: React.FC = () => (
                         mb: 3,
                         letterSpacing: 0.1,
                     }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae hendrerit lectus.<br />
-                        Praesent vitae consequat mi. Maecenas auctor sed sapien ut bibendum. Nam in viverra justo.
+                        We help startups and brands launch fast, reliable digital products. From UX and design to
+                        modern development and growth, our team builds experiences that look great and perform even better.
                     </Typography>
 
                     {/* Social Icons Centered */}
@@ -179,8 +182,8 @@ const FooterSection: React.FC = () => (
                 </Box>
 
                 {/* Right: info columns */}
-                <Grid container spacing={0} sx={{ flex: "2 1 0", minWidth: 0 }}>
-                    <Grid component="div">
+                <Grid container spacing={3} sx={{ flex: "2 1 0", minWidth: 0, columnGap: { xs: 2, md: 6 }, rowGap: { xs: 3, md: 4 }, flexWrap: "wrap" }}>
+                    <Grid component="div" sx={{ width: { xs: "100%", sm: "50%", md: "auto" } }}>
                         <Typography variant="subtitle1" sx={{
                             fontWeight: 700, mb: 1, letterSpacing: 1.2, color: "#fff", fontFamily: "'Orbitron',sans-serif"
                         }}>
@@ -224,18 +227,18 @@ const FooterSection: React.FC = () => (
                         <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1, letterSpacing: 1.2, color: "#fff", fontFamily: "'Orbitron',sans-serif" }}>
                             CONTACT
                         </Typography>
-                        <Stack spacing={0.6}>
+                        <Stack spacing={0.6} sx={{ pr: { xs: 0, md: 2 } }}>
                             <Typography sx={{ color: "#cae0ff", fontSize: 15, display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <PhoneIcon fontSize="small" />
-                                <Box component="span" sx={{ display: "inline-block" }}>+1 323-234-5812</Box>
+                                <Box component="span" sx={{ display: "inline-block" }}>+91 8637515632</Box>
                             </Typography>
                             <Typography sx={{ color: "#cae0ff", fontSize: 15, display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <EmailIcon fontSize="small" />
-                                <Box component="span" sx={{ display: "inline-block" }}>example@gmail.com</Box>
+                                <Box component="span" sx={{ display: "inline-block" }}>office@codevisionaryservices.com</Box>
                             </Typography>
                             <Typography sx={{ color: "#cae0ff", fontSize: 15, display: "flex", alignItems: "center", gap: 0.5 }}>
                                 <LocationOnIcon fontSize="small" />
-                                <Box component="span" sx={{ display: "inline-block" }}>Lorem ipsum dolor sit amet, consectetur</Box>
+                                <Box component="span" sx={{ display: "inline-block" }}>Kolkata, India</Box>
                             </Typography>
                         </Stack>
                     </Grid>
