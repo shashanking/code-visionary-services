@@ -19,8 +19,8 @@ import bgImg from "../assets/portfolio_bg_image.png";
 const categories = [
   { label: "All" },
   { label: "Websites" },
-  { label: "Mobile applications" },
-  { label: "Web applications" },
+  { label: "Mobile apps" },
+  { label: "Web apps" },
   { label: "Branding" },
 ];
 

@@ -48,20 +48,22 @@ const OurTeamSection = () => {
         sx={{
           fontFamily: "'Orbitron', sans-serif",
           fontWeight: 700,
-          fontSize: { xs: 56, md: 110 },
-          color: "rgba(85, 131, 185, 0.11)",
-          position: "absolute",
-          top: "20%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          fontSize: { xs: 36, md: 110 },
+          color: "rgba(85, 131, 185, 0.16)",
+          position: { xs: "static", md: "absolute" },
+          top: { md: "20%" },
+          left: { md: "50%" },
+          transform: { md: "translate(-50%, -50%)" },
           userSelect: "none",
-          whiteSpace: "nowrap",
+          whiteSpace: { xs: "normal", md: "nowrap" },
           pointerEvents: "none",
           width: "100%",
           textAlign: "center",
           lineHeight: 1,
           zIndex: 0,
           letterSpacing: "0.08em",
+          mt: { xs: 2, md: 0 },
+          mb: { xs: 2, md: 0 },
         }}
       >
         OUR TEAM
@@ -71,12 +73,14 @@ const OurTeamSection = () => {
         sx={{
           maxWidth: 1300,
           width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-end",
+          display: { xs: "grid", md: "flex" },
+          gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(2, 1fr)", md: "unset" },
+          justifyContent: { xs: "stretch", md: "center" },
+          justifyItems: { xs: "center", md: "unset" },
+          alignItems: { xs: "stretch", md: "flex-end" },
           gap: 3,
-          overflowX: "auto",
-          scrollSnapType: "x mandatory",
+          overflowX: { xs: "hidden", md: "auto" },
+          scrollSnapType: { xs: "none", md: "x mandatory" },
           "& > *": {
             scrollSnapAlign: "center",
           },
@@ -93,6 +97,7 @@ const OurTeamSection = () => {
         {teamMembers.map((member, idx) => {
           const isActive = hoverIndex === idx;
           const translateY = idx % 2 === 0 ? UP_TRANSLATE : DOWN_TRANSLATE;
+          const isLast = idx === teamMembers.length - 1;
 
           return (
             <Card
@@ -105,8 +110,9 @@ const OurTeamSection = () => {
               sx={{
                 position: "relative",
                 flexShrink: 0,
-                width: isActive ? ACTIVE_CARD_WIDTH : CARD_WIDTH,
-                height: isActive ? ACTIVE_CARD_HEIGHT : CARD_HEIGHT,
+                width: { xs: "100%", md: isActive ? ACTIVE_CARD_WIDTH : CARD_WIDTH },
+                maxWidth: { xs: 180, sm: 200, md: "unset" },
+                height: { xs: 260, sm: 300, md: isActive ? ACTIVE_CARD_HEIGHT : CARD_HEIGHT },
                 borderRadius: 3,
                 overflow: "hidden",
                 boxShadow: isActive
@@ -114,11 +120,14 @@ const OurTeamSection = () => {
                   : "0 4px 12px rgba(0, 0, 0, 0.1)",
                 cursor: "pointer",
                 color: "#fff",
-                transform: `translateY(${translateY}px) scale(${isActive ? 1.1 : 1})`,
+                transform: { xs: "none", md: `translateY(${translateY}px) scale(${isActive ? 1.1 : 1})` },
                 transition: "all 0.3s ease",
-                zIndex: isActive ? 10 : 1,
+                zIndex: { xs: 1, md: isActive ? 10 : 1 },
                 display: "flex",
                 flexDirection: "column",
+                // Center single last item on mobile by spanning two columns
+                gridColumn: { xs: isLast ? "1 / -1" : "auto", md: "auto" },
+                justifySelf: { xs: "center", md: "auto" },
                 background: isActive
                   ? "linear-gradient(160deg, #223B5A 0%, #0F2238 100%)"
                   : "linear-gradient(160deg, #324D6B 0%, #1C3551 100%)",

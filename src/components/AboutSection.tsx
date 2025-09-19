@@ -12,7 +12,7 @@ const AboutSection: React.FC = () => (
       left: "50%",
       transform: "translateX(-50%)",
       width: "100vw",// Full viewport width
-      height: "100vh", // Vertically fills the screen
+      height: { xs: "auto", md: "100vh" }, // auto on mobile, full height on desktop
       minHeight: 520,
       display: "flex",
       flexDirection: { xs: "column", md: "row" },
@@ -21,14 +21,32 @@ const AboutSection: React.FC = () => (
       backgroundImage: `url(${bgImg})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
-      backgroundPosition: { xs: "center", md: "left" },
+      backgroundPosition: { xs: "top center", md: "left" },
       overflowX: "hidden",
       overflowY: "hidden",
       boxSizing: "border-box",
-      py: { xs: 2, md: 3 }, // only vertical padding
+      py: { xs: 3, md: 3 }, // only vertical padding
       px: 0, // no horizontal padding so image touches edge!
     }}
   >
+    {/* Bottom blue ellipse for mobile to match Figma */}
+    <Box
+      sx={{
+        position: "absolute",
+        width: { xs: 640, md: 0 },
+        height: { xs: 640, md: 0 },
+        bottom: { xs: -360, md: 0 },
+        left: "50%",
+        transform: "translateX(-50%)",
+        background: "linear-gradient(180deg, #0861AA 0%, #032744 100%)",
+        borderRadius: "50%",
+        filter: "blur(0.2px)",
+        opacity: 1,
+        display: { xs: "block", md: "none" },
+        zIndex: 0,
+        pointerEvents: "none",
+      }}
+    />
     {/* Text Section */}
     <Box
       sx={{
@@ -38,7 +56,7 @@ const AboutSection: React.FC = () => (
         flexDirection: "column",
         justifyContent: "center",
         textAlign: { xs: "center", md: "left" },
-        pl: { xs: 2, sm: 8, md: 13, lg: 13 }, // Use padding-left for text only
+        pl: { xs: 2, sm: 4, md: 13, lg: 13 }, // tighter padding on mobile
         pr: { xs: 2, md: 0 }, // no padding-right so image is flush
         py: 0,
       }}
@@ -49,7 +67,7 @@ const AboutSection: React.FC = () => (
           fontFamily: "'Earth Orbiter', Arial, sans-serif",
           fontWeight: 700,
           textTransform: "uppercase",
-          fontSize: { xs: 28, sm: 42, md: 48, lg: 35 },// responsive font size
+          fontSize: { xs: 36, sm: 42, md: 48 },// responsive font size
           color: "#303030",
           lineHeight: 1.14,
           mb: { xs: 1, md: 1.5 },
@@ -65,12 +83,13 @@ const AboutSection: React.FC = () => (
         sx={{
           fontFamily: "Montserrat, Arial, sans-serif",
           fontWeight: 400,
-          fontSize: { xs: 16, md: 22 }, // responsive font size
-          lineHeight: "30px",
+          fontSize: { xs: 12, md: 22 }, // responsive font size per Figma
+          lineHeight: { xs: "18px", md: "30px" },
           letterSpacing:"0%",
           color: "#444",
-          maxWidth: 500,
-          mb: 4,
+          maxWidth: { xs: 321, md: 500 },
+          mx: { xs: "auto", md: "unset" },
+          mb: { xs: 2, md: 4 },
         }}
       >
         At Code Visionary Studios, we design and build reliable digital
@@ -86,11 +105,11 @@ const AboutSection: React.FC = () => (
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
-          padding: "20px 40px",
+          padding: { xs: "10px 16px", md: "20px 40px" },
           gap: "10px",
           isolation: "isolate",
-          width: "192px",
-          height: "50px",
+          width: { xs: 321, md: 192 },
+          height: { xs: 44, md: 50 },
           background: "#303030",
           borderRadius: "34px",
           cursor: "pointer",
@@ -98,17 +117,19 @@ const AboutSection: React.FC = () => (
           "&:hover": {
             background: "#8c3320",
           },
+          mx: { xs: "auto", md: 0 },
+          mb: { xs: 3, md: 0 },
         }}
       >
         <Typography
           sx={{
-            width: "132px",
+            width: { xs: "auto", md: "132px" },
             height: "20px",
             fontFamily: "'Earth Orbiter Bold', Montserrat, sans-serif",
             fontStyle: "normal",
             fontWeight: 400,
-            fontSize: "20px",
-            lineHeight: "20px",
+            fontSize: { xs: "14px", md: "20px" },
+            lineHeight: { xs: "14px", md: "20px" },
             textAlign: "center",
             color: "#F0F0F0",
             flex: "none",
@@ -144,7 +165,7 @@ const AboutSection: React.FC = () => (
         flex: 1,
         minWidth: { xs: "100%", md: 460 },
         maxWidth: { xs: "100%", md: 1200 },
-        mt: { xs: 6, md: 0 },
+        mt: { xs: 4, md: 0 },
         display: "flex",
         justifyContent: { xs: "center", md: "flex-end" },
         alignItems: "flex-end",
@@ -156,13 +177,15 @@ const AboutSection: React.FC = () => (
         src={laptopImg}
         alt="Laptop Graphic"
         sx={{
-          width: { xs: "85vw", sm: 440, md: 520, lg: 1125 },
+          width: { xs: 340, sm: 440, md: 520, lg: 1125 },
           height: "auto",
           borderRadius: 20,
           position: "relative",
           transform: { xs: "none", md: "translateY(24px)" },
           backgroundColor: "transparent",
           userSelect: "none",
+          filter: { xs: "drop-shadow(4px 4px 14.9px rgba(0,0,0,0.5))", md: "none" },
+          zIndex: 1,
         }}
       />
     </Box>

@@ -84,7 +84,7 @@ const FAQSection: React.FC = () => {
           align="center"
           sx={{ mb: 4, color: "#777", fontSize: { xs: 14, md: 16 } }}
         >
-          Explore our FAQ section to learn more about our services, timelines, pricing, and what to expect when working with Code Visionary Studios.
+          Explore our FAQ section to learn more about our services, timelines, pricing, and what to expect when working with Code Visionary Services.
         </Typography>
 
         {/* FAQs */}

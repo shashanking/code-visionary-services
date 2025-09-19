@@ -30,7 +30,7 @@ const testimonials = [
     title: "Head of Design, ColorX",
     image: profileImage,
     text:
-      "“Code Visionary Studios delivers creative solutions with precision and speed. They are true partners and always exceed our expectations.”",
+      "“Code Visionary Services delivers creative solutions with precision and speed. They are true partners and always exceed our expectations.”",
   },
   {
     name: "Ava Jones",
@@ -216,7 +216,7 @@ const TestimonialSection: React.FC = () => {
               maxWidth: 1250,
             }}
           >
-            Discover how Code Visionary Studios has made a difference for our clients. Our testimonials showcase the positive impact of our web design, app development, branding, and digital marketing services.
+            Discover how Code Visionary Services has made a difference for our clients. Our testimonials showcase the positive impact of our web design, app development, branding, and digital marketing services.
           </Typography>
         </Box>
       </Box>

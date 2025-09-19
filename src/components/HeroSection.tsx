@@ -37,7 +37,7 @@ const services = [
     description: "Custom websites that deliver results and elevate your business.",
   },
   {
-    label: "Mobile Applications",
+    label: "Mobile Apps",
     img: mobileAppImg,
     description: "Cross-platform apps with seamless UX for every user.",
   },
@@ -47,7 +47,7 @@ const services = [
     description: "Leverage AI-powered automation to supercharge your marketing impact.",
   },
   {
-    label: "Web Applications",
+    label: "Web Apps",
     img: webApplicationsImg,
     description: "Robust, scalable web applications for next-gen digital businesses.",
   },
