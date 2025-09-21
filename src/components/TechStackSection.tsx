@@ -45,6 +45,12 @@ const mainTechs = [
   // Blockchain
   { label: "Solidity" },
   { label: "Ethereum" },
+  // AI / ML
+  { label: "OpenAI" },
+  { label: "TensorFlow" },
+  { label: "PyTorch" },
+  { label: "LangChain" },
+  { label: "Hugging Face" },
 ];
 
 const techTags = [
@@ -75,7 +81,7 @@ const TechStackSection = () => {
     ],
     "App Development": ["React Native", "Flutter"],
     Marketing: ["Shopify", "Webflow"],
-    AI: ["Next.js", "Node.js"],
+    AI: ["OpenAI", "TensorFlow", "PyTorch", "LangChain", "Hugging Face"],
     Design: ["Figma", "Adobe XD"],
     "SEO Tools": ["Google Analytics", "Search Console", "SEMrush", "Ahrefs"],
     Blockchain: ["Solidity", "Ethereum"],
@@ -85,7 +91,7 @@ const TechStackSection = () => {
     (tagToTechs[activeTag] || ["React", "Angular", "Laravel", "WordPress"]).includes(t.label)
   );
 
-  const displayTechs = isXs ? visibleTechs.slice(0, 5) : visibleTechs;
+  const displayTechs = isXs ? visibleTechs.slice(0, 6) : visibleTechs;
 
   // Auto-rotate selected chip every ~2.5s based on current activeTag
   // Disable rotation on mobile to avoid UI jumping
@@ -106,9 +112,9 @@ const TechStackSection = () => {
         left: "50%",
         transform: "translateX(-50%)",
         width: "100vw", // Full viewport width
-        height: { xs: 852, md: "100vh" }, // fixed height on mobile per design
+        height: { xs: 855, md: "100vh" }, // reduced height on mobile and desktop
         overflow: "hidden",
-        backgroundImage: `url(${bgImg})`,
+        backgroundImage: { xs: "none", md: `url(${bgImg})` },
         backgroundRepeat: "no-repeat",
         backgroundPosition: { xs: "top center", md: "center center" },
         backgroundSize: "cover", // Ensures full coverage, scales correctly
@@ -118,6 +124,7 @@ const TechStackSection = () => {
         boxSizing: "border-box",
         m: 0, // Remove default margin if any
         p: 0, // Remove default padding if any
+        pb: { xs: 2, md: 3 }, // small bottom padding for breathing room
         overflowX: "hidden", // prevent mobile horizontal scroll
       }}
       id="services"
@@ -127,7 +134,10 @@ const TechStackSection = () => {
         sx={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, #F0F0F0 0%, rgba(240,240,240,0) 50%, #F0F0F0 100%)",
+          // Softer, shallower fades at top and bottom on desktop
+          background:
+            "linear-gradient(180deg, rgba(240,240,240,0.9) 0%, rgba(240,240,240,0) 15%, rgba(240,240,240,0) 85%, rgba(240,240,240,0.9) 100%)",
+          display: "none",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -140,7 +150,7 @@ const TechStackSection = () => {
           alignItems: "center",
           justifyContent: "center",
           width: { xs: "100%", md: "100vw" },
-          height: { xs: "100%", md: "760px" },
+          height: { xs: "100%", md: "640px" },
           maxWidth: 1600,
           mx: "auto",
           position: "relative",
@@ -175,12 +185,14 @@ const TechStackSection = () => {
               // Allow full three rows on mobile
               overflow: { xs: "visible", md: "visible" },
               alignContent: { xs: "center", md: "stretch" },
+              // Reserve space for 3 rows (2x3 grid) on mobile so height stays consistent
+              minHeight: { xs: 416, sm: 416, md: "auto" },
               mt: { xs: 2, md: 0 },
               mb: { xs: 4, md: 0 },
               justifyItems: { xs: "center", md: "stretch" },
             }}
           >
-            {displayTechs.map(({ label, img, active }, idx) => (
+            {displayTechs.map(({ label, img, active }) => (
               <Box
                 key={label}
                 sx={{
@@ -207,9 +219,9 @@ const TechStackSection = () => {
                       ? "0 24px 50px rgba(180,74,44,0.42)"
                       : "0 6px 22px rgba(33,52,100,0.19)",
                   },
-                  // 2-2-1 layout on mobile: last item spans and centers
-                  gridColumn: { xs: idx === displayTechs.length - 1 ? "1 / -1" : "auto", md: "auto" },
-                  justifySelf: { xs: idx === displayTechs.length - 1 ? "center" : "stretch", md: "auto" },
+                  // Keep grid cells consistent on mobile (no special spanning)
+                  gridColumn: { xs: "auto", md: "auto" },
+                  justifySelf: { xs: "stretch", md: "auto" },
                 }}
               >
                 {img ? (

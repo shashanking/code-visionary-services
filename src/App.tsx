@@ -13,6 +13,7 @@ import ContactSection from "./components/ContactSection";
 import FAQSection from "./components/FAQSection";
 import TestimonialSection from "./components/TestimonialSection";
 import FooterSection from "./components/FooterSection";
+import ClientsMarqueeSection from "./components/ClientsMarqueeSection";
 
 
 const App: React.FC = () => {
@@ -30,11 +31,12 @@ const App: React.FC = () => {
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 8, lg: 12 } }}>
         <Navbar />
         <HeroSection />
+        <ClientsMarqueeSection />
         <AboutSection />
         <PortfolioSection />
         <TechStackSection />
         <TestimonialSection />
-        <OurTeamSection />
+        {/* <OurTeamSection /> */}
         <BannerSection />
         <ContactSection />
         <FAQSection />

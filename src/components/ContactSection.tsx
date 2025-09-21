@@ -96,7 +96,7 @@ const ContactSection: React.FC = () => (
         }}
       >
         {/* FORM SIDE */}
-        <Box
+        {/* <Box
           sx={{
             flex: 1.4,
             borderRadius: "32px 0 0 32px",
@@ -243,7 +243,7 @@ const ContactSection: React.FC = () => (
           >
             Send Message
           </Button>
-        </Box>
+        </Box> */}
 
         {/* MIDDLE DIVIDER with image */}
         <Box

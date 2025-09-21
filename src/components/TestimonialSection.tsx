@@ -6,44 +6,96 @@ import IconButton from "@mui/material/IconButton";
 
 // Import your image assets
 import testimonialBg from "../assets/Testimonial_section_bg_image.png";
-import profileImage from "../assets/Testimonial_section_profile_image.png";
+// Client logos
+import kbidLogo from "../assets/clients/k-bid.jpeg";
+import ospLogo from "../assets/clients/osp-logo.png";
+import riqshaLogo from "../assets/clients/riqsha.jpeg";
+import rideeasyLogo from "../assets/clients/rideeasy.webp";
+import moneyblasterLogo from "../assets/clients/moneyblaster.jpg";
+import dentologieLogo from "../assets/clients/dentologie.jpg";
+import pistonheadLogo from "../assets/clients/pistonhead.png";
+import shopinfinityLogo from "../assets/clients/shopinfinity.webp";
+import happyhelpLogo from "../assets/clients/happyhelpinghands.webp";
+import kaltechLogo from "../assets/clients/kaltech.jpeg";
 import leftArrow from "../assets/Testimonial_section_left_arrow_vector_image.png"; 
 import rightArrow from "../assets/Testimonial_section_right_arrow_vector_image.png"; 
 
 const testimonials = [
   {
-    name: "Rob Wat",
-    title: "CEO of Kingdom Advisors",
-    image: profileImage,
+    name: "K-Bid",
+    title: "E-commerce Platform",
+    image: kbidLogo,
     text:
-      "“The lovely team at DesignMe has provided our startup with significant leverage. Their work is exceptionally professional, and Adrian is always attentive to our needs, taking the time to understand our briefs and offer valuable direction. Additionally, their turnaround times are impressively fast!”",
+      "“CVS rebuilt our storefront with blazing performance and a clean UX. Conversions are up and maintenance is a breeze.”",
   },
   {
-    name: "Jessica Smith",
-    title: "CTO of TechStart",
-    image: profileImage,
+    name: "OSP Broker",
+    title: "Logistics SaaS",
+    image: ospLogo,
     text:
-      "“We've worked with CVS on several development projects and they've been consistently excellent in communication, quality, and turnaround time. Highly recommended!”",
+      "“Reliable team, clear communication, and on-time delivery. Our onboarding flow is now 2× faster.”",
   },
   {
-    name: "Alex Turner",
-    title: "Head of Design, ColorX",
-    image: profileImage,
+    name: "HHH",
+    title: "Nonprofit",
+    image: happyhelpLogo,
     text:
-      "“Code Visionary Services delivers creative solutions with precision and speed. They are true partners and always exceed our expectations.”",
+      "“They modernized our website and donation experience. The impact on engagement has been immediate.”",
   },
   {
-    name: "Ava Jones",
-    title: "Co-Founder, EvoSoft",
-    image: profileImage,
+    name: "RiQsha",
+    title: "Mobility App",
+    image: riqshaLogo,
     text:
-      "“Professional, thoughtful, and reliable. Working with CVS has been a fantastic experience since day one.”",
+      "“From idea to launch, CVS handled design and engineering seamlessly. The app feels polished and fast.”",
+  },
+  {
+    name: "ShopInfinity",
+    title: "Retail Brand",
+    image: shopinfinityLogo,
+    text:
+      "“Beautiful UI, stable integrations, and attentive support. A great partner for our growth.”",
+  },
+  {
+    name: "Ride Easy",
+    title: "Auto Services",
+    image: rideeasyLogo,
+    text:
+      "“Excellent communication and execution. Our booking experience is significantly better now.”",
+  },
+  {
+    name: "MoneyBlaster",
+    title: "FinTech Tournament",
+    image: moneyblasterLogo,
+    text:
+      "“CVS delivered a performant, real-time experience on a tight timeline. We’ll work with them again.”",
+  },
+  {
+    name: "Dentalogie",
+    title: "Healthcare",
+    image: dentologieLogo,
+    text:
+      "“Thoughtful design and smooth implementation. Our patients love the updated portal.”",
+  },
+  {
+    name: "PistonHead",
+    title: "Media",
+    image: pistonheadLogo,
+    text:
+      "“High-quality engineering and attention to detail. The site feels premium and quick.”",
+  },
+  {
+    name: "Kaltech",
+    title: "Industrial",
+    image: kaltechLogo,
+    text:
+      "“CVS helped us modernize internal systems and data flows. Their AI-driven automations reduced manual effort dramatically.”",
   },
 ];
 
 const TestimonialSection: React.FC = () => {
-  // Static dataset for now
-  const visibleTestimonials = testimonials.slice(0, 4);
+  // Show all testimonials; horizontal scroll handles overflow
+  const visibleTestimonials = testimonials;
   const rowRef = useRef<HTMLDivElement | null>(null);
   const scrollByAmount = 360; // px; approximates one card on md screens
 
@@ -216,7 +268,7 @@ const TestimonialSection: React.FC = () => {
               maxWidth: 1250,
             }}
           >
-            Discover how Code Visionary Services has made a difference for our clients. Our testimonials showcase the positive impact of our web design, app development, branding, and digital marketing services.
+            Discover how Code Visionary Services makes a difference for our clients. We design and ship performant web and mobile products—and we also build AI infrastructure that supports business operations, from data pipelines and embeddings to automated workflows and copilots that boost team productivity.
           </Typography>
         </Box>
       </Box>
@@ -245,14 +297,14 @@ const TestimonialSection: React.FC = () => {
         ref={rowRef}
       >
         {visibleTestimonials.map((item, idx) => {
-          const isDark = idx === 1; // second card is the dark highlighted card per Figma
+          const isDark = idx === 1; // keep highlight styling on second card
 
           return (
             <Card
               key={item.name + idx}
               sx={{
                 width: { xs: 280, sm: 280, md: 300, lg: 360, xl: 420 },
-                height: { xs: 480, md: 540, lg: 580, xl: 590 },
+                maxHeight: { xs: 480, md: 540, lg: 560, xl: 560 },
                 borderRadius: "20px",
                 border: isDark ? "none" : "none",
                 boxShadow: isDark
@@ -269,33 +321,7 @@ const TestimonialSection: React.FC = () => {
                 flex: "0 0 auto",
               }}
             >
-              {/* Dark card background image + overlay */}
-              {isDark && (
-                <>
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      width: 915,
-                      height: 610,
-                      left: -238,
-                      top: 0,
-                      backgroundImage: `url(${item.image})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      zIndex: 0,
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      background: "#000",
-                      opacity: 0.6,
-                      zIndex: 1,
-                    }}
-                  />
-                </>
-              )}
+              {/* Removed dark card background image overlay to avoid stretching logos */}
 
               {/* Avatar removed per request */}
 
@@ -315,6 +341,27 @@ const TestimonialSection: React.FC = () => {
                   minWidth: 0,
                 }}
               >
+                {/* Client logo */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mb: { xs: 1.5, md: 2 },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={item.image}
+                    alt={`${item.name} logo`}
+                    sx={{
+                      width: { xs: 56, md: 64 },
+                      height: { xs: 56, md: 64 },
+                      objectFit: "contain",
+                      borderRadius: 0,
+                    }}
+                  />
+                </Box>
                 <Typography
                   sx={{
                     fontFamily: "Montserrat, Arial, sans-serif",

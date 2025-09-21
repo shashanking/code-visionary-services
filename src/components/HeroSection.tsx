@@ -42,7 +42,7 @@ const services = [
     description: "Cross-platform apps with seamless UX for every user.",
   },
   {
-    label: "AI Marketing",
+    label: "Artificial Intelligence",
     img: aiMarketingImg,
     description: "Leverage AI-powered automation to supercharge your marketing impact.",
   },
