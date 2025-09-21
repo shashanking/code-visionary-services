@@ -1,12 +1,12 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+// import TextField from "@mui/material/TextField";
+// import Button from "@mui/material/Button";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import bgImg from "../assets/contact_bg_image.png";
-import sendIcon from "../assets/mingcute_arrow-up-line.png";
+// import sendIcon from "../assets/mingcute_arrow-up-line.png";
 import middleDividerImg from "../assets/contact_section_middle_line_image.png";
 
 const ContactSection: React.FC = () => (
