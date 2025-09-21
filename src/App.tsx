@@ -7,7 +7,7 @@ import bgLines from "./assets/BG_lines.png"; // Import the background image
 import AboutSection from "./components/AboutSection";
 import PortfolioSection from "./components/PortfolioSection";
 import TechStackSection from "./components/TechStackSection";
-import OurTeamSection from "./components/OurTeamSection";
+// import OurTeamSection from "./components/OurTeamSection";
 import BannerSection from "./components/BannerSection";
 import ContactSection from "./components/ContactSection";
 import FAQSection from "./components/FAQSection";
