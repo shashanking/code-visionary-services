@@ -71,14 +71,14 @@ const testimonials = [
       "“CVS delivered a performant, real-time experience on a tight timeline. We’ll work with them again.”",
   },
   {
-    name: "Dentalogie",
+    name: "Dentologie",
     title: "Healthcare",
     image: dentologieLogo,
     text:
       "“Thoughtful design and smooth implementation. Our patients love the updated portal.”",
   },
   {
-    name: "PistonHead",
+    name: "PistonHeads",
     title: "Media",
     image: pistonheadLogo,
     text:
