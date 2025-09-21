@@ -4,7 +4,6 @@ export const NAV_ITEMS = [
   { label: "Services", href: "#services" },
   { label: "Reviews", href: "#reviews" },
   { label: "Portfolio", href: "#portfolio" },
-  { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ] as const;
 

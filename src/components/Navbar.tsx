@@ -33,6 +33,19 @@ const Navbar: React.FC = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleNavigate = (href: string, label: string) => {
+    setActive(label);
+    try {
+      const target = document.querySelector(href);
+      if (target) {
+        (target as HTMLElement).scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (href.startsWith("#")) {
+        // as a fallback, update hash
+        window.location.hash = href.substring(1);
+      }
+    } catch {}
+  };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', bgcolor: '#1a1a1a', height: '100%' }}>
       <Typography variant="h6" sx={{ my: 2, color: '#fff' }}>
@@ -43,7 +56,10 @@ const Navbar: React.FC = () => {
           <ListItem key={item.label} disablePadding>
             <ListItemButton
               sx={{ textAlign: 'center' }}
-              onClick={() => setActive(item.label)}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate(item.href, item.label);
+              }}
             >
               <ListItemText
                 primary={item.label}
@@ -104,7 +120,10 @@ const Navbar: React.FC = () => {
             {NAV_ITEMS.map((item) => (
               <Button
                 key={item.label}
-                onClick={() => setActive(item.label)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigate(item.href, item.label);
+                }}
                 sx={{
                   textTransform: "none",
                   fontWeight: active === item.label ? 600 : 400,
