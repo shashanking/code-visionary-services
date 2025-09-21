@@ -21,8 +21,8 @@ const clients: Array<{ name: string; logo?: string }> = [
   { name: "ShopInfinity", logo: shopinfinityLogo }, // no logo available
   { name: "Ride Easy", logo: rideeasyLogo },
   { name: "MoneyBlaster", logo: moneyblasterLogo },
-  { name: "Dentalogie", logo: dentologieLogo },
-  { name: "PistonHead", logo: pistonheadLogo },
+  { name: "Dentologie", logo: dentologieLogo },
+  { name: "PistonHeads", logo: pistonheadLogo },
     
 ];
 
