@@ -1,7 +1,6 @@
 # CSV Official
 
-This is the **_`dev`_** branch, which contains the final reviewed code before release.  
-Once the changes are approved and tested, this branch will be merged into the **_`main`_** branch for deployment.
+This is the **_`purnendu`_** branch, used for active development and ongoing enhancements. All feature updates and code changes are made here before being submitted for review. Once complete, changes from this branch will be merged into the **_`dev`_** branch for final review and testing.
 
 ### Branching Strategy -
 
