@@ -1,9 +1,6 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import bgLines from "./assets/BG_lines.png"; // Import the background image
 import AboutSection from "./components/AboutSection";
 import PortfolioSection from "./components/PortfolioSection";
 import TechStackSection from "./components/TechStackSection";
@@ -15,20 +12,15 @@ import TestimonialSection from "./components/TestimonialSection";
 import FooterSection from "./components/FooterSection";
 import ClientsMarqueeSection from "./components/ClientsMarqueeSection";
 
-
 const App: React.FC = () => {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "100vh",
-        backgroundImage: `url(${bgLines})`,  // Use imported image here
-        backgroundRepeat: "no-repeat",
-        // backgroundSize: "cover",
-        backgroundPosition: "top center",
-      }}
+    <div
+      className="w-full min-h-screen bg-no-repeat bg-top bg-center"
+      // style={{
+      //   backgroundImage: `url(${bgLines})`,
+      // }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 8, lg: 12 } }}>
+      <div className="max-w-screen-2xl mx-auto px-4 md:px-16 lg:px-24">
         <Navbar />
         <HeroSection />
         <ClientsMarqueeSection />
@@ -41,8 +33,8 @@ const App: React.FC = () => {
         <ContactSection />
         <FAQSection />
         <FooterSection />
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 };
 

@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
         // as a fallback, update hash
         window.location.hash = href.substring(1);
       }
-    } catch {}
+    } catch { /* empty */ }
   };
 
   const drawer = (

@@ -1,36 +1,120 @@
+@import "tailwindcss";
+
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiter-regular.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiter-regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiterbold.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiterbold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiteritalic.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiteritalic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiterbolditalic.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiterbolditalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 
-body, html {
+@theme {
+  /* ===== Screen Breakpoint ===== */
+  --breakpoint-*: initial;
+  --breakpoint-xxs: 390px;
+  --breakpoint-xs: 512px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 900px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* font family */
+  --font-montserrat: Montserrat, system-ui, sans-serif;
+  --font-earth-orbiter: "Earth Orbiter", system-ui, sans-serif;
+
+  /* text size */
+  --text-*: initial;
+  --text-title-lg: clamp(1.8rem, 4vw, 3rem); /* xs:1.8rem, md:3rem, lg:61px */
+  --text-title-xl: clamp(2rem, 5vw, 4rem); /* xs:2rem, md:3.5rem, lg:4rem */
+  --text-body1: clamp(1rem, 1.6vw, 1.25rem); /* xs:16px, md:20px */
+  --text-body2: clamp(0.9375rem, 1.4vw, 1.125rem);
+  --text-body3: clamp(0.875rem, 1.3vw, 1rem);
+  --text-body4: clamp(0.8125rem, 1.2vw, 0.9375rem);
+  --text-body5: clamp(0.75rem, 1vw, 0.875rem);
+  --text-body6: clamp(0.6875rem, 0.9vw, 0.8125rem);
+  --text-body7: clamp(0.625rem, 0.8vw, 0.75rem);
+  --text-body8: clamp(0.5rem, 0.7vw, 0.6875rem);
+
+  /* Colors */
+  --color-primary-main: #d2691e;
+  --color-primary-dark: #b8571a;
+  --color-primary-light: #e6944a;
+  --color-secondary-main: #4a90e2;
+  --color-secondary-dark: #357abd;
+  --color-secondary-light: #6ba3e8;
+
+  /* Gray scale */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Font weights */
+  --font-weight-light: 200;
+  --font-weight-normal: 400;
+  --font-weight-medium: 550;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 800;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #101010;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-montserrat);
+  --font-heading: var(--font-earth-orbiter);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat);
+}
+
+body,
+html {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
