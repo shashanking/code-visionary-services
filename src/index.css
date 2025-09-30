@@ -232,3 +232,14 @@ html {
   }
 }
 
+.mobile-bg-rotate {
+  transform: rotate(90deg);
+  transform-origin: center;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .mobile-bg-rotate {
+    transform: rotate(90deg) scale(1.6);
+  }
+}

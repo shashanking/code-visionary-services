@@ -134,6 +134,7 @@ const HeroSection: React.FC = () => {
 
   return (
     <section
+      id="home"
       className="relative left-1/2 transform -translate-x-1/2 w-screen min-h-[120vh] overflow-hidden flex flex-col items-center justify-center text-center 
       py-6 px-3 
       sm:py-8 sm:px-8 
