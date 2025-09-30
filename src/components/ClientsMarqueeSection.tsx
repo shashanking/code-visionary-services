@@ -1,8 +1,5 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
-// Real client logos available in assets
 import kbidLogo from "../assets/clients/k-bid.jpeg";
 import ospLogo from "../assets/clients/osp-logo.png";
 import riqshaLogo from "../assets/clients/riqsha.jpeg";
@@ -18,174 +15,64 @@ const clients: Array<{ name: string; logo?: string }> = [
   { name: "OSP Broker", logo: ospLogo },
   { name: "HHH", logo: happyhelpLogo },
   { name: "RiQsha", logo: riqshaLogo },
-  { name: "ShopInfinity", logo: shopinfinityLogo }, // no logo available
+  { name: "ShopInfinity", logo: shopinfinityLogo },
   { name: "Ride Easy", logo: rideeasyLogo },
   { name: "MoneyBlaster", logo: moneyblasterLogo },
   { name: "Dentologie", logo: dentologieLogo },
   { name: "PistonHeads", logo: pistonheadLogo },
-    
 ];
 
 const RowItem: React.FC<{ name: string; logo?: string }> = ({ name, logo }) => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 0.75,
-        px: 1.5,
-        py: 1.25,
-        backgroundColor: "#ffffff",
-        border: "1px solid rgba(20,50,85,0.1)",
-        borderRadius: 2,
-        boxShadow: "0 2px 10px rgba(20,50,85,0.08)",
-        backdropFilter: "saturate(120%) blur(2px)",
-        whiteSpace: "nowrap",
-        width: { xs: 110, md: 128 },
-        height: { xs: 120, md: 136 },
-      }}
-    >
-      {/* Logo (if provided) else placeholder initials */}
+    <div className="flex flex-col items-center justify-center gap-2 p-4 bg-white border border-gray-200 rounded-2xl shadow-lg shadow-gray-200/50 backdrop-saturate-120 backdrop-blur-sm whitespace-nowrap w-30 h-30 md:w-40 md:h-35 flex-shrink-0">
       {logo ? (
-        <Box
-          component="img"
+        <img
           src={logo}
           alt={`${name} logo`}
-          sx={{
-            width: { xs: 56, md: 64 },
-            height: { xs: 56, md: 64 },
-            borderRadius: 0,
-            objectFit: "contain",
-            backgroundColor: "transparent",
-          }}
+          className="w-14 h-14 rounded-none object-contain bg-transparent md:w-16 md:h-16"
         />
       ) : (
-        <Box
-          sx={{
-            width: { xs: 56, md: 64 },
-            height: { xs: 56, md: 64 },
-            borderRadius: 0,
-            background: "linear-gradient(135deg, #b44a2c 0%, #882f1a 100%)",
-            color: "#fff",
-            fontSize: 16,
-            fontWeight: 800,
-            fontFamily: "Montserrat, Arial, sans-serif",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            letterSpacing: 0.4,
-          }}
-        >
+        <div className="w-14 h-14 rounded-none bg-gradient-to-br from-[#b44a2c] to-[#882f1a] text-white text-base font-extrabold font-montserrat flex items-center justify-center tracking-wider md:w-16 md:h-16">
           {name
             .split(" ")
             .map((w) => w[0])
             .join("")
             .slice(0, 2)}
-        </Box>
+        </div>
       )}
 
-      <Typography
-        sx={{
-          fontFamily: "Montserrat, Arial, sans-serif",
-          fontWeight: 700,
-          fontSize: { xs: 12, md: 13 },
-          color: "#143255",
-          textAlign: "center",
-          mt: 0.5,
-          maxWidth: '100%',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
+      <div className="font-montserrat font-bold text-xs md:text-sm text-[#143255] text-center mt-2 max-w-full overflow-hidden text-ellipsis">
         {name}
-      </Typography>
-    </Box>
+      </div>
+    </div>
   );
 };
 
 const ClientsMarqueeSection: React.FC = () => {
-  // Duplicate the list to create a seamless loop
-  const marqueeList = [...clients, ...clients];
+  const marqueeList = [...clients, ...clients, ...clients];
 
   return (
-    <Box
+    <div
       id="clients"
-      sx={{
-        width: "100vw",
-        py: { xs: 3, md: 5 },
-        position: "relative",
-        // Bleed full viewport width even inside a padded Container
-        ml: "calc(50% - 50vw)",
-        mr: "calc(50% - 50vw)",
-        backgroundColor: "rgb(240, 240, 240)",
-        px: { xs: 2, md: 8, lg: 12 },
-        boxSizing: "border-box",
-        overflowX: "hidden",
-      }}
+      className="relative w-screen -ml-[calc(50vw-50%)] py-20 bg-[#f0f0f0] overflow-x-hidden"
     >
-      <Typography
-        sx={{
-          fontFamily: "'Earth Orbiter', Arial, sans-serif",
-          fontWeight: 700,
-          fontSize: { xs: 18, md: 22 },
-          letterSpacing: 2,
-          textTransform: "uppercase",
-          color: "#b44a2c",
-          mb: 1,
-          textAlign: "center",
-        }}
-      >
-        Trusted by clients
-      </Typography>
-      <Typography
-        sx={{
-          fontFamily: "'Earth Orbiter', Arial, sans-serif",
-          fontWeight: 700,
-          fontSize: { xs: 22, md: 32 },
-          letterSpacing: 2,
-          textTransform: "uppercase",
-          color: "#143255",
-          mb: { xs: 2.5, md: 4 },
-          textAlign: "center",
-        }}
-      >
-        Across industries
-      </Typography>
+      <div className="w-full text-center px-8">
+        <div className="font-earth-orbiter font-bold text-body1 tracking-widest uppercase text-[#b44a2c] mb-4 md:text-xl">
+          Trusted by clients
+        </div>
+        <div className="font-earth-orbiter font-bold text-title-md tracking-widest uppercase text-[#143255] mb-10 md:text-3xl md:mb-16">
+          Across industries
+        </div>
+      </div>
 
-      {/* Marquee wrapper */}
-      <Box
-        sx={{
-          position: "relative",
-          overflow: "hidden",
-          width: "100%",
-        }}
-      >
-        {/* Moving row */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: { xs: 2, md: 3 },
-            px: 1,
-            animationName: "clients-marquee",
-            animationTimingFunction: "linear",
-            animationIterationCount: "infinite",
-            animationDuration: { xs: "12s", md: "25s" },
-            // Define keyframes inside sx
-            "@keyframes clients-marquee": {
-              from: { transform: "translateX(0)" },
-              to: { transform: "translateX(-50%)" },
-            },
-          }}
-        >
+      <div className="w-full relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+        <div className="flex items-center gap-6 animate-marquee w-max">
           {marqueeList.map((c, i) => (
             <RowItem key={`${c.name}-${i}`} name={c.name} logo={c.logo} />
           ))}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

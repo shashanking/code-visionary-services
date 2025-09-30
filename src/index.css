@@ -62,6 +62,7 @@
   --text-*: initial;
   --text-title-xl: clamp(2rem, 5vw, 4rem);
   --text-title-lg: clamp(1.8rem, 4vw, 3rem);
+  --text-title-md: clamp(1.5rem, 3vw, 2.5rem);
   --text-body1: clamp(1rem, 1.6vw, 1.25rem);
   --text-body2: clamp(0.9375rem, 1.4vw, 1.125rem);
   --text-body3: clamp(0.875rem, 1.3vw, 1rem);
@@ -74,6 +75,8 @@
   --color-secondary-main: #4a90e2;
   --color-secondary-dark: #357abd;
   --color-secondary-light: #6ba3e8;
+
+  --color-white-100: #f0f0f0;
 
   /* Gray scale */
   --color-gray-50: #f9fafb;
@@ -112,7 +115,7 @@
   --text-button-lg: clamp(1rem, 3vw, 1.125rem);
 
   /* ===== Button Colors ===== */
-  --color-button-primary: #B5442C;
+  --color-button-primary: #b5442c;
   --color-button-primary-hover-start: #b22222;
   --color-button-primary-hover-mid: #d63d2e;
   --color-button-primary-hover-end: #ff3b2e;
@@ -151,8 +154,8 @@
   --color-navbar-bg-mobile: #1a1a1a;
   --color-navbar-text: #333333;
   --color-navbar-text-mobile: #ffffff;
-  --color-navbar-active: #B5442C;
-  --color-navbar-hover: #B5442C;
+  --color-navbar-active: #b5442c;
+  --color-navbar-hover: #b5442c;
   --color-navbar-border: rgba(0, 0, 0, 0.1);
 
   /* ===== Navbar Sizes ===== */
@@ -164,10 +167,13 @@
   --z-navbar: 1000;
   --z-drawer: 1100;
   --z-overlay: 1050;
+
+  /* ===== Custom Animations ===== */
+  --animate-marquee: marquee 25s linear infinite;
 }
 
 :root {
-  --background: #ffffff;
+  --background: #f0f0f0;
   --foreground: #101010;
 }
 
@@ -181,7 +187,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #f0f0f0;
   }
 }
 
@@ -203,3 +209,26 @@ html {
   padding: 0;
   width: 100%;
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive animation durations */
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation-duration: 20s;
+  }
+}
+
+@media (min-width: 769px) {
+  .animate-marquee {
+    animation-duration: 30s;
+  }
+}
+
