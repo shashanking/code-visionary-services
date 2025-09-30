@@ -33,34 +33,41 @@
 }
 
 @theme {
-  /* ===== Screen Breakpoint ===== */
+  /* ===== Screen Breakpoints ===== */
   --breakpoint-*: initial;
   --breakpoint-xxs: 390px;
   --breakpoint-xs: 512px;
   --breakpoint-sm: 640px;
-  --breakpoint-md: 900px;
+  --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  /* font family */
+  /* ===== Container Max Widths ===== */
+  --container-*: initial;
+  --container-xs: 320px;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1400px;
+  --container-3xl: 1600px;
+  --container-4xl: 1920px;
+
+  /* ===== Font Family ===== */
   --font-montserrat: Montserrat, system-ui, sans-serif;
   --font-earth-orbiter: "Earth Orbiter", system-ui, sans-serif;
 
-  /* text size */
+  /* ===== Text Sizes ===== */
   --text-*: initial;
-  --text-title-lg: clamp(1.8rem, 4vw, 3rem); /* xs:1.8rem, md:3rem, lg:61px */
-  --text-title-xl: clamp(2rem, 5vw, 4rem); /* xs:2rem, md:3.5rem, lg:4rem */
-  --text-body1: clamp(1rem, 1.6vw, 1.25rem); /* xs:16px, md:20px */
+  --text-title-xl: clamp(2rem, 5vw, 4rem);
+  --text-title-lg: clamp(1.8rem, 4vw, 3rem);
+  --text-body1: clamp(1rem, 1.6vw, 1.25rem);
   --text-body2: clamp(0.9375rem, 1.4vw, 1.125rem);
   --text-body3: clamp(0.875rem, 1.3vw, 1rem);
   --text-body4: clamp(0.8125rem, 1.2vw, 0.9375rem);
-  --text-body5: clamp(0.75rem, 1vw, 0.875rem);
-  --text-body6: clamp(0.6875rem, 0.9vw, 0.8125rem);
-  --text-body7: clamp(0.625rem, 0.8vw, 0.75rem);
-  --text-body8: clamp(0.5rem, 0.7vw, 0.6875rem);
 
-  /* Colors */
+  /* ===== Colors ===== */
   --color-primary-main: #d2691e;
   --color-primary-dark: #b8571a;
   --color-primary-light: #e6944a;
@@ -80,7 +87,7 @@
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
 
-  /* Font weights */
+  /* ===== Font Weights ===== */
   --font-weight-light: 200;
   --font-weight-normal: 400;
   --font-weight-medium: 550;

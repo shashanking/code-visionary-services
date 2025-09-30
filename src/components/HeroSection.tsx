@@ -9,7 +9,7 @@ import { services } from "../constants/hero-section-data";
 
 const heroBackgrounds = [heroBg1, heroBg2, heroBg3, heroBg4];
 
-// Service Card Component (unchanged)
+// Service Card Component
 const ServiceCard: React.FC<{
   service: { img: string; label: string; description: string };
   isHovered: boolean;
@@ -74,14 +74,37 @@ const ServiceCard: React.FC<{
   );
 };
 
-const MinMaxServicesGrid: React.FC<{
+// Responsive with consistent behavior as per length of services
+const ServicesGrid: React.FC<{
   services: Array<{ img: string; label: string; description: string }>;
   hoverIdx: number | null;
   setHoverIdx: (index: number | null) => void;
 }> = ({ services, hoverIdx, setHoverIdx }) => {
-  // Safer minmax implementation with media queries
+  // Calculate optimal columns based on service count
+  const getGridConfig = () => {
+    const count = services.length;
+
+    if (count === 3) {
+      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+    }
+
+    if (count === 8) {
+      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4";
+    }
+
+    // 5+ services
+    return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+  };
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(255px,1fr))] xl:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-4 sm:gap-4 lg:gap-6 w-full mx-auto">
+    <div
+      className={`
+      grid 
+      ${getGridConfig()}
+      gap-3 sm:gap-4 md:gap-6 lg:gap-6
+      w-full max-w-2xl mx-auto
+    `}
+    >
       {services.map((service, idx) => (
         <ServiceCard
           key={service.label}
@@ -95,7 +118,7 @@ const MinMaxServicesGrid: React.FC<{
   );
 };
 
-// Main HeroSection Component
+// HeroSection Component
 const HeroSection: React.FC = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
@@ -110,7 +133,14 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative left-1/2 transform -translate-x-1/2 w-screen min-h-[120vh] overflow-hidden flex flex-col items-center justify-center text-center py-6 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 md:py-10">
+    <section
+      className="relative left-1/2 transform -translate-x-1/2 w-screen min-h-[120vh] overflow-hidden flex flex-col items-center justify-center text-center 
+      py-6 px-3 
+      sm:py-8 sm:px-8 
+      md:py-10 md:px-16 
+      lg:py-12 lg:px-24 
+      xl:py-14 xl:px-32"
+    >
       {/* Background Images */}
       {heroBackgrounds.map((bg, index) => (
         <div
@@ -123,33 +153,29 @@ const HeroSection: React.FC = () => {
         />
       ))}
 
-      {/* Content */}
-      <div className="relative z-10 w-full mx-auto">
-        {/* Hero Text */}
-        <div className="w-full mx-auto mb-2 mt-20 md:mt-30 font-heading font-medium text-title-xl leading-[1.08]">
-          <h1 className="text-gray-800 mb-4">
+      <div className="relative z-10 w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-xl mx-auto mb-10 mt-20 md:mt-25 font-heading font-medium text-title-xl text-gray-800 leading-[1.08]">
+          <h1 className="mb-4">
             INNOVATIVE{" "}
             <span className="inline-block bg-gradient-to-r from-[#4F1E13] to-[#B5442C] bg-clip-text text-transparent">
               DIGITAL SOLUTIONS,
             </span>
           </h1>
 
-          <h1 className="text-gray-800 mb-6">BUILT FOR IMPACT</h1>
+          <h1 className="text-gray-800">BUILT FOR IMPACT</h1>
         </div>
 
-        <p className="font-sans font-normal text-body1 text-gray-800 max-w-[1000px] mx-auto mb-8 leading-[30px]">
+        <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-10 leading-[1.5]">
           At Code Visionary Services, we craft high-performance websites,
           software, and visual identities that elevate your brand and drive
           results. From code to creativity, we turn your ideas into powerful
           digital experiences.
         </p>
-
         <div className="flex justify-center">
           <CTAButton variant="secondary" size="large">
             Start a Project
           </CTAButton>
         </div>
-
         {/* Services Section */}
         <div className="mt-40 w-full relative">
           {/* Services Heading */}
@@ -157,13 +183,12 @@ const HeroSection: React.FC = () => {
             OUR SERVICES
           </h2>
 
-          <div className="relative mt-20">
-            <MinMaxServicesGrid
-              services={services}
-              hoverIdx={hoverIdx}
-              setHoverIdx={setHoverIdx}
-            />
-          </div>
+          {/* Services Grid */}
+          <ServicesGrid
+            services={services}
+            hoverIdx={hoverIdx}
+            setHoverIdx={setHoverIdx}
+          />
         </div>
       </div>
     </section>
