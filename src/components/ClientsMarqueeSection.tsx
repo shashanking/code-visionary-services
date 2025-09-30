@@ -24,7 +24,7 @@ const clients: Array<{ name: string; logo?: string }> = [
 
 const RowItem: React.FC<{ name: string; logo?: string }> = ({ name, logo }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 p-4 bg-white border border-gray-200 rounded-2xl shadow-lg shadow-gray-200/50 backdrop-saturate-120 backdrop-blur-sm whitespace-nowrap w-30 h-30 md:w-40 md:h-35 flex-shrink-0">
+    <div className="flex flex-col items-center justify-center gap-2 p-4 bg-white border border-gray-200 rounded-2xl shadow-lg shadow-gray-200/50 backdrop-saturate-120 backdrop-blur-sm whitespace-nowrap w-40 md:h-35 flex-shrink-0">
       {logo ? (
         <img
           src={logo}

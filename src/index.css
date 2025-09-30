@@ -222,7 +222,7 @@ html {
 /* Responsive animation durations */
 @media (max-width: 768px) {
   .animate-marquee {
-    animation-duration: 20s;
+    animation-duration: 25s;
   }
 }
 
