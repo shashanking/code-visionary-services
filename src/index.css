@@ -106,12 +106,13 @@
   --size-button-height-lg: clamp(56px, 12vw, 64px);
 
   /* ===== Responsive Button Text ===== */
+  --text-button-xsm: clamp(0.7rem, 2vw, 0.8rem);
   --text-button-sm: clamp(0.75rem, 2vw, 0.875rem);
   --text-button-md: clamp(0.875rem, 2.5vw, 1rem);
   --text-button-lg: clamp(1rem, 3vw, 1.125rem);
 
   /* ===== Button Colors ===== */
-  --color-button-primary: #d2691e;
+  --color-button-primary: #B5442C;
   --color-button-primary-hover-start: #b22222;
   --color-button-primary-hover-mid: #d63d2e;
   --color-button-primary-hover-end: #ff3b2e;
@@ -143,6 +144,26 @@
     rgba(150, 150, 150, 0.7),
     rgba(80, 80, 80, 0.9)
   );
+
+  /* ===== Navbar Colors ===== */
+  --color-navbar-bg: rgba(255, 255, 255, 0.95);
+  --color-navbar-bg-scrolled: rgba(255, 255, 255, 0.98);
+  --color-navbar-bg-mobile: #1a1a1a;
+  --color-navbar-text: #333333;
+  --color-navbar-text-mobile: #ffffff;
+  --color-navbar-active: #B5442C;
+  --color-navbar-hover: #B5442C;
+  --color-navbar-border: rgba(0, 0, 0, 0.1);
+
+  /* ===== Navbar Sizes ===== */
+  --height-navbar: 64px;
+  --height-navbar-mobile: 56px;
+  --width-navbar-drawer: 280px;
+
+  /* ===== Z-index ===== */
+  --z-navbar: 1000;
+  --z-drawer: 1100;
+  --z-overlay: 1050;
 }
 
 :root {
@@ -162,6 +183,11 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--height-navbar);
 }
 
 body {

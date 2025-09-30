@@ -121,11 +121,11 @@ const CTAButton: React.FC<CTAButtonProps> = ({
         <div
           className={cn(
             "relative flex items-center justify-center h-full rounded-[50px] transition-all duration-300",
-            fullWidth ? "px-4 sm:px-8 md:px-12" : "px-6 sm:px-8 md:px-12"
+            fullWidth ? "px-4 sm:px-6 md:px-8" : "px-4 sm:px-6 md:px-8"
           )}
         >
           {/* Text container */}
-          <div className="relative overflow-hidden mr-4 sm:mr-6 md:mr-8">
+          <div className="relative overflow-hidden mr-4 sm:mr-4 md:mr-6">
             {/* Default text */}
             <span
               className={cn(

@@ -154,7 +154,7 @@ const HeroSection: React.FC = () => {
       ))}
 
       <div className="relative z-10 w-full max-w-2xl mx-auto">
-        <div className="w-full max-w-xl mx-auto mb-10 mt-20 md:mt-25 font-heading font-medium text-title-xl text-gray-800 leading-[1.08]">
+        <div className="w-full max-w-xl mx-auto mb-10 mt-20 md:mt-30 font-heading font-medium text-title-xl text-gray-800 leading-[1.08]">
           <h1 className="mb-4">
             INNOVATIVE{" "}
             <span className="inline-block bg-gradient-to-r from-[#4F1E13] to-[#B5442C] bg-clip-text text-transparent">
