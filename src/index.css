@@ -93,6 +93,56 @@
   --font-weight-medium: 550;
   --font-weight-semibold: 600;
   --font-weight-bold: 800;
+
+  /* ============== Components Style ============== */
+
+  /* ===== Responsive Button Sizes ===== */
+  --size-button-width-sm: clamp(200px, 40vw, 280px);
+  --size-button-width-md: clamp(240px, 50vw, 320px);
+  --size-button-width-lg: clamp(280px, 60vw, 384px);
+
+  --size-button-height-sm: clamp(40px, 8vw, 48px);
+  --size-button-height-md: clamp(48px, 10vw, 56px);
+  --size-button-height-lg: clamp(56px, 12vw, 64px);
+
+  /* ===== Responsive Button Text ===== */
+  --text-button-sm: clamp(0.75rem, 2vw, 0.875rem);
+  --text-button-md: clamp(0.875rem, 2.5vw, 1rem);
+  --text-button-lg: clamp(1rem, 3vw, 1.125rem);
+
+  /* ===== Button Colors ===== */
+  --color-button-primary: #d2691e;
+  --color-button-primary-hover-start: #b22222;
+  --color-button-primary-hover-mid: #d63d2e;
+  --color-button-primary-hover-end: #ff3b2e;
+
+  --color-button-secondary: #000000;
+  --color-button-secondary-hover-start: #333333;
+  --color-button-secondary-hover-mid: #555555;
+  --color-button-secondary-hover-end: #666666;
+
+  /* ===== Button Shadows ===== */
+  --shadow-button-primary: 0 5px 15px rgba(210, 105, 30, 0.2);
+  --shadow-button-primary-hover: 0 10px 25px -5px rgba(178, 34, 34, 0.4),
+    0 5px 10px -5px rgba(178, 34, 34, 0.3);
+
+  --shadow-button-secondary: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --shadow-button-secondary-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.4),
+    0 5px 10px -5px rgba(0, 0, 0, 0.3);
+
+  /* ===== Button Glow Effects ===== */
+  --glow-primary: linear-gradient(
+    135deg,
+    rgba(255, 80, 80, 0.9),
+    rgba(255, 50, 50, 0.7),
+    rgba(180, 30, 30, 0.9)
+  );
+  --glow-secondary: linear-gradient(
+    135deg,
+    rgba(100, 100, 100, 0.9),
+    rgba(150, 150, 150, 0.7),
+    rgba(80, 80, 80, 0.9)
+  );
 }
 
 :root {

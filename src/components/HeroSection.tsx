@@ -172,7 +172,11 @@ const HeroSection: React.FC = () => {
           digital experiences.
         </p>
         <div className="flex justify-center">
-          <CTAButton variant="secondary" size="large">
+          <CTAButton
+            variant="secondary"
+            size="large"
+            onClick={() => console.log("Clicked!")}
+          >
             Start a Project
           </CTAButton>
         </div>
