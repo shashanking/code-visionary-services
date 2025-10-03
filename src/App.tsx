@@ -14,14 +14,9 @@ import ClientsMarqueeSection from "./components/ClientsMarqueeSection";
 
 const App: React.FC = () => {
   return (
-    <div
-      className="w-full min-h-screen bg-no-repeat bg-top bg-center"
-      // style={{
-      //   backgroundImage: `url(${bgLines})`,
-      // }}
-    >
-      <div className="max-w-screen-2xl mx-auto px-4 md:px-16 lg:px-24">
-        <Navbar />
+    <div className="w-full min-h-screen bg-white overflow-x-hidden">
+      <Navbar />
+      <main>
         <HeroSection />
         <ClientsMarqueeSection />
         <AboutSection />
@@ -33,7 +28,7 @@ const App: React.FC = () => {
         <ContactSection />
         <FAQSection />
         <FooterSection />
-      </div>
+      </main>
     </div>
   );
 };

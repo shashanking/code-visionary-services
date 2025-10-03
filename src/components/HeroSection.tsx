@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CTAButton } from "./shared";
+import SectionContainer from "./shared/SectionContainer";
+import ContentContainer from "./shared/ContentContainer";
 import heroBg1 from "../assets/hero/hero-bg-1.png";
 import heroBg2 from "../assets/hero/hero-bg-2.png";
 import heroBg3 from "../assets/hero/hero-bg-3.png";
@@ -9,7 +11,6 @@ import { services } from "../constants/hero-section-data";
 
 const heroBackgrounds = [heroBg1, heroBg2, heroBg3, heroBg4];
 
-// Service Card Component
 const ServiceCard: React.FC<{
   service: { img: string; label: string; description: string };
   isHovered: boolean;
@@ -54,10 +55,10 @@ const ServiceCard: React.FC<{
 
       <div className="absolute bottom-0 left-0 w-full z-10 p-4 md:p-6">
         <h3
-          className={`text-white font-sans transition-all duration-350 ease-in-out ${
+          className={`text-white font-heading transition-all duration-350 ease-in-out ${
             isHovered
-              ? "font-bold -translate-y-2 text-lg md:text-xl lg:text-2xl"
-              : "font-semibold text-base md:text-lg lg:text-xl"
+              ? "font-bold -translate-y-2 text-body1"
+              : "font-semibold text-body1"
           }`}
         >
           {service.label}
@@ -65,7 +66,7 @@ const ServiceCard: React.FC<{
         <p
           className={`text-white transition-all duration-350 ease-in-out ${
             isHovered ? "opacity-95 max-h-32 mt-2" : "opacity-0 max-h-0"
-          } text-sm md:text-base leading-relaxed`}
+          } text-body2 leading-relaxed`}
         >
           {service.description}
         </p>
@@ -74,36 +75,22 @@ const ServiceCard: React.FC<{
   );
 };
 
-// Responsive with consistent behavior as per length of services
 const ServicesGrid: React.FC<{
   services: Array<{ img: string; label: string; description: string }>;
   hoverIdx: number | null;
   setHoverIdx: (index: number | null) => void;
 }> = ({ services, hoverIdx, setHoverIdx }) => {
-  // Calculate optimal columns based on service count
   const getGridConfig = () => {
     const count = services.length;
-
-    if (count === 3) {
-      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
-    }
-
-    if (count === 8) {
-      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4";
-    }
-
-    // 5+ services
+    if (count === 6) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+    if (count === 8)
+      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
     return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
   };
 
   return (
     <div
-      className={`
-      grid 
-      ${getGridConfig()}
-      gap-3 sm:gap-4 md:gap-6 lg:gap-6
-      w-full max-w-2xl mx-auto
-    `}
+      className={`grid ${getGridConfig()} gap-3 sm:gap-4 md:gap-6 lg:gap-6 w-full max-w-2xl mx-auto`}
     >
       {services.map((service, idx) => (
         <ServiceCard
@@ -118,7 +105,6 @@ const ServicesGrid: React.FC<{
   );
 };
 
-// HeroSection Component
 const HeroSection: React.FC = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
@@ -133,14 +119,11 @@ const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <section
+    <SectionContainer
       id="home"
-      className="relative left-1/2 transform -translate-x-1/2 w-screen min-h-[120vh] overflow-hidden flex flex-col items-center justify-center text-center 
-      py-6 px-3 
-      sm:py-8 sm:px-8 
-      md:py-10 md:px-16 
-      lg:py-12 lg:px-24 
-      xl:py-14 xl:px-32"
+      fullWidth
+      padding="lg"
+      className="min-h-[120vh] overflow-hidden flex flex-col items-center justify-center text-center"
     >
       {/* Background Images */}
       {heroBackgrounds.map((bg, index) => (
@@ -154,15 +137,14 @@ const HeroSection: React.FC = () => {
         />
       ))}
 
-      <div className="relative z-10 w-full max-w-2xl mx-auto">
-        <div className="w-full max-w-xl mx-auto mb-10 mt-20 md:mt-30 font-heading font-medium text-title-xl text-gray-800 leading-[1.08]">
+      <ContentContainer maxWidth="2xl" paddingX="lg" className="pb-10">
+        <div className="w-full max-w-xl mx-auto mb-10 mt-12 md:mt-20 font-heading font-medium text-title-xl text-gray-800 leading-[1.08]">
           <h1 className="mb-4">
             INNOVATIVE{" "}
             <span className="inline-block bg-gradient-to-r from-[#4F1E13] to-[#B5442C] bg-clip-text text-transparent">
               DIGITAL SOLUTIONS,
             </span>
           </h1>
-
           <h1 className="text-gray-800">BUILT FOR IMPACT</h1>
         </div>
 
@@ -172,6 +154,7 @@ const HeroSection: React.FC = () => {
           results. From code to creativity, we turn your ideas into powerful
           digital experiences.
         </p>
+
         <div className="flex justify-center">
           <CTAButton
             variant="secondary"
@@ -181,22 +164,21 @@ const HeroSection: React.FC = () => {
             Start a Project
           </CTAButton>
         </div>
+
         {/* Services Section */}
         <div className="mt-40 w-full relative">
-          {/* Services Heading */}
           <h2 className="absolute w-full -top-22 left-1/2 transform -translate-x-1/2 leading-[1] font-heading font-semibold text-center bg-gradient-to-b from-[#0861AA] to-[#0861AA00] bg-clip-text text-transparent opacity-50 md:opacity-35 xl:opacity-25 pointer-events-none text-[52px] sm:text-[70px] md:text-[80px] lg:text-[100px] xl:text-[140px]">
             OUR SERVICES
           </h2>
 
-          {/* Services Grid */}
           <ServicesGrid
             services={services}
             hoverIdx={hoverIdx}
             setHoverIdx={setHoverIdx}
           />
         </div>
-      </div>
-    </section>
+      </ContentContainer>
+    </SectionContainer>
   );
 };
 

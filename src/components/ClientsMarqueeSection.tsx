@@ -1,26 +1,7 @@
 import React from "react";
-
-import kbidLogo from "../assets/clients/k-bid.jpeg";
-import ospLogo from "../assets/clients/osp-logo.png";
-import riqshaLogo from "../assets/clients/riqsha.jpeg";
-import rideeasyLogo from "../assets/clients/rideeasy.webp";
-import moneyblasterLogo from "../assets/clients/moneyblaster.jpg";
-import dentologieLogo from "../assets/clients/dentologie.jpg";
-import pistonheadLogo from "../assets/clients/pistonhead.png";
-import shopinfinityLogo from "../assets/clients/shopinfinity.webp";
-import happyhelpLogo from "../assets/clients/happyhelpinghands.webp";
-
-const clients: Array<{ name: string; logo?: string }> = [
-  { name: "K-Bid", logo: kbidLogo },
-  { name: "OSP Broker", logo: ospLogo },
-  { name: "HHH", logo: happyhelpLogo },
-  { name: "RiQsha", logo: riqshaLogo },
-  { name: "ShopInfinity", logo: shopinfinityLogo },
-  { name: "Ride Easy", logo: rideeasyLogo },
-  { name: "MoneyBlaster", logo: moneyblasterLogo },
-  { name: "Dentologie", logo: dentologieLogo },
-  { name: "PistonHeads", logo: pistonheadLogo },
-];
+import SectionContainer from "./shared/SectionContainer";
+import ContentContainer from "./shared/ContentContainer";
+import { clients } from "../constants/clients-data";
 
 const RowItem: React.FC<{ name: string; logo?: string }> = ({ name, logo }) => {
   return (
@@ -52,27 +33,32 @@ const ClientsMarqueeSection: React.FC = () => {
   const marqueeList = [...clients, ...clients, ...clients];
 
   return (
-    <div
+    <SectionContainer
       id="clients"
-      className="relative w-screen -ml-[calc(50vw-50%)] py-20 bg-[#f0f0f0] overflow-x-hidden"
+      fullWidth
+      background="#f0f0f0"
+      padding="lg"
+      className="overflow-x-hidden"
     >
-      <div className="w-full text-center px-8">
-        <div className="font-earth-orbiter font-bold text-body1 tracking-widest uppercase text-[#b44a2c] mb-4 md:text-xl">
-          Trusted by clients
+      <ContentContainer maxWidth="7xl" paddingX="xl">
+        <div className="w-full text-center">
+          <div className="font-earth-orbiter font-bold text-body1 tracking-widest uppercase text-[#b44a2c] mb-4 md:text-xl">
+            Trusted by clients
+          </div>
+          <div className="font-earth-orbiter font-bold text-title-md tracking-widest uppercase text-[#143255] mb-10 md:text-3xl md:mb-16">
+            Across industries
+          </div>
         </div>
-        <div className="font-earth-orbiter font-bold text-title-md tracking-widest uppercase text-[#143255] mb-10 md:text-3xl md:mb-16">
-          Across industries
-        </div>
-      </div>
 
-      <div className="w-full relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
-        <div className="flex items-center gap-6 animate-marquee w-max">
-          {marqueeList.map((c, i) => (
-            <RowItem key={`${c.name}-${i}`} name={c.name} logo={c.logo} />
-          ))}
+        <div className="w-full max-w-2xl mx-auto relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+          <div className="flex items-center gap-6 animate-marquee w-max">
+            {marqueeList.map((c, i) => (
+              <RowItem key={`${c.name}-${i}`} name={c.name} logo={c.logo} />
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
+      </ContentContainer>
+    </SectionContainer>
   );
 };
 

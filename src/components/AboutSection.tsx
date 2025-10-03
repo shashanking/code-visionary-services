@@ -1,59 +1,65 @@
 import React from "react";
-
+import SectionContainer from "./shared/SectionContainer";
+import ContentContainer from "./shared/ContentContainer";
 import bgImg from "../assets/about_section_bg_image.png";
 import laptopImg from "../assets/Laptop.png";
 
 const AboutSection: React.FC = () => (
-  <div
+  <SectionContainer
     id="about"
-    className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex flex-col md:flex-row items-center justify-between overflow-hidden"
+    fullWidth
+    padding="none"
+    className="flex flex-col md:flex-row items-center justify-between overflow-hidden"
   >
     <div className="absolute inset-0 z-0 overflow-hidden">
       <div
         className="hidden md:block w-full h-full bg-cover bg-no-repeat bg-right"
         style={{ backgroundImage: `url(${bgImg})` }}
       />
-
-      {/* Mobile - rotated background */}
       <div
         className="md:hidden w-full h-full bg-cover bg-no-repeat bg-bottom mobile-bg-rotate"
         style={{ backgroundImage: `url(${bgImg})` }}
       />
     </div>
 
-    <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-8 lg:px-16 py-16 md:py-0 h-160 sm:h-160 md:h-122 lg:h-146 xl:h-195">
-      <div className="font-heading md:w-1/2 mb-12 md:mb-0 md:pr-8 lg:pr-16">
-        <h1 className="text-title-md font-bold text-gray-800 uppercase leading-tight mb-6 text-center md:text-left">
-          YOUR PARTNER IN{" "}
-          <span className="inline-block bg-gradient-to-r from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
-            DIGITAL INNOVATION
-          </span>
-        </h1>
+    <ContentContainer
+      maxWidth="7xl"
+      paddingX="lg"
+      className="flex flex-col md:flex-row items-center justify-between py-16 md:py-0 h-160 sm:h-160 md:h-122 lg:h-146 xl:h-195"
+    >
+      <div className="w-full max-w-2xl mx-auto">
+        <div className="font-heading md:w-1/2 mb-12 md:mb-0 md:pr-8 lg:pr-16">
+          <h1 className="text-title-md font-bold text-gray-800 uppercase leading-tight mb-6 text-center md:text-left">
+            YOUR PARTNER IN{" "}
+            <span className="inline-block bg-gradient-to-r from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
+              DIGITAL INNOVATION
+            </span>
+          </h1>
 
-        <p className="font-sans font-normal text-body1 text-gray-800 leading-[1.5] mb-10 max-w-xl mx-auto md:mx-0 text-center md:text-left">
-          At Code Visionary Studios, we design and build reliable digital
-          products that move businesses forward. Our team blends strategy, clean
-          design, and modern engineering to deliver fast, accessible websites
-          and applications.
-        </p>
+          <p className="font-sans font-normal text-body1 text-gray-800 leading-[1.5] mb-10 max-w-xl mx-auto md:mx-0 text-center md:text-left">
+            At Code Visionary Studios, we design and build reliable digital
+            products that move businesses forward. Our team blends strategy,
+            clean design, and modern engineering to deliver fast, accessible
+            websites and applications.
+          </p>
 
-        <div className="text-center md:text-left">
-          <button className="bg-gray-800 hover:bg-[#8c3320] text-white px-8 py-3 w-full md:w-fit rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 cursor-pointer">
-            Learn More
-          </button>
+          <div className="text-center md:text-left">
+            <button className="bg-gray-800 hover:bg-[#8c3320] text-white px-8 py-3 w-full md:w-fit rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 cursor-pointer">
+              Learn More
+            </button>
+          </div>
+        </div>
+
+        <div className="absolute right-[20%] sm:right-[33%] md:right-0 -bottom-10 md:bottom-0">
+          <img
+            src={laptopImg}
+            alt="Laptop"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md xl:max-w-lg"
+          />
         </div>
       </div>
-
-      {/* Laptop Image */}
-      <div className="absolute right-[20%] sm:right-[33%] md:right-0 -bottom-10 sm:bottom-0 md:bottom-0">
-        <img
-          src={laptopImg}
-          alt="Laptop"
-          className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md xl:max-w-lg"
-        />
-      </div>
-    </div>
-  </div>
+    </ContentContainer>
+  </SectionContainer>
 );
 
 export default AboutSection;
