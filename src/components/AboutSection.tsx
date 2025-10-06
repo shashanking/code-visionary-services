@@ -25,11 +25,11 @@ const AboutSection: React.FC = () => (
     <ContentContainer
       maxWidth="7xl"
       paddingX="lg"
-      className="flex flex-col md:flex-row items-center justify-between py-16 md:py-0 h-160 sm:h-160 md:h-122 lg:h-146 xl:h-195"
+      className="flex flex-col md:flex-row items-center justify-between py-16 md:py-0 h-140 sm:h-160 md:h-122 lg:h-146 xl:h-195"
     >
       <div className="w-full max-w-2xl mx-auto">
         <div className="font-heading md:w-1/2 mb-12 md:mb-0 md:pr-8 lg:pr-16">
-          <h1 className="text-title-md font-bold text-gray-800 uppercase leading-tight mb-6 text-center md:text-left">
+          <h1 className="text-title-md font-bold text-gray-800 uppercase leading-tight mb-6 text-center md:text-left mx-auto max-w-xs md:max-w-sm">
             YOUR PARTNER IN{" "}
             <span className="inline-block bg-gradient-to-r from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
               DIGITAL INNOVATION
