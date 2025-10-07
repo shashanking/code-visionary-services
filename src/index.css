@@ -250,3 +250,12 @@ html {
     transform: translate(-50%, -50%) rotate(90deg) scale(1.4);
   }
 }
+
+/* Hide scrollbar for testimonial section */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

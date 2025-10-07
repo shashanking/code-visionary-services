@@ -1,444 +1,627 @@
-import React, { useRef } from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import IconButton from "@mui/material/IconButton";
+// import React, { useRef, useState } from "react";
+// import SectionContainer from "./shared/SectionContainer";
+// import ContentContainer from "./shared/ContentContainer";
+// import testimonialBg from "../assets/Testimonial_section_bg_image.png";
+// import leftArrow from "../assets/Testimonial_section_left_arrow_vector_image.png";
+// import rightArrow from "../assets/Testimonial_section_right_arrow_vector_image.png";
+// import { testimonials } from "../constants/testimonials-data";
 
-// Import your image assets
+// const TestimonialSection: React.FC = () => {
+//   const rowRef = useRef<HTMLDivElement>(null);
+//   const [hoveredId, setHoveredId] = useState<number | null>(null);
+//   const [playingId, setPlayingId] = useState<number | null>(null);
+
+//   // Create a map of refs for all videos
+//   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
+
+//   const scrollByAmount = 360;
+//   const scrollLeft = () => {
+//     rowRef.current?.scrollBy({ left: -scrollByAmount, behavior: "smooth" });
+//   };
+//   const scrollRight = () => {
+//     rowRef.current?.scrollBy({ left: scrollByAmount, behavior: "smooth" });
+//   };
+
+//   const handlePlay = (id: number) => {
+//     // Pause previously playing video
+//     if (playingId && videoRefs.current[playingId]) {
+//       videoRefs.current[playingId]?.pause();
+//     }
+
+//     // If clicked same video, toggle pause
+//     if (playingId === id) {
+//       videoRefs.current[id]?.pause();
+//       setPlayingId(null);
+//     } else {
+//       setPlayingId(id);
+//       // Play new video
+//       videoRefs.current[id]?.play();
+//     }
+//   };
+
+//   return (
+//     <SectionContainer
+//       id="testimonials"
+//       fullWidth
+//       padding="none"
+//       className="relative bg-[#F0F0F0] py-20 overflow-hidden"
+//     >
+//       {/* Background */}
+//       <div
+//         className="absolute inset-0 bg-cover bg-center opacity-10 scale-x-[-1]"
+//         style={{ backgroundImage: `url(${testimonialBg})` }}
+//       />
+
+//       <ContentContainer maxWidth="7xl" paddingX="lg" className="relative z-10">
+//         {/* Header */}
+//         <div className="flex flex-col md:flex-row items-center gap-10 mb-16">
+//           <div className="hidden md:flex gap-10">
+//             <button
+//               onClick={scrollLeft}
+//               className="w-16 h-16 flex items-center justify-center border border-[#161616]/20 hover:opacity-50 rounded-full"
+//             >
+//               <img src={leftArrow} alt="Prev" className="w-6 h-6" />
+//             </button>
+//             <button
+//               onClick={scrollRight}
+//               className="w-16 h-16 flex items-center justify-center border border-[#161616]/20 hover:opacity-50 rounded-full"
+//             >
+//               <img src={rightArrow} alt="Next" className="w-6 h-6" />
+//             </button>
+//           </div>
+
+//           <div className="flex-1 text-center md:text-left">
+//             <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-widest mb-4">
+//               What Our Clients Say
+//             </h2>
+//             <p className="max-w-3xl mx-auto md:mx-0 text-[#303030] leading-relaxed">
+//               Discover how Code Visionary Services makes a difference for our
+//               clients. We design and ship performant web and mobile products —
+//               and also build AI infrastructure that supports business
+//               operations.
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Scrollable testimonial cards */}
+//         <div
+//           ref={rowRef}
+//           className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory px-2 md:px-0"
+//         >
+//           {testimonials.map((item) => {
+//             const isHovered = hoveredId === item.id;
+//             const isPlaying = playingId === item.id;
+
+//             return (
+//               <div
+//                 key={item.id}
+//                 onMouseEnter={() => setHoveredId(item.id)}
+//                 onMouseLeave={() => setHoveredId(null)}
+//                 className="relative flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] lg:w-[420px] h-[480px] rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] bg-white"
+//               >
+//                 {/* Video Overlay */}
+//                 <video
+//                   ref={(el) => {
+//                     videoRefs.current[item.id] = el; // just assign, don't return anything
+//                   }}
+//                   src={item.video}
+//                   className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
+//                     isHovered || isPlaying
+//                       ? "opacity-100"
+//                       : "opacity-0 pointer-events-none"
+//                   }`}
+//                   muted
+//                   loop
+//                   playsInline
+//                 />
+
+//                 {/* Overlay Gradient */}
+//                 <div
+//                   className={`absolute inset-0 bg-gradient-to-t from-black/40 to-transparent transition-opacity duration-500 pointer-events-none ${
+//                     isHovered || isPlaying ? "opacity-100" : "opacity-0"
+//                   }`}
+//                 />
+
+//                 {/* Content */}
+//                 <div className="relative z-10 flex flex-col justify-between p-6 h-full">
+//                   {/* Text always visible */}
+//                   <p className="text-[#303030] text-base md:text-lg leading-relaxed">
+//                     {item.text}
+//                   </p>
+
+//                   {/* Logo, Name & Title appear on hover */}
+//                   <div
+//                     className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-center transition-opacity duration-300 ${
+//                       isHovered ? "opacity-100" : "opacity-0"
+//                     }`}
+//                   >
+//                     <img
+//                       src={item.image}
+//                       alt={item.name}
+//                       className="w-16 h-16 object-contain"
+//                     />
+//                     <h3 className="text-2xl font-bold text-white">
+//                       {item.name}
+//                     </h3>
+//                     <p className="text-white opacity-80">{item.title}</p>
+
+//                     {/* Play button */}
+//                     <button
+//                       onClick={() => handlePlay(item.id)}
+//                       className="mt-2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/50 flex items-center justify-center transition"
+//                     >
+//                       <svg
+//                         xmlns="http://www.w3.org/2000/svg"
+//                         fill="currentColor"
+//                         viewBox="0 0 24 24"
+//                         className="w-6 h-6 text-white"
+//                       >
+//                         <path d="M4 4l16 8-16 8z" />
+//                       </svg>
+//                     </button>
+//                   </div>
+//                 </div>
+//               </div>
+//             );
+//           })}
+//         </div>
+
+//         {/* Mobile arrows */}
+//         <div className="flex md:hidden justify-center gap-8 mt-10">
+//           <button
+//             onClick={scrollLeft}
+//             className="w-14 h-14 flex items-center justify-center border border-[#161616]/20 rounded-full"
+//           >
+//             <img src={leftArrow} alt="Prev" className="w-5 h-5" />
+//           </button>
+//           <button
+//             onClick={scrollRight}
+//             className="w-14 h-14 flex items-center justify-center border border-[#161616]/20 rounded-full"
+//           >
+//             <img src={rightArrow} alt="Next" className="w-5 h-5" />
+//           </button>
+//         </div>
+//       </ContentContainer>
+//     </SectionContainer>
+//   );
+// };
+
+// export default TestimonialSection;
+
+// import React, { useRef, useState, useEffect } from "react";
+// import SectionContainer from "./shared/SectionContainer";
+// import ContentContainer from "./shared/ContentContainer";
+// import testimonialBg from "../assets/Testimonial_section_bg_image.png";
+// import leftArrow from "../assets/Testimonial_section_left_arrow_vector_image.png";
+// import rightArrow from "../assets/Testimonial_section_right_arrow_vector_image.png";
+// import { testimonials } from "../constants/testimonials-data";
+
+// const TestimonialSection: React.FC = () => {
+//   const rowRef = useRef<HTMLDivElement>(null);
+//   const [hoveredId, setHoveredId] = useState<number | null>(2); // second card hovered by default
+//   const [playingId, setPlayingId] = useState<number | null>(null);
+//   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
+
+//   const scrollByAmount = 360;
+//   const scrollLeft = () =>
+//     rowRef.current?.scrollBy({ left: -scrollByAmount, behavior: "smooth" });
+//   const scrollRight = () =>
+//     rowRef.current?.scrollBy({ left: scrollByAmount, behavior: "smooth" });
+
+//   useEffect(() => {
+//     return () => {
+//       Object.values(videoRefs.current).forEach((v) => v?.pause());
+//     };
+//   }, []);
+
+//   return (
+//     <SectionContainer
+//       id="testimonials"
+//       fullWidth
+//       padding="none"
+//       className="relative min-h-screen overflow-hidden bg-[#F0F0F0]"
+//     >
+//       {/* Background */}
+//       <div className="absolute inset-0 z-0 overflow-hidden">
+//         <div
+//           className="w-full h-full bg-cover bg-no-repeat bg-center scale-x-[-1]"
+//           style={{ backgroundImage: `url(${testimonialBg})` }}
+//         />
+//         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
+//       </div>
+
+//       <ContentContainer
+//         maxWidth="7xl"
+//         paddingX="lg"
+//         className="relative z-10 w-full min-h-screen py-16 md:py-20"
+//       >
+//         {/* Header */}
+//         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-15 mb-16 md:mb-20">
+//           <div className="hidden md:flex gap-4">
+//             <button
+//               onClick={scrollLeft}
+//               className="w-16 h-16 flex items-center justify-center border border-[#161616]/20 rounded-full"
+//             >
+//               <img src={leftArrow} alt="Prev" className="w-6 h-6" />
+//             </button>
+//             <button
+//               onClick={scrollRight}
+//               className="w-16 h-16 flex items-center justify-center border border-[#161616]/20 rounded-full"
+//             >
+//               <img src={rightArrow} alt="Next" className="w-6 h-6" />
+//             </button>
+//           </div>
+
+//           <div className="flex-1 text-center md:text-left">
+//             <h1 className="font-heading font-bold uppercase tracking-widest mb-4">
+//               What Our Clients Say
+//             </h1>
+//             <p className="text-[#303030] leading-relaxed max-w-3xl mx-auto md:mx-0">
+//               Discover how Code Visionary Services makes a difference for our
+//               clients. We design and ship performant web and mobile products—and
+//               we also build AI infrastructure that supports business operations.
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Testimonial Cards */}
+//         <div
+//           ref={rowRef}
+//           className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory p-4"
+//         >
+//           {testimonials.map((item, idx) => {
+//             const isHovered = hoveredId === item.id;
+//             const isPlaying = playingId === item.id;
+//             const isDefaultDark = idx === 1;
+
+//             return (
+//               <div
+//                 key={item.id}
+//                 onMouseEnter={() => setHoveredId(item.id)}
+//                 onMouseLeave={() => setHoveredId(null)}
+//                 className={`relative flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] h-[380px] md:h-[460px] rounded-2xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer`}
+//                 style={{
+//                   background:
+//                     isHovered || isDefaultDark ? "#131A22" : "#F0F0F0",
+//                   boxShadow: isHovered
+//                     ? "0px 0px 8px 2px #B5442C80"
+//                     : "0px 0px 8px 2px #0861AA80",
+//                   borderImageSource: isHovered
+//                     ? "linear-gradient(91.08deg, #B5442C 0.34%, #FF9C87 99.62%)"
+//                     : undefined,
+//                   borderImageSlice: isHovered ? 1 : undefined,
+//                 }}
+//               >
+//                 {/* Video */}
+//                 {item.video && (
+//                   <video
+//                     ref={(el) => {
+//                       videoRefs.current[item.id] = el; // just assign, don't return anything
+//                     }}
+//                     src={item.video}
+//                     className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
+//                       isHovered || isPlaying
+//                         ? "opacity-100"
+//                         : "opacity-0 pointer-events-none"
+//                     }`}
+//                     muted
+//                     loop
+//                     playsInline
+//                   />
+//                 )}
+
+//                 {item.video && !isPlaying && isHovered && (
+//                   <button
+//                     className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-2xl z-20"
+//                     onClick={async (e) => {
+//                       e.stopPropagation(); // prevent triggering hover leave
+//                       // Pause currently playing video
+//                       if (
+//                         playingId &&
+//                         videoRefs.current[playingId] &&
+//                         playingId !== item.id
+//                       ) {
+//                         videoRefs.current[playingId]?.pause();
+//                       }
+
+//                       if (playingId === item.id) {
+//                         videoRefs.current[item.id]?.pause();
+//                         setPlayingId(null);
+//                       } else {
+//                         try {
+//                           await videoRefs.current[item.id]?.play();
+//                           setPlayingId(item.id);
+//                         } catch (err) {
+//                           console.error("Video play error", err);
+//                         }
+//                       }
+//                     }}
+//                   >
+//                     <div className="w-16 h-16 rounded-full bg-white/30 hover:bg-white/50 flex items-center justify-center">
+//                       <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white ml-1" />
+//                     </div>
+//                   </button>
+//                 )}
+//                 {/* Text & Logo */}
+//                 <div
+//                   className={`absolute inset-0 flex flex-col justify-between p-6 transition-opacity duration-300 ${
+//                     isHovered ? "opacity-0" : "opacity-100"
+//                   }`}
+//                 >
+//                   <p className="text-[#303030] text-base md:text-lg leading-relaxed">
+//                     {item.text}
+//                   </p>
+//                   <div className="flex flex-col items-start mt-4">
+//                     <img
+//                       src={item.image}
+//                       alt={item.name}
+//                       className="w-16 h-16 object-contain mb-2"
+//                     />
+//                     <h3 className="text-2xl font-bold text-[#161616]">
+//                       {item.name}
+//                     </h3>
+//                     <p className="text-[#303030]">{item.title}</p>
+//                   </div>
+//                 </div>
+//                 {/* Hover info */}
+//                 {isHovered && (
+//                   <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-center text-white z-10">
+//                     <img
+//                       src={item.image}
+//                       alt={item.name}
+//                       className="w-16 h-16 object-contain"
+//                     />
+//                     <h3 className="text-2xl font-bold">{item.name}</h3>
+//                     <p className="opacity-80">{item.title}</p>
+//                   </div>
+//                 )}
+//               </div>
+//             );
+//           })}
+//         </div>
+
+//         {/* Mobile arrows */}
+//         <div className="flex md:hidden justify-center gap-8 mt-10">
+//           <button
+//             onClick={scrollLeft}
+//             className="w-14 h-14 flex items-center justify-center border border-[#161616]/20 rounded-full"
+//           >
+//             <img src={leftArrow} alt="Prev" className="w-5 h-5" />
+//           </button>
+//           <button
+//             onClick={scrollRight}
+//             className="w-14 h-14 flex items-center justify-center border border-[#161616]/20 rounded-full"
+//           >
+//             <img src={rightArrow} alt="Next" className="w-5 h-5" />
+//           </button>
+//         </div>
+//       </ContentContainer>
+//     </SectionContainer>
+//   );
+// };
+
+// export default TestimonialSection;
+
+import React, { useRef, useState, useEffect } from "react";
+import SectionContainer from "./shared/SectionContainer";
+import ContentContainer from "./shared/ContentContainer";
 import testimonialBg from "../assets/Testimonial_section_bg_image.png";
-// Client logos
-import kbidLogo from "../assets/clients/k-bid.jpeg";
-import ospLogo from "../assets/clients/osp-logo.png";
-import riqshaLogo from "../assets/clients/riqsha.jpeg";
-import rideeasyLogo from "../assets/clients/rideeasy.webp";
-import moneyblasterLogo from "../assets/clients/moneyblaster.jpg";
-import dentologieLogo from "../assets/clients/dentologie.jpg";
-import pistonheadLogo from "../assets/clients/pistonhead.png";
-import shopinfinityLogo from "../assets/clients/shopinfinity.webp";
-import happyhelpLogo from "../assets/clients/happyhelpinghands.webp";
-import kaltechLogo from "../assets/clients/kaltech.jpeg";
-import leftArrow from "../assets/Testimonial_section_left_arrow_vector_image.png"; 
-import rightArrow from "../assets/Testimonial_section_right_arrow_vector_image.png"; 
-
-const testimonials = [
-  {
-    name: "K-Bid",
-    title: "E-commerce Platform",
-    image: kbidLogo,
-    text:
-      "“CVS rebuilt our storefront with blazing performance and a clean UX. Conversions are up and maintenance is a breeze.”",
-  },
-  {
-    name: "OSP Broker",
-    title: "Logistics SaaS",
-    image: ospLogo,
-    text:
-      "“Reliable team, clear communication, and on-time delivery. Our onboarding flow is now 2× faster.”",
-  },
-  {
-    name: "HHH",
-    title: "Nonprofit",
-    image: happyhelpLogo,
-    text:
-      "“They modernized our website and donation experience. The impact on engagement has been immediate.”",
-  },
-  {
-    name: "RiQsha",
-    title: "Mobility App",
-    image: riqshaLogo,
-    text:
-      "“From idea to launch, CVS handled design and engineering seamlessly. The app feels polished and fast.”",
-  },
-  {
-    name: "ShopInfinity",
-    title: "Retail Brand",
-    image: shopinfinityLogo,
-    text:
-      "“Beautiful UI, stable integrations, and attentive support. A great partner for our growth.”",
-  },
-  {
-    name: "Ride Easy",
-    title: "Auto Services",
-    image: rideeasyLogo,
-    text:
-      "“Excellent communication and execution. Our booking experience is significantly better now.”",
-  },
-  {
-    name: "MoneyBlaster",
-    title: "FinTech Tournament",
-    image: moneyblasterLogo,
-    text:
-      "“CVS delivered a performant, real-time experience on a tight timeline. We’ll work with them again.”",
-  },
-  {
-    name: "Dentologie",
-    title: "Healthcare",
-    image: dentologieLogo,
-    text:
-      "“Thoughtful design and smooth implementation. Our patients love the updated portal.”",
-  },
-  {
-    name: "PistonHeads",
-    title: "Media",
-    image: pistonheadLogo,
-    text:
-      "“High-quality engineering and attention to detail. The site feels premium and quick.”",
-  },
-  {
-    name: "Kaltech",
-    title: "Industrial",
-    image: kaltechLogo,
-    text:
-      "“CVS helped us modernize internal systems and data flows. Their AI-driven automations reduced manual effort dramatically.”",
-  },
-];
+import leftArrow from "../assets/Testimonial_section_left_arrow_vector_image.png";
+import rightArrow from "../assets/Testimonial_section_right_arrow_vector_image.png";
+import { testimonials } from "../constants/testimonials-data";
 
 const TestimonialSection: React.FC = () => {
-  // Show all testimonials; horizontal scroll handles overflow
-  const visibleTestimonials = testimonials;
-  const rowRef = useRef<HTMLDivElement | null>(null);
-  const scrollByAmount = 360; // px; approximates one card on md screens
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [hoveredId, setHoveredId] = useState<number | null>(2); // second card hovered by default
+  const [playingId, setPlayingId] = useState<number | null>(null);
+  const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
+
+  const scrollByAmount = 360;
+  const scrollLeft = () =>
+    rowRef.current?.scrollBy({ left: -scrollByAmount, behavior: "smooth" });
+  const scrollRight = () =>
+    rowRef.current?.scrollBy({ left: scrollByAmount, behavior: "smooth" });
+
+  useEffect(() => {
+    return () => {
+      Object.values(videoRefs.current).forEach((v) => v?.pause());
+    };
+  }, []);
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "100vw",
-        minHeight: { xs: "auto", md: "100vh" },
-        backgroundColor: "#F0F0F0",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        boxSizing: "border-box",
-        px: 0,
-        pt: { xs: 6, md: 10 },
-        pb: { xs: 6, md: 10 },
-        overflow: "hidden",
-      }}
+    <SectionContainer
+      id="testimonials"
+      fullWidth
+      padding="none"
+      className="relative min-h-screen overflow-hidden bg-[#F0F0F0]"
     >
-      {/* Mirrored background image */}
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `url(${testimonialBg})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transform: "scaleX(-1)",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      />
-      {/* Vertical fade gradient overlay */}
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(180deg, #F0F0F0 0%, rgba(240,240,240,0) 50.48%, #F0F0F0 100%)",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      />
-      {/* Blurred secondary ellipse */}
-      <Box
-        sx={{
-          position: "absolute",
-          width: 660,
-          height: 660,
-          left: { xs: "50%", md: 630 },
-          top: { xs: 380, md: 320 },
-          transform: { xs: "translateX(-50%)", md: "none" },
-          background: "#B5442C",
-          opacity: 0.2,
-          filter: "blur(139.545px)",
-          borderRadius: "50%",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      />
-      {/* Header (TRANSPARENT BACKGROUND) */}
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: 1600,
-          mx: "auto",
-          display: "flex",
-          alignItems: "center",
-          gap: { xs: 2, md: "60px" },
-          mb: { xs: 8, md: 10 },
-          py: 0,
-          px: { xs: 2, md: 4 },
-          background: "transparent",
-          position: "relative",
-          zIndex: 2,
-          minHeight: 132,
-        }}
-      >
-        {/* Left: Arrows group (228x90, gap 48) */}
-        <Box
-          sx={{
-            width: 228,
-            height: 90,
-            display: { xs: "none", md: "flex" },
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "48px",
-            flex: "0 0 auto",
-          }}
-        >
-          <IconButton
-            sx={{
-              width: 90,
-              height: 90,
-              borderRadius: "46px",
-              bgcolor: "transparent",
-              border: "1px solid #161616",
-              opacity: 0.2,
-              "&:hover": { opacity: 0.35 },
-              p: 0,
-              cursor: "pointer",
-              transition: "opacity 0.14s",
-            }}
-            onClick={() => rowRef.current?.scrollBy({ left: -scrollByAmount, behavior: "smooth" })}
-            aria-label="Previous testimonial"
-          >
-            <img src={leftArrow} alt="Previous" width={42} height={42} />
-          </IconButton>
-          <IconButton
-            sx={{
-              width: 90,
-              height: 90,
-              borderRadius: "46px",
-              bgcolor: "transparent",
-              border: "1px solid #161616",
-              p: 0,
-              cursor: "pointer",
-              transition: "opacity 0.14s",
-            }}
-            onClick={() => rowRef.current?.scrollBy({ left: scrollByAmount, behavior: "smooth" })}
-            aria-label="Next testimonial"
-          >
-            <img src={rightArrow} alt="Next" width={42} height={42} />
-          </IconButton>
-        </Box>
-
-        {/* Vertical gradient divider (Rectangle 90) */}
-        <Box
-          sx={{
-            width: 2,
-            height: 132,
-            borderRadius: "17px",
-            background: "linear-gradient(180deg, rgba(8,97,170,0) 0%, #0861AA 50%, rgba(8,97,170,0) 100%)",
-            display: { xs: "none", sm: "block" },
-            flex: "0 0 auto",
-          }}
+      {/* Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div
+          className="w-full h-full bg-cover bg-no-repeat bg-center scale-x-[-1]"
+          style={{ backgroundImage: `url(${testimonialBg})` }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
+      </div>
 
-        {/* Text block */}
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography
-            variant="h4"
-            sx={{
-              fontFamily: "'Earth Orbiter', Arial, sans-serif",
-              fontWeight: 700,
-              color: "#161616",
-              fontSize: { xs: 28, md: 48 },
-              letterSpacing: { xs: ".12em", md: ".17em" },
-              textTransform: "uppercase",
-              mb: 1.2,
-              lineHeight: "48px",
-              textAlign: "left",
-              display: "block",
-            }}
-          >
-            WHAT OUR CLIENTS SAY
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Montserrat, Arial, sans-serif",
-              fontWeight: 400,
-              fontSize: { xs: 18, md: 20 },
-              lineHeight: "30px",
-              color: "#303030",
-              textAlign: "left",
-              maxWidth: 1250,
-            }}
-          >
-            Discover how Code Visionary Services makes a difference for our clients. We design and ship performant web and mobile products—and we also build AI infrastructure that supports business operations, from data pipelines and embeddings to automated workflows and copilots that boost team productivity.
-          </Typography>
-        </Box>
-      </Box>
-
-      {/* Testimonial Cards */}
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: { xs: 1000, sm: 1200, md: 1280, lg: 1400 },
-          mx: "auto",
-          display: "flex",
-          justifyContent: "flex-start",
-          flexWrap: "nowrap",
-          gap: { xs: 2, sm: 2.5, md: 3 },
-          px: { xs: 2, md: 0 },
-          overflowX: "auto",
-          overflowY: "hidden",
-          scrollSnapType: "x mandatory",
-          WebkitOverflowScrolling: "touch",
-          scrollbarWidth: "none",
-          "&::-webkit-scrollbar": { display: "none" },
-          mt: { xs: 2, md: 3 },
-          position: "relative",
-          zIndex: 1,
-        }}
-        ref={rowRef}
+      <ContentContainer
+        maxWidth="7xl"
+        paddingX="lg"
+        className="relative z-10 w-full py-16 md:py-20"
       >
-        {visibleTestimonials.map((item, idx) => {
-          const isDark = idx === 1; // keep highlight styling on second card
-
-          return (
-            <Card
-              key={item.name + idx}
-              sx={{
-                width: { xs: 280, sm: 280, md: 300, lg: 360, xl: 420 },
-                maxHeight: { xs: 480, md: 540, lg: 560, xl: 560 },
-                borderRadius: "20px",
-                border: isDark ? "none" : "none",
-                boxShadow: isDark
-                  ? "0px 0px 8px rgba(181, 68, 44, 0.5)"
-                  : "0px 0px 8px 2px rgba(8, 97, 170, 0.5)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                position: "relative",
-                overflow: "hidden",
-                background: isDark ? "#131A22" : "#F0F0F0",
-                scrollSnapAlign: "start",
-                flex: "0 0 auto",
-              }}
-            >
-              {/* Removed dark card background image overlay to avoid stretching logos */}
-
-              {/* Avatar removed per request */}
-
-              {/* Content wrapper to keep text within bounds */}
-              <Box
-                sx={{
-                  position: "relative",
-                  zIndex: 2,
-                  p: { xs: 2.5, md: 3 },
-                  pt: { xs: 2, md: 3 },
-                  height: "100%",
-                  width: "100%",
-                  boxSizing: "border-box",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  minWidth: 0,
-                }}
+        <div className="w-full max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-15 mb-16 md:mb-20">
+            <div className="hidden md:flex gap-4">
+              <button
+                onClick={scrollLeft}
+                className="w-16 h-16 flex items-center justify-center border border-[#161616]/20 rounded-full"
               >
-                {/* Client logo */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    mb: { xs: 1.5, md: 2 },
+                <img src={leftArrow} alt="Prev" className="w-6 h-6" />
+              </button>
+              <button
+                onClick={scrollRight}
+                className="w-16 h-16 flex items-center justify-center border border-[#161616]/20 rounded-full"
+              >
+                <img src={rightArrow} alt="Next" className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="flex-1 text-center md:text-left">
+              <h1 className="font-heading font-bold uppercase tracking-widest mb-4">
+                What Our Clients Say
+              </h1>
+              <p className="text-[#303030] leading-relaxed max-w-3xl mx-auto md:mx-0">
+                Discover how Code Visionary Services makes a difference for our
+                clients. We design and ship performant web and mobile
+                products—and we also build AI infrastructure that supports
+                business operations.
+              </p>
+            </div>
+          </div>
+
+          {/* Testimonial Cards */}
+          <div
+            ref={rowRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory p-4"
+          >
+            {testimonials.map((item, idx) => {
+              const isHovered = hoveredId === item.id;
+              const isPlaying = playingId === item.id;
+              const isDefaultDark = idx === 1;
+
+              // Determine card background
+              const isActive = isHovered || isPlaying || isDefaultDark;
+              const bgColor = isActive ? "#131A22" : "#F0F0F0";
+
+              // Determine text color based on background
+              const textColor = bgColor === "#131A22" ? "#FFFFFF" : "#000000";
+
+              return (
+                <div
+                  key={item.id}
+                  onMouseEnter={() => setHoveredId(item.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className={`relative flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] h-[380px] md:h-[460px] rounded-2xl overflow-hidden transition-all duration-300`}
+                  style={{
+                    background: bgColor,
+                    boxShadow: isHovered
+                      ? "0px 0px 8px 2px #B5442C80"
+                      : "0px 0px 8px 2px #0861AA80",
+                    borderImageSource: isHovered
+                      ? "linear-gradient(91.08deg, #B5442C 0.34%, #FF9C87 99.62%)"
+                      : undefined,
+                    borderImageSlice: isHovered ? 1 : undefined,
                   }}
                 >
-                  <Box
-                    component="img"
+                  {/* Logo always visible */}
+                  <img
                     src={item.image}
-                    alt={`${item.name} logo`}
-                    sx={{
-                      width: { xs: 56, md: 64 },
-                      height: { xs: 56, md: 64 },
-                      objectFit: "contain",
-                      borderRadius: 0,
-                    }}
+                    alt={item.name}
+                    className="absolute top-5 left-5 w-12 h-12 rounded-full border-2 border-[#0861AA] object-contain z-30"
                   />
-                </Box>
-                <Typography
-                  sx={{
-                    fontFamily: "Montserrat, Arial, sans-serif",
-                    fontWeight: 400,
-                    fontSize: { xs: 16, md: 18, lg: 20 },
-                    lineHeight: { xs: "26px", md: "28px", lg: "30px" },
-                    color: isDark ? "#FFFFFF" : "#303030",
-                    wordBreak: "break-word",
-                    overflowWrap: "anywhere",
-                    hyphens: "auto",
-                  }}
-                >
-                  {item.text}
-                </Typography>
 
-                <Box sx={{ mt: { xs: 2, md: 3 } }}>
-                  <Typography
-                    sx={{
-                      fontFamily: "Montserrat, Arial, sans-serif",
-                      fontWeight: 700,
-                      fontSize: { xs: 22, md: 32, lg: 48 },
-                      lineHeight: { xs: "30px", md: "36px", lg: "30px" },
-                      color: isDark ? "#FFFFFF" : "#161616",
-                    }}
-                  >
-                    {item.name}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: "Montserrat, Arial, sans-serif",
-                      fontWeight: 400,
-                      fontSize: { xs: 14, md: 16, lg: 20 },
-                      lineHeight: { xs: "22px", md: "24px", lg: "30px" },
-                      color: isDark ? "#FFFFFF" : "#303030",
-                    }}
-                  >
-                    {item.title}
-                  </Typography>
-                </Box>
-              </Box>
+                  {/* Video */}
+                  {item.video && (
+                    <video
+                      ref={(el) => {
+                        videoRefs.current[item.id] = el;
+                      }}
+                      src={item.video}
+                      className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
+                        isHovered || isPlaying
+                          ? "opacity-100"
+                          : "opacity-0 pointer-events-none"
+                      }`}
+                      muted
+                      loop
+                      playsInline
+                    />
+                  )}
 
-              {/* Play button on dark card */}
-              {isDark && (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    left: "50%",
-                    top: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: 100,
-                    height: 60,
-                    borderRadius: 68,
-                    background: "rgba(255,255,255,0.2)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 1,
-                    zIndex: 2,
-                  }}
-                  aria-label="Play video"
-                >
-                  <Box
-                    sx={{
-                      width: 0,
-                      height: 0,
-                      borderTop: "10px solid transparent",
-                      borderBottom: "10px solid transparent",
-                      borderLeft: "20px solid #FFFFFF",
-                    }}
-                  />
-                </Box>
-              )}
-            </Card>
-          );
-        })}
-      </Box>
-    </Box>
+                  {/* Play/Pause button overlay */}
+                  {item.video && isHovered && (
+                    <button
+                      className={`
+                      absolute z-20 flex items-center justify-center
+                      w-[90px] h-[50px] 
+                      top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                      gap-2 rounded-[68px] pt-[20px] pb-[20px]
+                      bg-black/30 hover:bg-white/50 opacity-100 cursor-pointer
+                    `}
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        if (playingId && playingId !== item.id) {
+                          videoRefs.current[playingId]?.pause();
+                        }
+                        if (playingId === item.id) {
+                          videoRefs.current[item.id]?.pause();
+                          setPlayingId(null);
+                        } else {
+                          try {
+                            await videoRefs.current[item.id]?.play();
+                            setPlayingId(item.id);
+                          } catch (err) {
+                            console.error("Video play error", err);
+                          }
+                        }
+                      }}
+                    >
+                      {playingId === item.id ? (
+                        <div className="flex gap-2">
+                          <div className="w-1.5 h-6 bg-white rounded-sm" />
+                          <div className="w-1.5 h-6 bg-white rounded-sm" />
+                        </div>
+                      ) : (
+                        <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white" />
+                      )}
+                    </button>
+                  )}
+
+                  {/* Text */}
+                  <div
+                    className={`absolute inset-0 flex flex-col justify-between p-6 pt-20 transition-opacity duration-300 ${
+                      isHovered || isPlaying ? "opacity-0" : "opacity-100"
+                    }`}
+                    style={{ color: textColor }}
+                  >
+                    <p className="text-body2 leading-[1.5]">{item.text}</p>
+                    <div className="flex flex-col items-start mt-4 gap-2">
+                      <h3 className="text-body1 font-bold">{item.name}</h3>
+                      <p className="text-body2">{item.title}</p>
+                    </div>
+                  </div>
+
+                  {/* Hover info */}
+                  {isHovered && (
+                    <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 text-white z-10">
+                      <h3 className="text-body1 font-bold">{item.name}</h3>
+                      <p className="text-body2">{item.title}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Mobile arrows */}
+          <div className="flex md:hidden justify-center gap-8 mt-10">
+            <button
+              onClick={scrollLeft}
+              className="w-14 h-14 flex items-center justify-center border border-[#161616]/20 rounded-full"
+            >
+              <img src={leftArrow} alt="Prev" className="w-5 h-5" />
+            </button>
+            <button
+              onClick={scrollRight}
+              className="w-14 h-14 flex items-center justify-center border border-[#161616]/20 rounded-full"
+            >
+              <img src={rightArrow} alt="Next" className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </ContentContainer>
+    </SectionContainer>
   );
 };
 
