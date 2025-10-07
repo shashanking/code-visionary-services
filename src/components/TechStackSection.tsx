@@ -1,381 +1,154 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Chip from "@mui/material/Chip";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useEffect, useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import SectionContainer from "./shared/SectionContainer";
+import ContentContainer from "./shared/ContentContainer";
 import bgImg from "../assets/tech_stack_section_bg_image.png";
-import reactLogo from "../assets/tech_stack_section_tech1_image.png";
-import angularLogo from "../assets/tech_stack_section_tech2_image.png";
-import laravelLogo from "../assets/tech_stack_section_tech4_image.png";
-import wordpressLogo from "../assets/tech_stack_section_tech3_image.png";
+import {
+  mainTechs,
+  techTags,
+  tagToTechs,
+} from "../constants/tech-stack-section-data";
 
-const mainTechs = [
-  // Web Development
-  { label: "React", img: reactLogo },
-  { label: "Angular", img: angularLogo, active: true },
-  { label: "Next.js" },
-  { label: "Node.js" },
-  { label: "Vue" },
-  { label: "Svelte" },
-  // Back-end & APIs
-  { label: "Laravel", img: laravelLogo },
-  { label: "NestJS" },
-  { label: "Express" },
-  // CMS / Platforms
-  { label: "WordPress", img: wordpressLogo },
-  { label: "Shopify" },
-  { label: "Webflow" },
-  // Mobile
-  { label: "React Native" },
-  { label: "Flutter" },
-  // Data / DB
-  { label: "MongoDB" },
-  { label: "PostgreSQL" },
-  { label: "MySQL" },
-  // Design
-  { label: "Figma" },
-  { label: "Adobe XD" },
-  // SEO / Analytics
-  { label: "Google Analytics" },
-  { label: "Search Console" },
-  { label: "SEMrush" },
-  { label: "Ahrefs" },
-  // Blockchain
-  { label: "Solidity" },
-  { label: "Ethereum" },
-  // AI / ML
-  { label: "OpenAI" },
-  { label: "TensorFlow" },
-  { label: "PyTorch" },
-  { label: "LangChain" },
-  { label: "Hugging Face" },
-];
-
-const techTags = [
-  { label: "Web Development", highlighted: true },
-  { label: "App Development" },
-  { label: "Marketing" },
-  { label: "AI" },
-  { label: "Design" },
-  { label: "SEO Tools" },
-  { label: "Blockchain" },
-];
-
-const TechStackSection = () => {
+const TechStackSection: React.FC = () => {
   const [activeTag, setActiveTag] = useState<string>("Web Development");
-  const theme = useTheme();
-  const isXs = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const tagToTechs: Record<string, string[]> = {
-    "Web Development": [
-      "React",
-      "Angular",
-      "Next.js",
-      "Node.js",
-      "Vue",
-      "Svelte",
-      "Express",
-      "NestJS",
-    ],
-    "App Development": ["React Native", "Flutter"],
-    Marketing: ["Shopify", "Webflow"],
-    AI: ["OpenAI", "TensorFlow", "PyTorch", "LangChain", "Hugging Face"],
-    Design: ["Figma", "Adobe XD"],
-    "SEO Tools": ["Google Analytics", "Search Console", "SEMrush", "Ahrefs"],
-    Blockchain: ["Solidity", "Ethereum"],
-  };
 
   const visibleTechs = mainTechs.filter((t) =>
-    (tagToTechs[activeTag] || ["React", "Angular", "Laravel", "WordPress"]).includes(t.label)
+    (
+      tagToTechs[activeTag] || ["React", "Angular", "Laravel", "WordPress"]
+    ).includes(t.label)
   );
 
-  const displayTechs = isXs ? visibleTechs.slice(0, 6) : visibleTechs;
-
-  // Auto-rotate selected chip every ~2.5s based on current activeTag
-  // Disable rotation on mobile to avoid UI jumping
+  // Auto-rotate selected chip (only on desktop)
   useEffect(() => {
-    if (isXs) return;
     const interval = setInterval(() => {
       const currentIdx = techTags.findIndex((t) => t.label === activeTag);
       const nextIdx = (currentIdx + 1) % techTags.length;
       setActiveTag(techTags[nextIdx].label);
-    }, 2500);
+    }, 4000);
     return () => clearInterval(interval);
-  }, [activeTag, isXs]);
+  }, [activeTag]);
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "100vw", // Full viewport width
-        height: { xs: 855, md: "100vh" }, // reduced height on mobile and desktop
-        overflow: "hidden",
-        backgroundImage: { xs: "none", md: `url(${bgImg})` },
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: { xs: "top center", md: "center center" },
-        backgroundSize: "cover", // Ensures full coverage, scales correctly
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        boxSizing: "border-box",
-        m: 0, // Remove default margin if any
-        p: 0, // Remove default padding if any
-        pb: { xs: 2, md: 3 }, // small bottom padding for breathing room
-        overflowX: "hidden", // prevent mobile horizontal scroll
-      }}
+    <SectionContainer
       id="services"
+      fullWidth
+      padding="none"
+      className="relative min-h-screen overflow-hidden"
     >
-      {/* Top/bottom subtle gradient overlay to match Figma mobile (kept below elements) */}
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          // Softer, shallower fades at top and bottom on desktop
-          background:
-            "linear-gradient(180deg, rgba(240,240,240,0.9) 0%, rgba(240,240,240,0) 15%, rgba(240,240,240,0) 85%, rgba(240,240,240,0.9) 100%)",
-          display: "none",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-      {/* Main Content Wrapper */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: "center",
-          justifyContent: "center",
-          width: { xs: "100%", md: "100vw" },
-          height: { xs: "100%", md: "640px" },
-          maxWidth: 1600,
-          mx: "auto",
-          position: "relative",
-          zIndex: 2,
-        }}
+      {/* Background image */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Desktop Background */}
+        <div
+          className="hidden md:block w-full h-full bg-cover bg-no-repeat bg-center"
+          style={{ backgroundImage: `url(${bgImg})` }}
+        />
+        {/* Mobile Background (rotated) */}
+        <div
+          className="md:hidden mobile-bg-rotate"
+          style={{ backgroundImage: `url(${bgImg})` }}
+        />
+      </div>
+
+      <ContentContainer
+        maxWidth="7xl"
+        paddingX="lg"
+        className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full min-h-[100vh] py-16 md:py-20"
       >
-        {/* Left Side - Tech cards grid */}
-        <Box
-          sx={{
-            zIndex: 1,
-            transform: { xs: "none", md: "translateX(-16%)" },
-            width: { xs: "100%", md: "55vw" },
-            maxWidth: { xs: 380, lg: "820px" },
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minWidth: 0,
-            order: { xs: 1, md: 1 }, // grid first on mobile
-            px: { xs: 2, md: 0 },
-            mt: { xs: 2, md: 0 },
-          }}
-        >
-          <Box
-            sx={{
-              position: "relative",
-              zIndex: 2,
-              display: "grid",
-              gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(2, 1fr)", md: "repeat(2, 1fr)" },
-              gap: { xs: 2, sm: 2.5, md: 4 },
-              width: { xs: "100%", md: "auto" },
-              maxWidth: { xs: 360, sm: 520, md: "unset" },
-              // Allow full three rows on mobile
-              overflow: { xs: "visible", md: "visible" },
-              alignContent: { xs: "center", md: "stretch" },
-              // Reserve space for 3 rows (2x3 grid) on mobile so height stays consistent
-              minHeight: { xs: 416, sm: 416, md: "auto" },
-              mt: { xs: 2, md: 0 },
-              mb: { xs: 4, md: 0 },
-              justifyItems: { xs: "center", md: "stretch" },
-            }}
-          >
-            {displayTechs.map(({ label, img, active }) => (
-              <Box
-                key={label}
-                sx={{
-                  background: active
-                    ? "linear-gradient(135deg, #b44a2c 0%, #882f1a 100%)"
-                    : "#fff",
-                  borderRadius: 12,
-                  boxShadow: active
-                    ? "0 10px 25px rgba(180,74,44,0.33)"
-                    : "0 2px 12px rgba(33,52,100,0.09)",
-                  border: active ? "none" : "2px solid #EDF1F6",
-                  cursor: "pointer",
-                  width: { xs: 128, sm: 136, md: 165 },
-                  height: { xs: 128, sm: 136, md: 165 },
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  p: 1,
-                  color: active ? "#fff" : "#143255",
-                  transition: "box-shadow 0.3s",
-                  "&:hover": {
-                    boxShadow: active
-                      ? "0 24px 50px rgba(180,74,44,0.42)"
-                      : "0 6px 22px rgba(33,52,100,0.19)",
-                  },
-                  // Keep grid cells consistent on mobile (no special spanning)
-                  gridColumn: { xs: "auto", md: "auto" },
-                  justifySelf: { xs: "stretch", md: "auto" },
-                }}
-              >
-                {img ? (
-                  <Box
-                    component="img"
-                    src={img}
-                    alt={label}
-                    sx={{
-                      width: { xs: 44, sm: 44, md: 58 },
-                      height: { xs: 44, sm: 44, md: 58 },
-                      objectFit: "contain",
-                      filter: active ? "none" : "grayscale(55%)",
-                    }}
-                  />
-                ) : (
-                  <Box
-                    sx={{
-                      width: { xs: 44, sm: 44, md: 58 },
-                      height: { xs: 44, sm: 44, md: 58 },
-                      borderRadius: "50%",
-                      background: active ? "rgba(255,255,255,0.22)" : "#EDF1F6",
-                      color: active ? "#fff" : "#143255",
-                      fontWeight: 800,
-                      fontFamily: "Montserrat, Arial, sans-serif",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      textTransform: "uppercase",
-                      letterSpacing: 0.6,
-                    }}
+        <div className="flex flex-col md:flex-row items-stretch justify-between w-full max-w-2xl mx-auto gap-10">
+          {/* Left: Tech Grid */}
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center self-start md:self-center h-138 xs:h-100 md:h-full">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full max-w-2xl">
+              {visibleTechs.map(({ label, img, active }) => (
+                <div
+                  key={label}
+                  className={`
+                    rounded-2xl shadow-lg cursor-pointer transition-all duration-300 
+                    w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40
+                    flex flex-col items-center justify-center p-3 flex-shrink-0
+                    ${
+                      active
+                        ? "bg-gradient-to-br from-[#b44a2c] to-[#882f1a] text-white shadow-2xl shadow-orange-900/30"
+                        : "bg-white text-[#143255] border-2 border-gray-100 hover:shadow-xl"
+                    }
+                  `}
+                >
+                  {img ? (
+                    <img
+                      src={img}
+                      alt={label}
+                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain ${
+                        active ? "" : "grayscale"
+                      }`}
+                    />
+                  ) : (
+                    <div
+                      className={`
+                        w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full 
+                        flex items-center justify-center font-montserrat font-bold 
+                        uppercase tracking-wider text-xs sm:text-sm
+                        ${
+                          active
+                            ? "bg-white/20 text-white"
+                            : "bg-gray-100 text-[#143255]"
+                        }
+                      `}
+                    >
+                      {label
+                        .split(" ")
+                        .map((w) => w[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </div>
+                  )}
+                  <div
+                    className={`font-sans font-bold text-center mt-2 ${
+                      active ? "text-white" : "text-[#143255]"
+                    } text-xs sm:text-sm md:text-base leading-tight`}
                   >
-                    {label.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-                  </Box>
-                )}
-                <Typography
-                  sx={{
-                    mt: 1.5,
-                    fontFamily: "Montserrat, Arial, sans-serif",
-                    fontWeight: 700,
-                    fontSize: { xs: 15, sm: 16, md: 22 },
-                    textAlign: "center",
-                    color: active ? "#fff" : "#143255",
-                    letterSpacing: 0,
-                  }}
+                    {label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Content Section*/}
+          <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left self-end md:self-center md:pl-25">
+            <h1 className="font-heading font-bold text-title-md text-center md:text-left uppercase mb-6 leading-tight max-w-xs md:max-w-sm">
+              <span className="text-[#b44a2c]">TECHNOLOGIES</span>{" "}
+              <span className="text-[#161616]">WE</span>{" "}
+              <span className="text-[#161616] inline-block">WORK WITH</span>
+            </h1>
+
+            <p className="font-sans font-normal text-body1 text-[#3C4454] leading-[1.5] mb-10 text-center md:text-left">
+              At CVS, we stay ahead of the curve by using the latest technology
+              to ensure your success. Our experts leverage the most powerful
+              tools and frameworks to deliver high-performing, future-proof
+              digital solutions.
+            </p>
+
+            <div className="w-full max-w-lg flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
+              {techTags.map(({ label }) => (
+                <button
+                  key={label}
+                  onClick={() => setActiveTag(label)}
+                  className={`
+                    px-4 py-2 rounded-full font-montserrat font-semibold text-sm md:text-base 
+                    transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0
+                    ${
+                      activeTag === label
+                        ? "bg-[#232323] text-white shadow-lg border border-transparent"
+                        : "text-[#161616] border border-[#161616]/35 hover:bg-[#b44a2c] hover:text-white hover:border-transparent"
+                    }
+                  `}
                 >
                   {label}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        </Box>
-
-        {/* Right Side - Text and tags */}
-        <Box
-          sx={{
-            zIndex: 2,
-            width: { xs: "100%", md: "45vw" },
-            maxWidth: { xs: 380, lg: "680px" },
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: { xs: "center", md: "flex-start" },
-            px: { xs: 2, md: 10 },
-            py: { xs: 2, md: 14 },
-            background: "transparent", // Removed white/light background
-            borderTopRightRadius: { xs: 0, md: 40 },
-            borderBottomRightRadius: { xs: 0, md: 40 },
-            textAlign: { xs: "center", md: "left" },
-            order: { xs: 1, md: 2 }, // text above grid on mobile
-          }}
-        >
-          <Typography
-            sx={{
-              fontFamily: "'Earth Orbiter', Arial, sans-serif",
-              fontWeight: 700,
-              fontSize: { xs: 19, md: 26 },
-              letterSpacing: 2,
-              textTransform: "uppercase",
-              color: "#b44a2c",
-              mb: 1,
-              lineHeight: 1,
-            }}
-          >
-            TECHNOLOGIES
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "'Earth Orbiter', Arial, sans-serif",
-              fontWeight: 700,
-              fontSize: { xs: 24, md: 38 },
-              letterSpacing: 2,
-              textTransform: "uppercase",
-              color: "#143255",
-              mb: 4,
-              lineHeight: 1.17,
-            }}
-          >
-            WE WORK WITH
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Montserrat, Arial, sans-serif",
-              fontWeight: 400,
-              fontSize: { xs: 15, md: 19 },
-              lineHeight: 1.7,
-              color: "#3C4454",
-              mb: 6,
-              maxWidth: { xs: "100%", md: 540 },
-            }}
-          >
-            At CVS, we stay ahead of the curve by using the latest technology to ensure your success. Our experts leverage the most powerful tools and frameworks to deliver high-performing, future-proof digital solutions.
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: { xs: 1, md: 2 },
-              width: "100%",
-              maxWidth: { xs: 360, md: 530 },
-              justifyContent: { xs: "center", md: "flex-start" },
-            }}
-          >
-            {techTags.map(({ label }) => (
-              <Chip
-                key={label}
-                label={label}
-                variant={activeTag === label ? "filled" : "outlined"}
-                sx={{
-                  borderRadius: "20px",
-                  px: { xs: 1.5, md: 2.5 },
-                  py: { xs: 0.6, md: 1 },
-                  fontFamily: "Montserrat, Arial, sans-serif",
-                  fontWeight: 600,
-                  fontSize: { xs: 13, md: 16 },
-                  color: activeTag === label ? "#fff" : "rgba(22, 22, 22, 1)",
-                  backgroundColor: activeTag === label ? "#232323" : "#fff",
-                  borderColor: activeTag === label ? "transparent" : "rgba(22, 22, 22, 0.35)",
-                  boxShadow: activeTag === label ? "0 4px 12px rgba(0,0,0,0.18)" : "none",
-                  cursor: "pointer",
-                  "&:hover": {
-                    backgroundColor: "#b44a2c",
-                    color: "#fff",
-                  },
-                }}
-                onClick={() => {
-                  setActiveTag(label);
-                }}
-              />
-            ))}
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </ContentContainer>
+    </SectionContainer>
   );
 };
 
