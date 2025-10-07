@@ -1,38 +1,252 @@
+@import "tailwindcss";
+
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiter-regular.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiter-regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiterbold.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiterbold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiteritalic.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiteritalic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Earth Orbiter';
-  src: url('/fonts/earthorbiterbolditalic.ttf') format('truetype');
+  font-family: "Earth Orbiter";
+  src: url("/fonts/earthorbiterbolditalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 
-body, html {
+@theme {
+  /* ===== Screen Breakpoints ===== */
+  --breakpoint-*: initial;
+  --breakpoint-xxs: 390px;
+  --breakpoint-xs: 512px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ===== Container Max Widths ===== */
+  --container-*: initial;
+  --container-xs: 320px;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1400px;
+  --container-3xl: 1600px;
+  --container-4xl: 1920px;
+
+  /* ===== Font Family ===== */
+  --font-montserrat: Montserrat, system-ui, sans-serif;
+  --font-earth-orbiter: "Earth Orbiter", system-ui, sans-serif;
+
+  /* ===== Text Sizes ===== */
+  --text-*: initial;
+  --text-title-xl: clamp(2rem, 5vw, 4rem);
+  --text-title-lg: clamp(1.8rem, 4vw, 3rem);
+  --text-title-md: clamp(1.5rem, 3vw, 2.5rem);
+  --text-body1: clamp(1rem, 1.6vw, 1.25rem);
+  --text-body2: clamp(0.9375rem, 1.4vw, 1.125rem);
+  --text-body3: clamp(0.875rem, 1.3vw, 1rem);
+  --text-body4: clamp(0.8125rem, 1.2vw, 0.9375rem);
+
+  /* ===== Colors ===== */
+  --color-primary-main: #d2691e;
+  --color-primary-dark: #b8571a;
+  --color-primary-light: #e6944a;
+  --color-secondary-main: #4a90e2;
+  --color-secondary-dark: #357abd;
+  --color-secondary-light: #6ba3e8;
+
+  --color-white-100: #f0f0f0;
+
+  /* Gray scale */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* ===== Font Weights ===== */
+  --font-weight-light: 200;
+  --font-weight-normal: 400;
+  --font-weight-medium: 550;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 800;
+
+  /* ============== Components Style ============== */
+
+  /* ===== Responsive Button Sizes ===== */
+  --size-button-width-sm: clamp(200px, 40vw, 280px);
+  --size-button-width-md: clamp(240px, 50vw, 320px);
+  --size-button-width-lg: clamp(280px, 60vw, 384px);
+
+  --size-button-height-sm: clamp(40px, 8vw, 48px);
+  --size-button-height-md: clamp(48px, 10vw, 56px);
+  --size-button-height-lg: clamp(56px, 12vw, 64px);
+
+  /* ===== Responsive Button Text ===== */
+  --text-button-xsm: clamp(0.7rem, 2vw, 0.8rem);
+  --text-button-sm: clamp(0.75rem, 2vw, 0.875rem);
+  --text-button-md: clamp(0.875rem, 2.5vw, 1rem);
+  --text-button-lg: clamp(1rem, 3vw, 1.125rem);
+
+  /* ===== Button Colors ===== */
+  --color-button-primary: #b5442c;
+  --color-button-primary-hover-start: #b22222;
+  --color-button-primary-hover-mid: #d63d2e;
+  --color-button-primary-hover-end: #ff3b2e;
+
+  --color-button-secondary: #000000;
+  --color-button-secondary-hover-start: #333333;
+  --color-button-secondary-hover-mid: #555555;
+  --color-button-secondary-hover-end: #666666;
+
+  /* ===== Button Shadows ===== */
+  --shadow-button-primary: 0 5px 15px rgba(210, 105, 30, 0.2);
+  --shadow-button-primary-hover: 0 10px 25px -5px rgba(178, 34, 34, 0.4),
+    0 5px 10px -5px rgba(178, 34, 34, 0.3);
+
+  --shadow-button-secondary: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --shadow-button-secondary-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.4),
+    0 5px 10px -5px rgba(0, 0, 0, 0.3);
+
+  /* ===== Button Glow Effects ===== */
+  --glow-primary: linear-gradient(
+    135deg,
+    rgba(255, 80, 80, 0.9),
+    rgba(255, 50, 50, 0.7),
+    rgba(180, 30, 30, 0.9)
+  );
+  --glow-secondary: linear-gradient(
+    135deg,
+    rgba(100, 100, 100, 0.9),
+    rgba(150, 150, 150, 0.7),
+    rgba(80, 80, 80, 0.9)
+  );
+
+  /* ===== Navbar Colors ===== */
+  --color-navbar-bg: rgba(255, 255, 255, 0.95);
+  --color-navbar-bg-scrolled: rgba(255, 255, 255, 0.98);
+  --color-navbar-bg-mobile: #1a1a1a;
+  --color-navbar-text: #333333;
+  --color-navbar-text-mobile: #ffffff;
+  --color-navbar-active: #b5442c;
+  --color-navbar-hover: #b5442c;
+  --color-navbar-border: rgba(0, 0, 0, 0.1);
+
+  /* ===== Navbar Sizes ===== */
+  --height-navbar: 64px;
+  --height-navbar-mobile: 56px;
+  --width-navbar-drawer: 280px;
+
+  /* ===== Z-index ===== */
+  --z-navbar: 1000;
+  --z-drawer: 1100;
+  --z-overlay: 1050;
+
+  /* ===== Custom Animations ===== */
+  --animate-marquee: marquee 25s linear infinite;
+}
+
+:root {
+  --background: #f0f0f0;
+  --foreground: #101010;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-montserrat);
+  --font-heading: var(--font-earth-orbiter);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #f0f0f0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--height-navbar);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat);
+}
+
+body,
+html {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive animation durations */
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation-duration: 25s;
+  }
+}
+
+@media (min-width: 769px) {
+  .animate-marquee {
+    animation-duration: 30s;
+  }
+}
+
+.mobile-bg-rotate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vh; /* swap width/height for rotation */
+  height: 100vw;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@media (max-width: 768px) {
+  .mobile-bg-rotate {
+    transform: translate(-50%, -50%) rotate(90deg) scale(1.4);
+  }
 }
