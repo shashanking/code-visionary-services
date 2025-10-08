@@ -237,7 +237,11 @@ const TestimonialSection: React.FC = () => {
                     {/* Text */}
                     <div
                       className={`absolute inset-0 flex flex-col justify-between p-6 pt-22 transition-opacity duration-300 ${
-                        isHovered || isPlaying ? "opacity-0" : "opacity-100"
+                        item.video
+                          ? isHovered || isPlaying
+                            ? "opacity-0"
+                            : "opacity-100"
+                          : "opacity-100" // always visible text if no video
                       }`}
                       style={{ color: textColor }}
                     >

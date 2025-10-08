@@ -8,7 +8,6 @@ import pistonheadLogo from "../assets/clients/pistonhead.png";
 import shopinfinityLogo from "../assets/clients/shopinfinity.webp";
 import happyhelpLogo from "../assets/clients/happyhelpinghands.webp";
 import kaltechLogo from "../assets/clients/kaltech.jpeg";
-import dummyTestimonialVideo from "../assets/clients/dummy-testimonial-video.mp4";
 
 export interface Testimonial {
   id: number;
@@ -25,7 +24,7 @@ export const testimonials: Testimonial[] = [
     name: "K-Bid",
     title: "E-commerce Platform",
     image: kbidLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“CVS rebuilt our storefront with blazing performance and a clean UX. Conversions are up and maintenance is a breeze.”",
   },
   {
@@ -33,7 +32,7 @@ export const testimonials: Testimonial[] = [
     name: "OSP Broker",
     title: "Logistics SaaS",
     image: ospLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“Reliable team, clear communication, and on-time delivery. Our onboarding flow is now 2× faster.”",
   },
   {
@@ -41,7 +40,7 @@ export const testimonials: Testimonial[] = [
     name: "HHH",
     title: "Nonprofit",
     image: happyhelpLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“They modernized our website and donation experience. The impact on engagement has been immediate.”",
   },
   {
@@ -49,7 +48,7 @@ export const testimonials: Testimonial[] = [
     name: "RiQsha",
     title: "Mobility App",
     image: riqshaLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“From idea to launch, CVS handled design and engineering seamlessly. The app feels polished and fast.”",
   },
   {
@@ -57,7 +56,7 @@ export const testimonials: Testimonial[] = [
     name: "ShopInfinity",
     title: "Retail Brand",
     image: shopinfinityLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“Beautiful UI, stable integrations, and attentive support. A great partner for our growth.”",
   },
   {
@@ -65,7 +64,7 @@ export const testimonials: Testimonial[] = [
     name: "Ride Easy",
     title: "Auto Services",
     image: rideeasyLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“Excellent communication and execution. Our booking experience is significantly better now.”",
   },
   {
@@ -73,7 +72,7 @@ export const testimonials: Testimonial[] = [
     name: "MoneyBlaster",
     title: "FinTech Tournament",
     image: moneyblasterLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“CVS delivered a performant, real-time experience on a tight timeline. We'll work with them again.”",
   },
   {
@@ -81,7 +80,7 @@ export const testimonials: Testimonial[] = [
     name: "Dentologie",
     title: "Healthcare",
     image: dentologieLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“Thoughtful design and smooth implementation. Our patients love the updated portal.”",
   },
   {
@@ -89,7 +88,7 @@ export const testimonials: Testimonial[] = [
     name: "PistonHeads",
     title: "Media",
     image: pistonheadLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“High-quality engineering and attention to detail. The site feels premium and quick.”",
   },
   {
@@ -97,7 +96,7 @@ export const testimonials: Testimonial[] = [
     name: "Kaltech",
     title: "Industrial",
     image: kaltechLogo,
-    video: dummyTestimonialVideo,
+    // video: dummyTestimonialVideo,
     text: "“CVS helped us modernize internal systems and data flows. Their AI-driven automation reduced manual effort dramatically.”",
   },
 ];
