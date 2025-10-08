@@ -54,7 +54,7 @@ const TestimonialSection: React.FC = () => {
       id="reviews"
       fullWidth
       padding="none"
-      className="relative h-full overflow-hidden bg-[#F0F0F0]"
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#F0F0F0]"
     >
       {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
