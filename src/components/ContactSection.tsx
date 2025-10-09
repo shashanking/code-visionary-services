@@ -9,7 +9,6 @@ const ContactSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check screen size once on mount and on resize
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -33,12 +32,12 @@ const ContactSection: React.FC = () => {
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
-        className="relative z-10 flex flex-col justify-center items-center"
+        className="relative z-10 flex flex-col justify-center items-center text-center"
       >
-        <div className="relative max-w-2xl mx-auto">
+        <div className="relative w-full max-w-2xl flex flex-col justify-center items-center">
           <h2
             className="font-heading font-bold text-title-md text-center uppercase mb-6 leading-tight max-w-sm
-             bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent"
+              bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent"
           >
             Let's Get In Touch
           </h2>
@@ -49,9 +48,18 @@ const ContactSection: React.FC = () => {
           </p>
 
           {/* Main Contact Card */}
-          <div className="relative w-full rounded-[22px] overflow-hidden p-[2px] bg-gradient-to-r from-[#2B7EE0] to-[#B5442C]">
-            {/* Inner white layer */}
-            <div className="rounded-[20px] bg-white p-6 md:p-8 shadow-[0_8px_32px_rgba(44,62,80,0.13)] flex flex-col md:flex-row items-stretch overflow-hidden">
+          <div className="relative w-full rounded-[22px] overflow-hidden p-[2px] bg-gradient-to-r from-[#2B7EE0] to-[#B5442C] flex justify-center items-center">
+            <div
+              className="relative w-full rounded-[20px] bg-white bg-opacity-95 p-6 md:p-10 shadow-[0_8px_32px_rgba(44,62,80,0.13)] flex flex-col md:flex-row items-stretch justify-between overflow-hidden"
+              style={{
+                backgroundImage: `url(${
+                  isMobile ? bgImgInsideMobile : bgImgInside
+                })`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }}
+            >
               {/* FORM SIDE */}
               <div className="flex-1.5 p-6 md:p-8 flex flex-col justify-center">
                 {/* calender will goes here */}
@@ -61,31 +69,31 @@ const ContactSection: React.FC = () => {
               <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-4 my-4 md:my-0"></div>
 
               {/* INFO SIDE */}
-              <div className="flex-1 bg-white/85 flex flex-col justify-center">
-                <h3 className="font-heading text-transparent bg-clip-text bg-gradient-to-r from-[#B5442C] to-[#4F1E13] text-lg uppercase tracking-[0.15em] font-bold mb-1">
+              <div className="flex-1 flex flex-col justify-center text-left max-w-md">
+                <h3 className="font-heading text-[#161616] text-body1 font-bold  uppercase mb-1">
                   Call Us
                 </h3>
-                <p className="text-[#232323] text-[15px] font-sans mb-3 max-w-md">
+                <p className="font-sans text-[#303030] text-body2 mb-3">
                   Prefer to talk? Give us a call—our team is happy to discuss
                   scope, timelines, and the best approach for your needs.
                 </p>
                 <div className="flex items-center gap-2 mb-6">
-                  <span className="font-semibold text-[#232323] text-[16px]">
+                  <p className="font-sans font-semibold text-[#303030] text-body2">
                     +91 8637515632
-                  </span>
+                  </p>
                 </div>
 
-                <h3 className="font-heading text-transparent bg-clip-text bg-gradient-to-r from-[#B5442C] to-[#4F1E13] text-lg uppercase tracking-[0.15em] font-bold mb-1">
+                <h3 className="font-heading text-[#161616] text-body1 font-bold uppercase mb-1">
                   Email
                 </h3>
-                <p className="text-[#232323] text-[15px] font-sans mb-3 max-w-md">
+                <p className="font-sans text-[#303030] text-body2 mb-3">
                   Want to share docs or a brief? Email us and we’ll follow up
                   with a quick discovery call and a tailored proposal.
                 </p>
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-[#232323] text-[16px]">
+                  <p className="font-sans font-semibold text-[#303030] text-body2">
                     office@codevisionaryservices.com
-                  </span>
+                  </p>
                 </div>
               </div>
             </div>
