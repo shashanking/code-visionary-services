@@ -1,359 +1,99 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-// import TextField from "@mui/material/TextField";
-// import Button from "@mui/material/Button";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EmailIcon from "@mui/icons-material/Email";
+import React, { useEffect, useState } from "react";
+import SectionContainer from "./shared/SectionContainer";
+import ContentContainer from "./shared/ContentContainer";
 import bgImg from "../assets/contact_bg_image.png";
-// import sendIcon from "../assets/mingcute_arrow-up-line.png";
-import middleDividerImg from "../assets/contact_section_middle_line_image.png";
+import bgImgInside from "../assets/contact_bg_image_inside.png";
+import bgImgInsideMobile from "../assets/contact_bg_image_inside_mobile.png";
 
-const ContactSection: React.FC = () => (
-  <Box
-    sx={{
-      position: "relative",
-      width: "100vw",
-      left: "50%",
-      transform: "translateX(-50%)",
-      minHeight: "100vh",          // Fill full viewport height
-      backgroundImage: `url(${bgImg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      px: 0,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      overflowX: "hidden",
-      overflowY: "auto",          // Allow vertical scroll within if necessary
-      boxSizing: "border-box",
-    }}
-  >
-    <Box
-      sx={{
-        width: { xs: "96vw", sm: "90vw", md: "80vw", lg: "1100px" },
-        borderRadius: 5,
-        bgcolor: "rgba(255,255,255,0.85)",
-        boxShadow: "0 8px 32px rgba(44,62,80,0.13)",
-        py: { xs: 3, md: 5 },        // reduce padding for better fit
-        px: { xs: 2, sm: 4, md: 6 }, // reduced padding horizontally
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        position: "relative",
-        maxHeight: "95vh",           // limit max height to viewport minus margin
-        overflowY: "auto",           // scroll inside content if overflow occurs
-      }}
+const ContactSection: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check screen size once on mount and on resize
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <SectionContainer
+      id="contact-section"
+      fullWidth
+      padding="lg"
+      className="relative min-h-screen bg-[#F0F0F0] flex justify-center items-center overflow-hidden"
     >
-      <Typography
-        variant="h4"
-        sx={{
-          fontFamily: "'Earth Orbiter', Arial, sans-serif",
-          fontWeight: 700,
-          letterSpacing: ".065em",
-          fontSize: { xs: "1.4rem", md: "2rem" },
-          textTransform: "uppercase",
-          color: "#B5442C",
-          mb: 1,
-          textAlign: "center",
-        }}
-      >
-        LET'S GET IN TOUCH
-      </Typography>
-      <Typography
-        sx={{
-          fontFamily: "Montserrat, Arial, sans-serif",
-          fontSize: "1.07rem",
-          color: "#444",
-          mb: 3,
-          textAlign: "center",
-          maxWidth: 540,
-        }}
-      >
-        Tell us a bit about your project and goals. We’ll get back within one
-        business day with next steps and a clear plan to move forward.
-      </Typography>
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+        style={{ backgroundImage: `url(${bgImg})` }}
+      />
 
-      {/* Main card container */}
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: "stretch",
-          borderLeft: { xs: "1.5px solid #2B7EE0", md: "2.5px solid #2B7EE0" },
-          borderRight: { xs: "1.5px solid #B5442C", md: "2.5px solid #B5442C" },
-          borderTop: { xs: "1.5px solid #e3e6ea", md: "2.5px solid #e3e6ea" },
-          borderBottom: { xs: "1.5px solid #e3e6ea", md: "2.5px solid #e3e6ea" },
-          borderRadius: "32px",
-          boxSizing: "border-box",
-          background: "rgba(255,255,255,0.94)",
-          flexGrow: 1,
-          minHeight: 0,        // for proper flexbox scroll behavior
-          overflow: "hidden",
-          gap: { xs: 2, md: 0 },
-        }}
+      {/* Content */}
+      <ContentContainer
+        maxWidth="7xl"
+        paddingX="lg"
+        className="relative z-10 flex flex-col justify-center items-center"
       >
-        {/* FORM SIDE */}
-        {/* <Box
-          sx={{
-            flex: 1.4,
-            borderRadius: "32px 0 0 32px",
-            bgcolor: "rgba(255,255,255,0.94)",
-            boxShadow: "none",
-            px: { xs: 1, md: 4 },
-            py: { xs: 2, md: 4 },
-            minWidth: { xs: 0, md: 320 },
-            maxWidth: 580,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            overflowY: "auto",
-            maxHeight: "90vh",   // to fit inside viewport comfortably
-          }}
-        >
-          <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="First Name"
-              size="small"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: 40,
-                  fontSize: 15,
-                  background: "#fff",
-                },
-              }}
-            />
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="Last Name"
-              size="small"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: 40,
-                  fontSize: 15,
-                  background: "#fff",
-                },
-              }}
-            />
-          </Box>
-          <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="Phone number"
-              size="small"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: 40,
-                  background: "#fff",
-                  fontSize: 15,
-                },
-              }}
-            />
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="Email ID"
-              size="small"
-              type="email"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: 40,
-                  background: "#fff",
-                  fontSize: 15,
-                },
-              }}
-            />
-          </Box>
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Service"
-            size="small"
-            sx={{
-              mb: 2,
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 40,
-                background: "#fff",
-                fontSize: 15,
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Message"
-            multiline
-            rows={3}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: 28,
-                background: "#fff",
-                fontSize: 15,
-              },
-            }}
-          />
-          <Button
-            variant="contained"
-            disableRipple
-            endIcon={
-              <Box
-                component="img"
-                src={sendIcon}
-                alt="Send"
-                sx={{
-                  width: 18,
-                  height: 18,
-                  ml: 1,
-                  transition:
-                    "transform 0.35s cubic-bezier(0.4,0,0.2,1), filter 0.35s",
-                }}
-              />
-            }
-            sx={{
-              mt: 3,
-              background: "#B5442C",
-              color: "#fff",
-              fontWeight: 700,
-              borderRadius: 20,
-              boxShadow: "0 2px 8px rgba(181,68,44,.08)",
-              px: { xs: 3, md: 6 },
-              py: 1.4,
-              letterSpacing: "1px",
-              textTransform: "uppercase",
-              fontFamily: "Montserrat, Arial, sans-serif",
-              fontSize: 17,
-              alignSelf: { xs: "stretch", md: "flex-start" },
-              width: { xs: "100%", md: "auto" },
-              transition: "background 0.35s, color 0.35s",
-              "&:hover": {
-                background: "#8c3320",
-                color: "#ffe2d1",
-                "& .MuiBox-root": {
-                  transform: "translateX(7px) scale(1.16)",
-                  filter: "drop-shadow(0 0 2px #B5442C)",
-                },
-              },
-            }}
+        <div className="relative max-w-2xl mx-auto">
+          <h2
+            className="font-heading font-bold text-title-md text-center uppercase mb-6 leading-tight max-w-sm
+             bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent"
           >
-            Send Message
-          </Button>
-        </Box> */}
+            Let's Get In Touch
+          </h2>
 
-        {/* MIDDLE DIVIDER with image */}
-        <Box
-          sx={{
-            width: "2.5px",
-            minWidth: "2.5px",
-            height: { xs: 150, md: 200 },
-            marginY: "auto",
-            mx: { xs: 1, md: 2 },
-            display: { xs: "none", md: "block" },
-            borderRadius: "12px",
-            overflow: "hidden",
-            background: "#fff0",
-            flexShrink: 0,
-          }}
-        >
-          <img
-            src={middleDividerImg}
-            alt="middle divider"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-        </Box>
+          <p className="font-sans font-normal text-body1 text-[#303030] leading-[1.5] text-center max-w-md mb-6">
+            Tell us a bit about your project and goals. We’ll get back within
+            one business day with next steps and a clear plan to move forward.
+          </p>
 
-        {/* INFO SIDE */}
-        <Box
-          sx={{
-            flex: 1,
-            pl: { xs: 0, md: 4 },
-            pr: { xs: 0, md: 2 },
-            py: { xs: 3, md: 4 },
-            borderRadius: "0 32px 32px 0",
-            background: "rgba(255,255,255,0.86)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            overflowY: "auto",
-            maxHeight: "90vh",
-          }}
-        >
-          <Typography
-            sx={{
-              fontWeight: 700,
-              letterSpacing: 2,
-              fontFamily: "'Earth Orbiter', Arial, sans-serif",
-              fontSize: 18,
-              textTransform: "uppercase",
-              color: "#B5442C",
-              mb: 0.8,
-            }}
-          >
-            CALL US
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Montserrat, Arial, sans-serif",
-              fontSize: 15,
-              color: "#232323",
-              mb: 1,
-              maxWidth: 310,
-            }}
-          >
-            Prefer to talk? Give us a call—our team is happy to discuss scope,
-            timelines, and the best approach for your needs.
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-            <PhoneIcon sx={{ color: "#1a1a1a", mr: 1 }} />
-            <Typography sx={{ fontWeight: 700, fontSize: 16, color: "#232323" }}>
-              +91 8637515632
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              fontWeight: 700,
-              letterSpacing: 2,
-              fontFamily: "'Earth Orbiter', Arial, sans-serif",
-              fontSize: 18,
-              textTransform: "uppercase",
-              color: "#B5442C",
-              mb: 0.8,
-            }}
-          >
-            EMAIL
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Montserrat, Arial, sans-serif",
-              fontSize: 15,
-              color: "#232323",
-              mb: 1,
-              maxWidth: 310,
-            }}
-          >
-            Want to share docs or a brief? Email us and we’ll follow up with a
-            quick discovery call and a tailored proposal.
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <EmailIcon sx={{ color: "#1a1a1a", mr: 1 }} />
-            <Typography sx={{ fontWeight: 700, fontSize: 16, color: "#232323" }}>
-              office@codevisionaryservices.com
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
-  </Box>
-);
+          {/* Main Contact Card */}
+          <div className="relative w-full rounded-[22px] overflow-hidden p-[2px] bg-gradient-to-r from-[#2B7EE0] to-[#B5442C]">
+            {/* Inner white layer */}
+            <div className="rounded-[20px] bg-white p-6 md:p-8 shadow-[0_8px_32px_rgba(44,62,80,0.13)] flex flex-col md:flex-row items-stretch overflow-hidden">
+              {/* FORM SIDE */}
+              <div className="flex-1.5 p-6 md:p-8 flex flex-col justify-center">
+                {/* calender will goes here */}
+              </div>
+
+              {/* Divider */}
+              <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-4 my-4 md:my-0"></div>
+
+              {/* INFO SIDE */}
+              <div className="flex-1 bg-white/85 flex flex-col justify-center">
+                <h3 className="font-heading text-transparent bg-clip-text bg-gradient-to-r from-[#B5442C] to-[#4F1E13] text-lg uppercase tracking-[0.15em] font-bold mb-1">
+                  Call Us
+                </h3>
+                <p className="text-[#232323] text-[15px] font-sans mb-3 max-w-md">
+                  Prefer to talk? Give us a call—our team is happy to discuss
+                  scope, timelines, and the best approach for your needs.
+                </p>
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="font-semibold text-[#232323] text-[16px]">
+                    +91 8637515632
+                  </span>
+                </div>
+
+                <h3 className="font-heading text-transparent bg-clip-text bg-gradient-to-r from-[#B5442C] to-[#4F1E13] text-lg uppercase tracking-[0.15em] font-bold mb-1">
+                  Email
+                </h3>
+                <p className="text-[#232323] text-[15px] font-sans mb-3 max-w-md">
+                  Want to share docs or a brief? Email us and we’ll follow up
+                  with a quick discovery call and a tailored proposal.
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-[#232323] text-[16px]">
+                    office@codevisionaryservices.com
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ContentContainer>
+    </SectionContainer>
+  );
+};
 
 export default ContactSection;
