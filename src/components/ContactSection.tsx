@@ -59,7 +59,22 @@ const ContactSection: React.FC = () => {
     setSelectedDate(date);
   };
 
-  // API call to schedule a call 
+  // Predefined time slots
+  const timeSlots = ["10:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"];
+
+  // Converting time
+  const timeSlots24 = timeSlots.map((t) => {
+    const [hourMin, ampm] = t.split(" ");
+    const [hour, min] = hourMin.split(":").map(Number);
+    let hour24 = hour;
+    if (ampm === "PM" && hour !== 12) hour24 += 12;
+    if (ampm === "AM" && hour === 12) hour24 = 0;
+    return `${hour24.toString().padStart(2, "0")}:${min
+      .toString()
+      .padStart(2, "0")}`;
+  });
+
+  // API call to schedule a call
   const handleSchedule = () => {
     if (!selectedDate || !selectedTime) {
       alert("Please select both a date and a time slot before scheduling.");
@@ -74,9 +89,6 @@ const ContactSection: React.FC = () => {
     console.log("Scheduled Call Details:", scheduledData);
     alert("Your call has been scheduled!");
   };
-
-  // Predefined time slots
-  const timeSlots = ["10:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"];
 
   return (
     <SectionContainer
@@ -195,17 +207,19 @@ const ContactSection: React.FC = () => {
                     </div>
 
                     {/* Time Slot Picker */}
-                    <div className="mt-4">
+                    <div className="mt-8">
                       <h4 className="text-sm font-semibold mb-2 text-[#4F1E13]">
                         Select Time Slot
                       </h4>
-                      <div className="grid grid-cols-2 gap-2">
-                        {timeSlots.map((t) => (
+
+                      {/* Predefined Slots */}
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
+                        {timeSlots.map((t, index) => (
                           <button
                             key={t}
-                            onClick={() => setSelectedTime(t)}
-                            className={`border rounded-lg py-1 text-sm transition-all ${
-                              selectedTime === t
+                            onClick={() => setSelectedTime(timeSlots24[index])}
+                            className={`border rounded-lg py-1 text-sm transition-all cursor-pointer ${
+                              selectedTime === timeSlots24[index]
                                 ? "bg-[#B5442C] text-white font-semibold"
                                 : "hover:bg-[#f4d6ce]"
                             }`}
@@ -214,6 +228,19 @@ const ContactSection: React.FC = () => {
                           </button>
                         ))}
                       </div>
+
+                      {/* Manual Time Input */}
+                      <h4 className="text-sm font-semibold mb-2 text-[#4F1E13]">
+                        <span>OR</span>
+                        <br />
+                        Enter Manually
+                      </h4>
+                      <input
+                        type="time"
+                        value={selectedTime}
+                        onChange={(e) => setSelectedTime(e.target.value)}
+                        className="border rounded-lg p-2 text-sm w-full"
+                      />
                     </div>
                   </div>
                 </div>
@@ -222,8 +249,8 @@ const ContactSection: React.FC = () => {
                 <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-6 lg:mx-10 my-4 md:my-0"></div>
 
                 {/* INFO SIDE */}
-                <div className="flex-1 flex flex-col justify-center text-left max-w-md">
-                  <h3 className="font-heading text-[#161616] text-body1 font-bold uppercase mb-1">
+                <div className="flex-1 flex flex-col justify-start text-left max-w-md">
+                  <h3 className="font-heading text-[#161616] text-title-sm font-bold uppercase mb-1">
                     Call Us
                   </h3>
                   <p className="font-sans text-[#303030] text-body2 mb-3">
@@ -236,7 +263,7 @@ const ContactSection: React.FC = () => {
                     </p>
                   </div>
 
-                  <h3 className="font-heading text-[#161616] text-body1 font-bold uppercase mb-1">
+                  <h3 className="font-heading text-[#161616] text-title-sm font-bold uppercase mb-1">
                     Email
                   </h3>
                   <p className="font-sans text-[#303030] text-body2 mb-3">

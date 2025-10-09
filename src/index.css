@@ -63,6 +63,7 @@
   --text-title-xl: clamp(2rem, 5vw, 4rem);
   --text-title-lg: clamp(1.8rem, 4vw, 3rem);
   --text-title-md: clamp(1.5rem, 3vw, 2.5rem);
+  --text-title-sm: clamp(1.25rem, 2vw, 1.75rem);
   --text-body1: clamp(1rem, 1.6vw, 1.25rem);
   --text-body2: clamp(0.9375rem, 1.4vw, 1.125rem);
   --text-body3: clamp(0.875rem, 1.3vw, 1rem);
