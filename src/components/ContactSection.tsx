@@ -140,11 +140,11 @@ const ContactSection: React.FC = () => {
                     <div className="flex justify-between items-center mb-4">
                       <button
                         onClick={handlePrevMonth}
-                        className="p-1 rounded-full hover:bg-gray-200"
+                        className="w-[50px] border p-0.25 sm:p-0.5 rounded-full hover:bg-[#f4d6ce] cursor-pointer"
                       >
                         ←
                       </button>
-                      <h3 className="font-semibold text-[#B5442C]">
+                      <h3 className="text-body1 font-sans font-semibold text-[#4F1E13]">
                         {currentMonth.toLocaleString("default", {
                           month: "long",
                           year: "numeric",
@@ -152,14 +152,14 @@ const ContactSection: React.FC = () => {
                       </h3>
                       <button
                         onClick={handleNextMonth}
-                        className="p-1 rounded-full hover:bg-gray-200"
+                        className="w-[50px] border p-0.25 sm:p-0.5 rounded-full hover:bg-[#f4d6ce] cursor-pointer"
                       >
                         →
                       </button>
                     </div>
 
                     {/* Weekdays */}
-                    <div className="grid grid-cols-7 text-xs text-gray-500 mb-2">
+                    <div className="grid grid-cols-7 text-gray-500 mb-2 text-body1 font-sans">
                       {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
                         (d) => (
                           <div key={d} className="text-center">
@@ -170,7 +170,7 @@ const ContactSection: React.FC = () => {
                     </div>
 
                     {/* Days */}
-                    <div className="grid grid-cols-7 gap-1 text-sm">
+                    <div className="grid grid-cols-7 gap-1 text-body1 font-sans">
                       {Array.from({ length: startDay }).map((_, i) => (
                         <div key={`empty-${i}`} />
                       ))}
@@ -191,7 +191,7 @@ const ContactSection: React.FC = () => {
                             key={day}
                             disabled={isPast}
                             onClick={() => handleDateSelect(day)}
-                            className={`w-9 h-9 flex items-center justify-center rounded-full transition-all 
+                            className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all cursor-pointer 
                               ${
                                 isPast
                                   ? "text-gray-300 cursor-not-allowed"
@@ -208,7 +208,7 @@ const ContactSection: React.FC = () => {
 
                     {/* Time Slot Picker */}
                     <div className="mt-8">
-                      <h4 className="text-sm font-semibold mb-2 text-[#4F1E13]">
+                      <h4 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
                         Select Time Slot
                       </h4>
 
@@ -218,9 +218,9 @@ const ContactSection: React.FC = () => {
                           <button
                             key={t}
                             onClick={() => setSelectedTime(timeSlots24[index])}
-                            className={`border rounded-lg py-1 text-sm transition-all cursor-pointer ${
+                            className={`border rounded-lg py-1 text-body2 transition-all cursor-pointer ${
                               selectedTime === timeSlots24[index]
-                                ? "bg-[#B5442C] text-white font-semibold"
+                                ? "bg-[#B5442C] border-[#B5442C] text-white font-semibold"
                                 : "hover:bg-[#f4d6ce]"
                             }`}
                           >
@@ -230,7 +230,7 @@ const ContactSection: React.FC = () => {
                       </div>
 
                       {/* Manual Time Input */}
-                      <h4 className="text-sm font-semibold mb-2 text-[#4F1E13]">
+                      <h4 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
                         <span>OR</span>
                         <br />
                         Enter Manually
@@ -239,7 +239,7 @@ const ContactSection: React.FC = () => {
                         type="time"
                         value={selectedTime}
                         onChange={(e) => setSelectedTime(e.target.value)}
-                        className="border rounded-lg p-2 text-sm w-full"
+                        className={`border rounded-lg p-2 text-body2 w-full cursor-pointer hover:border-[#B5442C] focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all duration-100`}
                       />
                     </div>
                   </div>
