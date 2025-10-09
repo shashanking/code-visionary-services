@@ -82,7 +82,7 @@ const BannerSection: React.FC = () => {
             <div className="flex flex-col xs:flex-row gap-4 mt-6">
               <button
                 className="uppercase font-heading font-bold text-body1 rounded-full
-                  bg-[#F0F0F0] text-[#161616] px-4 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
+                  bg-[#F0F0F0] text-[#161616] px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
                   hover:bg-[#ECECEC] transition-colors duration-200 cursor-pointer"
               >
                 Schedule a Meeting
@@ -90,7 +90,7 @@ const BannerSection: React.FC = () => {
 
               <button
                 className="uppercase font-heading font-bold text-body1 rounded-full
-                  bg-[#B5442C] text-white px-4 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
+                  bg-[#B5442C] text-white px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
                   hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] transition-all duration-200 cursor-pointer"
               >
                 Call Now!

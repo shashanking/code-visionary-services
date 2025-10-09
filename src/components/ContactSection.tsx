@@ -7,13 +7,76 @@ import bgImgInsideMobile from "../assets/contact_bg_image_inside_mobile.png";
 
 const ContactSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState("");
+  const today = new Date();
 
+  // Update mobile state
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Calendar Helpers
+  const startOfMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth(),
+    1
+  );
+
+  const endOfMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth() + 1,
+    0
+  );
+
+  const daysInMonth = endOfMonth.getDate();
+  const startDay = startOfMonth.getDay();
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  const handlePrevMonth = () => {
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+    );
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+    );
+  };
+
+  const handleDateSelect = (day: number) => {
+    const date = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth(),
+      day
+    );
+    if (date < today) return; // prevent selecting past dates
+    setSelectedDate(date);
+  };
+
+  // API call to schedule a call 
+  const handleSchedule = () => {
+    if (!selectedDate || !selectedTime) {
+      alert("Please select both a date and a time slot before scheduling.");
+      return;
+    }
+
+    const scheduledData = {
+      date: selectedDate.toDateString(),
+      time: selectedTime,
+    };
+
+    console.log("Scheduled Call Details:", scheduledData);
+    alert("Your call has been scheduled!");
+  };
+
+  // Predefined time slots
+  const timeSlots = ["10:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"];
 
   return (
     <SectionContainer
@@ -35,10 +98,7 @@ const ContactSection: React.FC = () => {
         className="relative z-10 flex flex-col justify-center items-center text-center"
       >
         <div className="relative w-full max-w-2xl flex flex-col justify-center items-center">
-          <h2
-            className="font-heading font-bold text-title-md text-center uppercase mb-6 leading-tight max-w-sm
-              bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent"
-          >
+          <h2 className="font-heading font-bold text-title-md text-center uppercase mb-6 leading-tight max-w-sm bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
             Let's Get In Touch
           </h2>
 
@@ -61,17 +121,109 @@ const ContactSection: React.FC = () => {
               }}
             >
               <div className="w-full flex flex-col md:flex-row">
-                {/* CALENDER SIDE */}
-                <div className="flex-1.5 p-6 md:p-8 flex flex-col justify-center">
-                  {/* calender will goes here */}
+                {/* CALENDAR SIDE */}
+                <div className="flex-1 flex flex-col justify-center items-center">
+                  <div className="w-full rounded-xl shadow p-4">
+                    {/* Header */}
+                    <div className="flex justify-between items-center mb-4">
+                      <button
+                        onClick={handlePrevMonth}
+                        className="p-1 rounded-full hover:bg-gray-200"
+                      >
+                        ←
+                      </button>
+                      <h3 className="font-semibold text-[#B5442C]">
+                        {currentMonth.toLocaleString("default", {
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </h3>
+                      <button
+                        onClick={handleNextMonth}
+                        className="p-1 rounded-full hover:bg-gray-200"
+                      >
+                        →
+                      </button>
+                    </div>
+
+                    {/* Weekdays */}
+                    <div className="grid grid-cols-7 text-xs text-gray-500 mb-2">
+                      {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
+                        (d) => (
+                          <div key={d} className="text-center">
+                            {d}
+                          </div>
+                        )
+                      )}
+                    </div>
+
+                    {/* Days */}
+                    <div className="grid grid-cols-7 gap-1 text-sm">
+                      {Array.from({ length: startDay }).map((_, i) => (
+                        <div key={`empty-${i}`} />
+                      ))}
+                      {days.map((day) => {
+                        const date = new Date(
+                          currentMonth.getFullYear(),
+                          currentMonth.getMonth(),
+                          day
+                        );
+                        const isPast =
+                          date < today &&
+                          date.toDateString() !== today.toDateString();
+                        const isSelected =
+                          selectedDate?.toDateString() === date.toDateString();
+
+                        return (
+                          <button
+                            key={day}
+                            disabled={isPast}
+                            onClick={() => handleDateSelect(day)}
+                            className={`w-9 h-9 flex items-center justify-center rounded-full transition-all 
+                              ${
+                                isPast
+                                  ? "text-gray-300 cursor-not-allowed"
+                                  : isSelected
+                                  ? "bg-[#B5442C] text-white font-bold"
+                                  : "hover:bg-[#f4d6ce]"
+                              }`}
+                          >
+                            {day}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Time Slot Picker */}
+                    <div className="mt-4">
+                      <h4 className="text-sm font-semibold mb-2 text-[#4F1E13]">
+                        Select Time Slot
+                      </h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {timeSlots.map((t) => (
+                          <button
+                            key={t}
+                            onClick={() => setSelectedTime(t)}
+                            className={`border rounded-lg py-1 text-sm transition-all ${
+                              selectedTime === t
+                                ? "bg-[#B5442C] text-white font-semibold"
+                                : "hover:bg-[#f4d6ce]"
+                            }`}
+                          >
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Divider */}
-                <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-4 my-4 md:my-0"></div>
+                <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-6 lg:mx-10 my-4 md:my-0"></div>
 
                 {/* INFO SIDE */}
                 <div className="flex-1 flex flex-col justify-center text-left max-w-md">
-                  <h3 className="font-heading text-[#161616] text-body1 font-bold  uppercase mb-1">
+                  <h3 className="font-heading text-[#161616] text-body1 font-bold uppercase mb-1">
                     Call Us
                   </h3>
                   <p className="font-sans text-[#303030] text-body2 mb-3">
@@ -99,10 +251,12 @@ const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-10">
+              {/* Schedule Button */}
+              <div className="mt-10 flex justify-center">
                 <button
+                  onClick={handleSchedule}
                   className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full
-                  bg-[#B5442C] text-white px-4 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
+                  bg-[#B5442C] text-white px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
                   hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] transition-all duration-200 cursor-pointer"
                 >
                   Schedule A Call
