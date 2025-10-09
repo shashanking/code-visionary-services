@@ -49,14 +49,23 @@ const ContactSection: React.FC = () => {
     );
   };
 
+  const isSameOrAfterToday = (date: Date) => {
+    const todayMidnight = new Date();
+    todayMidnight.setHours(0, 0, 0, 0);
+    return date >= todayMidnight;
+  };
+
   const handleDateSelect = (day: number) => {
     const date = new Date(
       currentMonth.getFullYear(),
       currentMonth.getMonth(),
       day
     );
-    if (date < today) return; // prevent selecting past dates
+    if (!isSameOrAfterToday(date)) return;
     setSelectedDate(date);
+
+    // if (date < today) return; // prevent selecting past dates
+    // setSelectedDate(date);
   };
 
   // Predefined time slots
@@ -78,6 +87,16 @@ const ContactSection: React.FC = () => {
   const handleSchedule = () => {
     if (!selectedDate || !selectedTime) {
       alert("Please select both a date and a time slot before scheduling.");
+      return;
+    }
+
+    const now = new Date();
+    const [hour, minute] = selectedTime.split(":").map(Number);
+    const scheduled = new Date(selectedDate);
+    scheduled.setHours(hour, minute, 0, 0);
+
+    if (scheduled < now) {
+      alert("You cannot select a past time for today.");
       return;
     }
 
@@ -180,9 +199,17 @@ const ContactSection: React.FC = () => {
                           currentMonth.getMonth(),
                           day
                         );
+                        // const isPast =
+                        //   date < today &&
+                        //   date.toDateString() !== today.toDateString();
                         const isPast =
-                          date < today &&
-                          date.toDateString() !== today.toDateString();
+                          date <
+                          new Date(
+                            today.getFullYear(),
+                            today.getMonth(),
+                            today.getDate()
+                          );
+
                         const isSelected =
                           selectedDate?.toDateString() === date.toDateString();
 
@@ -191,13 +218,13 @@ const ContactSection: React.FC = () => {
                             key={day}
                             disabled={isPast}
                             onClick={() => handleDateSelect(day)}
-                            className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all cursor-pointer 
+                            className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all 
                               ${
                                 isPast
                                   ? "text-gray-300 cursor-not-allowed"
                                   : isSelected
-                                  ? "bg-[#B5442C] text-white font-bold"
-                                  : "hover:bg-[#f4d6ce]"
+                                  ? "bg-[#B5442C] text-white font-bold cursor-pointer"
+                                  : "hover:bg-[#f4d6ce] cursor-pointer"
                               }`}
                           >
                             {day}
