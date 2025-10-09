@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionContainer from "./shared/SectionContainer";
 import ContentContainer from "./shared/ContentContainer";
 import bgArrows from "../assets/banner_section_bg_image.png";
 import blueCard from "../assets/banner_section_blue_image.png";
+import blueCardMobile from "../assets/banner_section_blue_image_mobile.png";
 import phoneStack from "../assets/banner_section_phone_image.png";
 
 const BannerSection: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check screen size once on mount and on resize
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <SectionContainer
       id="banner-section"
@@ -32,7 +43,11 @@ const BannerSection: React.FC = () => {
         {/* Blue Card */}
         <div
           className="relative max-w-2xl min-h-fit md:h-[530px] rounded-xl md:rounded-2xl overflow-visible flex flex-col md:flex-row shadow-[0_10px_40px_rgba(0,0,0,0.25)] bg-gradient-to-b from-[#0861AA] to-[#032744] bg-cover bg-center p-4"
-          style={{ backgroundImage: `url(${blueCard})` }}
+          style={{
+            backgroundImage: `url(${isMobile ? blueCardMobile : blueCard})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
           {/* Left / Top - Phone Image */}
           <div className="relative flex justify-center items-center w-full md:w-1/2 z-10">
@@ -55,7 +70,8 @@ const BannerSection: React.FC = () => {
               strategies, Kyptronix is here to help.
               <br />
               <br />
-              Book a <span className="text-white font-semibold">
+              Book a{" "}
+              <span className="text-white font-semibold">
                 FREE consultation
               </span>{" "}
               now and start seeing results. Our team is ready to deliver the
