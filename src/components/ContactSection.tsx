@@ -273,7 +273,10 @@ const ContactSection: React.FC = () => {
                         {/* Days */}
                         <div className="grid grid-cols-7 gap-1 text-body1 font-sans">
                           {Array.from({ length: startDay }).map((_, i) => (
-                            <div key={`empty-${i}`} />
+                            <div
+                              key={`empty-${i}`}
+                              className="flex justify-center items-center"
+                            />
                           ))}
                           {days.map((day) => {
                             const date = new Date(
@@ -294,21 +297,25 @@ const ContactSection: React.FC = () => {
                               date.toDateString();
 
                             return (
-                              <button
+                              <div
                                 key={day}
-                                disabled={isPast}
-                                onClick={() => handleDateSelect(day)}
-                                className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all 
-                                  ${
-                                    isPast
-                                      ? "text-gray-300 cursor-not-allowed"
-                                      : isSelected
-                                      ? "bg-[#B5442C] text-white font-bold cursor-pointer"
-                                      : "text-[#161616] hover:bg-[#f4d6ce] cursor-pointer"
-                                  }`}
+                                className="flex justify-center items-center"
                               >
-                                {day}
-                              </button>
+                                <button
+                                  disabled={isPast}
+                                  onClick={() => handleDateSelect(day)}
+                                  className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all 
+                                    ${
+                                      isPast
+                                        ? "text-gray-300 cursor-not-allowed"
+                                        : isSelected
+                                        ? "bg-[#B5442C] text-white font-bold cursor-pointer"
+                                        : "text-[#161616] hover:bg-[#f4d6ce] cursor-pointer"
+                                    }`}
+                                >
+                                  {day}
+                                </button>
+                              </div>
                             );
                           })}
                         </div>
