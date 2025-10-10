@@ -90,13 +90,34 @@ const ContactSection: React.FC = () => {
     return re.test(email);
   };
 
-  const canProceedToDetails = selectedDate && selectedTime;
-  const canSchedule =
-    userName.trim() && validateEmail(userEmail) && selectedDate && selectedTime;
+  // Check if selected time is in the past
+  const isSelectedTimeInPast = () => {
+    if (!selectedDate || !selectedTime) return false;
 
-  // Handle next step
+    const now = new Date();
+    const [hour, minute] = selectedTime.split(":").map(Number);
+    const scheduled = new Date(selectedDate);
+    scheduled.setHours(hour, minute, 0, 0);
+
+    return scheduled < now;
+  };
+
+  // Handle next step with time validation
   const handleNextStep = () => {
-    if (currentStep === 1 && canProceedToDetails) {
+    if (currentStep === 1) {
+      if (!selectedDate || !selectedTime) {
+        alert("Please select both a date and a time slot before proceeding.");
+        return;
+      }
+
+      // Check if selected time is in the past
+      if (isSelectedTimeInPast()) {
+        alert(
+          "You cannot select a past time. Please choose a future date and time."
+        );
+        return;
+      }
+
       setCurrentStep(2);
     }
   };
@@ -110,18 +131,32 @@ const ContactSection: React.FC = () => {
 
   // API call to schedule a call
   const handleSchedule = () => {
-    if (!canSchedule) {
-      alert("Please fill in all required fields before scheduling.");
+    // Validate all required fields
+    if (!userName.trim()) {
+      alert("Please enter your full name before scheduling.");
       return;
     }
 
-    const now = new Date();
-    const [hour, minute] = selectedTime.split(":").map(Number);
-    const scheduled = new Date(selectedDate);
-    scheduled.setHours(hour, minute, 0, 0);
+    if (!userEmail.trim()) {
+      alert("Please enter your email address before scheduling.");
+      return;
+    }
 
-    if (scheduled < now) {
-      alert("You cannot select a past time for today.");
+    if (!validateEmail(userEmail)) {
+      alert("Please enter a valid email address before scheduling.");
+      return;
+    }
+
+    if (!selectedDate || !selectedTime) {
+      alert("Please select both a date and a time slot before scheduling.");
+      return;
+    }
+
+    // Check if selected time is in the past
+    if (isSelectedTimeInPast()) {
+      alert(
+        "You cannot select a past time. Please choose a future date and time."
+      );
       return;
     }
 
@@ -351,11 +386,11 @@ const ContactSection: React.FC = () => {
                               placeholder="your.email@company.com"
                               className="w-full px-3 py-2 text-body2 text-[#161616] border rounded-lg focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all"
                             />
-                            {userEmail && !validateEmail(userEmail) && (
+                            {/* {userEmail && !validateEmail(userEmail) && (
                               <p className="text-red-500 text-xs mt-1 text-left">
                                 Please enter a valid email address
                               </p>
-                            )}
+                            )} */}
                           </div>
 
                           <div>
@@ -388,8 +423,10 @@ const ContactSection: React.FC = () => {
                     {/* STEP 3: Confirmation */}
                     {currentStep === 3 && (
                       <div className="w-full text-center py-4">
-                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <span className="text-xl text-green-600">✓</span>
+                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-title-lg text-green-600">
+                            ✓
+                          </span>
                         </div>
                         <h3 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
                           Call Scheduled Successfully!
@@ -416,12 +453,7 @@ const ContactSection: React.FC = () => {
                       {currentStep === 1 && (
                         <button
                           onClick={handleNextStep}
-                          disabled={!canProceedToDetails}
-                          className={`uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
-                            canProceedToDetails
-                              ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                              : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                          }`}
+                          className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                         >
                           Schedule A Call
                         </button>
@@ -437,12 +469,7 @@ const ContactSection: React.FC = () => {
                           </button>
                           <button
                             onClick={handleSchedule}
-                            disabled={!canSchedule}
-                            className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
-                              canSchedule
-                                ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                                : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                            }`}
+                            className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                           >
                             Book The Slot
                           </button>
@@ -462,7 +489,7 @@ const ContactSection: React.FC = () => {
                 </div>
 
                 {/* Divider */}
-                <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-6 lg:mx-10 my-4 md:my-0"></div>
+                <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-6 lg:mx-10 my-8 md:my-0"></div>
 
                 {/* RIGHT SIDE */}
                 <div className="flex-1 flex flex-col justify-start text-left max-w-md">
@@ -499,12 +526,7 @@ const ContactSection: React.FC = () => {
                 {currentStep === 1 && (
                   <button
                     onClick={handleNextStep}
-                    disabled={!canProceedToDetails}
-                    className={`uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
-                      canProceedToDetails
-                        ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                        : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                    }`}
+                    className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                   >
                     Schedule A Call
                   </button>
@@ -520,12 +542,7 @@ const ContactSection: React.FC = () => {
                     </button>
                     <button
                       onClick={handleSchedule}
-                      disabled={!canSchedule}
-                      className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
-                        canSchedule
-                          ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                          : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
-                      }`}
+                      className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                     >
                       Book The Slot
                     </button>
