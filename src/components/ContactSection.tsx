@@ -10,6 +10,10 @@ const ContactSection: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userMessage, setUserMessage] = useState("");
+  const [currentStep, setCurrentStep] = useState(1); // 1: Calendar, 2: Details, 3: Confirmation
   const today = new Date();
 
   // Update mobile state
@@ -63,9 +67,6 @@ const ContactSection: React.FC = () => {
     );
     if (!isSameOrAfterToday(date)) return;
     setSelectedDate(date);
-
-    // if (date < today) return; // prevent selecting past dates
-    // setSelectedDate(date);
   };
 
   // Predefined time slots
@@ -83,10 +84,34 @@ const ContactSection: React.FC = () => {
       .padStart(2, "0")}`;
   });
 
+  // Validation
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const canProceedToDetails = selectedDate && selectedTime;
+  const canSchedule =
+    userName.trim() && validateEmail(userEmail) && selectedDate && selectedTime;
+
+  // Handle next step
+  const handleNextStep = () => {
+    if (currentStep === 1 && canProceedToDetails) {
+      setCurrentStep(2);
+    }
+  };
+
+  // Handle back step
+  const handleBackStep = () => {
+    if (currentStep === 2) {
+      setCurrentStep(1);
+    }
+  };
+
   // API call to schedule a call
   const handleSchedule = () => {
-    if (!selectedDate || !selectedTime) {
-      alert("Please select both a date and a time slot before scheduling.");
+    if (!canSchedule) {
+      alert("Please fill in all required fields before scheduling.");
       return;
     }
 
@@ -101,12 +126,25 @@ const ContactSection: React.FC = () => {
     }
 
     const scheduledData = {
+      name: userName,
+      email: userEmail,
+      message: userMessage,
       date: selectedDate.toDateString(),
       time: selectedTime,
+      timestamp: new Date().toISOString(),
     };
 
     console.log("Scheduled Call Details:", scheduledData);
-    alert("Your call has been scheduled!");
+    setCurrentStep(3);
+  };
+
+  const resetForm = () => {
+    setSelectedDate(null);
+    setSelectedTime("");
+    setUserName("");
+    setUserEmail("");
+    setUserMessage("");
+    setCurrentStep(1);
   };
 
   return (
@@ -134,7 +172,7 @@ const ContactSection: React.FC = () => {
           </h2>
 
           <p className="font-sans font-normal text-body1 text-[#303030] leading-[1.5] text-center max-w-md mb-6">
-            Tell us a bit about your project and goals. We’ll get back within
+            Tell us a bit about your project and goals. We'll get back within
             one business day with next steps and a clear plan to move forward.
           </p>
 
@@ -152,122 +190,273 @@ const ContactSection: React.FC = () => {
               }}
             >
               <div className="w-full flex flex-col md:flex-row">
-                {/* CALENDAR SIDE */}
+                {/* LEFT SIDE */}
                 <div className="flex-1 flex flex-col justify-center items-center">
                   <div className="w-full rounded-xl shadow p-4">
-                    {/* Header */}
-                    <div className="flex justify-between items-center mb-4">
-                      <button
-                        onClick={handlePrevMonth}
-                        className="w-[50px] border p-0.25 sm:p-0.5 rounded-full hover:bg-[#f4d6ce] cursor-pointer"
-                      >
-                        ←
-                      </button>
-                      <h3 className="text-body1 font-sans font-semibold text-[#4F1E13]">
-                        {currentMonth.toLocaleString("default", {
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </h3>
-                      <button
-                        onClick={handleNextMonth}
-                        className="w-[50px] border p-0.25 sm:p-0.5 rounded-full hover:bg-[#f4d6ce] cursor-pointer"
-                      >
-                        →
-                      </button>
-                    </div>
-
-                    {/* Weekdays */}
-                    <div className="grid grid-cols-7 text-gray-500 mb-2 text-body1 font-sans">
-                      {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
-                        (d) => (
-                          <div key={d} className="text-center">
-                            {d}
-                          </div>
-                        )
-                      )}
-                    </div>
-
-                    {/* Days */}
-                    <div className="grid grid-cols-7 gap-1 text-body1 font-sans">
-                      {Array.from({ length: startDay }).map((_, i) => (
-                        <div key={`empty-${i}`} />
-                      ))}
-                      {days.map((day) => {
-                        const date = new Date(
-                          currentMonth.getFullYear(),
-                          currentMonth.getMonth(),
-                          day
-                        );
-                        // const isPast =
-                        //   date < today &&
-                        //   date.toDateString() !== today.toDateString();
-                        const isPast =
-                          date <
-                          new Date(
-                            today.getFullYear(),
-                            today.getMonth(),
-                            today.getDate()
-                          );
-
-                        const isSelected =
-                          selectedDate?.toDateString() === date.toDateString();
-
-                        return (
+                    {/* Calendar & Time Selection */}
+                    {currentStep === 1 && (
+                      <>
+                        {/* Calendar Header */}
+                        <div className="flex justify-between items-center mb-4">
                           <button
-                            key={day}
-                            disabled={isPast}
-                            onClick={() => handleDateSelect(day)}
-                            className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all 
-                              ${
-                                isPast
-                                  ? "text-gray-300 cursor-not-allowed"
-                                  : isSelected
-                                  ? "bg-[#B5442C] text-white font-bold cursor-pointer"
-                                  : "hover:bg-[#f4d6ce] cursor-pointer"
-                              }`}
+                            onClick={handlePrevMonth}
+                            className="w-[50px] border p-0.25 sm:p-0.5 rounded-full text-[#161616] hover:bg-[#f4d6ce] cursor-pointer"
                           >
-                            {day}
+                            ←
                           </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Time Slot Picker */}
-                    <div className="mt-8">
-                      <h4 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
-                        Select Time Slot
-                      </h4>
-
-                      {/* Predefined Slots */}
-                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
-                        {timeSlots.map((t, index) => (
+                          <h3 className="text-body1 font-sans font-semibold text-[#4F1E13]">
+                            {currentMonth.toLocaleString("default", {
+                              month: "long",
+                              year: "numeric",
+                            })}
+                          </h3>
                           <button
-                            key={t}
-                            onClick={() => setSelectedTime(timeSlots24[index])}
-                            className={`border rounded-lg py-1 text-body2 transition-all cursor-pointer ${
-                              selectedTime === timeSlots24[index]
-                                ? "bg-[#B5442C] border-[#B5442C] text-white font-semibold"
-                                : "hover:bg-[#f4d6ce]"
+                            onClick={handleNextMonth}
+                            className="w-[50px] border p-0.25 sm:p-0.5 rounded-full text-[#161616] hover:bg-[#f4d6ce] cursor-pointer"
+                          >
+                            →
+                          </button>
+                        </div>
+
+                        {/* Weekdays */}
+                        <div className="grid grid-cols-7 text-[#161616] mb-2 text-body1 font-sans">
+                          {[
+                            "Sun",
+                            "Mon",
+                            "Tue",
+                            "Wed",
+                            "Thu",
+                            "Fri",
+                            "Sat",
+                          ].map((d) => (
+                            <div key={d} className="text-center">
+                              {d}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Days */}
+                        <div className="grid grid-cols-7 gap-1 text-body1 font-sans">
+                          {Array.from({ length: startDay }).map((_, i) => (
+                            <div key={`empty-${i}`} />
+                          ))}
+                          {days.map((day) => {
+                            const date = new Date(
+                              currentMonth.getFullYear(),
+                              currentMonth.getMonth(),
+                              day
+                            );
+                            const isPast =
+                              date <
+                              new Date(
+                                today.getFullYear(),
+                                today.getMonth(),
+                                today.getDate()
+                              );
+
+                            const isSelected =
+                              selectedDate?.toDateString() ===
+                              date.toDateString();
+
+                            return (
+                              <button
+                                key={day}
+                                disabled={isPast}
+                                onClick={() => handleDateSelect(day)}
+                                className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all 
+                                  ${
+                                    isPast
+                                      ? "text-gray-300 cursor-not-allowed"
+                                      : isSelected
+                                      ? "bg-[#B5442C] text-white font-bold cursor-pointer"
+                                      : "text-[#161616] hover:bg-[#f4d6ce] cursor-pointer"
+                                  }`}
+                              >
+                                {day}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {/* Time Slot Picker */}
+                        <div className="mt-8">
+                          <h4 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
+                            Select Time Slot
+                          </h4>
+
+                          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-3">
+                            {timeSlots.map((t, index) => (
+                              <button
+                                key={t}
+                                onClick={() =>
+                                  setSelectedTime(timeSlots24[index])
+                                }
+                                className={`border rounded-lg py-1 text-body2 transition-all cursor-pointer ${
+                                  selectedTime === timeSlots24[index]
+                                    ? "bg-[#B5442C] border-[#B5442C] text-white font-semibold"
+                                    : "text-[#161616] hover:bg-[#f4d6ce]"
+                                }`}
+                              >
+                                {t}
+                              </button>
+                            ))}
+                          </div>
+
+                          <h4 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
+                            <span>OR</span>
+                            <br />
+                            Enter Manually
+                          </h4>
+                          <input
+                            type="time"
+                            value={selectedTime}
+                            onChange={(e) => setSelectedTime(e.target.value)}
+                            className={`border rounded-lg p-2 text-body2 text-[#161616] w-full cursor-pointer hover:border-[#B5442C] focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all duration-100`}
+                          />
+                        </div>
+                      </>
+                    )}
+
+                    {/* User Details Form */}
+                    {currentStep === 2 && (
+                      <div className="w-full">
+                        <h3 className="text-body1 font-sans font-semibold mb-4 text-[#4F1E13]">
+                          About You
+                        </h3>
+
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block font-sans text-body2 font-medium text-[#161616] mb-1 text-left">
+                              Full Name{" "}
+                              <span className="text-[#B5442C]">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              value={userName}
+                              onChange={(e) => setUserName(e.target.value)}
+                              placeholder="Enter your full name"
+                              className="w-full px-3 py-2 text-body2 text-[#161616] border rounded-lg focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block font-sans text-body2 font-medium text-[#161616] mb-1 text-left">
+                              Email Address{" "}
+                              <span className="text-[#B5442C]">*</span>
+                            </label>
+                            <input
+                              type="email"
+                              value={userEmail}
+                              onChange={(e) => setUserEmail(e.target.value)}
+                              placeholder="your.email@company.com"
+                              className="w-full px-3 py-2 text-body2 text-[#161616] border rounded-lg focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all"
+                            />
+                            {userEmail && !validateEmail(userEmail) && (
+                              <p className="text-red-500 text-xs mt-1 text-left">
+                                Please enter a valid email address
+                              </p>
+                            )}
+                          </div>
+
+                          <div>
+                            <label className="block font-sans text-body2 font-medium text-[#161616] mb-1 text-left">
+                              Project Details (Optional)
+                            </label>
+                            <textarea
+                              value={userMessage}
+                              onChange={(e) => setUserMessage(e.target.value)}
+                              placeholder="Briefly describe your project or what you'd like to discuss..."
+                              rows={3}
+                              className="w-full px-3 py-2 text-body2 text-[#161616] border rounded-lg focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all resize-none"
+                            />
+                          </div>
+
+                          {/* Selected Time Display */}
+                          <div className="bg-gray-50 rounded-lg p-3">
+                            <h4 className="font-sans font-semibold text-[#161616] mb-1 text-body2">
+                              Selected Time:
+                            </h4>
+                            <p className="text-[#161616] font-sans text-body2">
+                              {selectedDate?.toLocaleDateString()} at{" "}
+                              {selectedTime}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* STEP 3: Confirmation */}
+                    {currentStep === 3 && (
+                      <div className="w-full text-center py-4">
+                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-xl text-green-600">✓</span>
+                        </div>
+                        <h3 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
+                          Call Scheduled Successfully!
+                        </h3>
+                        <p className="text-[#161616] font-sans text-body2 mb-4">
+                          We've sent a confirmation to{" "}
+                          <strong>{userEmail}</strong>
+                        </p>
+
+                        <div className="bg-gray-50 rounded-lg p-3 mb-4">
+                          <p className="font-sans font-semibold text-body2 text-[#4F1E13]">
+                            Your Schedule:
+                          </p>
+                          <p className="text-[#161616] font-sans text-body2">
+                            {selectedDate?.toLocaleDateString()} at{" "}
+                            {selectedTime}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Inside schedule call button for smaller screen */}
+                    <div className="flex md:hidden justify-center mt-10">
+                      {currentStep === 1 && (
+                        <button
+                          onClick={handleNextStep}
+                          disabled={!canProceedToDetails}
+                          className={`uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                            canProceedToDetails
+                              ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                              : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                          }`}
+                        >
+                          Schedule A Call
+                        </button>
+                      )}
+
+                      {currentStep === 2 && (
+                        <div className="flex flex-col xs:flex-row gap-4 w-full sm:w-auto">
+                          <button
+                            onClick={handleBackStep}
+                            className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full border-2 border-[#B5442C] text-[#B5442C] px-6 md:px-10 py-1 md:py-2 hover:bg-[#f4d6ce] transition-all duration-200 cursor-pointer"
+                          >
+                            Back
+                          </button>
+                          <button
+                            onClick={handleSchedule}
+                            disabled={!canSchedule}
+                            className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                              canSchedule
+                                ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                                : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                             }`}
                           >
-                            {t}
+                            Book The Slot
                           </button>
-                        ))}
-                      </div>
+                        </div>
+                      )}
 
-                      {/* Manual Time Input */}
-                      <h4 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
-                        <span>OR</span>
-                        <br />
-                        Enter Manually
-                      </h4>
-                      <input
-                        type="time"
-                        value={selectedTime}
-                        onChange={(e) => setSelectedTime(e.target.value)}
-                        className={`border rounded-lg p-2 text-body2 w-full cursor-pointer hover:border-[#B5442C] focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all duration-100`}
-                      />
+                      {currentStep === 3 && (
+                        <button
+                          onClick={resetForm}
+                          className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full bg-[#B5442C] text-white px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] transition-all duration-200 cursor-pointer"
+                        >
+                          Schedule Another Call
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -275,7 +464,7 @@ const ContactSection: React.FC = () => {
                 {/* Divider */}
                 <div className="w-full md:w-[3px] h-[3px] md:h-auto rounded-full bg-gradient-to-r from-[#B5442C] to-transparent md:bg-[linear-gradient(180deg,#B5442C_0%,rgba(240,240,240,0)_100%)] transition-all duration-300 mx-auto md:mx-6 lg:mx-10 my-4 md:my-0"></div>
 
-                {/* INFO SIDE */}
+                {/* RIGHT SIDE */}
                 <div className="flex-1 flex flex-col justify-start text-left max-w-md">
                   <h3 className="font-heading text-[#161616] text-title-sm font-bold uppercase mb-1">
                     Call Us
@@ -294,7 +483,7 @@ const ContactSection: React.FC = () => {
                     Email
                   </h3>
                   <p className="font-sans text-[#303030] text-body2 mb-3">
-                    Want to share docs or a brief? Email us and we’ll follow up
+                    Want to share docs or a brief? Email us and we'll follow up
                     with a quick discovery call and a tailored proposal.
                   </p>
                   <div className="flex items-center gap-2">
@@ -305,16 +494,52 @@ const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Schedule Button */}
-              <div className="mt-10 flex justify-center">
-                <button
-                  onClick={handleSchedule}
-                  className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full
-                  bg-[#B5442C] text-white px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
-                  hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] transition-all duration-200 cursor-pointer"
-                >
-                  Schedule A Call
-                </button>
+              {/* BOTTOM BUTTONS SECTION */}
+              <div className="hidden md:flex justify-center mt-10">
+                {currentStep === 1 && (
+                  <button
+                    onClick={handleNextStep}
+                    disabled={!canProceedToDetails}
+                    className={`uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                      canProceedToDetails
+                        ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                        : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                    }`}
+                  >
+                    Schedule A Call
+                  </button>
+                )}
+
+                {currentStep === 2 && (
+                  <div className="flex gap-4 w-full sm:w-auto">
+                    <button
+                      onClick={handleBackStep}
+                      className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full border-2 border-[#B5442C] text-[#B5442C] px-6 md:px-10 py-1 md:py-2 hover:bg-[#f4d6ce] transition-all duration-200 cursor-pointer"
+                    >
+                      Back
+                    </button>
+                    <button
+                      onClick={handleSchedule}
+                      disabled={!canSchedule}
+                      className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                        canSchedule
+                          ? "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                          : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                      }`}
+                    >
+                      Book The Slot
+                    </button>
+                  </div>
+                )}
+
+                {currentStep === 3 && (
+                  <button
+                    onClick={resetForm}
+                    className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full bg-[#B5442C] text-white px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] transition-all duration-200 cursor-pointer"
+                  >
+                    Schedule Another Call
+                  </button>
+                )}
               </div>
             </div>
           </div>
