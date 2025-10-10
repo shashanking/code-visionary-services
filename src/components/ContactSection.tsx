@@ -243,7 +243,7 @@ const ContactSection: React.FC = () => {
 
   return (
     <SectionContainer
-      id="contact-section"
+      id="contact"
       fullWidth
       padding="lg"
       className="relative min-h-screen bg-[#F0F0F0] flex justify-center items-center overflow-hidden"

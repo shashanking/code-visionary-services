@@ -60,9 +60,9 @@ const BannerSection: React.FC = () => {
 
           {/* Right / Bottom - Text and CTA */}
           <div className="relative -top-10 md:top-0 flex flex-col justify-end md:justify-center w-full md:w-1/2 text-white">
-            <h3 className="font-heading font-bold text-title-md text-left uppercase mb-6 leading-tight max-w-[150px] md:max-w-md">
+            <h2 className="font-heading font-bold text-title-md text-left uppercase mb-6 leading-tight max-w-[150px] md:max-w-md">
               LET’S TALK STRATEGY
-            </h3>
+            </h2>
 
             <p className="font-sans font-normal text-body1 leading-[1.5] text-left">
               Ready to scale your business? Whether you need a cutting-edge
