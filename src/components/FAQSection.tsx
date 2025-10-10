@@ -16,7 +16,7 @@ const FAQSection: React.FC = () => {
       id="faq-section"
       fullWidth
       padding="lg"
-      className="relative min-h-screen bg-[#fafafa] flex justify-center items-center overflow-hidden"
+      className="relative min-h-screen bg-[#fafafa] flex justify-center items-start overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -46,28 +46,29 @@ const FAQSection: React.FC = () => {
           </p>
 
           {/* FAQs Container */}
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-4 md:space-y-6">
             {faqs.map((faq, index) => {
               const isExpanded = expandedIndex === index;
 
               return (
                 <div
                   key={index}
-                  className={`w-full rounded-2xl transition-all duration-300 ${
+                  className={`w-full rounded-xl md:rounded-2xl transition-all duration-500 ease-in-out backdrop-blur-sm ${
                     isExpanded
-                      ? "border border-[#B5442C] shadow-lg"
-                      : "border border-gray-200 shadow-md hover:shadow-lg"
+                      ? "border border-[#B5442C] backdrop-blur-md"
+                      : "border border-gray-200 backdrop-blur-sm hover:backdrop-blur-md"
                   }`}
                   style={{
                     background: isExpanded
                       ? "linear-gradient(270deg, #B5442C 0%, #4F1E13 100%)"
-                      : "#ffffff",
+                      : "rgba(255, 255, 255, 0.95)",
+                    boxShadow: isExpanded ? "" : "0px 0px 8px 0px #B5442C80",
                   }}
                 >
                   {/* Question Button */}
                   <button
                     onClick={() => handleToggle(index)}
-                    className={`w-full px-4 py-5 text-left flex justify-between items-center gap-4 font-sans font-bold text-body1 transition-all duration-300 rounded-2xl cursor-pointer ${
+                    className={`w-full px-4 py-5 text-left flex justify-between items-center gap-4 font-sans font-bold text-body1 transition-all duration-500 ease-in-out rounded-2xl cursor-pointer ${
                       isExpanded
                         ? "text-white"
                         : "text-[#161616] hover:text-[#B5442C]"
@@ -75,30 +76,36 @@ const FAQSection: React.FC = () => {
                   >
                     <span className="flex-1 text-left">{faq.question}</span>
                     <span
-                      className={`flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full transition-all duration-300 cursor-pointer ${
+                      className={`flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all duration-500 ease-in-out transform ${
                         isExpanded
-                          ? "bg-white text-[#B5442C]"
-                          : "bg-[#f4d6ce] text-[#B5442C]"
+                          ? "bg-white text-[#B5442C] rotate-180"
+                          : "bg-[#f4d6ce] text-[#B5442C] rotate-0"
                       }`}
                     >
                       {isExpanded ? (
-                        <span className="text-md font-bold">−</span>
+                        <span className="text-md font-bold transform scale-110">
+                          −
+                        </span>
                       ) : (
-                        <span className="text-md font-bold">+</span>
+                        <span className="text-md font-bold transform scale-110">
+                          +
+                        </span>
                       )}
                     </span>
                   </button>
 
                   {/* Answer Content */}
                   <div
-                    className={`px-4 transition-all duration-300 overflow-hidden ${
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
                       isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
-                    <div className="">
+                    <div className="px-4 pb-5">
                       <p
-                        className={`font-sans font-normal text-left ${
-                          isExpanded ? "text-white pb-5" : "text-[#161616]"
+                        className={`font-sans font-normal text-left leading-relaxed transition-all duration-300 delay-100 ${
+                          isExpanded
+                            ? "text-white translate-y-0"
+                            : "text-[#161616] translate-y-2"
                         }`}
                       >
                         {faq.answer}
