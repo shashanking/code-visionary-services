@@ -5,11 +5,15 @@ import faqBg from "../assets/FAQ_bg_image.png";
 import { faqs } from "../constants/faqs-data";
 
 const FAQSection: React.FC = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+  const [expandedIndexes, setExpandedIndexes] = useState<number[]>([0]);
 
   const handleToggle = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    setExpandedIndexes((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
   };
+
+  const isExpanded = (index: number) => expandedIndexes.includes(index);
 
   return (
     <SectionContainer
@@ -48,28 +52,28 @@ const FAQSection: React.FC = () => {
           {/* FAQs Container */}
           <div className="w-full space-y-4 md:space-y-6">
             {faqs.map((faq, index) => {
-              const isExpanded = expandedIndex === index;
+              const expanded = isExpanded(index);
 
               return (
                 <div
                   key={index}
                   className={`w-full rounded-xl md:rounded-2xl transition-all duration-500 ease-in-out backdrop-blur-sm ${
-                    isExpanded
+                    expanded
                       ? "border border-[#B5442C] backdrop-blur-md"
                       : "border border-gray-200 backdrop-blur-sm hover:backdrop-blur-md"
                   }`}
                   style={{
-                    background: isExpanded
+                    background: expanded
                       ? "linear-gradient(270deg, #B5442C 0%, #4F1E13 100%)"
                       : "rgba(255, 255, 255, 0.95)",
-                    boxShadow: isExpanded ? "" : "0px 0px 8px 0px #B5442C80",
+                    boxShadow: expanded ? "" : "0px 0px 8px 0px #B5442C80",
                   }}
                 >
                   {/* Question Button */}
                   <button
                     onClick={() => handleToggle(index)}
                     className={`w-full px-4 py-5 text-left flex justify-between items-center gap-4 font-sans font-bold text-body1 transition-all duration-500 ease-in-out rounded-2xl cursor-pointer ${
-                      isExpanded
+                      expanded
                         ? "text-white"
                         : "text-[#161616] hover:text-[#B5442C]"
                     }`}
@@ -77,12 +81,12 @@ const FAQSection: React.FC = () => {
                     <span className="flex-1 text-left">{faq.question}</span>
                     <span
                       className={`flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all duration-500 ease-in-out transform ${
-                        isExpanded
+                        expanded
                           ? "bg-white text-[#B5442C] rotate-180"
                           : "bg-[#f4d6ce] text-[#B5442C] rotate-0"
                       }`}
                     >
-                      {isExpanded ? (
+                      {expanded ? (
                         <span className="text-md font-bold transform scale-110">
                           −
                         </span>
@@ -97,13 +101,13 @@ const FAQSection: React.FC = () => {
                   {/* Answer Content */}
                   <div
                     className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                      isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                      expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
                     <div className="px-4 pb-5">
                       <p
                         className={`font-sans font-normal text-left leading-relaxed transition-all duration-300 delay-100 ${
-                          isExpanded
+                          expanded
                             ? "text-white translate-y-0"
                             : "text-[#161616] translate-y-2"
                         }`}
