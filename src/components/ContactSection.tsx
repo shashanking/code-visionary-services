@@ -515,7 +515,7 @@ const ContactSection: React.FC = () => {
                     )}
 
                     {/* Error State - if api call fails */}
-                    {currentStep === 4 && (
+                    {/* {currentStep === 4 && (
                       <div className="w-full text-center py-4">
                         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                           <span className="text-title-lg text-red-600">⚠</span>
@@ -537,6 +537,51 @@ const ContactSection: React.FC = () => {
                             {selectedTime}
                           </p>
                         </div>
+                      </div>
+                    )} */}
+
+                    {currentStep === 4 && (
+                      <div className="w-full text-center py-4">
+                        <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-title-md text-yellow-600">
+                            🚧
+                          </span>
+                        </div>
+                        <h3 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
+                          Scheduling Temporarily Unavailable!
+                        </h3>
+
+                        <div className="mb-4">
+                          <p className="text-[#161616] font-sans text-body2 text-center md:text-left">
+                            Our online scheduling system is currently under
+                            development.{" "}
+                            <strong>Please contact us directly</strong> to
+                            schedule your call using the information{" "}
+                            <span className="hidden md:inline">
+                              on the right.
+                            </span>
+                            <span className="inline md:hidden">below.</span>
+                          </p>
+                        </div>
+
+                        <div className="bg-yellow-50 rounded-lg p-4 mb-4 border border-yellow-200">
+                          <p className="font-sans font-semibold text-body2 text-[#4F1E13] mb-2">
+                            Your Selected Time:
+                          </p>
+                          <p className="text-[#161616] font-sans text-body2">
+                            {selectedDate?.toLocaleDateString()} at{" "}
+                            {selectedTime}
+                          </p>
+                          <p className="text-[#161616] font-sans text-body2 mt-2">
+                            Please mention this preferred time when you contact
+                            us.
+                          </p>
+                        </div>
+
+                        <p className="text-[#161616] font-sans text-body2 mt-4">
+                          We apologize for the inconvenience. Online scheduling
+                          will be available soon!
+                        </p>
                       </div>
                     )}
 
@@ -616,7 +661,7 @@ const ContactSection: React.FC = () => {
                   </p>
                   <div className="flex items-center gap-2 mb-6">
                     <p className="font-sans font-semibold text-[#303030] text-body2">
-                      +91 8637515632
+                      📞 +91 8637515632
                     </p>
                   </div>
 
@@ -629,7 +674,7 @@ const ContactSection: React.FC = () => {
                   </p>
                   <div className="flex items-center gap-2">
                     <p className="font-sans font-semibold text-[#303030] text-body2">
-                      office@codevisionaryservices.com
+                      ✉️ office@codevisionaryservices.com
                     </p>
                   </div>
                 </div>
