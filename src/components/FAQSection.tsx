@@ -25,7 +25,7 @@ const FAQSection: React.FC = () => {
       {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
-          className="w-full h-full bg-cover bg-no-repeat bg-center scale-x-[-1]"
+          className="w-full h-full bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: `url(${faqBg})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
@@ -72,7 +72,7 @@ const FAQSection: React.FC = () => {
                   {/* Question Button */}
                   <button
                     onClick={() => handleToggle(index)}
-                    className={`w-full px-4 py-5 text-left flex justify-between items-center gap-4 font-sans font-bold text-body1 transition-all duration-500 ease-in-out rounded-2xl cursor-pointer ${
+                    className={`w-full px-4 py-5 text-left flex justify-between items-center gap-4 font-sans font-bold text-body1 transition-all duration-300 ease-in-out rounded-2xl cursor-pointer ${
                       expanded
                         ? "text-white"
                         : "text-[#161616] hover:text-[#B5442C]"
@@ -80,7 +80,7 @@ const FAQSection: React.FC = () => {
                   >
                     <span className="flex-1 text-left">{faq.question}</span>
                     <span
-                      className={`flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all duration-500 ease-in-out transform ${
+                      className={`flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all duration-300 ease-in-out transform ${
                         expanded
                           ? "bg-white text-[#B5442C] rotate-180"
                           : "bg-[#f4d6ce] text-[#B5442C] rotate-0"
@@ -98,22 +98,24 @@ const FAQSection: React.FC = () => {
                     </span>
                   </button>
 
-                  {/* Answer Content */}
+                  {/* Answer Content - Fixed smooth animation */}
                   <div
-                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                      expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    className={`grid transition-all duration-500 ease-in-out ${
+                      expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                     }`}
                   >
-                    <div className="px-4 pb-5">
-                      <p
-                        className={`font-sans font-normal text-left leading-relaxed transition-all duration-300 delay-100 ${
-                          expanded
-                            ? "text-white translate-y-0"
-                            : "text-[#161616] translate-y-2"
-                        }`}
-                      >
-                        {faq.answer}
-                      </p>
+                    <div className="overflow-hidden">
+                      <div className="px-4 pb-5">
+                        <p
+                          className={`font-sans font-normal text-left leading-relaxed transition-all duration-300 ${
+                            expanded
+                              ? "text-white opacity-100 translate-y-0"
+                              : "text-[#161616] opacity-0 translate-y-2"
+                          }`}
+                        >
+                          {faq.answer}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
