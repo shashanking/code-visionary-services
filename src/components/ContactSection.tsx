@@ -5,15 +5,34 @@ import bgImg from "../assets/contact_bg_image.png";
 import bgImgInside from "../assets/contact_bg_image_inside.png";
 import bgImgInsideMobile from "../assets/contact_bg_image_inside_mobile.png";
 
+// Type definitions
+interface ScheduledData {
+  name: string;
+  email: string;
+  message: string;
+  date: string;
+  time: string;
+  timestamp: string;
+}
+
+interface ApiResponse {
+  success: boolean;
+  data: ScheduledData;
+}
+
+// 1: Calendar, 2: Details, 3: Confirmation, 4: Error
+type Step = 1 | 2 | 3 | 4;
+
 const ContactSection: React.FC = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userMessage, setUserMessage] = useState("");
-  const [currentStep, setCurrentStep] = useState(1); // 1: Calendar, 2: Details, 3: Confirmation
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [selectedTime, setSelectedTime] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [userMessage, setUserMessage] = useState<string>("");
+  const [currentStep, setCurrentStep] = useState<Step>(1);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const today = new Date();
 
   // Update mobile state
@@ -41,25 +60,25 @@ const ContactSection: React.FC = () => {
   const startDay = startOfMonth.getDay();
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-  const handlePrevMonth = () => {
+  const handlePrevMonth = (): void => {
     setCurrentMonth(
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
     );
   };
 
-  const handleNextMonth = () => {
+  const handleNextMonth = (): void => {
     setCurrentMonth(
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
     );
   };
 
-  const isSameOrAfterToday = (date: Date) => {
+  const isSameOrAfterToday = (date: Date): boolean => {
     const todayMidnight = new Date();
     todayMidnight.setHours(0, 0, 0, 0);
     return date >= todayMidnight;
   };
 
-  const handleDateSelect = (day: number) => {
+  const handleDateSelect = (day: number): void => {
     const date = new Date(
       currentMonth.getFullYear(),
       currentMonth.getMonth(),
@@ -70,10 +89,10 @@ const ContactSection: React.FC = () => {
   };
 
   // Predefined time slots
-  const timeSlots = ["10:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"];
+  const timeSlots: string[] = ["10:00 AM", "12:00 PM", "3:00 PM", "6:00 PM"];
 
   // Converting time
-  const timeSlots24 = timeSlots.map((t) => {
+  const timeSlots24: string[] = timeSlots.map((t) => {
     const [hourMin, ampm] = t.split(" ");
     const [hour, min] = hourMin.split(":").map(Number);
     let hour24 = hour;
@@ -85,13 +104,13 @@ const ContactSection: React.FC = () => {
   });
 
   // Validation
-  const validateEmail = (email: string) => {
+  const validateEmail = (email: string): boolean => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
 
   // Check if selected time is in the past
-  const isSelectedTimeInPast = () => {
+  const isSelectedTimeInPast = (): boolean => {
     if (!selectedDate || !selectedTime) return false;
 
     const now = new Date();
@@ -103,7 +122,7 @@ const ContactSection: React.FC = () => {
   };
 
   // Handle next step with time validation
-  const handleNextStep = () => {
+  const handleNextStep = (): void => {
     if (currentStep === 1) {
       if (!selectedDate || !selectedTime) {
         alert("Please select both a date and a time slot before proceeding.");
@@ -123,14 +142,34 @@ const ContactSection: React.FC = () => {
   };
 
   // Handle back step
-  const handleBackStep = () => {
+  const handleBackStep = (): void => {
     if (currentStep === 2) {
       setCurrentStep(1);
+    } else if (currentStep === 4) {
+      // If there's an error, go back to details form
+      setCurrentStep(2);
     }
   };
 
+  // Mock API call
+  const scheduleCallAPI = async (
+    scheduledData: ScheduledData
+  ): Promise<ApiResponse> => {
+    // Simulate API call with random success/failure
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const isSuccess = Math.random() > 1; // Close to 0 success rate and to 1 failed
+        if (isSuccess) {
+          resolve({ success: true, data: scheduledData });
+        } else {
+          reject(new Error("Failed to schedule call. Please try again."));
+        }
+      }, 1000);
+    });
+  };
+
   // API call to schedule a call
-  const handleSchedule = () => {
+  const handleSchedule = async (): Promise<void> => {
     // Validate all required fields
     if (!userName.trim()) {
       alert("Please enter your full name before scheduling.");
@@ -160,7 +199,7 @@ const ContactSection: React.FC = () => {
       return;
     }
 
-    const scheduledData = {
+    const scheduledData: ScheduledData = {
       name: userName,
       email: userEmail,
       message: userMessage,
@@ -170,16 +209,36 @@ const ContactSection: React.FC = () => {
     };
 
     console.log("Scheduled Call Details:", scheduledData);
-    setCurrentStep(3);
+
+    setIsSubmitting(true);
+
+    try {
+      // API call
+      await scheduleCallAPI(scheduledData);
+
+      // If API call is successful
+      setCurrentStep(3);
+    } catch (error) {
+      // If API call fails
+      console.error("API Error:", error);
+      setCurrentStep(4);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     setSelectedDate(null);
     setSelectedTime("");
     setUserName("");
     setUserEmail("");
     setUserMessage("");
     setCurrentStep(1);
+  };
+
+  const tryAgain = (): void => {
+    // Go back to details form to try again
+    setCurrentStep(2);
   };
 
   return (
@@ -427,7 +486,7 @@ const ContactSection: React.FC = () => {
                       </div>
                     )}
 
-                    {/* STEP 3: Confirmation */}
+                    {/* Success Confirmation */}
                     {currentStep === 3 && (
                       <div className="w-full text-center py-4">
                         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -446,6 +505,32 @@ const ContactSection: React.FC = () => {
                         <div className="bg-gray-50 rounded-lg p-3 mb-4">
                           <p className="font-sans font-semibold text-body2 text-[#4F1E13]">
                             Your Schedule:
+                          </p>
+                          <p className="text-[#161616] font-sans text-body2">
+                            {selectedDate?.toLocaleDateString()} at{" "}
+                            {selectedTime}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Error State - if api call fails */}
+                    {currentStep === 4 && (
+                      <div className="w-full text-center py-4">
+                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-title-lg text-red-600">⚠</span>
+                        </div>
+                        <h3 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
+                          Scheduling Failed!
+                        </h3>
+                        <p className="text-[#161616] font-sans text-body2 mb-4">
+                          We encountered an issue while scheduling your call.
+                          Please try again or contact us directly.
+                        </p>
+
+                        <div className="bg-gray-50 rounded-lg p-3 mb-4">
+                          <p className="font-sans font-semibold text-body2 text-[#4F1E13]">
+                            Your Selected Time:
                           </p>
                           <p className="text-[#161616] font-sans text-body2">
                             {selectedDate?.toLocaleDateString()} at{" "}
@@ -476,9 +561,14 @@ const ContactSection: React.FC = () => {
                           </button>
                           <button
                             onClick={handleSchedule}
-                            className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                            disabled={isSubmitting}
+                            className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                              isSubmitting
+                                ? "bg-[#B5442C80] text-white cursor-not-allowed"
+                                : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                            }`}
                           >
-                            Book The Slot
+                            {isSubmitting ? "Booking..." : "Book The Slot"}
                           </button>
                         </div>
                       )}
@@ -490,6 +580,23 @@ const ContactSection: React.FC = () => {
                         >
                           Schedule Another Call
                         </button>
+                      )}
+
+                      {currentStep === 4 && (
+                        <div className="flex flex-col xs:flex-row gap-4 w-full sm:w-auto">
+                          <button
+                            onClick={handleBackStep}
+                            className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full border-2 border-[#B5442C] text-[#B5442C] px-6 md:px-10 py-1 md:py-2 hover:bg-[#f4d6ce] transition-all duration-200 cursor-pointer"
+                          >
+                            Back to Edit
+                          </button>
+                          <button
+                            onClick={tryAgain}
+                            className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                          >
+                            Try Again
+                          </button>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -549,9 +656,14 @@ const ContactSection: React.FC = () => {
                     </button>
                     <button
                       onClick={handleSchedule}
-                      className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                      disabled={isSubmitting}
+                      className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                        isSubmitting
+                          ? "bg-[#B5442C80] text-white cursor-not-allowed"
+                          : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                      }`}
                     >
-                      Book The Slot
+                      {isSubmitting ? "Booking..." : "Book The Slot"}
                     </button>
                   </div>
                 )}
@@ -563,6 +675,23 @@ const ContactSection: React.FC = () => {
                   >
                     Schedule Another Call
                   </button>
+                )}
+
+                {currentStep === 4 && (
+                  <div className="flex gap-4 w-full sm:w-auto">
+                    <button
+                      onClick={handleBackStep}
+                      className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full border-2 border-[#B5442C] text-[#B5442C] px-6 md:px-10 py-1 md:py-2 hover:bg-[#f4d6ce] transition-all duration-200 cursor-pointer"
+                    >
+                      Back to Edit
+                    </button>
+                    <button
+                      onClick={tryAgain}
+                      className="flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                    >
+                      Try Again
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
