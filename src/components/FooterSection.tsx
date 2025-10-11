@@ -40,7 +40,7 @@ const FooterSection: React.FC = () => (
             color: "#fff",
             pt: 8,
             pb: 4,
-            mt: 12,
+            // mt: 12,
             width: "100vw",
             minHeight: "100vh",
             display: "flex",

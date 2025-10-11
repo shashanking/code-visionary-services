@@ -167,7 +167,7 @@ const HeroSection: React.FC = () => {
 
         {/* Services Section */}
         <div className="mt-40 w-full relative">
-          <h2 className="absolute w-full -top-22 left-1/2 transform -translate-x-1/2 leading-[1] font-heading font-semibold text-center bg-gradient-to-b from-[#0861AA] to-[#0861AA00] bg-clip-text text-transparent opacity-50 md:opacity-35 xl:opacity-25 pointer-events-none text-[52px] sm:text-[70px] md:text-[80px] lg:text-[100px] xl:text-[140px]">
+          <h2 className="absolute w-full -top-22 left-1/2 transform -translate-x-1/2 leading-[1] font-heading font-semibold text-center bg-gradient-to-b from-[#0861AA] to-[#0861AA00] bg-clip-text text-transparent opacity-50 md:opacity-35 xl:opacity-50 pointer-events-none text-[52px] sm:text-[70px] md:text-[80px] lg:text-[100px] xl:text-[140px]">
             OUR SERVICES
           </h2>
 

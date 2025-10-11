@@ -4,7 +4,7 @@ import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import PortfolioSection from "./components/PortfolioSection";
 import TechStackSection from "./components/TechStackSection";
-// import OurTeamSection from "./components/OurTeamSection";
+import OurTeamSection from "./components/OurTeamSection";
 import BannerSection from "./components/BannerSection";
 import ContactSection from "./components/ContactSection";
 import FAQSection from "./components/FAQSection";
@@ -23,7 +23,7 @@ const App: React.FC = () => {
         <PortfolioSection />
         <TechStackSection />
         <TestimonialSection />
-        {/* <OurTeamSection /> */}
+        <OurTeamSection />
         <BannerSection />
         <ContactSection />
         <FAQSection />

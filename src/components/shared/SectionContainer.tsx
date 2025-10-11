@@ -21,7 +21,7 @@ const SectionContainer: React.FC<SectionContainerProps> = ({
     none: "",
     sm: "py-8",
     md: "py-12",
-    lg: "py-16 md:py-30",
+    lg: "py-20 md:py-30",
   };
 
   return (
