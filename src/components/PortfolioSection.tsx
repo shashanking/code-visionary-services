@@ -126,21 +126,18 @@ const PortfolioSection: React.FC = () => {
     <SectionContainer
       id="portfolio"
       fullWidth
-      background="#F0F0F0"
+      // background="#F0F0F0"
       padding="lg"
       className="overflow-hidden"
     >
+      {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0 pointer-events-none"
+          className="w-full h-full bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: `url(${bgImg})` }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
       </div>
-
-      <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] from-0% via-transparent via-45% to-[#F0F0F0] to-100% z-0 pointer-events-none" />
-
-      <div className="hidden md:block absolute w-[546px] h-[546px] -left-32 lg:-left-48 top-10 bg-[#B5442C] opacity-20 blur-[140px] rounded-full z-0 pointer-events-none" />
-      <div className="hidden md:block absolute w-[546px] h-[546px] -right-32 lg:-right-40 bottom-10 bg-[#B5442C] opacity-20 blur-[140px] rounded-full z-0 pointer-events-none" />
 
       <ContentContainer maxWidth="7xl" paddingX="xl">
         <h2 className="font-heading text-title-md font-bold uppercase leading-tight mb-6 text-center bg-gradient-to-b from-[#0861AA] to-[#032744] bg-clip-text text-transparent">

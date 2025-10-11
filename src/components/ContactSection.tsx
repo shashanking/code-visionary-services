@@ -4,6 +4,14 @@ import ContentContainer from "./shared/ContentContainer";
 import bgImg from "../assets/contact_bg_image.png";
 import bgImgInside from "../assets/contact_bg_image_inside.png";
 import bgImgInsideMobile from "../assets/contact_bg_image_inside_mobile.png";
+import {
+  BadgeCheck,
+  CalendarCheck,
+  Mail,
+  Phone,
+  Send,
+  ServerCrash,
+} from "lucide-react";
 
 // Type definitions
 interface ScheduledData {
@@ -491,7 +499,7 @@ const ContactSection: React.FC = () => {
                       <div className="w-full text-center py-4">
                         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                           <span className="text-title-lg text-green-600">
-                            ✓
+                            <BadgeCheck className="w-6 h-6" />
                           </span>
                         </div>
                         <h3 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
@@ -518,7 +526,7 @@ const ContactSection: React.FC = () => {
                     {/* {currentStep === 4 && (
                       <div className="w-full text-center py-4">
                         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <span className="text-title-lg text-red-600">⚠</span>
+                          <span className="text-title-lg text-red-600"><ServerCrash className="w-8 h-8"/></span>
                         </div>
                         <h3 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
                           Scheduling Failed!
@@ -542,9 +550,9 @@ const ContactSection: React.FC = () => {
 
                     {currentStep === 4 && (
                       <div className="w-full text-center py-4">
-                        <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <span className="text-title-md text-yellow-600">
-                            🚧
+                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-title-md text-red-600">
+                            <ServerCrash className="w-8 h-8" />
                           </span>
                         </div>
                         <h3 className="text-body1 font-sans font-semibold mb-2 text-[#4F1E13]">
@@ -590,9 +598,10 @@ const ContactSection: React.FC = () => {
                       {currentStep === 1 && (
                         <button
                           onClick={handleNextStep}
-                          className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                          className="flex items-center justify-center gap-3 uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                         >
                           Schedule A Call
+                          <Send className="w-4 md:w-5 h-4 md:h-5" />
                         </button>
                       )}
 
@@ -607,13 +616,20 @@ const ContactSection: React.FC = () => {
                           <button
                             onClick={handleSchedule}
                             disabled={isSubmitting}
-                            className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                            className={`flex justify-center items-center gap-3 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
                               isSubmitting
                                 ? "bg-[#B5442C80] text-white cursor-not-allowed"
                                 : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                             }`}
                           >
-                            {isSubmitting ? "Booking..." : "Book The Slot"}
+                            {isSubmitting ? (
+                              "Booking..."
+                            ) : (
+                              <>
+                                Book The Slot
+                                <CalendarCheck className="w-4 md:w-5 h-4 md:h-5" />
+                              </>
+                            )}
                           </button>
                         </div>
                       )}
@@ -659,9 +675,9 @@ const ContactSection: React.FC = () => {
                     Prefer to talk? Give us a call—our team is happy to discuss
                     scope, timelines, and the best approach for your needs.
                   </p>
-                  <div className="flex items-center gap-2 mb-6">
-                    <p className="font-sans font-semibold text-[#303030] text-body2">
-                      📞 +91 8637515632
+                  <div className="flex items-center mb-6">
+                    <p className="flex items-center justify-center gap-3 font-sans font-semibold text-[#303030] text-body2">
+                      <Phone className="w-4 md:w-5 h-4 md:h-5" /> +91 8637515632
                     </p>
                   </div>
 
@@ -672,9 +688,10 @@ const ContactSection: React.FC = () => {
                     Want to share docs or a brief? Email us and we'll follow up
                     with a quick discovery call and a tailored proposal.
                   </p>
-                  <div className="flex items-center gap-2">
-                    <p className="font-sans font-semibold text-[#303030] text-body2">
-                      ✉️ office@codevisionaryservices.com
+                  <div className="flex items-center">
+                    <p className="flex items-center justify-center gap-3 font-sans font-semibold text-[#303030] text-body2">
+                      <Mail className="w-4 md:w-5 h-4 md:h-5" />
+                      office@codevisionaryservices.com
                     </p>
                   </div>
                 </div>
@@ -685,9 +702,10 @@ const ContactSection: React.FC = () => {
                 {currentStep === 1 && (
                   <button
                     onClick={handleNextStep}
-                    className="uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
+                    className="flex items-center justify-center gap-3 uppercase w-full sm:w-fit font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                   >
                     Schedule A Call
+                    <Send className="w-4 md:w-5 h-4 md:h-5" />
                   </button>
                 )}
 
@@ -702,13 +720,20 @@ const ContactSection: React.FC = () => {
                     <button
                       onClick={handleSchedule}
                       disabled={isSubmitting}
-                      className={`flex-1 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
+                      className={`flex justify-center items-center gap-3 sm:flex-none uppercase font-heading font-bold text-body1 rounded-full px-6 md:px-10 py-1 md:py-2 transition-all duration-200 ${
                         isSubmitting
                           ? "bg-[#B5442C80] text-white cursor-not-allowed"
                           : "bg-[#B5442C] text-white shadow-[0px_0px_8px_#B5442C] hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] cursor-pointer"
                       }`}
                     >
-                      {isSubmitting ? "Booking..." : "Book The Slot"}
+                      {isSubmitting ? (
+                        "Booking..."
+                      ) : (
+                        <>
+                          Book The Slot
+                          <CalendarCheck className="w-4 md:w-5 h-4 md:h-5" />
+                        </>
+                      )}
                     </button>
                   </div>
                 )}
