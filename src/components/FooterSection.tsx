@@ -39,8 +39,8 @@ const FooterSection: React.FC = () => (
     id="footer-section"
     fullWidth
     padding="none"
-    background="#13416b"
-    className="bg-[#13416b] text-white flex flex-col items-center pt-20"
+    background="linear-gradient(287.56deg, #0861AA 0%, #032744 100%)"
+    className="text-white flex flex-col items-center pt-20"
   >
     <ContentContainer
       maxWidth="7xl"
@@ -57,7 +57,7 @@ const FooterSection: React.FC = () => (
           </h5>
 
           <form
-            className="flex items-center bg-[#f4faff] rounded-full pl-4 pr-0.5 max-w-full md:max-w-[400px] w-full md:w-auto"
+            className="flex items-center bg-[#f4faff] rounded-full pl-4 pr-0.5 max-w-full mx-auto md:mx-0 sm:max-w-[400px] w-full md:w-auto"
             onSubmit={(e) => e.preventDefault()}
           >
             <input
@@ -67,7 +67,7 @@ const FooterSection: React.FC = () => (
             />
             <button
               type="submit"
-              className="ml-3 px-6 py-1.5 gap-2 rounded-full font-heading font-bold uppercase bg-[#e55e36] hover:bg-[#ff7e59] min-w-[150px] flex items-center justify-center"
+              className="ml-3 px-6 py-1.5 gap-2 rounded-full font-heading font-bold uppercase bg-[#B5442C] min-w-[150px] flex items-center justify-center"
             >
               SEE ALL
               <Send className="w-5 h-5" />
@@ -91,7 +91,7 @@ const FooterSection: React.FC = () => (
           />
 
           {/* Content Container with Backdrop Blur */}
-          <div className="relative z-10 p-6 md:pt-12 md:px-12 pb-4 bg-[rgba(34,69,110,0.7)] backdrop-blur-md rounded-t-4xl">
+          <div className="relative z-10 p-6 md:pt-12 md:px-12 pb-4 bg-[#265c8090] backdrop-blur-lg rounded-t-4xl">
             <div className="w-full flex flex-wrap items-start justify-between">
               <div className="flex flex-col items-left mb-8">
                 <img
@@ -215,7 +215,7 @@ const FooterSection: React.FC = () => (
                 <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
                   PAYMENT
                 </h6>
-                <button className="bg-gradient-to-r from-[#e86d3a] to-[#c8462b] hover:from-[#c8462b] hover:to-[#e86d3a] text-white text-xs font-semibold rounded-[18px] py-1 px-5 mb-2 shadow">
+                <button className="font-heading font-semibold text-white text-sm py-2 px-10 mb-2 rounded-full bg-gradient-to-r from-[#B5442C] to-[#4F1E13] hover:from-[#c8462b] hover:to-[#e86d3a] shadow">
                   PAY NOW!
                 </button>
                 <div className="flex gap-1.5 mt-2">
