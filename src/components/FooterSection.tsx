@@ -75,170 +75,188 @@ const FooterSection: React.FC = () => (
           </form>
         </div>
 
-        {/* Main Footer Card */}
-        <div className="mt-12 p-6 md:pt-12 md:px-12 pb-4 bg-[rgba(34,69,110,0.9)] rounded-t-4xl flex flex-col gap-6 shadow-[0_8px_60px_rgba(0,0,0,0.1)]">
-          <div className="w-full flex flex-wrap items-start justify-between">
-            <div className="flex flex-col items-left mb-8">
-              <img
-                src={CVSLogoImg}
-                alt="CVS Logo"
-                className="h-12 w-auto mb-10"
+        {/* Main Footer Card with Background Image and Blur Effect */}
+        <div className="mt-12 rounded-t-4xl flex flex-col gap-6 shadow-[0_8px_60px_rgba(0,0,0,0.1)] relative overflow-hidden">
+          {/* Background Image with Blur Effect */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: `url(${CVSLogoBg})`,
+              backgroundSize: "contain",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              filter: "blur(8px) brightness(0.8)",
+              transform: "scale(0.8)",
+            }}
+          />
+
+          {/* Content Container with Backdrop Blur */}
+          <div className="relative z-10 p-6 md:pt-12 md:px-12 pb-4 bg-[rgba(34,69,110,0.7)] backdrop-blur-md rounded-t-4xl">
+            <div className="w-full flex flex-wrap items-start justify-between">
+              <div className="flex flex-col items-left mb-8">
+                <img
+                  src={CVSLogoImg}
+                  alt="CVS Logo"
+                  className="h-12 w-auto mb-10"
+                />
+                <p className="font-sans text-white text-left mb-12 leading-relaxed max-w-xs">
+                  We help startups and brands launch fast, reliable digital
+                  products. From UX and design to modern development and growth,
+                  our team builds experiences that look great and perform even
+                  better.
+                </p>
+                <div className="flex justify-start md:justify-center items-center space-x-3">
+                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                    <FacebookIcon />
+                  </button>
+                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                    <InstagramIcon />
+                  </button>
+                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                    <LinkedinIcon />
+                  </button>
+                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                    <TwitterXIcon />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-start mb-8">
+                <h6 className="font-heading font-bold text-body mb-2 tracking-wider text-white">
+                  MENU
+                </h6>
+                <div className="flex flex-col items-start space-y-2">
+                  {[
+                    "Home",
+                    "About Us",
+                    "Services",
+                    "Reviews",
+                    "Portfolio",
+                    "Blog",
+                    "Contact",
+                  ].map((label) => (
+                    <a
+                      key={label}
+                      href="#"
+                      className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
+                    >
+                      {label}
+                    </a>
+                  ))}
+                </div>
+
+                <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
+                  PARTNERS
+                </h6>
+                <div className="flex flex-col items-start gap-2">
+                  <div className="">
+                    <img src={PNCbank} alt="PNC Bank" className="h-8 w-auto" />
+                  </div>
+
+                  <div className="">
+                    <img
+                      src={CenturyBank}
+                      alt="Century Bank"
+                      className="h-8 w-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-start mb-8">
+                <h6 className="font-heading font-bold text-body mb-2 tracking-wider text-white">
+                  IMPORTANT
+                </h6>
+                <div className="flex flex-col items-start space-y-2">
+                  {[
+                    "Refund Policy",
+                    "Privacy Policy",
+                    "Terms & Conditions",
+                    "Careers at CVS",
+                  ].map((label) => (
+                    <a
+                      key={label}
+                      href="#"
+                      className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
+                    >
+                      {label}
+                    </a>
+                  ))}
+                </div>
+
+                <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
+                  CONTACT
+                </h6>
+                <div className="flex flex-col space-y-1.5">
+                  <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
+                    <PhoneIcon className="w-5 h-5" /> +91 8637515632
+                  </div>
+                  <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
+                    <Mail className="w-5 h-5" />
+                    office@codevisionaryservices.com
+                  </div>
+                  <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
+                    <MapPin className="w-5 h-5" /> Kolkata, India
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-start mb-8">
+                <h6 className="font-heading font-bold text-body mb-2 tracking-wider text-white">
+                  BUSINESS
+                </h6>
+                <p className="text-left text-sm text-[#f0f0f0] font-sans font-[300]">
+                  Monday - Friday :<br /> 10:00 PST to 5:00 PST
+                  <br />
+                  Saturday & Sunday :<br />
+                  Fixed Off
+                </p>
+
+                <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
+                  PAYMENT
+                </h6>
+                <button className="bg-gradient-to-r from-[#e86d3a] to-[#c8462b] hover:from-[#c8462b] hover:to-[#e86d3a] text-white text-xs font-semibold rounded-[18px] py-1 px-5 mb-2 shadow">
+                  PAY NOW!
+                </button>
+                <div className="flex gap-1.5 mt-2">
+                  <div className="">
+                    <img
+                      src={GoogleDevAgency}
+                      alt="Century Bank"
+                      className="h-10 w-auto"
+                    />
+                  </div>
+
+                  <div className="">
+                    <img
+                      src={DMCAprotected}
+                      alt="Century Bank"
+                      className="h-10 w-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative w-full h-0.5 mb-4">
+              <div
+                className="w-full h-full"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(181, 68, 44, 0) 0%, #B5442C 35%, #B5442C 65%, rgba(181, 68, 44, 0) 100%)",
+                }}
               />
-              <p className="font-sans text-white text-left mb-12 leading-relaxed max-w-xs">
-                We help startups and brands launch fast, reliable digital
-                products. From UX and design to modern development and growth,
-                our team builds experiences that look great and perform even
-                better.
+            </div>
+
+            {/* Bottom Footer */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
+              <p className="text-sm text-[#f0f0f0]">
+                2025 All rights reserved.
               </p>
-              <div className="flex justify-start md:justify-center items-center space-x-3">
-                <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
-                  <FacebookIcon />
-                </button>
-                <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
-                  <InstagramIcon />
-                </button>
-                <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
-                  <LinkedinIcon />
-                </button>
-                <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
-                  <TwitterXIcon />
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start mb-8">
-              <h6 className="font-heading font-bold text-body mb-2 tracking-wider text-white">
-                MENU
-              </h6>
-              <div className="flex flex-col items-start space-y-2">
-                {[
-                  "Home",
-                  "About Us",
-                  "Services",
-                  "Reviews",
-                  "Portfolio",
-                  "Blog",
-                  "Contact",
-                ].map((label) => (
-                  <a
-                    key={label}
-                    href="#"
-                    className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-
-              <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
-                PARTNERS
-              </h6>
-              <div className="flex flex-col items-start gap-2">
-                <div className="">
-                  <img src={PNCbank} alt="PNC Bank" className="h-8 w-auto" />
-                </div>
-
-                <div className="">
-                  <img
-                    src={CenturyBank}
-                    alt="Century Bank"
-                    className="h-8 w-auto"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start mb-8">
-              <h6 className="font-heading font-bold text-body mb-2 tracking-wider text-white">
-                IMPORTANT
-              </h6>
-              <div className="flex flex-col items-start space-y-2">
-                {[
-                  "Refund Policy",
-                  "Privacy Policy",
-                  "Terms & Conditions",
-                  "Careers at CVS",
-                ].map((label) => (
-                  <a
-                    key={label}
-                    href="#"
-                    className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-
-              <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
-                CONTACT
-              </h6>
-              <div className="flex flex-col space-y-1.5">
-                <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
-                  <PhoneIcon className="w-5 h-5" /> +91 8637515632
-                </div>
-                <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
-                  <Mail className="w-5 h-5" />
-                  office@codevisionaryservices.com
-                </div>
-                <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
-                  <MapPin className="w-5 h-5" /> Kolkata, India
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start mb-8">
-              <h6 className="font-heading font-bold text-body mb-2 tracking-wider text-white">
-                BUSINESS
-              </h6>
-              <p className="text-left text-sm text-[#f0f0f0] font-sans font-[300]">
-                Monday - Friday :<br /> 10:00 PST to 5:00 PST
-                <br />
-                Saturday & Sunday :<br />
-                Fixed Off
+              <p className="text-sm text-[#f0f0f0]">
+                Designed by Code Visionary Services.
               </p>
-
-              <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
-                PAYMENT
-              </h6>
-              <button className="bg-gradient-to-r from-[#e86d3a] to-[#c8462b] hover:from-[#c8462b] hover:to-[#e86d3a] text-white text-xs font-semibold rounded-[18px] py-1 px-5 mb-2 shadow">
-                PAY NOW!
-              </button>
-              <div className="flex gap-1.5 mt-2">
-                <div className="">
-                  <img
-                    src={GoogleDevAgency}
-                    alt="Century Bank"
-                    className="h-10 w-auto"
-                  />
-                </div>
-
-                <div className="">
-                  <img
-                    src={DMCAprotected}
-                    alt="Century Bank"
-                    className="h-10 w-auto"
-                  />
-                </div>
-              </div>
             </div>
-          </div>
-
-          <div className="relative w-full h-0.5">
-            <div
-              className="w-full h-full"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(181, 68, 44, 0) 0%, #B5442C 35%, #B5442C 65%, rgba(181, 68, 44, 0) 100%)",
-              }}
-            />
-          </div>
-
-          {/* Bottom CVS Section */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
-            <p className="text-sm text-[#f0f0f0]">2025 All rights reserved.</p>
-            <p className="text-sm text-[#f0f0f0]">
-              Designed by Code Visionary Services.
-            </p>
           </div>
         </div>
       </div>
