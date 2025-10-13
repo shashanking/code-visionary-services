@@ -46,8 +46,8 @@ const FooterSection: React.FC = () => {
       },
       {
         root: null,
-        threshold: 0.1,
-        rootMargin: "-50px 0px 0px 0px", // Start a bit before the footer
+        threshold: 0,
+        rootMargin: "0px 0px 0px 0px",
       }
     );
 
@@ -61,16 +61,16 @@ const FooterSection: React.FC = () => {
   return (
     <SectionContainer
       id="footer-section"
+      ref={footerRef}
       fullWidth
       padding="none"
       background="linear-gradient(287.56deg, #0861AA 0%, #032744 100%)"
-      className="text-white min-h-screen flex flex-col items-center pt-20 relative"
+      className="text-white flex flex-col items-center pt-20 relative"
     >
       {/* Overlay Section - Always render but control visibility */}
       <FooterRevealOverlay footerRef={footerRef} isActive={overlayActive} />
 
       <ContentContainer
-        ref={footerRef}
         maxWidth="7xl"
         paddingX="lg"
         className="relative flex flex-col justify-center items-center text-center"

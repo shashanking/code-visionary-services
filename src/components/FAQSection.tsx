@@ -20,7 +20,7 @@ const FAQSection: React.FC = () => {
       id="faq-section"
       fullWidth
       padding="lg"
-      className="relative min-h-screen bg-[#fafafa] flex justify-center items-start overflow-hidden"
+      className="relative min-h-screen bg-[#fafafa] flex justify-center items-start overflow-hidden z-30"
     >
       {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
