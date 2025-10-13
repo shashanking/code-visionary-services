@@ -50,7 +50,7 @@ const FooterSection: React.FC = () => (
       <div className="relative w-full max-w-2xl">
         {/* Newsletter */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-center md:justify-between w-full gap-2">
-          <h5 className="font-heading font-bold text-title-md text-[#ff7e59] uppercase text-center md:text-left leading-tight max-w-md">
+          <h5 className="font-heading font-bold text-title-md bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent uppercase text-center md:text-left leading-tight max-w-md">
             GET THE LATEST UPDATES,
             <br />
             TIPS & INSIGHTS
@@ -67,7 +67,7 @@ const FooterSection: React.FC = () => (
             />
             <button
               type="submit"
-              className="ml-3 px-6 py-1.5 gap-2 rounded-full font-heading font-bold uppercase bg-[#B5442C] min-w-[150px] flex items-center justify-center"
+              className="ml-3 px-6 py-1.5 gap-2 rounded-full font-heading font-bold uppercase bg-[#B5442C] hover:bg-[#e86d3a] min-w-[150px] flex items-center justify-center cursor-pointer"
             >
               SEE ALL
               <Send className="w-5 h-5" />
@@ -106,16 +106,16 @@ const FooterSection: React.FC = () => (
                   better.
                 </p>
                 <div className="flex justify-start md:justify-center items-center space-x-3">
-                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                  <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
                     <FacebookIcon />
                   </button>
-                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                  <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
                     <InstagramIcon />
                   </button>
-                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                  <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
                     <LinkedinIcon />
                   </button>
-                  <button className="w-11 h-11 rounded-full bg-[#ff7e59] hover:bg-[#fb976e] flex items-center justify-center text-white">
+                  <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
                     <TwitterXIcon />
                   </button>
                 </div>
@@ -215,7 +215,7 @@ const FooterSection: React.FC = () => (
                 <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
                   PAYMENT
                 </h6>
-                <button className="font-heading font-semibold text-white text-sm py-2 px-10 mb-2 rounded-full bg-gradient-to-r from-[#B5442C] to-[#4F1E13] hover:from-[#c8462b] hover:to-[#e86d3a] shadow">
+                <button className="font-heading font-semibold text-white text-sm py-2 px-10 mb-2 rounded-full bg-gradient-to-r from-[#B5442C] to-[#4F1E13] hover:from-[#c8462b] hover:to-[#e86d3a] shadow cursor-pointer">
                   PAY NOW!
                 </button>
                 <div className="flex gap-1.5 mt-2">
