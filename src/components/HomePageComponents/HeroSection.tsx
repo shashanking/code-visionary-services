@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { CTAButton } from "./shared";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import heroBg1 from "../assets/hero/hero-bg-1.png";
-import heroBg2 from "../assets/hero/hero-bg-2.png";
-import heroBg3 from "../assets/hero/hero-bg-3.png";
-import heroBg4 from "../assets/hero/hero-bg-4.png";
-import arrowImg from "../assets/mingcute_arrow-up-line.png";
-import { services } from "../constants/hero-section-data";
+import { CTAButton } from "../shared";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import heroBg1 from "../../assets/hero/hero-bg-1.png";
+import heroBg2 from "../../assets/hero/hero-bg-2.png";
+import heroBg3 from "../../assets/hero/hero-bg-3.png";
+import heroBg4 from "../../assets/hero/hero-bg-4.png";
+import arrowImg from "../../assets/mingcute_arrow-up-line.png";
+import { services } from "../../constants/hero-section-data";
 
 const heroBackgrounds = [heroBg1, heroBg2, heroBg3, heroBg4];
 
@@ -83,8 +83,7 @@ const ServicesGrid: React.FC<{
   const getGridConfig = () => {
     const count = services.length;
     if (count === 6) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
-    if (count === 8)
-      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
+    if (count === 8) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
     return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
   };
 

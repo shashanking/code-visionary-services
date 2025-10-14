@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { CTAButton, Logo } from "./shared";
-import { NAV_ITEMS } from "../constants/navigation";
-import { cn } from "../lib/utils";
-import ContentContainer from "./shared/ContentContainer";
+import { CTAButton, Logo } from "../shared";
+import { NAV_ITEMS } from "../../constants/navigation";
+import { cn } from "../../lib/utils";
+import ContentContainer from "../shared/ContentContainer";
 
 const Navbar: React.FC = () => {
   const [active, setActive] = useState<string>("Home");

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import bgImg from "../assets/contact_bg_image.png";
-import bgImgInside from "../assets/contact_bg_image_inside.png";
-import bgImgInsideMobile from "../assets/contact_bg_image_inside_mobile.png";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import bgImg from "../../assets/contact_bg_image.png";
+import bgImgInside from "../../assets/contact_bg_image_inside.png";
+import bgImgInsideMobile from "../../assets/contact_bg_image_inside_mobile.png";
 import {
   BadgeCheck,
   CalendarCheck,

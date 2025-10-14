@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import bgImg from "../assets/portfolio_bg_image.png";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import bgImg from "../../assets/portfolio_bg_image.png";
 import {
   categories,
   portfolioItems,
-} from "../constants/portfolio-section-data";
+} from "../../constants/portfolio-section-data";
 
 interface PortfolioItem {
   title: string;

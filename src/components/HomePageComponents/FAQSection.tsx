@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import faqBg from "../assets/FAQ_bg_image.png";
-import { faqs } from "../constants/faqs-data";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import faqBg from "../../assets/FAQ_bg_image.png";
+import { faqs } from "../../constants/faqs-data";
 
 const FAQSection: React.FC = () => {
   const [expandedIndexes, setExpandedIndexes] = useState<number[]>([0]);

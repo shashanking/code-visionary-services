@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import testimonialBg from "../assets/Testimonial_section_bg_image.png";
-import leftArrow from "../assets/Testimonial_section_left_arrow_vector_image.png";
-import rightArrow from "../assets/Testimonial_section_right_arrow_vector_image.png";
-import { testimonials } from "../constants/testimonials-data";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import testimonialBg from "../../assets/Testimonial_section_bg_image.png";
+import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
+import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
+import { testimonials } from "../../constants/testimonials-data";
 
 const TestimonialSection: React.FC = () => {
   const rowRef = useRef<HTMLDivElement>(null);

@@ -1,7 +1,7 @@
 import React from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import { clients } from "../constants/clients-data";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import { clients } from "../../constants/clients-data";
 
 const RowItem: React.FC<{ name: string; logo?: string }> = ({ name, logo }) => {
   return (

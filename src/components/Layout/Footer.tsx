@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import CVSLogoImg from "../assets/cvs-logo/footer-logo.png";
-import CVSLogoBg from "../assets/cvs-logo/footer-bg.png";
-import CenturyBank from "../assets/footer-img/first-century-bank.png";
-import PNCbank from "../assets/footer-img/pnc-bank.png";
-import DMCAprotected from "../assets/footer-img/dmca-protected.png";
-import GoogleDevAgency from "../assets/footer-img/google-dev-agency.png";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import CVSLogoImg from "../../assets/cvs-logo/footer-logo.png";
+import CVSLogoBg from "../../assets/cvs-logo/footer-bg.png";
+import CenturyBank from "../../assets/footer-img/first-century-bank.png";
+import PNCbank from "../../assets/footer-img/pnc-bank.png";
+import DMCAprotected from "../../assets/footer-img/dmca-protected.png";
+import GoogleDevAgency from "../../assets/footer-img/google-dev-agency.png";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -16,7 +16,7 @@ import {
   PhoneIcon,
   Send,
 } from "lucide-react";
-import { FooterRevealOverlay } from "./shared/footer-overlay";
+import { FooterRevealOverlay } from "./footer-overlay";
 
 // TwitterX SVG Icon
 const TwitterXIcon: React.FC = () => (
@@ -35,7 +35,7 @@ const TwitterXIcon: React.FC = () => (
   </svg>
 );
 
-const FooterSection: React.FC = () => {
+const Footer: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
   const [overlayActive, setOverlayActive] = useState(true);
 
@@ -297,4 +297,4 @@ const FooterSection: React.FC = () => {
   );
 };
 
-export default FooterSection;
+export default Footer;
