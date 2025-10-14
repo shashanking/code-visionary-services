@@ -136,45 +136,51 @@ const HeroSection: React.FC = () => {
         />
       ))}
 
-      <ContentContainer maxWidth="2xl" paddingX="lg" className="pb-10">
-        <div className="w-full max-w-xl mx-auto mb-10 mt-12 md:mt-20 font-heading font-medium text-title-xl text-gray-800 leading-[1.08]">
-          <h1 className="mb-4">
-            INNOVATIVE{" "}
-            <span className="inline-block bg-gradient-to-r from-[#4F1E13] to-[#B5442C] bg-clip-text text-transparent">
-              DIGITAL SOLUTIONS,
-            </span>
-          </h1>
-          <h1 className="text-gray-800">BUILT FOR IMPACT</h1>
-        </div>
+      <ContentContainer
+        maxWidth="7xl"
+        paddingX="lg"
+        className="relative z-10 flex flex-col justify-center items-center text-center"
+      >
+        <div className="relative w-full max-w-2xl flex flex-col justify-center items-center">
+          <div className="w-full max-w-2xl mx-auto mb-10 mt-12 md:mt-20 font-heading font-medium text-title-xl text-gray-800 leading-[1.1]">
+            <h1 className="mb-4">
+              INNOVATIVE{" "}
+              <span className="inline-block bg-gradient-to-r from-[#4F1E13] to-[#B5442C] bg-clip-text text-transparent">
+                DIGITAL SOLUTIONS,
+              </span>
+            </h1>
+            <h1 className="text-gray-800">BUILT FOR IMPACT</h1>
+          </div>
 
-        <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-10 leading-[1.5]">
-          At Code Visionary Services, we craft high-performance websites,
-          software, and visual identities that elevate your brand and drive
-          results. From code to creativity, we turn your ideas into powerful
-          digital experiences.
-        </p>
+          <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-10 leading-[1.5]">
+            At Code Visionary Services, we craft high-performance websites,
+            software, and visual identities that elevate your brand and drive
+            results. From code to creativity, we turn your ideas into powerful
+            digital experiences.
+          </p>
 
-        <div className="flex justify-center">
-          <CTAButton
-            variant="secondary"
-            size="large"
-            onClick={() => console.log("Clicked!")}
-          >
-            Start a Project
-          </CTAButton>
-        </div>
+          <div className="flex justify-center">
+            <CTAButton
+              variant="secondary"
+              size="large"
+              onClick={() => console.log("Clicked!")}
+            >
+              Start a Project
+            </CTAButton>
+          </div>
 
-        {/* Services Section */}
-        <div className="mt-40 w-full relative">
-          <h2 className="absolute w-full -top-22 left-1/2 transform -translate-x-1/2 leading-[1] font-heading font-semibold text-center bg-gradient-to-b from-[#0861AA] to-[#0861AA00] bg-clip-text text-transparent opacity-50 md:opacity-35 xl:opacity-50 pointer-events-none text-[52px] sm:text-[70px] md:text-[80px] lg:text-[100px] xl:text-[140px]">
-            OUR SERVICES
-          </h2>
+          {/* Services Section */}
+          <div className="mt-40 w-full relative">
+            <h2 className="absolute w-full -top-22 left-1/2 transform -translate-x-1/2 leading-[1] font-heading font-semibold text-center bg-gradient-to-b from-[#0861AA] to-[#0861AA00] bg-clip-text text-transparent opacity-50 md:opacity-35 xl:opacity-50 pointer-events-none text-[52px] sm:text-[70px] md:text-[80px] lg:text-[100px] xl:text-[140px]">
+              OUR SERVICES
+            </h2>
 
-          <ServicesGrid
-            services={services}
-            hoverIdx={hoverIdx}
-            setHoverIdx={setHoverIdx}
-          />
+            <ServicesGrid
+              services={services}
+              hoverIdx={hoverIdx}
+              setHoverIdx={setHoverIdx}
+            />
+          </div>
         </div>
       </ContentContainer>
     </SectionContainer>
