@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CTAButton, Logo } from "./shared";
 import { NAV_ITEMS } from "../constants/navigation";
 import { cn } from "../lib/utils";
+import ContentContainer from "./shared/ContentContainer";
 
 const Navbar: React.FC = () => {
   const [active, setActive] = useState<string>("Home");
@@ -160,8 +161,12 @@ const Navbar: React.FC = () => {
         )}
         style={{ height: "64px" }}
       >
-        <div className="max-w-2xl mx-auto h-full px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-full gap-4">
+        <div className="max-w-7xl mx-auto h-full">
+          <ContentContainer
+            maxWidth="2xl"
+            paddingX="lg"
+            className="relative z-10 max-w-[1480px] flex items-center justify-between h-full gap-4"
+          >
             <div className="flex items-center">
               <Logo
                 variant="navbar"
@@ -236,7 +241,7 @@ const Navbar: React.FC = () => {
                 />
               </svg>
             </button>
-          </div>
+          </ContentContainer>
         </div>
       </header>
 
