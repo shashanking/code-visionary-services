@@ -29,7 +29,7 @@ const HeroAboutPage: React.FC = () => {
         <div className="relative w-full max-w-2xl flex flex-col justify-center items-center">
           <h1 className="font-heading font-bold text-title-2xl text-center uppercase mb-6 leading-tight max-w-2xl text-[#ffffff] leading-[1.1]">
             Creativity and innovation fuel{" "}
-            <span className="bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent pr-1">
               our journey
             </span>
             .
@@ -69,7 +69,8 @@ const HeroAboutPage: React.FC = () => {
         paddingX="lg"
         className="relative z-10 flex flex-col justify-center items-center text-left min-h-screen bg-[#f0f0f0]"
       >
-        <div className="absolute top-1/2 -left-40 -translate-y-1/2 w-[600px] h-[400px] rounded-full opacity-20 blur-[150px] bg-[#B5442C] z-0 pointer-events-none" />
+        <div className="absolute top-1/2 -left-10 -translate-y-1/2 w-[400px] h-full rounded-full opacity-40 blur-[150px] bg-[#B5442C] z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
 
         <div className="relative w-full max-w-2xl flex flex-col justify-center items-start">
           <h1 className="font-heading font-bold text-title-lg text-center uppercase mb-6 leading-tight max-w-2xl bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent leading-[1.1]">
