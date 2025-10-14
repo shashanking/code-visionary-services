@@ -26,7 +26,9 @@ const HeroAboutPage: React.FC = () => {
         paddingX="lg"
         className="relative z-10 flex flex-col justify-center items-center text-center min-h-screen bg-black/40 backdrop-blur-2xl"
       >
-        <div className="relative w-full max-w-2xl flex flex-col justify-center items-center">
+        <div className="absolute inset-0 h-100 bg-gradient-to-b from-[#111111] via-transparent to-transparent z-0 pointer-events-none" />
+
+        <div className="relative z-10 w-full max-w-2xl flex flex-col justify-center items-center">
           <h1 className="font-heading font-bold text-title-2xl text-center uppercase mb-6 leading-tight max-w-2xl text-[#ffffff] leading-[1.1]">
             Creativity and innovation fuel{" "}
             <span className="bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent pr-1">
