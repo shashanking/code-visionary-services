@@ -7,18 +7,15 @@
 //   footerRef: React.RefObject<HTMLElement | null>;
 //   isActive: boolean;
 // }) => {
-//   // Scroll progress inside the footer element
 //   const { scrollYProgress } = useScroll({
 //     target: footerRef,
 //     offset: ["start end", "end end"],
 //   });
 
-//   // Opacity values for texts
-//   const ideaOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-//   const contactOpacity = useTransform(scrollYProgress, [0.3, 0.7], [0, 1]);
-
-//   // Overlay Y to move up like shutter after contact text fully visible
+//   // Overlay slides up as scroll
 //   const overlayY = useTransform(scrollYProgress, [0.7, 1], ["0%", "-100%"]);
+
+//   const glowOpacity = useTransform(scrollYProgress, [0, 1, 1, 1], [1, 0, 0, 0]);
 
 //   if (!isActive) return null;
 
@@ -30,10 +27,8 @@
 //         top: 0,
 //         left: 0,
 //         width: "100%",
-//         height: "100%",
+//         height: "150%",
 //         background: "#f0f0f0",
-//         // background:
-//         //   "linear-gradient(to bottom, rgba(240,240,240, 1) 0%, rgba(240,240,240, 1) 100%)",
 //         display: "flex",
 //         justifyContent: "center",
 //         alignItems: "center",
@@ -42,36 +37,25 @@
 //         pointerEvents: "none",
 //         gap: "10rem",
 //       }}
-//       className="footer-overlay min-h-[250vh]"
+//       className="footer-overlay min-h-[100vh] overflow-hidden"
 //     >
 //       <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
+
 //       <motion.div
 //         style={{
-//           opacity: ideaOpacity,
-//           color: "#222",
-//           fontWeight: "bold",
-//           fontSize: "clamp(2rem, 5vw, 3rem)",
-//           textAlign: "center",
+//           opacity: glowOpacity,
 //         }}
-//         className="font-heading min-h-[100vh]"
-//       >
-//         Got an Idea ?
-//       </motion.div>
-//       <motion.div
-//         style={{
-//           opacity: contactOpacity,
-//           background:
-//             "linear-gradient(91.08deg, #B5442C 0.34%, #FF9C87 99.62%)",
-//           WebkitBackgroundClip: "text",
-//           WebkitTextFillColor: "transparent",
-//           backgroundClip: "text",
-//           fontWeight: "bold",
-//           fontSize: "clamp(2rem, 5vw, 3rem)",
-//           textAlign: "center",
-//         }}
-//         className="font-heading min-h-[100vh]"
-//       >
-//         Contact Us
+//         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[100px] bg-[#B5442C] z-0 pointer-events-none"
+//       />
+
+//       {/* Text content */}
+//       <motion.div className="font-heading text-center z-10">
+//         <p className="font-heading font-bold text-title-lg text-[#161616]">
+//           Got an Idea?
+//         </p>
+//         <p className="font-heading font-bold text-title-lg bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent uppercase">
+//           Contact Us
+//         </p>
 //       </motion.div>
 //     </motion.div>
 //   );
@@ -91,7 +75,10 @@ export const FooterRevealOverlay = ({
     offset: ["start end", "end end"],
   });
 
+  // Overlay slides up as scroll
   const overlayY = useTransform(scrollYProgress, [0.7, 1], ["0%", "-100%"]);
+
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 0, 0]);
 
   if (!isActive) return null;
 
@@ -103,31 +90,36 @@ export const FooterRevealOverlay = ({
         top: 0,
         left: 0,
         width: "100%",
-        height: "300vh",
+        height: "150%",
         background: "#f0f0f0",
         display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         flexDirection: "column",
         zIndex: 20,
         pointerEvents: "none",
+        gap: "10rem",
       }}
-      className="footer-overlay"
+      className="footer-overlay min-h-[100vh] overflow-hidden"
     >
-      {/* First Section */}
-      <div className="h-[100vh] w-full flex justify-center items-center">
-        <div className="font-heading font-bold text-title-md text-gray-800">
-          Got an Idea ?
-        </div>
-      </div>
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" /> */}
 
-      {/* Second Section */}
-      <div className="min-h-[100vh] w-full flex justify-center items-center">
-        <div className="font-heading font-bold text-title-md bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent">
+      <motion.div
+        style={{
+          opacity: glowOpacity,
+        }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full blur-[100px] bg-[#B5442C] z-0 pointer-events-none"
+      />
+
+      {/* Text content */}
+      <motion.div className="font-heading text-center z-10">
+        <p className="font-heading font-bold text-title-lg text-[#161616]">
+          Got an Idea?
+        </p>
+        <p className="font-heading font-bold text-title-lg bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent uppercase">
           Contact Us
-        </div>
-      </div>
-
-      {/* Empty space */}
-      <div className="min-h-[100vh] w-full"></div>
+        </p>
+      </motion.div>
     </motion.div>
   );
 };
