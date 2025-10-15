@@ -18,7 +18,18 @@ const OurStorySection: React.FC = () => {
           className="w-full h-full bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: `url(${StoryBg})` }}
         />
+
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
+
+        {/* Left-side gradient block */}
+        <div
+          className="absolute top-0 left-0 h-full z-10 pointer-events-none"
+          style={{
+            width: "50%", // max width at the bottom
+            background: "linear-gradient(180deg, #0861AA 0%, #032744 100%)",
+            clipPath: "polygon(0 0, 30% 0, 60% 100%, 0% 100%)",
+          }}
+        />
       </div>
 
       <ContentContainer

@@ -45,7 +45,7 @@ const HeroAboutPage: React.FC = () => {
         scrollTrigger: {
           trigger: sectionEl,
           start: "top top",
-          end: "+=150%",
+          end: "+=250%",
           scrub: true,
           pin: true,
           pinSpacing: true,
