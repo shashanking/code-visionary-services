@@ -7,6 +7,7 @@ interface SectionContainerProps {
   fullWidth?: boolean;
   background?: string;
   padding?: "none" | "sm" | "md" | "lg";
+  style?: React.CSSProperties;
 }
 
 const SectionContainer = forwardRef<HTMLDivElement, SectionContainerProps>(
@@ -18,6 +19,7 @@ const SectionContainer = forwardRef<HTMLDivElement, SectionContainerProps>(
       fullWidth = true,
       background = "transparent",
       padding = "lg",
+      style = {},
     },
     ref
   ) => {
@@ -32,13 +34,10 @@ const SectionContainer = forwardRef<HTMLDivElement, SectionContainerProps>(
       <section
         id={id}
         ref={ref}
-        className={`
-        relative w-full
-        ${fullWidth ? "w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]" : ""}
-        ${paddingClasses[padding]}
-        ${className}
-      `}
-        style={{ background }}
+        className={`relative w-full ${
+          fullWidth ? "w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]" : ""
+        } ${paddingClasses[padding]} ${className}`}
+        style={{ background, ...style }}
       >
         {children}
       </section>
