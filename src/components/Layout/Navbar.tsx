@@ -1,12 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { CTAButton, Logo } from "./shared";
-import { NAV_ITEMS } from "../constants/navigation";
-import { cn } from "../lib/utils";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CTAButton, Logo } from "../shared";
+import { NAV_ITEMS } from "../../constants/navigation";
+import { cn } from "../../lib/utils";
+import ContentContainer from "../shared/ContentContainer";
 
 const Navbar: React.FC = () => {
   const [active, setActive] = useState<string>("Home");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const currentItem = NAV_ITEMS.find(
+      (item) =>
+        item.href === currentPath || (currentPath === "/" && item.href === "/")
+    );
+    if (currentItem) {
+      setActive(currentItem.label);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,23 +42,8 @@ const Navbar: React.FC = () => {
     setActive(label);
     setMobileOpen(false);
 
-    try {
-      const target = document.querySelector(href);
-      if (target) {
-        (target as HTMLElement).scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      } else if (href.startsWith("#")) {
-        const id = href.substring(1);
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    } catch (error) {
-      console.warn("Navigation error:", error);
-    }
+    // Use React Router navigation
+    navigate(href);
   };
 
   const GradientUnderlineV2: React.FC = () => (
@@ -83,7 +84,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center justify-between">
             <Logo
               variant="navbar"
-              onClick={() => handleNavigate("#home", "Home")}
+              onClick={() => handleNavigate("/", "Home")}
             />
           </div>
         </div>
@@ -138,6 +139,7 @@ const Navbar: React.FC = () => {
               onClick={() => {
                 console.log("Start project clicked from mobile");
                 setMobileOpen(false);
+                navigate("/contact");
               }}
               className="text-button-xsm"
             >
@@ -160,12 +162,16 @@ const Navbar: React.FC = () => {
         )}
         style={{ height: "64px" }}
       >
-        <div className="max-w-2xl mx-auto h-full px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-full gap-4">
+        <div className="max-w-7xl mx-auto h-full">
+          <ContentContainer
+            maxWidth="2xl"
+            paddingX="lg"
+            className="relative z-10 max-w-[1480px] flex items-center justify-between h-full gap-4"
+          >
             <div className="flex items-center">
               <Logo
                 variant="navbar"
-                onClick={() => handleNavigate("#home", "Home")}
+                onClick={() => handleNavigate("/", "Home")}
               />
             </div>
 
@@ -204,7 +210,7 @@ const Navbar: React.FC = () => {
               <CTAButton
                 variant="primary"
                 size="small"
-                onClick={() => console.log("Start project clicked")}
+                onClick={() => navigate("/contact")}
               >
                 Start a Project
               </CTAButton>
@@ -236,7 +242,7 @@ const Navbar: React.FC = () => {
                 />
               </svg>
             </button>
-          </div>
+          </ContentContainer>
         </div>
       </header>
 

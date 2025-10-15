@@ -1,8 +1,8 @@
 import React from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import bgImg from "../assets/about_section_bg_image.png";
-import laptopImg from "../assets/Laptop.png";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import bgImg from "../../assets/about_section_bg_image.png";
+import laptopImg from "../../assets/Laptop.png";
 
 const AboutSection: React.FC = () => (
   <SectionContainer

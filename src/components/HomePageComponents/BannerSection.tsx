@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import bgArrows from "../assets/banner_section_bg_image.png";
-import blueCard from "../assets/banner_section_blue_image.png";
-import blueCardMobile from "../assets/banner_section_blue_image_mobile.png";
-import phoneStack from "../assets/banner_section_phone_image.png";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import bgArrows from "../../assets/banner_section_bg_image.png";
+import blueCard from "../../assets/banner_section_blue_image.png";
+import blueCardMobile from "../../assets/banner_section_blue_image_mobile.png";
+import phoneStack from "../../assets/banner_section_phone_image.png";
 
 const BannerSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);

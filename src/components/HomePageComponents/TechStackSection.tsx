@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import bgImg from "../assets/tech_stack_section_bg_image.png";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import bgImg from "../../assets/tech_stack_section_bg_image.png";
 import {
   mainTechs,
   techTags,
   tagToTechs,
-} from "../constants/tech-stack-section-data";
+} from "../../constants/tech-stack-section-data";
 
 const TechStackSection: React.FC = () => {
   const [activeTag, setActiveTag] = useState<string>("Web Development");

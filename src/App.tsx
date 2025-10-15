@@ -1,35 +1,23 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import AboutSection from "./components/AboutSection";
-import PortfolioSection from "./components/PortfolioSection";
-import TechStackSection from "./components/TechStackSection";
-import OurTeamSection from "./components/OurTeamSection";
-import BannerSection from "./components/BannerSection";
-import ContactSection from "./components/ContactSection";
-import FAQSection from "./components/FAQSection";
-import TestimonialSection from "./components/TestimonialSection";
-import FooterSection from "./components/FooterSection";
-import ClientsMarqueeSection from "./components/ClientsMarqueeSection";
+import React, { useEffect } from "react";
+import AppRoutes from "./routes/AppRoutes";
+import { useLocation } from "react-router-dom";
+
+const ScrollToTop: React.FC = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  return null;
+};
 
 const App: React.FC = () => {
   return (
-    <div className="w-full min-h-screen bg-white overflow-x-hidden">
-      <Navbar />
-      <main>
-        <HeroSection />
-        <ClientsMarqueeSection />
-        <AboutSection />
-        <PortfolioSection />
-        <TechStackSection />
-        <TestimonialSection />
-        <OurTeamSection />
-        <BannerSection />
-        <ContactSection />
-        <FAQSection />
-        <FooterSection />
-      </main>
-    </div>
+    <>
+      <ScrollToTop />
+      <AppRoutes />
+    </>
   );
 };
 

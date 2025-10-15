@@ -1,8 +1,11 @@
 import { useState } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import bgImg from "../assets/our-team-background-section-image.png";
-import { teamMembers, type TeamMember } from "../constants/team-section-data";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import bgImg from "../../assets/our-team-background-section-image.png";
+import {
+  teamMembers,
+  type TeamMember,
+} from "../../constants/team-section-data";
 
 const OurTeamSection: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(1);

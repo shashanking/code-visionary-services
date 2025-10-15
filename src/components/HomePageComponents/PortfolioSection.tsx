@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import SectionContainer from "./shared/SectionContainer";
-import ContentContainer from "./shared/ContentContainer";
-import bgImg from "../assets/portfolio_bg_image.png";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
+import bgImg from "../../assets/portfolio_bg_image.png";
 import {
   categories,
   portfolioItems,
-} from "../constants/portfolio-section-data";
+} from "../../constants/portfolio-section-data";
 
 interface PortfolioItem {
   title: string;
@@ -139,7 +139,7 @@ const PortfolioSection: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
       </div>
 
-      <ContentContainer maxWidth="7xl" paddingX="xl">
+      <ContentContainer maxWidth="7xl" paddingX="lg">
         <h2 className="font-heading text-title-md font-bold uppercase leading-tight mb-6 text-center bg-gradient-to-b from-[#0861AA] to-[#032744] bg-clip-text text-transparent">
           OUR WORK
         </h2>
