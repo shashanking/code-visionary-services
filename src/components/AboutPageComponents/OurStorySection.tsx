@@ -39,11 +39,10 @@ const OurStorySection: React.FC = () => {
         });
       });
 
-      // Initial visual states
+      // Initial states
       gsap.set(img1Ref.current, { scale: 1, opacity: 1, zIndex: 3 });
       gsap.set(img2Ref.current, { scale: 0.9, opacity: 1, zIndex: 2 });
       gsap.set(img3Ref.current, { scale: 0.8, opacity: 1, zIndex: 1 });
-
       gsap.set(textRef.current, { y: 40, opacity: 0 });
 
       const tl = gsap.timeline({
@@ -58,26 +57,31 @@ const OurStorySection: React.FC = () => {
         defaults: { ease: "power2.out" },
       });
 
+      // Subtle lift at start
+      tl.to(img1Ref.current, { y: 20, duration: 0.6 }, 0);
+      tl.to(img2Ref.current, { y: -20, duration: 0.6 }, 0);
+      tl.to(img3Ref.current, { y: -60, duration: 0.6 }, 0);
+
+      // Text fade-in
       tl.to(textRef.current, { y: 0, opacity: 1, duration: 0.5 }, 0);
 
-      tl.to(img2Ref.current, { scale: 0.9, duration: 0.6 }, 0);
+      // Back 3rd image push back down as scroll continues to align it center
+      tl.to(img3Ref.current, { y: 0, duration: 0.8 }, 1.4);
 
-      tl.to(img3Ref.current, { scale: 0.8, duration: 0.6 }, 0);
+      // Main stacking animation
+      tl.to(img1Ref.current, { y: 300, duration: 1 }, 0.8);
+      tl.to(img1Ref.current, { opacity: 0, duration: 0.7 }, 1);
 
-      tl.to(img1Ref.current, { y: 300, duration: 1 }, 0.2);
-      tl.to(img1Ref.current, { opacity: 0, duration: 0.7 }, 0.6);
+      tl.to(img2Ref.current, { scale: 1, duration: 1 }, 0.8);
+      tl.to(img3Ref.current, { scale: 0.9, duration: 0.6 }, 1);
 
-      tl.to(img2Ref.current, { scale: 1, duration: 1 }, 0.2);
-
-      tl.to(img3Ref.current, { scale: 0.9, duration: 0.6 }, 0.8);
-
-      tl.to(img2Ref.current, { y: 300, duration: 1 }, 0.8);
-      tl.to(img2Ref.current, { opacity: 0, duration: 0.7 }, 1.2);
+      tl.to(img2Ref.current, { y: 300, duration: 1 }, 1.4);
+      tl.to(img2Ref.current, { opacity: 0, duration: 0.7 }, 1.8);
 
       tl.to(
         img3Ref.current,
         { scale: 1, opacity: 1, zIndex: 3, duration: 1 },
-        1.2
+        1.6
       );
 
       return () => {
