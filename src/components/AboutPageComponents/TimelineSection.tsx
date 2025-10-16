@@ -118,17 +118,17 @@ const TimelineSection: React.FC = () => {
       >
         <div className="relative z-10 w-full max-w-2xl flex flex-col items-center">
           <h2 className="font-heading font-bold text-title-lg uppercase mb-10 leading-tight bg-gradient-to-b from-[#B5442C]/70 via-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
-            Timeline
+            Our Journey
           </h2>
 
           <div className="relative w-full max-w-2xl mx-auto flex flex-col justify-start gap-6">
             {/* Vertical timeline line */}
-            <div className="absolute left-0 sm:left-1/4 top-0 bottom-0 w-1 bg-gradient-to-t from-[#B5442C] to-transparent z-0 rounded-full" />
+            <div className="absolute left-2.5 sm:left-[25.72%] top-0 bottom-0 w-1 bg-gradient-to-t from-[#B5442C] to-transparent z-0 rounded-full" />
 
             {/* Floating icon */}
             <div
               ref={iconRef}
-              className="absolute left-0 sm:left-[24.27%] w-6 h-6 rounded-full z-10 flex items-center justify-center"
+              className="absolute left-0 sm:left-1/4 w-6 h-6 rounded-full z-10 flex items-center justify-center"
               style={{ top: 0, backgroundColor: "rgba(31, 60, 115, 0.4)" }}
             >
               <div className="w-3 h-3 rounded-full bg-black" />
@@ -140,18 +140,18 @@ const TimelineSection: React.FC = () => {
                 ref={(el) => {
                   itemsRef.current[i] = el;
                 }}
-                className="flex flex-col sm:flex-row md:flex-row gap-2 min-h-[100px] relative"
+                className="flex flex-col sm:flex-row gap-2 min-h-[100px] relative"
               >
                 {/* Year */}
-                <div className="timeline-year w-full md:w-1/4 font-heading font-semibold text-center md:text-left text-title-lg text-[#9e9e9e] flex justify-center items-center">
+                <div className="timeline-year w-full sm:w-1/4 font-heading font-semibold text-left text-title-lg text-[#9e9e9e] flex sm:justify-center items-center pl-10 sm:pl-0">
                   {item.year}
                 </div>
 
                 {/* Spacer for vertical timeline */}
-                <div className="w-2 sm:w-10 h-full hidden md:block" />
+                <div className="w-10 md:w-15 lg:w-20 h-full hidden sm:block" />
 
                 {/* Description */}
-                <div className="timeline-desc text-[#9e9e9e] text-body1 flex-1 flex items-center">
+                <div className="timeline-desc text-[#9e9e9e] text-body1 flex-1 flex items-center pl-10 sm:pl-0">
                   {item.description}
                 </div>
               </div>
