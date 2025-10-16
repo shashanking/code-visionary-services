@@ -34,21 +34,17 @@ const OurTeamSection: React.FC = () => {
             OUR TEAM
           </h2>
 
-          <div className="w-full flex flex-col divide-y divide-[#000000] border-y border-[#000000]">
+          <div className="w-screen flex flex-col divide-y divide-[#000000] border-y border-[#000000]">
             {OurTeamData.map((member) =>
               member.name === "Sahil Biswas" ? (
                 <div
                   key={member.id}
-                  className={`relative flex flex-col items-center justify-center py-4 min-h-[120px] ${
-                    member.name === "Sahil Biswas"
-                      ? "bg-gradient-to-r from-[#B5442C] to-[#FF9C87]"
-                      : ""
-                  }`}
+                  className="relative w-screen left-[50%] right-[50%] -translate-x-1/2 bg-gradient-to-r from-[#B5442C] to-[#FF9C87] py-4 min-h-[150px] sm:min-h-[120px] overflow-visible"
                 >
                   {/* Infinite Marquee */}
-                  <div className="w-full overflow-hidden flex ">
+                  <div className="absolute w-screen overflow-hidden flex left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 ">
                     <motion.div
-                      className="flex shrink-0 whitespace-nowrap text-title-sm font-sans font-semibold text-[#ffffff]"
+                      className="flex shrink-0 whitespace-nowrap text-title-sm font-sans font-semibold text-white"
                       animate={{ x: ["0%", "-50%"] }}
                       transition={{
                         repeat: Infinity,
@@ -68,10 +64,10 @@ const OurTeamSection: React.FC = () => {
                   <motion.img
                     src={member.image}
                     alt={member.name}
-                    className="absolute top-1/2 left-1/2 w-20 sm:w-30 rounded-xl -translate-x-1/2 -translate-y-1/2 shadow-xl"
+                    className="absolute top-1/2 left-1/2 w-20 sm:w-32 rounded-lg -translate-x-1/2 -translate-y-1/2 shadow-xl"
                     animate={{
                       y: [0, -10, 0],
-                      rotate: [10, 15, 15, 10],
+                      rotate: [10, 15, 10],
                     }}
                     transition={{
                       repeat: Infinity,
@@ -83,17 +79,19 @@ const OurTeamSection: React.FC = () => {
               ) : (
                 <div
                   key={member.id}
-                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 py-4 min-h-[120px]"
+                  className="relative w-screen left-[50%] right-[50%] -translate-x-1/2 p-4 min-h-[150px] sm:min-h-[120px]"
                 >
-                  <div className="sm:w-2/5 text-left">
-                    <h3 className="font-heading text-title-md font-medium text-[#161616]">
-                      {member.name}
-                    </h3>
-                    <p className="text-body2 text-[#303030]">{member.role}</p>
-                  </div>
+                  <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <div className="sm:w-2/5 text-left">
+                      <h3 className="font-heading text-title-md font-medium text-[#161616]">
+                        {member.name}
+                      </h3>
+                      <p className="text-body2 text-[#303030]">{member.role}</p>
+                    </div>
 
-                  <div className="sm:w-2/5 text-body3 text-[#303030] leading-relaxed">
-                    {member.description}
+                    <div className="sm:w-2/5 text-body3 text-[#303030] leading-relaxed">
+                      {member.description}
+                    </div>
                   </div>
                 </div>
               )
