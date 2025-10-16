@@ -11,16 +11,9 @@ export interface TeamMember {
   description?: string;
 }
 
-export const teamMembers: TeamMember[] = [
+export const OurTeamData: TeamMember[] = [
   {
     id: 1,
-    name: "Sahil Biswas",
-    role: "Co-founder",
-    image: p1,
-    description: "",
-  },
-  {
-    id: 2,
     name: "Vikash Jha",
     role: "Co-founder, CEO",
     image: p4,
@@ -28,12 +21,19 @@ export const teamMembers: TeamMember[] = [
       "With over two decades of experience, Charles leads Bizypro with a focus on innovation and integrity.",
   },
   {
-    id: 3,
-    name: "Shashank Singh",
-    role: "Co-founder",
-    image: p2,
+    id: 2,
+    name: "Pradip Choudhury",
+    role: "Founder",
+    image: p1,
     description:
-      "Emma brings unparalleled expertise in structural analysis, ensuring durability and performance in every design.",
+      "Sophia integrates eco-conscious practices to create sustainable and future-ready designs.",
+  },
+  {
+    id: 3,
+    name: "Sahil Biswas",
+    role: "Co-founder",
+    image: p1,
+    description: "",
   },
   {
     id: 4,
@@ -45,10 +45,10 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: 5,
-    name: "Pradip Choudhury",
-    role: "Founder",
-    image: p1,
+    name: "Shashank Singh",
+    role: "Co-founder",
+    image: p2,
     description:
-      "Sophia integrates eco-conscious practices to create sustainable and future-ready designs.",
+      "Emma brings unparalleled expertise in structural analysis, ensuring durability and performance in every design.",
   },
 ];
