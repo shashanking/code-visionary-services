@@ -110,13 +110,24 @@ const OurStorySection: React.FC = () => {
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
 
-        {/* Left-side gradient block */}
+        {/* Left side gradient block - for large screen */}
         <div
-          className="absolute top-0 left-0 h-full z-10 pointer-events-none"
+          className="absolute top-0 left-0 h-full z-10 hidden sm:block pointer-events-none"
           style={{
             width: "50%",
             background: "linear-gradient(180deg, #0861AA 0%, #032744 100%)",
             clipPath: "polygon(0 0, 30% 0, 60% 100%, 0% 100%)",
+          }}
+        />
+
+        {/* Top side gradient block - for smaller screen */}
+        <div
+          className="absolute bottom-0 left-0 w-full z-10 block sm:hidden pointer-events-none rotate-180"
+          style={{
+            width: "100%",
+            height: "50%",
+            background: "linear-gradient(180deg, #0861AA 0%, #032744 100%)",
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 30%, 0% 60%)",
           }}
         />
       </div>
@@ -126,25 +137,25 @@ const OurStorySection: React.FC = () => {
         paddingX="lg"
         className="relative z-10 flex flex-col  items-center"
       >
-        <div className="relative z-10 w-full max-w-2xl flex flex-col sm:flex-row items-center">
-          <div className="relative flex-1 flex items-center justify-center min-h-[620px]">
+        <div className="relative z-10 w-full max-w-2xl flex flex-col-reverse sm:flex-row items-center">
+          <div className="sm:relative flex-1 flex items-center justify-center min-h-[400px] sm:min-h-[620px]">
             <img
               ref={img3Ref}
               src={StoryImg3}
               alt="story-img-3"
-              className="w-[450px] h-auto block rounded-xl"
+              className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
             <img
               ref={img2Ref}
               src={StoryImg2}
               alt="story-img-2"
-              className="w-[450px] h-auto block rounded-xl"
+              className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
             <img
               ref={img1Ref}
               src={StoryImg1}
               alt="story-img-1"
-              className="w-[450px] h-auto block rounded-xl"
+              className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
           </div>
 
