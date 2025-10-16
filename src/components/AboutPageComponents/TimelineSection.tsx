@@ -13,6 +13,7 @@ const TimelineSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const iconRef = useRef<HTMLDivElement | null>(null);
+  const lineRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
     () => {
@@ -20,6 +21,7 @@ const TimelineSection: React.FC = () => {
 
       const timelineItems = itemsRef.current;
       const icon = iconRef.current;
+      const line = lineRef.current;
 
       // initial state - all items invisible
       timelineItems.forEach((item) => {
@@ -28,6 +30,11 @@ const TimelineSection: React.FC = () => {
         const desc = item.querySelector(".timeline-desc") as HTMLElement;
         if (year && desc) gsap.set([year, desc], { opacity: 0 });
       });
+
+      // Vertical timeline
+      if (line) {
+        gsap.set(line, { opacity: 0.3 });
+      }
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -45,6 +52,15 @@ const TimelineSection: React.FC = () => {
 
         const year = item.querySelector(".timeline-year") as HTMLElement;
         const desc = item.querySelector(".timeline-desc") as HTMLElement;
+
+        // fade in timeline line at the first item
+        if (i === 0 && lineRef.current) {
+          tl.to(
+            lineRef.current,
+            { opacity: 1, duration: 1, ease: "power2.out" },
+            0
+          );
+        }
 
         // animate icon to this item's position
         tl.to(
@@ -123,7 +139,10 @@ const TimelineSection: React.FC = () => {
 
           <div className="relative w-full max-w-2xl mx-auto flex flex-col justify-start gap-6">
             {/* Vertical timeline line */}
-            <div className="absolute left-2.5 sm:left-[25.72%] top-0 bottom-0 w-1 bg-gradient-to-t from-[#B5442C] to-transparent z-0 rounded-full" />
+            <div
+              ref={lineRef}
+              className="absolute left-2.5 sm:left-[25.72%] top-0 bottom-0 w-1 bg-gradient-to-t from-[#B5442C] to-transparent z-0 rounded-full"
+            />
 
             {/* Floating icon */}
             <div
