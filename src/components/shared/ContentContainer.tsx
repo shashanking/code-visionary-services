@@ -5,10 +5,14 @@ interface ContentContainerProps {
   className?: string;
   maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "7xl";
   paddingX?: "none" | "sm" | "md" | "lg" | "xl";
+  style?: React.CSSProperties;
 }
 
 const ContentContainer = forwardRef<HTMLDivElement, ContentContainerProps>(
-  ({ children, className = "", maxWidth = "7xl", paddingX = "lg" }, ref) => {
+  (
+    { children, className = "", maxWidth = "7xl", paddingX = "lg", style = {} },
+    ref
+  ) => {
     const maxWidthClasses = {
       sm: "max-w-sm",
       md: "max-w-md",
@@ -30,6 +34,7 @@ const ContentContainer = forwardRef<HTMLDivElement, ContentContainerProps>(
       <div
         ref={ref}
         className={`relative z-10 w-full ${maxWidthClasses[maxWidth]} mx-auto ${paddingXClasses[paddingX]} ${className}`}
+        style={style}
       >
         {children}
       </div>
