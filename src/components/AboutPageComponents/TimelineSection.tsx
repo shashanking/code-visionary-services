@@ -49,7 +49,11 @@ const TimelineSection: React.FC = () => {
         // animate icon to this item's position
         tl.to(
           icon,
-          { y: item.offsetTop, duration: 0.5, ease: "power2.out" },
+          {
+            y: item.offsetTop + item.offsetHeight / 2 - icon!.offsetHeight / 2,
+            duration: 0.5,
+            ease: "power2.out",
+          },
           i * 0.5
         );
 
@@ -113,11 +117,23 @@ const TimelineSection: React.FC = () => {
         className="relative z-10 flex flex-col items-center"
       >
         <div className="relative z-10 w-full max-w-2xl flex flex-col items-center">
-          <h2 className="font-heading font-bold text-title-lg uppercase mb-6 leading-tight bg-gradient-to-b from-[#B5442C]/70 via-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
+          <h2 className="font-heading font-bold text-title-lg uppercase mb-10 leading-tight bg-gradient-to-b from-[#B5442C]/70 via-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
             Timeline
           </h2>
 
           <div className="relative w-full max-w-2xl mx-auto flex flex-col justify-start gap-6">
+            {/* Vertical timeline line */}
+            <div className="absolute left-0 sm:left-1/4 top-0 bottom-0 w-1 bg-gradient-to-t from-[#B5442C] to-transparent z-0 rounded-full" />
+
+            {/* Floating icon */}
+            <div
+              ref={iconRef}
+              className="absolute left-0 sm:left-[24.27%] w-6 h-6 rounded-full z-10 flex items-center justify-center"
+              style={{ top: 0, backgroundColor: "rgba(31, 60, 115, 0.4)" }}
+            >
+              <div className="w-3 h-3 rounded-full bg-black" />
+            </div>
+
             {TimelineData.map((item, i) => (
               <div
                 key={i}
@@ -127,12 +143,12 @@ const TimelineSection: React.FC = () => {
                 className="flex flex-col sm:flex-row md:flex-row gap-2 min-h-[100px] relative"
               >
                 {/* Year */}
-                <div className="timeline-year w-full sm:w-1/3 font-heading font-semibold text-left text-title-lg text-[#9e9e9e] flex sm:justify-center items-center">
+                <div className="timeline-year w-full md:w-1/4 font-heading font-semibold text-center md:text-left text-title-lg text-[#9e9e9e] flex justify-center items-center">
                   {item.year}
                 </div>
 
-                {/* Divider */}
-                {/* <div className="w-1 md:w-2 h-full bg-gradient-to-b from-[#B5442C] to-transparent mx-auto md:mx-0 relative" /> */}
+                {/* Spacer for vertical timeline */}
+                <div className="w-2 sm:w-10 h-full hidden md:block" />
 
                 {/* Description */}
                 <div className="timeline-desc text-[#9e9e9e] text-body1 flex-1 flex items-center">
