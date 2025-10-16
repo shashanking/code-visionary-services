@@ -79,7 +79,7 @@ const OurTeamSection: React.FC = () => {
               ) : (
                 <div
                   key={member.id}
-                  className="relative w-screen left-[50%] right-[50%] -translate-x-1/2 p-4 min-h-[150px] sm:min-h-[120px]"
+                  className="relative w-screen left-[50%] right-[50%] -translate-x-1/2 px-4 md:px-8 lg:px-10 py-4 min-h-[150px] sm:min-h-[120px]"
                 >
                   <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                     <div className="sm:w-2/5 text-left">
