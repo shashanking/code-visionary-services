@@ -79,7 +79,7 @@ const ServiceCardSection: React.FC = () => {
                       isEven ? "md:order-2" : "md:order-1"
                     }`}
                   >
-                    <div className="flex flex-col justify-center h-full min-h-[200px]">
+                    <div className="flex flex-col justify-center h-full min-h-[200px] transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
                       <div className="text-center md:text-left mb-6">
                         <h2
                           className={`font-sans font-semibold transition-all duration-500 ${
@@ -102,17 +102,24 @@ const ServiceCardSection: React.FC = () => {
                       </div>
 
                       <div
-                        className={`transition-all duration-500 overflow-hidden ${
+                        className={`transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden ${
                           isActive
-                            ? "max-h-32 opacity-100 mb-6"
+                            ? "max-h-full opacity-100 mb-6"
                             : "max-h-0 opacity-0 mb-0"
                         }`}
                       >
-                        <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                        <div
+                          className={`flex flex-wrap justify-center md:justify-start gap-2 transition-opacity duration-500 ${
+                            isActive
+                              ? "opacity-100 translate-y-0"
+                              : "opacity-0 translate-y-6"
+                          }`}
+                        >
                           {service.tools?.map((tool, i) => (
                             <span
                               key={i}
-                              className="px-3 py-1 border border-white/40 rounded-full text-sm"
+                              // style={{ transitionDelay: `${i * 60}ms` }}
+                              className="px-3 py-1 border border-white/40 rounded-full text-sm transition-all duration-500"
                             >
                               {tool}
                             </span>
