@@ -1,11 +1,10 @@
-import UiUxImg from "../assets/home-page/hero-service/UI_UX.webp";
-import DigitalMarketingImg from "../assets/home-page/hero-service/Digital_marketing.webp";
-import AppDevImg from "../assets/home-page/hero-service/App_Dev.webp";
-import AiMarketingImg from "../assets/home-page/hero-service/AI_marketing.webp";
-import DashboardImg from "../assets/home-page/hero-service/dashboard.webp";
-import WebDevImg from "../assets/home-page/hero-service/Web_dev.webp";
-import BlockchainImg from "../assets/home-page/hero-service/Blockchain.webp";
-import BrandingImg from "../assets/home-page/hero-service/Branding.webp";
+import UiUxServiceImg from "../assets/services-page/ui-ux-service.jpg";
+import WebDesignDevServiceImg from "../assets/services-page/web-design-dev-service.png";
+import MobileAppServiceImg from "../assets/services-page/mobile-app-service.png";
+import DigitalMarketingServiceImg from "../assets/services-page/digital-marketing-service.png";
+import AiMarketingDevServiceImg from "../assets/services-page/ai-marketing-dev-service.jpg";
+import BrandingServiceImg from "../assets/services-page/branding-service.png";
+import WebAppBlockchainServiceImg from "../assets/services-page/web-app-blockchain-service.png";
 
 interface Services {
   id: number;
@@ -19,7 +18,7 @@ export const ServicesData: Services[] = [
   {
     id: 1,
     label: "UI/UX Design",
-    image: UiUxImg,
+    image: UiUxServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -40,7 +39,7 @@ export const ServicesData: Services[] = [
   {
     id: 2,
     label: "Web Design & Development",
-    image: DashboardImg,
+    image: WebDesignDevServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -61,7 +60,7 @@ export const ServicesData: Services[] = [
   {
     id: 3,
     label: "Mobile Applications",
-    image: AppDevImg,
+    image: MobileAppServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -81,7 +80,7 @@ export const ServicesData: Services[] = [
   {
     id: 4,
     label: "Digital Marketing",
-    image: DigitalMarketingImg,
+    image: DigitalMarketingServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -102,7 +101,7 @@ export const ServicesData: Services[] = [
   {
     id: 5,
     label: "AI Marketing",
-    image: AiMarketingImg,
+    image: AiMarketingDevServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -123,7 +122,7 @@ export const ServicesData: Services[] = [
   {
     id: 6,
     label: "Branding",
-    image: BrandingImg,
+    image: BrandingServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -144,7 +143,7 @@ export const ServicesData: Services[] = [
   {
     id: 7,
     label: "Web Applications",
-    image: WebDevImg,
+    image: WebAppBlockchainServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -165,7 +164,7 @@ export const ServicesData: Services[] = [
   {
     id: 8,
     label: "AI Development",
-    image: AiMarketingImg,
+    image: AiMarketingDevServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
@@ -186,7 +185,7 @@ export const ServicesData: Services[] = [
   {
     id: 9,
     label: "Blockchain",
-    image: BlockchainImg,
+    image: WebAppBlockchainServiceImg,
     tools: [
       "Lorem ipsum",
       "Lorem ipsum",
