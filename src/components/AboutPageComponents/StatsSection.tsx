@@ -51,13 +51,16 @@ const StatsSection: React.FC = () => {
         paddingX="lg"
         className="relative z-10 flex flex-col items-center"
       >
-        <div className="relative z-10 w-full max-w-2xl flex flex-col items-start">
-          <h2 className="font-heading font-bold text-title-lg uppercase mb-10 max-w-sm leading-tight text-[#161616]">
-            We Value Integrity and Transparency
-          </h2>
+        <div className="relative z-10 w-full flex flex-col items-start">
+          <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-start">
+            <h2 className="font-heading font-bold text-title-lg uppercase mb-10 max-w-sm leading-tight text-[#161616]">
+              We Value Integrity and Transparency
+            </h2>
+          </div>
 
-          <div className="relative w-full max-w-2xl mx-auto flex flex-col sm:flex-row justify-start gap-12">
-            <div className="flex flex-col gap-6 w-full sm:w-1/2 h-full">
+          {/* Smaller screen - Column layout */}
+          <div className="w-full lg:hidden flex flex-col gap-8">
+            <div className="flex flex-col gap-6 w-full">
               {StatsCardData.map((stat) => {
                 const isActive = activeCard === stat.id;
 
@@ -110,19 +113,103 @@ const StatsSection: React.FC = () => {
               })}
             </div>
 
-            {/* Right Side Stats Grid */}
-            <div className="w-full sm:w-1/2 grid grid-cols-2 gap-6 items-stretch bg-[#89E2FF33] backdrop-blur-sm shadow-lg p-6 rounded-4xl">
+            {/* Stats Grid - Mobile */}
+            <div className="w-full grid grid-cols-2 gap-6 items-stretch bg-[#89E2FF33] backdrop-blur-sm shadow-lg p-6 rounded-4xl">
               {StatsData.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col items-center justify-center text-[#161616]"
+                  className="flex flex-col items-center justify-center text-[#161616] p-4"
                 >
-                  <p className="font-heading font-medium text-title-lg">
+                  <p className="font-heading font-medium text-title-lg text-center">
                     {item.title}
                   </p>
-                  <p className="font-sans text-body2">{item.description}</p>
+                  <p className="font-sans text-body2 text-center mt-2">
+                    {item.description}
+                  </p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Large screen - full screen layout */}
+          <div className="hidden lg:block relative w-full">
+            {/* Full screen width container */}
+            <div className="relative w-screen -ml-[calc((100vw-100%)/2)] px-4 md:px-8 lg:px-10">
+              {/* Inner content container with max-w-2xl */}
+              <div className="flex justify-between max-w-2xl mx-auto">
+                <div className="flex flex-col gap-6 w-1/2 pr-6">
+                  {StatsCardData.map((stat) => {
+                    const isActive = activeCard === stat.id;
+
+                    return (
+                      <div
+                        key={stat.id}
+                        onMouseEnter={() => handleHover(stat.id)}
+                        className={`group relative flex items-center justify-between gap-6 p-6 h-full rounded-xl border border-[#B5442C] backdrop-blur-sm shadow-md transition-all duration-500 cursor-pointer
+                          ${
+                            isActive
+                              ? "bg-gradient-to-l from-[#B5442C] to-[#4F1E13] shadow-lg"
+                              : "bg-white/60"
+                          }`}
+                      >
+                        {/* Text Area */}
+                        <div className="flex flex-col items-start justify-center flex-1 overflow-hidden min-h-[120px]">
+                          <h3
+                            className={`font-sans text-title-sm font-semibold transition-all duration-300 ${
+                              isActive
+                                ? "text-white translate-y-[-4px]"
+                                : "text-[#000000]"
+                            }`}
+                          >
+                            {stat.title}
+                          </h3>
+
+                          <p
+                            className={`text-sm transition-all duration-500 ease-out transform ${
+                              isActive
+                                ? "opacity-100 translate-y-0 text-white h-auto mt-3"
+                                : "opacity-0 translate-y-5 text-[#333333] h-0 mt-0"
+                            }`}
+                          >
+                            {stat.description}
+                          </p>
+                        </div>
+
+                        {/* Icon */}
+                        <div className="flex items-center justify-center shrink-0">
+                          <img
+                            src={stat.icon}
+                            alt={stat.title}
+                            className={`w-16 h-16 object-contain transition-all duration-500 ${
+                              isActive
+                                ? "invert brightness-0"
+                                : "text-[#161616]"
+                            }`}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="absolute left-1/2 right-0 top-0 bottom-0 pl-6">
+                  <div className="w-full h-full grid grid-cols-2 gap-6 items-stretch bg-[#89E2FF33] backdrop-blur-sm shadow-lg p-8 rounded-l-4xl">
+                    {StatsData.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex flex-col items-center justify-center text-[#161616] p-4"
+                      >
+                        <p className="font-heading font-medium text-title-lg text-center">
+                          {item.title}
+                        </p>
+                        <p className="font-sans text-body2 text-center mt-2">
+                          {item.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

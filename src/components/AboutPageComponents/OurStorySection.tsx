@@ -159,7 +159,7 @@ const OurStorySection: React.FC = () => {
             />
           </div>
 
-          <div ref={textRef} className="flex-1 text-left sm:pl-10 pt-8 sm:pt-0">
+          <div ref={textRef} className="flex-1 flex flex-col sm:pl-10 pt-8 sm:pt-0">
             <h2 className="font-heading font-bold text-title-lg uppercase mb-6 leading-tight bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
               OUR STORY
             </h2>
@@ -172,7 +172,7 @@ const OurStorySection: React.FC = () => {
               experiences.
             </p>
 
-            <CTAButton variant="secondary" size="large">
+            <CTAButton variant="secondary" size="large" className="flex sm:self-start">
               See All Projects
             </CTAButton>
           </div>
