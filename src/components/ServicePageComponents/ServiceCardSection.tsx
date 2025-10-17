@@ -52,80 +52,89 @@ const ServiceCardSection: React.FC = () => {
                     : "bg-transparent text-[#161616]"
                 }`}
               >
-                <div
-                  className={`mx-auto max-w-2xl flex flex-col md:flex-row items-center justify-between gap-10 py-10 transition-all duration-500 ${
-                    isEven ? "" : "md:flex-row-reverse"
-                  }`}
-                >
+                <div className="mx-auto max-w-2xl min-h-[350px] flex flex-col md:flex-row items-center justify-between gap-10 py-10 transition-all duration-500">
                   <div
-                    className={`w-full md:w-[30%] flex justify-center transition-all duration-700 ease-out`}
+                    className={`w-full md:w-[30%] flex items-center ${
+                      isEven
+                        ? "md:order-1 justify-center md:justify-start"
+                        : "md:order-2 justify-center md:justify-end"
+                    }`}
                   >
-                    <img
-                      src={service.image || ""}
-                      alt={service.label}
-                      className={`aspect-3/2 rounded-2xl object-cover transition-all duration-700 ease-out ${
-                        isActive
-                          ? "scale-110 grayscale-0"
-                          : "scale-100 grayscale"
-                      }`}
-                    />
+                    <div className="relative overflow-hidden rounded-2xl w-[280px] md:w-[350px] aspect-[9/7]">
+                      <img
+                        src={service.image || ""}
+                        alt={service.label}
+                        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${
+                          isActive
+                            ? "scale-110 grayscale-0"
+                            : "scale-100 grayscale"
+                        }`}
+                      />
+                    </div>
                   </div>
 
                   {/* TEXT CONTENT */}
                   <div
-                    className={`w-full md:w-[70%] flex flex-col justify-center transition-all duration-500`}
+                    className={`w-full md:w-[70%] flex flex-col transition-all duration-500 ${
+                      isEven ? "md:order-2" : "md:order-1"
+                    }`}
                   >
-                    <h2
-                      className={`font-sans font-semibold mb-4 transition-all duration-500 ${
-                        isActive
-                          ? "text-white text-title-sm"
-                          : "text-[#161616] text-title-md"
-                      }`}
-                    >
-                      {service.label}
-                    </h2>
-                    <p
-                      className={`font-sans mb-4 transition-all duration-500 ${
-                        isActive
-                          ? "text-white text-body2"
-                          : "text-[#161616] text-body1"
-                      }`}
-                    >
-                      {service.description}
-                    </p>
-
-                    {/* TOOLS */}
-                    <div
-                      className={`flex flex-wrap gap-2 mb-6 transition-all duration-500 ${
-                        isActive
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 -translate-y-2 pointer-events-none"
-                      }`}
-                    >
-                      {service.tools?.map((tool, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 border border-white/40 rounded-full text-sm"
+                    <div className="flex flex-col justify-center h-full min-h-[200px]">
+                      <div className="text-center md:text-left mb-6">
+                        <h2
+                          className={`font-sans font-semibold transition-all duration-500 ${
+                            isActive
+                              ? "text-white text-title-sm mb-3"
+                              : "text-[#161616] text-title-md mb-4"
+                          }`}
                         >
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
+                          {service.label}
+                        </h2>
+                        <p
+                          className={`font-sans transition-all duration-500 ${
+                            isActive
+                              ? "text-white text-body2"
+                              : "text-[#161616] text-body1"
+                          }`}
+                        >
+                          {service.description}
+                        </p>
+                      </div>
 
-                    {/* BUTTON */}
-                    <div className="flex justify-center md:justify-start">
-                      <CTAButton
-                        size="small"
-                        showIcon={false}
-                        className={`w-fit shadow-[0px_0px_8px_0px_#B5442C] hover:shadow-[0px_0px_12px_0px_#B5442C] hover:bg-gradient-to-r hover:from-[#B5442C80] hover:to-[#B5442C] transition-shadow transition-all duration-500 ${
+                      <div
+                        className={`transition-all duration-500 overflow-hidden ${
                           isActive
-                            ? "bg-black text-white"
-                            : "bg-black text-white"
+                            ? "max-h-32 opacity-100 mb-6"
+                            : "max-h-0 opacity-0 mb-0"
                         }`}
-                        onClick={() => console.log("Button clicked")}
                       >
-                        Get Started
-                      </CTAButton>
+                        <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                          {service.tools?.map((tool, i) => (
+                            <span
+                              key={i}
+                              className="px-3 py-1 border border-white/40 rounded-full text-sm"
+                            >
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Button Section */}
+                      <div className="flex justify-center md:justify-start">
+                        <CTAButton
+                          size="small"
+                          showIcon={false}
+                          className={`w-fit shadow-[0px_0px_8px_0px_#B5442C] hover:shadow-[0px_0px_12px_0px_#B5442C] hover:bg-gradient-to-r hover:from-[#B5442C80] hover:to-[#B5442C] transition-all duration-500 ${
+                            isActive
+                              ? "bg-black text-white"
+                              : "bg-black text-white"
+                          }`}
+                          onClick={() => console.log("Button clicked")}
+                        >
+                          Get Started
+                        </CTAButton>
+                      </div>
                     </div>
                   </div>
                 </div>
