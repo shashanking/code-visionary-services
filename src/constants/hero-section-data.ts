@@ -15,13 +15,13 @@ export const services = [
       "We craft intuitive, engaging user experiences for every device.",
   },
   {
-    label: "Website Design & Development",
+    label: "Web Design & Development",
     img: DashboardImg,
     description:
       "Custom websites that deliver results and elevate your business.",
   },
   {
-    label: "Mobile Apps",
+    label: "Mobile Applications",
     img: AppDevImg,
     description: "Cross-platform apps with seamless UX for every user.",
   },
@@ -32,13 +32,13 @@ export const services = [
       "Grow your brand and drive conversions with targeted online campaigns.",
   },
   {
-    label: "Artificial Intelligence",
+    label: "AI Marketing",
     img: AiMarketingImg,
     description:
       "Leverage AI-powered automation to supercharge your marketing impact.",
   },
   {
-    label: "Web Apps",
+    label: "Web Applications",
     img: WebDevImg,
     description:
       "Robust, scalable web applications for next-gen digital businesses.",
