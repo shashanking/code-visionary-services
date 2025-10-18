@@ -15,7 +15,7 @@ const ScrollToTop: React.FC = () => {
 const App: React.FC = () => {
   return (
     <>
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <AppRoutes />
     </>
   );

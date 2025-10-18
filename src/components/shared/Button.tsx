@@ -9,6 +9,11 @@ interface CTAButtonProps {
   disabled?: boolean;
   className?: string;
   fullWidth?: boolean;
+  // Icon control props
+  showIcon?: boolean;
+  icon?: React.ReactNode;
+  hoverIcon?: React.ReactNode;
+  iconPosition?: "left" | "right";
 }
 
 const ArrowIcon: React.FC = () => (
@@ -33,11 +38,16 @@ const ArrowIcon: React.FC = () => (
 const CTAButton: React.FC<CTAButtonProps> = ({
   children,
   onClick,
-  variant = "primary",
+  variant,
   size = "medium",
   disabled = false,
   className = "",
   fullWidth = false,
+  // Icon control props
+  showIcon = true,
+  icon = <ArrowIcon />,
+  hoverIcon,
+  iconPosition = "right",
 }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -51,15 +61,29 @@ const CTAButton: React.FC<CTAButtonProps> = ({
       "text-button-lg min-w-[280px] max-w-[384px] w-[var(--size-button-width-lg)] h-[var(--size-button-height-lg)]",
   };
 
+  // Size-based padding classes
+  const paddingClasses = {
+    small: "px-4 sm:px-5 md:px-6",
+    medium: "px-4 sm:px-6 md:px-8",
+    large: "px-6 sm:px-8 md:px-10",
+  };
+
   // Full width override
   const widthClass = fullWidth ? "w-full max-w-none" : sizeClasses[size];
+
+  // Check if it's a custom button (no variant specified)
+  const isCustomButton = !variant;
+
+  // Determine which icon to show
+  const currentIcon = icon;
+  const currentHoverIcon = hoverIcon || icon;
 
   return (
     <div
       className={cn(
         "flex items-center justify-center",
-        fullWidth ? "w-full" : "",
-        className
+        fullWidth ? "w-full" : ""
+        // Remove className from wrapper div
       )}
     >
       <button
@@ -73,16 +97,17 @@ const CTAButton: React.FC<CTAButtonProps> = ({
           "transition-all duration-700 ease-out focus:outline-none",
           "font-heading font-normal tracking-widest uppercase",
 
-          // Responsive sizing
+          // Responsive sizing (applies to both variant and custom buttons)
           widthClass,
 
-          // Variant styles
-          variant === "primary"
-            ? "bg-button-primary shadow-button-primary"
-            : "bg-button-secondary shadow-button-secondary",
+          // Variant styles (only apply if variant is specified)
+          variant === "primary" && "bg-button-primary shadow-button-primary",
+          variant === "secondary" &&
+            "bg-button-secondary shadow-button-secondary",
 
-          // Hover effects
-          !disabled &&
+          // Hover effects (only for variant buttons)
+          !isCustomButton &&
+            !disabled &&
             isHovered && [
               "translate-y-[-2px]",
               variant === "primary"
@@ -91,48 +116,69 @@ const CTAButton: React.FC<CTAButtonProps> = ({
             ],
 
           // Disabled state
-          disabled && "cursor-not-allowed opacity-60"
+          disabled && "cursor-not-allowed opacity-60",
+
+          // Apply custom className to the button itself
+          className
         )}
         style={{
-          // Dynamic background gradients on hover
+          // Dynamic background gradients on hover (only for variant buttons)
           background:
-            !disabled && isHovered
+            !isCustomButton && !disabled && isHovered
               ? variant === "primary"
                 ? "linear-gradient(135deg, var(--color-button-primary-hover-start) 0%, var(--color-button-primary-hover-mid) 50%, var(--color-button-primary-hover-end) 100%)"
                 : "linear-gradient(135deg, var(--color-button-secondary-hover-start) 0%, var(--color-button-secondary-hover-mid) 50%, var(--color-button-secondary-hover-end) 100%)"
               : undefined,
         }}
       >
-        {/* Glowing border */}
-        <div
-          className={cn(
-            "absolute top-[-2px] left-[-2px] right-[-2px] bottom-[-2px] rounded-[50px] blur-sm transition-all duration-700 ease-out -z-10",
-            !disabled && isHovered ? "opacity-100" : "opacity-0"
-          )}
-          style={{
-            background:
-              variant === "primary"
-                ? "linear-gradient(135deg, rgba(255,80,80,0.9), rgba(255,50,50,0.7), rgba(180,30,30,0.9))"
-                : "linear-gradient(135deg, rgba(100,100,100,0.9), rgba(150,150,150,0.7), rgba(80,80,80,0.9))",
-          }}
-        />
+        {/* Glowing border (only for variant buttons) */}
+        {!isCustomButton && (
+          <div
+            className={cn(
+              "absolute top-[-2px] left-[-2px] right-[-2px] bottom-[-2px] rounded-[50px] blur-sm transition-all duration-700 ease-out -z-10",
+              !disabled && isHovered ? "opacity-100" : "opacity-0"
+            )}
+            style={{
+              background:
+                variant === "primary"
+                  ? "linear-gradient(135deg, rgba(255,80,80,0.9), rgba(255,50,50,0.7), rgba(180,30,30,0.9))"
+                  : "linear-gradient(135deg, rgba(100,100,100,0.9), rgba(150,150,150,0.7), rgba(80,80,80,0.9))",
+            }}
+          />
+        )}
 
         {/* Button content */}
         <div
           className={cn(
             "relative flex items-center justify-center h-full rounded-[50px] transition-all duration-300",
-            fullWidth ? "px-4 sm:px-6 md:px-8" : "px-4 sm:px-6 md:px-8"
+            // Apply size-based padding to both variant and custom buttons
+            paddingClasses[size],
+            // Reverse flex direction for left icon
+            iconPosition === "left" ? "flex-row-reverse" : "flex-row"
           )}
         >
           {/* Text container */}
-          <div className="relative overflow-hidden mr-4 sm:mr-4 md:mr-6">
+          <div
+            className={cn(
+              "relative overflow-hidden transition-all duration-500 ease-out",
+              // Only add margin when icon is shown
+              showIcon
+                ? iconPosition === "left"
+                  ? "ml-4 sm:ml-4 md:ml-6"
+                  : "mr-4 sm:mr-4 md:mr-6"
+                : ""
+            )}
+          >
             {/* Default text */}
             <span
               className={cn(
-                "block text-white transition-all duration-500 ease-out",
+                "block transition-all duration-500 ease-out",
                 !disabled && isHovered
                   ? "translate-x-[-100%] opacity-0"
-                  : "translate-x-0 opacity-100"
+                  : "translate-x-0 opacity-100",
+                // For custom buttons, text color should come from className
+                // Remove text-white for custom buttons since it's handled by className
+                isCustomButton ? "" : "text-white"
               )}
             >
               {children}
@@ -141,42 +187,53 @@ const CTAButton: React.FC<CTAButtonProps> = ({
             {/* Hover text sliding in from right */}
             <span
               className={cn(
-                "absolute top-0 left-0 text-white transition-all duration-500 ease-out",
+                "absolute top-0 left-0 transition-all duration-500 ease-out",
                 !disabled && isHovered
                   ? "translate-x-0 opacity-100"
-                  : "translate-x-full opacity-0"
+                  : "translate-x-full opacity-0",
+                // For custom buttons, text color should come from className
+                // Remove text-white for custom buttons since it's handled by className
+                isCustomButton ? "" : "text-white"
               )}
             >
               {children}
             </span>
           </div>
 
-          {/* Arrow container - responsive sizing */}
-          <div className="relative w-6 h-6 overflow-hidden text-white">
-            {/* Default arrow */}
+          {/* Icon container - only show if showIcon is true */}
+          {showIcon && (
             <div
               className={cn(
-                "absolute inset-0 transition-all duration-500 ease-out",
-                !disabled && isHovered
-                  ? "translate-y-[-100%] opacity-0"
-                  : "translate-y-0 opacity-100"
+                "relative w-6 h-6 overflow-hidden",
+                // For custom buttons, icon color should come from className
+                isCustomButton ? "" : "text-white"
               )}
             >
-              <ArrowIcon />
-            </div>
+              {/* Default icon */}
+              <div
+                className={cn(
+                  "absolute inset-0 transition-all duration-500 ease-out flex items-center justify-center",
+                  !disabled && isHovered
+                    ? "translate-y-[-100%] opacity-0"
+                    : "translate-y-0 opacity-100"
+                )}
+              >
+                {currentIcon}
+              </div>
 
-            {/* Hover arrow sliding in from bottom */}
-            <div
-              className={cn(
-                "absolute inset-0 transition-all duration-500 ease-out",
-                !disabled && isHovered
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-full opacity-0"
-              )}
-            >
-              <ArrowIcon />
+              {/* Hover icon sliding in from bottom */}
+              <div
+                className={cn(
+                  "absolute inset-0 transition-all duration-500 ease-out flex items-center justify-center",
+                  !disabled && isHovered
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-full opacity-0"
+                )}
+              >
+                {currentHoverIcon}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </button>
     </div>
@@ -185,24 +242,64 @@ const CTAButton: React.FC<CTAButtonProps> = ({
 
 export default CTAButton;
 
-// Usage....
+// Usage.....
 
-// // Fully responsive - automatically adapts to screen size
-// <CTAButton variant="primary" onClick={() => console.log('Clicked!')}>
-//   Start Project
+/* <CTAButton
+  size="small"
+  showIcon={false}
+  className="bg-white text-black hover:bg-gray-100 border border-gray-300"
+  onClick={() => console.log("Button clicked")}
+>
+  Contact Us
+</CTAButton>; */
+
+// // 1. Custom button with small size (gets small padding & height)
+// <CTAButton
+//   size="small"
+//   className="bg-blue-500 hover:bg-blue-600 text-white shadow-lg"
+// >
+//   Small Custom
 // </CTAButton>
 
-// // Full width version
-// <CTAButton variant="secondary" fullWidth>
-//   Learn More
+// // 2. Custom button with medium size (default)
+// <CTAButton
+//   size="medium"
+//   className="bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+// >
+//   Medium Custom
 // </CTAButton>
 
-// // Still accepts size prop, but now it's responsive
-// <CTAButton size="large" disabled>
-//   Coming Soon
+// // 3. Custom button with large size (gets large padding & height)
+// <CTAButton
+//   size="large"
+//   className="bg-green-500 hover:bg-green-600 text-white font-bold"
+// >
+//   Large Custom
 // </CTAButton>
 
-// // No need to specify size
-// <CTAButton variant="secondary">
-//   Start a Project
+// // 4. Primary variant with custom className (still gets size layout)
+// <CTAButton
+//   variant="primary"
+//   size="small"
+//   className="border-2 border-white" // Adds border but keeps small size layout
+// >
+//   Small Primary
+// </CTAButton>
+
+// // 5. Full width custom button with proper sizing
+// <CTAButton
+//   size="large"
+//   fullWidth
+//   className="bg-red-500 hover:bg-red-600 text-white"
+// >
+//   Full Width Large
+// </CTAButton>
+
+// // 6. Custom button with different icon and size
+// <CTAButton
+//   size="medium"
+//   icon={<StarIcon />}
+//   className="bg-yellow-500 hover:bg-yellow-600 text-black"
+// >
+//   Star Button
 // </CTAButton>

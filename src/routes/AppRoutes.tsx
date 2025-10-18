@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage/HomePage";
 import Layout from "../components/Layout/Layout";
 import AboutPage from "../pages/AboutPage/AboutPage";
+import ServicePage from "../pages/ServicePage/ServicePage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -20,6 +21,14 @@ const AppRoutes: React.FC = () => {
         element={
           <Layout>
             <AboutPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/services"
+        element={
+          <Layout>
+            <ServicePage />
           </Layout>
         }
       />

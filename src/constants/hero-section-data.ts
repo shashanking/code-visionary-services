@@ -1,43 +1,57 @@
-import digitalMarketingImg from "../assets/service_card_4_digital_markiting_color_image.png";
-import uiuxImg from "../assets/service_card_2_UIUX_color_image.png";
-import websiteDevImg from "../assets/service_card_1_website_design_and_development_color_image.png";
-import mobileAppImg from "../assets/service_card_3_mobile_application_color_image.png";
-import aiMarketingImg from "../assets/AI_Marketing.png";
-import webApplicationsImg from "../assets/Web_Applications.png";
+import UiUxImg from "../assets/home-page/hero-service/UI_UX.webp";
+import DigitalMarketingImg from "../assets/home-page/hero-service/Digital_marketing.webp";
+import AppDevImg from "../assets/home-page/hero-service/App_Dev.webp";
+import AiMarketingImg from "../assets/home-page/hero-service/AI_marketing.webp";
+import DashboardImg from "../assets/home-page/hero-service/dashboard.webp";
+import WebDevImg from "../assets/home-page/hero-service/Web_dev.webp";
+import BlockchainImg from "../assets/home-page/hero-service/Blockchain.webp";
+import BrandingImg from "../assets/home-page/hero-service/Branding.webp";
 
 export const services = [
   {
     label: "UI/UX Design",
-    img: uiuxImg,
+    img: UiUxImg,
     description:
       "We craft intuitive, engaging user experiences for every device.",
   },
   {
-    label: "Website Design & Development",
-    img: websiteDevImg,
+    label: "Web Design & Development",
+    img: DashboardImg,
     description:
       "Custom websites that deliver results and elevate your business.",
   },
   {
-    label: "Mobile Apps",
-    img: mobileAppImg,
+    label: "Mobile Applications",
+    img: AppDevImg,
     description: "Cross-platform apps with seamless UX for every user.",
   },
   {
     label: "Digital Marketing",
-    img: digitalMarketingImg,
+    img: DigitalMarketingImg,
     description:
       "Grow your brand and drive conversions with targeted online campaigns.",
   },
   {
-    label: "Artificial Intelligence",
-    img: aiMarketingImg,
+    label: "AI Marketing",
+    img: AiMarketingImg,
     description:
       "Leverage AI-powered automation to supercharge your marketing impact.",
   },
   {
-    label: "Web Apps",
-    img: webApplicationsImg,
+    label: "Web Applications",
+    img: WebDevImg,
+    description:
+      "Robust, scalable web applications for next-gen digital businesses.",
+  },
+  {
+    label: "Blockchain",
+    img: BlockchainImg,
+    description:
+      "Robust, scalable web applications for next-gen digital businesses.",
+  },
+  {
+    label: "Branding",
+    img: BrandingImg,
     description:
       "Robust, scalable web applications for next-gen digital businesses.",
   },
