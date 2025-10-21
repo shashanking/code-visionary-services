@@ -97,7 +97,7 @@ const HeroReviewPage: React.FC = () => {
             const translateY = isEven
               ? index === 1
                 ? "-translate-y-2"
-                : "-translate-y-2"
+                : "-translate-y-0"
               : index === 0
               ? "translate-y-2"
               : "translate-y-4";
@@ -110,6 +110,19 @@ const HeroReviewPage: React.FC = () => {
                   marginLeft: index === 0 ? "0" : "-2rem",
                 }}
               >
+                <div
+                  className={`absolute left-1/2 transform -translate-x-1/2 w-full text-center ${
+                    isEven
+                      ? "top-[-2rem] md:top-[-2.5rem]"
+                      : "bottom-[-2rem] md:bottom-[-2.5rem]"
+                  }`}
+                >
+                  <p className="inline-block bg-transparent px-4 py-2 rounded-lg text-body4 font-semibold text-[#0861AA] whitespace-nowrap">
+                    <span className="text-body3">@ </span>
+                    {item.name}
+                  </p>
+                </div>
+
                 <div className="relative w-32 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-white p-2 rounded-lg shadow-lg border-4 border-white">
                   <img
                     src={item.image}
