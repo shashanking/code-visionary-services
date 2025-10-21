@@ -6,6 +6,7 @@ import AboutPage from "../pages/AboutPage/AboutPage";
 import ServicePage from "../pages/ServicePage/ServicePage";
 import PortfolioPage from "../pages/PortfolioPage/PortfolioPage";
 import ReviewPage from "../pages/ReviewPage/ReviewPage";
+import BlogPage from "../pages/BlogPage/BlogPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -47,6 +48,14 @@ const AppRoutes: React.FC = () => {
         element={
           <Layout>
             <ReviewPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/blogs"
+        element={
+          <Layout>
+            <BlogPage />
           </Layout>
         }
       />
