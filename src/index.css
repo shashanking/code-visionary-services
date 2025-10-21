@@ -71,6 +71,7 @@
   --text-body2: clamp(0.9375rem, 1.4vw, 1.125rem);
   --text-body3: clamp(0.875rem, 1.3vw, 1rem);
   --text-body4: clamp(0.8125rem, 1.2vw, 0.9375rem);
+  --text-body5: clamp(0.75rem, 1vw, 0.8rem);
 
   /* ===== Colors ===== */
   --color-primary-main: #d2691e;

@@ -58,7 +58,7 @@ const BlogCardSection: React.FC = () => {
       >
         <div className="relative w-full max-w-2xl pt-20 pb-10 flex flex-col justify-start items-center">
           <div className="flex flex-row w-full mx-auto justify-between items-center mb-10">
-            <h1 className="font-heading font-bold text-title-lg text-center uppercase  leading-tight max-w-md text-[#161616] leading-[1.1]">
+            <h1 className="font-heading font-bold text-title-lg text-center uppercase leading-tight max-w-md text-[#161616] leading-[1.1]">
               All Blogs
             </h1>
 
@@ -68,53 +68,46 @@ const BlogCardSection: React.FC = () => {
           </div>
 
           <div className="relative w-full">
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
               {currentCards.map((item) => {
                 const isHovered = hoveredId === item.id;
-
-                const bgColor = isHovered ? "#131A22" : "#F0F0F0";
-
-                const textColor = bgColor === "#131A22" ? "#FFFFFF" : "#000000";
 
                 return (
                   <div
                     key={item.id}
                     onMouseEnter={() => setHoveredId(item.id)}
                     onMouseLeave={() => setHoveredId(null)}
-                    className={`relative w-full h-[350px] sm:h-[390px] md:h-[420px] rounded-2xl overflow-hidden transition-all duration-300`}
+                    className={`relative w-full h-full p-3 rounded-2xl overflow-hidden transition-all duration-300 border border-[#B5442C]`}
                     style={{
-                      background: bgColor,
-                      boxShadow: isHovered
-                        ? "0px 0px 8px 2px #B5442C80"
-                        : "0px 0px 8px 2px #0861AA80",
-                      borderImageSource: isHovered
-                        ? "linear-gradient(91.08deg, #B5442C 0.34%, #FF9C87 99.62%)"
-                        : undefined,
-                      borderImageSlice: isHovered ? 1 : undefined,
+                      background: isHovered
+                        ? "linear-gradient(270deg, #B5442C 0%, #4F1E13 100%)"
+                        : "#F0F0F0",
+                      boxShadow: "0px 0px 8px 0px #B5442C80",
                     }}
                   >
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-[200px] object-cover transition-all duration-400 ease-out"
+                      className="w-full h-[200px] object-cover transition-all duration-400 ease-out rounded-lg"
                       loading="lazy"
                     />
                     {/* Text */}
                     <div
-                      className={`relative flex flex-col justify-between text-left p-6 transition-opacity duration-300`}
-                      style={{ color: textColor }}
+                      className={`relative flex flex-col justify-between text-left transition-opacity duration-300 ${
+                        isHovered ? "text-[#f0f0f0]" : "text-[#000000]"
+                      }`}
                     >
-                      <p className="text-body2 font-sans leading-[1.5]">
-                        {item.title}
+                      <p className="text-body5 font-sans leading-[1.5] my-3">
+                        {item.date} | By {item.author}
                       </p>
-                      <div className="flex flex-col items-start mt-4 gap-2">
-                        <h3 className="text-body1 font-sans font-bold">
-                          {item.title}
-                        </h3>
-                        <p className="text-body2 font-sans">
-                          {item.description}
-                        </p>
-                      </div>
+
+                      <h3 className="text-body1 font-sans font-semibold mb-3 line-clamp-2">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-body3 font-sans line-clamp-6">
+                        {item.description}
+                      </p>
                     </div>
                   </div>
                 );
