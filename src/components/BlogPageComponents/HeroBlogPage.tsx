@@ -99,22 +99,30 @@ const HeroBlogPage: React.FC = () => {
         className="relative z-10 py-10 flex justify-center items-center"
       >
         <div
-          className="relative z-10 w-full max-w-2xl mx-auto flex flex-col lg:flex-row justify-between items-stretch gap-6 min-h-[400px]"
+          className="relative z-10 w-full max-w-2xl mx-auto flex flex-col lg:flex-row justify-between items-stretch gap-6 min-h-[450px]"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           {/* Left side vertical auto-scroll */}
-          <div className="w-full lg:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[400px]">
+          <div className="w-full lg:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+            <img
+              src={BlogHeroData[activeIndex].image}
+              alt={BlogHeroData[activeIndex].title}
+              className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
+              loading="lazy"
+            />
+
+            {/* Background Overlay */}
+            <div
+              className={`absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
+            </div>
+
             <div
               ref={leftScrollRef}
-              className="h-full flex flex-col justify-center p-6 lg:p-8 gap-6"
+              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6"
             >
-              <img
-                src={BlogHeroData[activeIndex].image}
-                alt={BlogHeroData[activeIndex].title}
-                className="w-full h-48 lg:h-64 object-cover rounded-xl shadow-lg mx-auto transform hover:scale-105 transition-transform duration-500"
-              />
-
               <div
                 key={activeIndex}
                 onClick={() => handleBlogClick(BlogHeroData[activeIndex].slug)}
@@ -124,10 +132,10 @@ const HeroBlogPage: React.FC = () => {
                   <span className="text-title-sm font-heading font-bold text-white mb-4 block">
                     {BlogHeroData[activeIndex].id}
                   </span>
-                  <h2 className="text-body font-semibold text-white mb-4 leading-tight">
+                  <h2 className="max-w-[600px] text-body font-semibold text-white mb-4 leading-tight">
                     {BlogHeroData[activeIndex].title}
                   </h2>
-                  <p className="text-body2 text-gray-600">
+                  <p className="text-body2 text-white font-light">
                     {BlogHeroData[activeIndex].date}
                   </p>
                 </div>
@@ -137,10 +145,10 @@ const HeroBlogPage: React.FC = () => {
                   {BlogHeroData.map((_, index) => (
                     <div
                       key={index}
-                      className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                      className={`w-2 h-2 rounded-full transition-all duration-1000 ${
                         index === activeIndex
-                          ? "bg-[#B5442C] w-6"
-                          : "bg-gray-400"
+                          ? "border border-white bg-transparent w-6"
+                          : "border border-white bg-transparent"
                       }`}
                     />
                   ))}
@@ -150,19 +158,25 @@ const HeroBlogPage: React.FC = () => {
           </div>
 
           {/* Right side horizontal auto-scroll */}
-          <div className="w-full lg:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[400px]">
+          <div className="w-full lg:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+            <img
+              src={BlogHeroData[rightIndex].image}
+              alt={BlogHeroData[rightIndex].title}
+              className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
+              loading="lazy"
+            />
+
+            {/* Background Overlay */}
+            <div
+              className={`absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
+            </div>
+
             <div
               ref={rightScrollRef}
-              className="h-full flex-col items-center justify-center p-6 lg:p-8"
+              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6"
             >
-              <div className="mb-4 lg:mb-6">
-                <img
-                  src={BlogHeroData[rightIndex].image}
-                  alt={BlogHeroData[rightIndex].title}
-                  className="w-full h-48 lg:h-64 object-cover rounded-xl shadow-lg mx-auto transform hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
               <div
                 key={rightIndex}
                 onClick={() => handleBlogClick(BlogHeroData[rightIndex].slug)}
@@ -172,10 +186,10 @@ const HeroBlogPage: React.FC = () => {
                   <span className="text-title-sm font-heading font-bold text-white mb-4 block">
                     {BlogHeroData[rightIndex].id}
                   </span>
-                  <h2 className="text-body font-semibold text-white mb-4 leading-tight">
+                  <h2 className="max-w-[600px] text-body font-semibold text-white mb-4 leading-tight">
                     {BlogHeroData[rightIndex].title}
                   </h2>
-                  <p className="text-body2 text-gray-600">
+                  <p className="text-body2 text-white font-light">
                     {BlogHeroData[rightIndex].date}
                   </p>
                 </div>
