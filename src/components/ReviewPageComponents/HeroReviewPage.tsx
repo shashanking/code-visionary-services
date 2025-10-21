@@ -87,16 +87,20 @@ const HeroReviewPage: React.FC = () => {
             const isEven = (index + 1) % 2 === 0;
             const rotation = isEven
               ? index === 1
-                ? "-rotate-10"
-                : "-rotate-12"
+                ? "-rotate-12"
+                : "-rotate-8"
               : index === 0
               ? "rotate-9"
-              : "rotate-15";
+              : "rotate-14";
 
             const zIndex = isEven ? "z-10" : "z-0";
             const translateY = isEven
-              ? `translate-y-${index * 8 - 12}`
-              : `-translate-y-${index * 8 - 12}`;
+              ? index === 1
+                ? "-translate-y-2"
+                : "-translate-y-2"
+              : index === 0
+              ? "translate-y-2"
+              : "translate-y-4";
 
             return (
               <div
