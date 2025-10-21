@@ -99,12 +99,12 @@ const HeroBlogPage: React.FC = () => {
         className="relative z-10 py-10 flex justify-center items-center"
       >
         <div
-          className="relative z-10 w-full max-w-2xl mx-auto flex flex-col lg:flex-row justify-between items-stretch gap-6 min-h-[450px]"
+          className="relative z-10 w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           {/* Left side vertical auto-scroll */}
-          <div className="w-full lg:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+          <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
             <img
               src={BlogHeroData[activeIndex].image}
               alt={BlogHeroData[activeIndex].title}
@@ -158,7 +158,7 @@ const HeroBlogPage: React.FC = () => {
           </div>
 
           {/* Right side horizontal auto-scroll */}
-          <div className="w-full lg:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+          <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
             <img
               src={BlogHeroData[rightIndex].image}
               alt={BlogHeroData[rightIndex].title}
