@@ -8,6 +8,8 @@ import { BlogHeroData } from "../../constants/blog-page-data";
 const HeroBlogPage: React.FC = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [leftAnimation, setLeftAnimation] = useState("enter");
+  const [rightAnimation, setRightAnimation] = useState("enter");
   const leftScrollRef = useRef<HTMLDivElement>(null);
   const rightScrollRef = useRef<HTMLDivElement>(null);
   const autoScrollInterval = useRef<number | null>(null);
@@ -20,7 +22,15 @@ const HeroBlogPage: React.FC = () => {
     const scrollInterval = 4000; // Change every 4 seconds
 
     autoScrollInterval.current = window.setInterval(() => {
-      setActiveIndex((prev) => getNextIndex(prev));
+      // Trigger exit animations first
+      setLeftAnimation("exit");
+      setRightAnimation("exit");
+
+      setTimeout(() => {
+        setActiveIndex((prev) => getNextIndex(prev));
+        setLeftAnimation("enter");
+        setRightAnimation("enter");
+      }, 500);
     }, scrollInterval);
 
     return () => {
@@ -47,8 +57,38 @@ const HeroBlogPage: React.FC = () => {
   const handleMouseLeave = () => {
     if (!autoScrollInterval.current) {
       autoScrollInterval.current = window.setInterval(() => {
-        setActiveIndex((prev) => getNextIndex(prev));
+        setLeftAnimation("exit");
+        setRightAnimation("exit");
+
+        setTimeout(() => {
+          setActiveIndex((prev) => getNextIndex(prev));
+          setLeftAnimation("enter");
+          setRightAnimation("enter");
+        }, 500);
       }, 4000);
+    }
+  };
+
+  // Animation classes - Only transform, no opacity
+  const getLeftAnimationClass = () => {
+    switch (leftAnimation) {
+      case "enter":
+        return "translate-y-0";
+      case "exit":
+        return "-translate-y-full";
+      default:
+        return "translate-y-full";
+    }
+  };
+
+  const getRightAnimationClass = () => {
+    switch (rightAnimation) {
+      case "enter":
+        return "translate-x-0";
+      case "exit":
+        return "-translate-x-full";
+      default:
+        return "translate-x-full";
     }
   };
 
@@ -113,29 +153,32 @@ const HeroBlogPage: React.FC = () => {
             />
 
             {/* Background Overlay */}
-            <div
-              className={`absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
 
             <div
               ref={leftScrollRef}
-              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6"
+              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
             >
               <div
                 key={activeIndex}
                 onClick={() => handleBlogClick(BlogHeroData[activeIndex].slug)}
-                className="flex flex-row justify-between transform transition-all duration-1000 ease-in-out"
+                className={`flex flex-row justify-between overflow-hidden`}
               >
-                <div className="text-left">
-                  <span className="text-title-sm font-heading font-bold text-white mb-4 block">
+                <div className={`text-left overflow-hidden`}>
+                  <span
+                    className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
+                  >
                     {BlogHeroData[activeIndex].id}
                   </span>
-                  <h2 className="max-w-[600px] text-body font-semibold text-white mb-4 leading-tight">
-                    {BlogHeroData[activeIndex].title}
-                  </h2>
-                  <p className="text-body2 text-white font-light">
+
+                  <div className="text-left overflow-hidden">
+                    <h2
+                      className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
+                    >
+                      {BlogHeroData[activeIndex].title}
+                    </h2>
+                  </div>
+                  <p className={`text-body2 text-white font-light`}>
                     {BlogHeroData[activeIndex].date}
                   </p>
                 </div>
@@ -167,29 +210,29 @@ const HeroBlogPage: React.FC = () => {
             />
 
             {/* Background Overlay */}
-            <div
-              className={`absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
 
             <div
               ref={rightScrollRef}
-              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6"
+              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
             >
               <div
                 key={rightIndex}
                 onClick={() => handleBlogClick(BlogHeroData[rightIndex].slug)}
-                className="w-full transform transition-all duration-1000 ease-in-out"
+                className={`w-full overflow-hidden`}
               >
                 <div className="text-left">
-                  <span className="text-title-sm font-heading font-bold text-white mb-4 block">
+                  <span
+                    className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
+                  >
                     {BlogHeroData[rightIndex].id}
                   </span>
-                  <h2 className="max-w-[600px] text-body font-semibold text-white mb-4 leading-tight">
+                  <h2
+                    className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
+                  >
                     {BlogHeroData[rightIndex].title}
                   </h2>
-                  <p className="text-body2 text-white font-light">
+                  <p className={`text-body2 text-white font-light`}>
                     {BlogHeroData[rightIndex].date}
                   </p>
                 </div>
