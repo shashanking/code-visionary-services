@@ -32,7 +32,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
 }) => {
   return (
     <div
-      className="relative bg-white rounded-2xl overflow-hidden cursor-pointer shadow-lg transition-all duration-400 ease-out hover:scale-102 aspect-[4/3] min-h-[200px]"
+      className="relative bg-white rounded-2xl overflow-hidden cursor-pointer shadow-lg transition-all duration-400 ease-out hover:scale-102 aspect-[4/3] min-h-[200px] group"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       onClick={onClick}
@@ -41,18 +41,26 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
       <img
         src={item.img}
         alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out scale-100 hover:scale-105"
+        className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out scale-100 group-hover:scale-105"
         loading="lazy"
       />
 
       {/* Background Overlay */}
       <div
-        className={`absolute inset-0 transition-all duration-250 ease-in ${
-          isHovered
-            ? "bg-gradient-to-b from-black/40 to-black/95 border-2 border-[#FEA656] rounded-2xl shadow-md"
-            : "bg-gradient-to-b from-black/10 via-black/40 to-black/90"
+        className={`absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden ${
+          isHovered ? "border-2 border-[#FEA656] rounded-2xl shadow-md" : ""
         }`}
-      />
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
+
+        <div
+          className={`absolute w-full h-full transition-all duration-700 ease-in-out ${
+            isHovered
+              ? "bg-gradient-to-b from-black/0 via-black/70 to-black/95 transform translate-y-0"
+              : "bg-gradient-to-b from-black/10 via-black/30 to-black/80 transform translate-y-full"
+          }`}
+        />
+      </div>
 
       {/* Content Overlay */}
       <div className="absolute bottom-0 left-0 w-full z-10 p-4 md:p-6">
@@ -148,7 +156,7 @@ const HeroPortfolioPage: React.FC = () => {
           style={{ backgroundImage: `url(${PortfolioPageBg})` }}
         />
 
-        {/* <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" /> */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0]/0 via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
       </div>
 
       <ContentContainer
