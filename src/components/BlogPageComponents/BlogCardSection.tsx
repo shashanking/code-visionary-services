@@ -5,9 +5,11 @@ import ReviewCardBg from "../../assets/review-page/review-bg.jpg";
 import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
 import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
 import { BlogsData } from "../../constants/blog-page-data";
+import { ArrowRightIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const BlogCardSection: React.FC = () => {
-  const [hoveredId, setHoveredId] = useState<number | string | null>(2); // second card hovered by default
+  const [hoveredId, setHoveredId] = useState<number | string | null>("02"); // second card hovered by default
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +23,13 @@ const BlogCardSection: React.FC = () => {
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = BlogsData.slice(indexOfFirstCard, indexOfLastCard);
 
-  // Navigation functions
+  const navigate = useNavigate();
+
+  const handleBlogClick = (slug: string) => {
+    navigate(`/blog/${slug}`);
+  };
+
+  // Navigation functions for pagination
   const nextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -85,13 +93,28 @@ const BlogCardSection: React.FC = () => {
                       boxShadow: "0px 0px 8px 0px #B5442C80",
                     }}
                   >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-[200px] object-cover transition-all duration-400 ease-out rounded-lg"
-                      loading="lazy"
-                    />
-                    {/* Text */}
+                    <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-all duration-400 ease-out"
+                        loading="lazy"
+                      />
+
+                      <button
+                        onClick={() => handleBlogClick(item.slug)}
+                        className={`absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                          isHovered
+                            ? "bg-[#f0f0f0] text-[#B5442C] hover:bg-[#B5442C] hover:text-[#f0f0f0] border border-[#B5442C] -rotate-45 cursor-pointer"
+                            : "bg-[#B5442C] text-[#f0f0f0] hover:bg-[#f0f0f0] hover:text-[#B5442C] border border-[#B5442C]"
+                        }`}
+                        title={`Read more about ${item.title}`}
+                      >
+                        <ArrowRightIcon />
+                      </button>
+                    </div>
+
+                    {/* Text Content */}
                     <div
                       className={`relative flex flex-col justify-between text-left transition-opacity duration-300 ${
                         isHovered ? "text-[#f0f0f0]" : "text-[#000000]"
