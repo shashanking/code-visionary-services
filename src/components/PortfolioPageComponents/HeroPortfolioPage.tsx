@@ -57,7 +57,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
           className={`absolute w-full h-full transition-all duration-700 ease-in-out ${
             isHovered
               ? "bg-gradient-to-b from-black/0 via-black/70 to-black/95 transform translate-y-0"
-              : "bg-gradient-to-b from-black/10 via-black/30 to-black/80 transform translate-y-full"
+              : "bg-gradient-to-b from-black/10 via-black/30 to-black/80 opacity-0 transform translate-y-full"
           }`}
         />
       </div>
