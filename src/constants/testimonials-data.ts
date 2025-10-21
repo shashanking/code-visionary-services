@@ -8,6 +8,10 @@ import pistonheadLogo from "../assets/clients/pistonhead.png";
 import shopinfinityLogo from "../assets/clients/shopinfinity.webp";
 import happyhelpLogo from "../assets/clients/happyhelpinghands.webp";
 import kaltechLogo from "../assets/clients/kaltech.jpeg";
+import Person1 from "../assets/review-page/person-1.jpg";
+import Person2 from "../assets/review-page/person-2.jpg";
+import Person3 from "../assets/review-page/person-3.jpg";
+import Person4 from "../assets/review-page/person-4.jpg";
 
 export interface Testimonial {
   id: number;
@@ -98,5 +102,34 @@ export const testimonials: Testimonial[] = [
     image: kaltechLogo,
     // video: dummyTestimonialVideo,
     text: "“CVS helped us modernize internal systems and data flows. Their AI-driven automation reduced manual effort dramatically.”",
+  },
+];
+
+interface TestimonialHero {
+  id: number;
+  name: string;
+  image: string;
+}
+
+export const TestimonialsHeroData: TestimonialHero[] = [
+  {
+    id: 1,
+    name: "Lorem ipsum",
+    image: Person1,
+  },
+  {
+    id: 2,
+    name: "Lorem ipsum",
+    image: Person2,
+  },
+  {
+    id: 3,
+    name: "Lorem ipsum",
+    image: Person3,
+  },
+  {
+    id: 4,
+    name: "Lorem ipsum",
+    image: Person4,
   },
 ];

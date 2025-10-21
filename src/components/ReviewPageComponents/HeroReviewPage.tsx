@@ -2,44 +2,12 @@ import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ReviewPageBg from "../../assets/review-page/hero-bg.jpg";
-import Person1 from "../../assets/review-page/person-1.jpg";
-import Person2 from "../../assets/review-page/person-2.jpg";
-import Person3 from "../../assets/review-page/person-3.jpg";
-import Person4 from "../../assets/review-page/person-4.jpg";
-
-interface TestimonialHero {
-  id: number;
-  name: string;
-  image: string;
-}
-
-const TestimonialsHeroData: TestimonialHero[] = [
-  {
-    id: 1,
-    name: "Lorem ipsum",
-    image: Person1,
-  },
-  {
-    id: 2,
-    name: "Lorem ipsum",
-    image: Person2,
-  },
-  {
-    id: 3,
-    name: "Lorem ipsum",
-    image: Person3,
-  },
-  {
-    id: 4,
-    name: "Lorem ipsum",
-    image: Person4,
-  },
-];
+import { TestimonialsHeroData } from "../../constants/testimonials-data";
 
 const HeroReviewPage: React.FC = () => {
   return (
     <SectionContainer
-      id="portfolio-hero"
+      id="review-hero"
       fullWidth
       padding="lg"
       background="#e3e3e3"
@@ -113,8 +81,8 @@ const HeroReviewPage: React.FC = () => {
                 <div
                   className={`absolute left-1/2 transform -translate-x-1/2 w-full text-center ${
                     isEven
-                      ? "top-[-2rem] md:top-[-2.5rem]"
-                      : "bottom-[-2rem] md:bottom-[-2.5rem]"
+                      ? "bottom-[-2rem] md:bottom-[-2.5rem]"
+                      : "top-[-2rem] md:top-[-2.5rem]"
                   }`}
                 >
                   <p className="inline-block bg-transparent px-4 py-2 rounded-lg text-body4 font-semibold text-[#0861AA] whitespace-nowrap">
