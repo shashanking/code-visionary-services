@@ -89,7 +89,7 @@ const ReviewCardSection: React.FC = () => {
             />
           </div>
 
-          {/* Testimonial Cards Grid */}
+          {/* Review Cards Grid */}
           <div className="relative w-full">
             <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
               {currentCards.map((item, idx) => {

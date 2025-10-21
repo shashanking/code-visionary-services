@@ -3,7 +3,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import BlogPageBg from "../../assets/blog-page/hero-bg.jpg";
 import { useNavigate } from "react-router-dom";
-import { BlogHeroData } from "../../constants/blog-page-data";
+import { BlogsData } from "../../constants/blog-page-data";
 
 const HeroBlogPage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const HeroBlogPage: React.FC = () => {
   const rightScrollRef = useRef<HTMLDivElement>(null);
   const autoScrollInterval = useRef<number | null>(null);
 
-  const getNextIndex = (current: number) => (current + 1) % BlogHeroData.length;
+  const getNextIndex = (current: number) => (current + 1) % BlogsData.length;
   const rightIndex = getNextIndex(activeIndex);
 
   // Auto scroll functionality
@@ -69,7 +69,7 @@ const HeroBlogPage: React.FC = () => {
     }
   };
 
-  // Animation classes - Only transform, no opacity
+  // Animation classes
   const getLeftAnimationClass = () => {
     switch (leftAnimation) {
       case "enter":
@@ -146,8 +146,8 @@ const HeroBlogPage: React.FC = () => {
           {/* Left side vertical auto-scroll */}
           <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
             <img
-              src={BlogHeroData[activeIndex].image}
-              alt={BlogHeroData[activeIndex].title}
+              src={BlogsData[activeIndex].image}
+              alt={BlogsData[activeIndex].title}
               className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
               loading="lazy"
             />
@@ -161,31 +161,31 @@ const HeroBlogPage: React.FC = () => {
             >
               <div
                 key={activeIndex}
-                onClick={() => handleBlogClick(BlogHeroData[activeIndex].slug)}
+                onClick={() => handleBlogClick(BlogsData[activeIndex].slug)}
                 className={`flex flex-row justify-between overflow-hidden`}
               >
                 <div className={`text-left overflow-hidden`}>
                   <span
                     className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
                   >
-                    {BlogHeroData[activeIndex].id}
+                    {BlogsData[activeIndex].id}
                   </span>
 
                   <div className="text-left overflow-hidden">
                     <h2
                       className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
                     >
-                      {BlogHeroData[activeIndex].title}
+                      {BlogsData[activeIndex].title}
                     </h2>
                   </div>
                   <p className={`text-body2 text-white font-light`}>
-                    {BlogHeroData[activeIndex].date}
+                    {BlogsData[activeIndex].date}
                   </p>
                 </div>
 
                 {/* Progress indicator */}
                 <div className="flex flex-col gap-2 w-[25px] mt-auto">
-                  {BlogHeroData.map((_, index) => (
+                  {BlogsData.map((_, index) => (
                     <div
                       key={index}
                       className={`w-2 h-2 rounded-full transition-all duration-1000 ${
@@ -194,7 +194,7 @@ const HeroBlogPage: React.FC = () => {
                           : "border border-white bg-transparent"
                       }`}
                     />
-                  ))}
+                  )).reverse()}
                 </div>
               </div>
             </div>
@@ -203,8 +203,8 @@ const HeroBlogPage: React.FC = () => {
           {/* Right side horizontal auto-scroll */}
           <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
             <img
-              src={BlogHeroData[rightIndex].image}
-              alt={BlogHeroData[rightIndex].title}
+              src={BlogsData[rightIndex].image}
+              alt={BlogsData[rightIndex].title}
               className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
               loading="lazy"
             />
@@ -218,22 +218,22 @@ const HeroBlogPage: React.FC = () => {
             >
               <div
                 key={rightIndex}
-                onClick={() => handleBlogClick(BlogHeroData[rightIndex].slug)}
+                onClick={() => handleBlogClick(BlogsData[rightIndex].slug)}
                 className={`w-full overflow-hidden`}
               >
                 <div className="text-left">
                   <span
                     className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
                   >
-                    {BlogHeroData[rightIndex].id}
+                    {BlogsData[rightIndex].id}
                   </span>
                   <h2
                     className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
                   >
-                    {BlogHeroData[rightIndex].title}
+                    {BlogsData[rightIndex].title}
                   </h2>
                   <p className={`text-body2 text-white font-light`}>
-                    {BlogHeroData[rightIndex].date}
+                    {BlogsData[rightIndex].date}
                   </p>
                 </div>
               </div>

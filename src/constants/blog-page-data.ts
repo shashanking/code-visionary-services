@@ -3,21 +3,26 @@ import BlogImg2 from "../assets/blog-page/blog-img-2.jpg";
 import BlogImg3 from "../assets/blog-page/blog-img-3.jpg";
 import BlogImg4 from "../assets/blog-page/blog-img-4.jpg";
 
-interface BlogHero {
+interface Blogs {
   id: string;
   title: string;
   date: string;
   image: string;
   slug: string;
+  author?: string;
+  description?: string;
 }
 
-export const BlogHeroData: BlogHero[] = [
+export const BlogsData: Blogs[] = [
   {
     id: "01",
     title: "Lorem ipsum dolor sit amet, consectetur adipiscing",
     date: "May 02,2024",
     image: BlogImg1,
     slug: "blog-123",
+    author: "Daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
   },
   {
     id: "02",
@@ -25,6 +30,9 @@ export const BlogHeroData: BlogHero[] = [
     date: "May 02,2024",
     image: BlogImg2,
     slug: "blog-456",
+    author: "daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
   },
   {
     id: "03",
@@ -32,6 +40,9 @@ export const BlogHeroData: BlogHero[] = [
     date: "May 02,2024",
     image: BlogImg3,
     slug: "blog-789",
+    author: "Daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
   },
   {
     id: "04",
@@ -39,5 +50,48 @@ export const BlogHeroData: BlogHero[] = [
     date: "May 02,2024",
     image: BlogImg4,
     slug: "blog-321",
+    author: "daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
+  },
+  {
+    id: "05",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+    date: "May 02,2024",
+    image: BlogImg1,
+    slug: "blog-123",
+    author: "Daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
+  },
+  {
+    id: "06",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+    date: "May 02,2024",
+    image: BlogImg2,
+    slug: "blog-456",
+    author: "daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
+  },
+  {
+    id: "07",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+    date: "May 02,2024",
+    image: BlogImg3,
+    slug: "blog-789",
+    author: "Daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
+  },
+  {
+    id: "08",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+    date: "May 02,2024",
+    image: BlogImg4,
+    slug: "blog-321",
+    author: "daniel",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis placerat enim, ut imperdiet mi pulvinar et. Vivamus vitae vestibulum nisi. Sed facilisis dui eu ex tempor volutpat ac a nisl.",
   },
 ];
