@@ -60,6 +60,7 @@
 
   /* ===== Text Sizes ===== */
   --text-*: initial;
+  --text-title-5xl: clamp(3.5rem, 10vw, 10rem);
   --text-title-2xl: clamp(2.5rem, 6vw, 5rem);
   --text-title-xl: clamp(2rem, 5vw, 4rem);
   --text-title-lg: clamp(1.8rem, 4vw, 3rem);

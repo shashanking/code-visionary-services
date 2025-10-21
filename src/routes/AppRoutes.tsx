@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage/HomePage";
 import Layout from "../components/Layout/Layout";
 import AboutPage from "../pages/AboutPage/AboutPage";
 import ServicePage from "../pages/ServicePage/ServicePage";
+import PortfolioPage from "../pages/PortfolioPage/PortfolioPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -29,6 +30,14 @@ const AppRoutes: React.FC = () => {
         element={
           <Layout>
             <ServicePage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/portfolio"
+        element={
+          <Layout>
+            <PortfolioPage />
           </Layout>
         }
       />
