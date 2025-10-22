@@ -1,7 +1,8 @@
-import p1 from "../assets/our_team_pradep_color_image.png";
-import p2 from "../assets/our_team_shashank_color_image.png";
-import p3 from "../assets/our_team_shayan_color_image.png";
-import p4 from "../assets/our_team_vikash_color_image.png";
+import PradipImg from "../assets/about-page/our-team/pradip-img.png";
+import SahilImg from "../assets/about-page/our-team/sahil-img.png";
+import SashankImg from "../assets/about-page/our-team/sashank-img.png";
+import SayanImg from "../assets/about-page/our-team/sayan-img.png";
+import VikashImg from "../assets/about-page/our-team/vikash-img.png";
 
 export interface TeamMember {
   id: number;
@@ -16,14 +17,14 @@ export const teamMembers: TeamMember[] = [
     id: 1,
     name: "Sahil Biswas",
     role: "Co-founder",
-    image: p1,
+    image: SahilImg,
     description: "",
   },
   {
     id: 2,
     name: "Vikash Jha",
     role: "Co-founder, CEO",
-    image: p4,
+    image: VikashImg,
     description:
       "With over two decades of experience, Charles leads Bizypro with a focus on innovation and integrity.",
   },
@@ -31,7 +32,7 @@ export const teamMembers: TeamMember[] = [
     id: 3,
     name: "Shashank Singh",
     role: "Co-founder",
-    image: p2,
+    image: SashankImg,
     description:
       "Emma brings unparalleled expertise in structural analysis, ensuring durability and performance in every design.",
   },
@@ -39,7 +40,7 @@ export const teamMembers: TeamMember[] = [
     id: 4,
     name: "Sayan Choudhury",
     role: "Co-founder",
-    image: p3,
+    image: SayanImg,
     description:
       "Emma brings unparalleled expertise in structural analysis, ensuring durability and performance in every design.",
   },
@@ -47,7 +48,7 @@ export const teamMembers: TeamMember[] = [
     id: 5,
     name: "Pradip Choudhury",
     role: "Founder",
-    image: p1,
+    image: PradipImg,
     description:
       "Sophia integrates eco-conscious practices to create sustainable and future-ready designs.",
   },
