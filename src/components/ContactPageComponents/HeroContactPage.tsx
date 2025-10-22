@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import { MessageCircleMore, Phone } from "lucide-react";
 
 const HeroContactPage: React.FC = () => {
+  const [gridCount, setGridCount] = useState(0);
+
+  useEffect(() => {
+    const updateGrid = () => {
+      const cellSize = 110; // px
+      const cols = Math.ceil(window.innerWidth / cellSize);
+      const rows = Math.ceil(window.innerHeight / cellSize);
+      setGridCount(cols * rows);
+    };
+
+    updateGrid();
+    window.addEventListener("resize", updateGrid);
+    return () => window.removeEventListener("resize", updateGrid);
+  }, []);
+
   return (
     <SectionContainer
       id="review-hero"
@@ -12,25 +27,23 @@ const HeroContactPage: React.FC = () => {
       background="#e3e3e3"
       className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div
-          className="w-full h-full bg-cover bg-no-repeat bg-center"
-          // style={{ backgroundImage: `url(${BlogPageBg})` }}
-        />
-        <div className="absolute inset-0 z-0 bg-[linear-gradient(rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.1)_1px,transparent_1px)] bg-[size:120px_120px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)] bg-center" />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0]/0 via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
+      <div className="absolute inset-0 z-0 grid [grid-template-columns:repeat(auto-fill,minmax(110px,1fr))]">
+        {Array.from({ length: gridCount }).map((_, i) => (
+          <div
+            key={i}
+            className="border border-black/5 bg-[#e3e3e3] transition-all duration-300 hover:bg-white"
+          />
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0]/50 via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
       </div>
 
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
-        className="relative z-10 py-10 flex flex-col justify-center items-center text-center"
+        className="relative z-10 py-10 flex flex-col justify-center items-center text-center pointer-events-none"
       >
-        <div className="relative z-10 w-full max-w-xl flex flex-col justify-center items-center">
-          <h1
-            className={`font-heading font-bold text-title-2xl text-center uppercase mb-6 bg-gradient-to-r text-[#161616] leading-[1.1]`}
-          >
+        <div className="w-full max-w-xl flex flex-col justify-center items-center">
+          <h1 className="font-heading font-bold text-title-2xl text-center uppercase mb-6 text-[#161616] leading-[1.1]">
             Let’s Build Something Great{" "}
             <span className="bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
               Together
@@ -56,7 +69,9 @@ const HeroContactPage: React.FC = () => {
             </button>
 
             {/* Divider */}
-            <div className="w-1 h-full bg-white rounded-full mx-2 leading-[1.5]">|</div>
+            <div className="w-1 h-full bg-white text-white rounded-full mx-2 leading-[1.5]">
+              |
+            </div>
 
             <button className="flex items-center justify-center font-heading text-body2 text-white uppercase gap-2">
               Chat With Us{" "}
@@ -71,9 +86,9 @@ const HeroContactPage: React.FC = () => {
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
-        className="relative z-10 py-10 flex justify-center items-center"
+        className="relative z-10 py-10 flex justify-center items-center pointer-events-none"
       >
-        <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]"></div>
+        <div className="w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]" />
       </ContentContainer>
     </SectionContainer>
   );
