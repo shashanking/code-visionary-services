@@ -48,7 +48,7 @@ const HeroReviewPage: React.FC = () => {
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
-        className="relative z-10 pt-15 pb-10 flex justify-center items-center"
+        className="relative z-10 pt-22 pb-10 flex justify-center items-center"
       >
         <div className="relative flex items-center justify-center h-40 md:h-80">
           {TestimonialsHeroData.map((item, index) => {
