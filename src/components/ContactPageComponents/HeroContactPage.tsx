@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import { MessageCircleMore, Phone } from "lucide-react";
+import ContactCardSection from "./ContactCardSection";
 
 const HeroContactPage: React.FC = () => {
   const [gridCount, setGridCount] = useState(0);
@@ -12,7 +13,7 @@ const HeroContactPage: React.FC = () => {
 
   useEffect(() => {
     const updateGrid = () => {
-      const cellSize = 110; // px
+      const cellSize = 80; // px
       const cols = Math.ceil(window.innerWidth / cellSize);
       const rows = Math.ceil(window.innerHeight / cellSize);
       setGridCount(cols * rows);
@@ -134,6 +135,10 @@ const HeroContactPage: React.FC = () => {
             isHoveringChat ? "w-full" : "w-0"
           }`}
         />
+      </div>
+
+      <div className="flex w-full mt-40">
+        <ContactCardSection />
       </div>
     </SectionContainer>
   );
