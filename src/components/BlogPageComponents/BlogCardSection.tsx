@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ReviewCardBg from "../../assets/review-page/review-bg.jpg";
+import BlogCardBg from "../../assets/blog-page/blog-card-bg.jpg";
 import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
 import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
 import { BlogsData } from "../../constants/blog-page-data";
@@ -53,7 +53,7 @@ const BlogCardSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${ReviewCardBg})` }}
+          style={{ backgroundImage: `url(${BlogCardBg})` }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
@@ -64,7 +64,7 @@ const BlogCardSection: React.FC = () => {
         paddingX="lg"
         className="relative z-10 py-10 flex flex-col justify-center items-center text-center overflow-hidden"
       >
-        <div className="relative w-full max-w-2xl pt-20 pb-10 flex flex-col justify-start items-center">
+        <div className="relative w-full max-w-2xl flex flex-col justify-start items-center">
           <div className="flex flex-row w-full mx-auto justify-between items-center mb-10">
             <h1 className="font-heading font-bold text-title-lg text-center uppercase leading-tight max-w-md text-[#161616] leading-[1.1]">
               All Blogs
