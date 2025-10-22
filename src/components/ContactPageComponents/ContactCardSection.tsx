@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/contact_bg_image.png";
 import bgImgInsideMobile from "../../assets/contact-page/contact_bg_image_inside_mobile.png";
 import bgImgInside from "../../assets/contact-page/contact_bg_image_inside.png";
 import {
@@ -31,7 +30,7 @@ interface ApiResponse {
 // 1: Calendar, 2: Details, 3: Confirmation, 4: Error
 type Step = 1 | 2 | 3 | 4;
 
-const ContactSection: React.FC = () => {
+const ContactCardSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
@@ -251,22 +250,25 @@ const ContactSection: React.FC = () => {
 
   return (
     <SectionContainer
-      id="contact"
+      id="review-card"
       fullWidth
       padding="lg"
-      className="relative min-h-screen bg-[#F0F0F0] flex justify-center items-center overflow-hidden"
+      background="#e3e3e3"
+      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: `url(${bgImg})` }}
-      />
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div
+          className="w-full h-full bg-cover bg-no-repeat bg-center"
+          // style={{ backgroundImage: `url(${ReviewCardBg})` }}
+        />
 
-      {/* Content */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
+      </div>
+
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
-        className="relative z-10 flex flex-col justify-center items-center text-center"
+        className="relative z-10 py-10 flex flex-col justify-center items-center text-center overflow-hidden"
       >
         <div className="relative w-full max-w-2xl flex flex-col justify-center items-center">
           <h2 className="font-heading font-bold text-title-md text-center uppercase mb-6 leading-tight max-w-sm bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
@@ -772,4 +774,4 @@ const ContactSection: React.FC = () => {
   );
 };
 
-export default ContactSection;
+export default ContactCardSection;

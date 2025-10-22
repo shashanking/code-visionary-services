@@ -37,7 +37,7 @@ const HeroContactPage: React.FC = () => {
       fullWidth
       padding="lg"
       background="#e3e3e3"
-      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
+      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-start text-center"
     >
       <div className="absolute inset-0 z-0 grid [grid-template-columns:repeat(auto-fill,minmax(110px,1fr))]">
         {Array.from({ length: gridCount }).map((_, i) => (
@@ -72,7 +72,11 @@ const HeroContactPage: React.FC = () => {
       <div
         className="w-full max-w-[350px] h-10 flex flex-row items-center justify-between bg-[#161616] p-2 leading-none rounded-full relative overflow-hidden"
         style={{
-          boxShadow: "0px 0px 8px 0px #B5442C",
+          boxShadow: isHoveringCall
+            ? "0px 0px 8px 0px #B5442C"
+            : isHoveringChat
+            ? "0px 0px 8px 0px #2C6FB5"
+            : "0px 0px 8px 0px #B5442C",
         }}
       >
         <button
@@ -131,14 +135,6 @@ const HeroContactPage: React.FC = () => {
           }`}
         />
       </div>
-
-      <ContentContainer
-        maxWidth="7xl"
-        paddingX="lg"
-        className="relative z-10 py-10 flex justify-center items-center pointer-events-none"
-      >
-        <div className="w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]" />
-      </ContentContainer>
     </SectionContainer>
   );
 };
