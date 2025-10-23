@@ -1,48 +1,70 @@
-import reactLogo from "../assets/tech_stack_section_tech1_image.png";
-import angularLogo from "../assets/tech_stack_section_tech2_image.png";
-import laravelLogo from "../assets/tech_stack_section_tech4_image.png";
-import wordpressLogo from "../assets/tech_stack_section_tech3_image.png";
+import ReactLogo from "../assets/home-page/tech-stack/React js.svg";
+import AngularLogo from "../assets/home-page/tech-stack/Angular js.svg";
+import NextLogo from "../assets/home-page/tech-stack/Next.js.svg";
+import NodeLogo from "../assets/home-page/tech-stack/Node-Js.svg";
+import VueLogo from "../assets/home-page/tech-stack/Vuejs.svg";
+import SvelteLogo from "../assets/home-page/tech-stack/Svelte_Logo.svg";
+import LaravelLogo from "../assets/home-page/tech-stack/Svelte_Logo.svg";
+import NestLogo from "../assets/home-page/tech-stack/nestjs-icon.svg";
+import ExpressLogo from "../assets/home-page/tech-stack/Express.svg";
+import WordpressLogo from "../assets/home-page/tech-stack/Wordpress.svg";
+import ShopifyLogo from "../assets/home-page/tech-stack/Shopify.svg";
+import WebflowLogo from "../assets/home-page/tech-stack/Webflow.svg";
+import FlutterLogo from "../assets/home-page/tech-stack/Flutter-logo.svg";
+import FigmaLogo from "../assets/home-page/tech-stack/Figma.svg";
+import AdobeXdLogo from "../assets/home-page/tech-stack/Adobe-xd.svg";
+import GoogleAnalyticsLogo from "../assets/home-page/tech-stack/Google analytics.svg";
+import SearchConsoleLogo from "../assets/home-page/tech-stack/search console.svg";
+import SEMrushLogo from "../assets/home-page/tech-stack/SEMrush.svg";
+import AhrefsLogo from "../assets/home-page/tech-stack/Ahrefs.svg";
+import SolidityLogo from "../assets/home-page/tech-stack/Solidity.svg";
+import EthereumLogo from "../assets/home-page/tech-stack/Ethereum.svg";
+import OpenAiLogo from "../assets/home-page/tech-stack/Chatgpt.svg";
+import TensorFlowLogo from "../assets/home-page/tech-stack/Tensorflow.svg";
+import PyTorchLogo from "../assets/home-page/tech-stack/PyTorch.svg";
+import LangChainLogo from "../assets/home-page/tech-stack/langchain.svg";
+import HuggingFaceLogo from "../assets/home-page/tech-stack/Hugging face.svg";
 
 export const mainTechs = [
   // Web Development
-  { label: "React", img: reactLogo },
-  { label: "Angular", img: angularLogo, active: true },
-  { label: "Next.js" },
-  { label: "Node.js" },
-  { label: "Vue" },
-  { label: "Svelte" },
+  { label: "ReactJS", img: ReactLogo },
+  { label: "AngularJS", img: AngularLogo, active: true },
+  { label: "NextJS", img: NextLogo },
+  { label: "NodeJS", img: NodeLogo },
+  { label: "VueJS", img: VueLogo },
+  { label: "Svelte", img: SvelteLogo },
   // Back-end & APIs
-  { label: "Laravel", img: laravelLogo },
-  { label: "NestJS" },
-  { label: "Express" },
+  { label: "Laravel", img: LaravelLogo },
+  { label: "NestJS", img: NestLogo },
+  { label: "ExpressJS", img: ExpressLogo },
   // CMS / Platforms
-  { label: "WordPress", img: wordpressLogo },
-  { label: "Shopify" },
-  { label: "Webflow" },
+  { label: "WordPress", img: WordpressLogo },
+  { label: "Shopify", img: ShopifyLogo },
+  { label: "Webflow", img: WebflowLogo },
   // Mobile
-  { label: "React Native" },
-  { label: "Flutter" },
+  { label: "React Native", img: ReactLogo },
+  { label: "Flutter", img: FlutterLogo },
   // Data / DB
   { label: "MongoDB" },
   { label: "PostgreSQL" },
   { label: "MySQL" },
   // Design
-  { label: "Figma" },
-  { label: "Adobe XD" },
+  { label: "Figma", img: FigmaLogo },
+  { label: "Adobe XD", img: AdobeXdLogo },
   // SEO / Analytics
-  { label: "Google Analytics" },
-  { label: "Search Console" },
-  { label: "SEMrush" },
-  { label: "Ahrefs" },
+  { label: "Google Analytics", img: GoogleAnalyticsLogo },
+  { label: "Search Console", img: SearchConsoleLogo },
+  { label: "SEMrush", img: SEMrushLogo },
+  { label: "Ahrefs", img: AhrefsLogo },
   // Blockchain
-  { label: "Solidity" },
-  { label: "Ethereum" },
+  { label: "Solidity", img: SolidityLogo },
+  { label: "Ethereum", img: EthereumLogo },
   // AI / ML
-  { label: "OpenAI" },
-  { label: "TensorFlow" },
-  { label: "PyTorch" },
-  { label: "LangChain" },
-  { label: "Hugging Face" },
+  { label: "OpenAI", img: OpenAiLogo },
+  { label: "TensorFlow", img: TensorFlowLogo },
+  { label: "PyTorch", img: PyTorchLogo },
+  { label: "LangChain", img: LangChainLogo },
+  { label: "Hugging Face", img: HuggingFaceLogo },
 ];
 
 export const techTags = [
@@ -57,13 +79,13 @@ export const techTags = [
 
 export const tagToTechs: Record<string, string[]> = {
   "Web Development": [
-    "React",
-    "Angular",
-    "Next.js",
-    "Node.js",
-    "Vue",
+    "ReactJS",
+    "AngularJS",
+    "NextJS",
+    "NodeJS",
+    "VueJS",
     "Svelte",
-    "Express",
+    "ExpressJS",
     "NestJS",
   ],
   "App Development": ["React Native", "Flutter"],

@@ -5,22 +5,30 @@ import dorjiEcommerceImg from "../assets/portfolio_Responsive_design-4.png";
 import harmonyRehabImg from "../assets/portfolio_Responsive_design-5.png";
 import ospDashboardImg from "../assets/portfolio_Responsive_design-6.png";
 
+export interface PortfolioItem {
+  title: string;
+  img: string;
+  url: string;
+  description: string;
+  category: string;
+}
+
 export const categories = [
   { label: "All" },
   { label: "Websites" },
-  { label: "Mobile apps" },
-  { label: "Web apps" },
+  { label: "Mobile application" },
+  { label: "Web application" },
   { label: "Branding" },
 ];
 
-export const portfolioItems = [
+export const portfolioItems: PortfolioItem[] = [
   {
     title: "KALTECH CONSULTANCY",
     category: "Websites",
     img: kaltechImg,
     url: "#",
-    description: "",
-    bg: "rgba(44, 62, 80, 0.68)",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis sagittis finibus.",
   },
   {
     title: "GUT CHECK",
@@ -29,38 +37,37 @@ export const portfolioItems = [
     url: "#",
     description:
       "Website redesign focused on clarity, performance, and higher conversions across devices.",
-    bg: "linear-gradient(180deg, #86E3B3 0%, #7AD1B6 100%)",
   },
   {
     title: "MONEY BLASTER",
     category: "Websites",
     img: moneyBlasterImg,
     url: "#",
-    description: "",
-    bg: "linear-gradient(180deg, #FFD6DC 0%, #FEB9C8 100%)",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis sagittis finibus.",
   },
   {
     title: "DORJI ECOMMERCE",
     category: "Web applications",
     img: dorjiEcommerceImg,
     url: "#",
-    description: "",
-    bg: "rgba(130, 90, 40, 0.5)",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis sagittis finibus.",
   },
   {
     title: "HARMONY REHAB",
     category: "Websites",
     img: harmonyRehabImg,
     url: "#",
-    description: "",
-    bg: "linear-gradient(180deg, #F8CDFE 0%, #ECBCED 100%)",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis sagittis finibus.",
   },
   {
     title: "OSP DASHBOARD",
     category: "Web applications",
     img: ospDashboardImg,
     url: "#",
-    description: "",
-    bg: "rgba(44, 62, 80, 0.88)",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mollis sagittis finibus.",
   },
 ];

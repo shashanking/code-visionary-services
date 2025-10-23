@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/tech_stack_section_bg_image.png";
+import bgImg from "../../assets/home-page/tech-stack/tech-stack-bg.png";
 import {
   mainTechs,
   techTags,
@@ -13,7 +13,7 @@ const TechStackSection: React.FC = () => {
 
   const visibleTechs = mainTechs.filter((t) =>
     (
-      tagToTechs[activeTag] || ["React", "Angular", "Laravel", "WordPress"]
+      tagToTechs[activeTag] || ["ReactJS", "AngularJS", "NextJS", "VueJS"]
     ).includes(t.label)
   );
 
@@ -75,9 +75,7 @@ const TechStackSection: React.FC = () => {
                     <img
                       src={img}
                       alt={label}
-                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain ${
-                        active ? "" : "grayscale"
-                      }`}
+                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain`}
                     />
                   ) : (
                     <div

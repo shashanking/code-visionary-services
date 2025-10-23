@@ -39,11 +39,10 @@ const OurStorySection: React.FC = () => {
         });
       });
 
-      // Initial visual states
+      // Initial states
       gsap.set(img1Ref.current, { scale: 1, opacity: 1, zIndex: 3 });
       gsap.set(img2Ref.current, { scale: 0.9, opacity: 1, zIndex: 2 });
       gsap.set(img3Ref.current, { scale: 0.8, opacity: 1, zIndex: 1 });
-
       gsap.set(textRef.current, { y: 40, opacity: 0 });
 
       const tl = gsap.timeline({
@@ -58,26 +57,31 @@ const OurStorySection: React.FC = () => {
         defaults: { ease: "power2.out" },
       });
 
+      // Subtle lift at start
+      tl.to(img1Ref.current, { y: 20, duration: 0.6 }, 0);
+      tl.to(img2Ref.current, { y: -20, duration: 0.6 }, 0);
+      tl.to(img3Ref.current, { y: -60, duration: 0.6 }, 0);
+
+      // Text fade-in
       tl.to(textRef.current, { y: 0, opacity: 1, duration: 0.5 }, 0);
 
-      tl.to(img2Ref.current, { scale: 0.9, duration: 0.6 }, 0);
+      // Back 3rd image push back down as scroll continues to align it center
+      tl.to(img3Ref.current, { y: 0, duration: 0.8 }, 1.4);
 
-      tl.to(img3Ref.current, { scale: 0.8, duration: 0.6 }, 0);
+      // Main stacking animation
+      tl.to(img1Ref.current, { y: 300, duration: 1 }, 0.8);
+      tl.to(img1Ref.current, { opacity: 0, duration: 0.7 }, 1);
 
-      tl.to(img1Ref.current, { y: 300, duration: 1 }, 0.2);
-      tl.to(img1Ref.current, { opacity: 0, duration: 0.7 }, 0.6);
+      tl.to(img2Ref.current, { scale: 1, duration: 1 }, 0.8);
+      tl.to(img3Ref.current, { scale: 0.9, duration: 0.6 }, 1);
 
-      tl.to(img2Ref.current, { scale: 1, duration: 1 }, 0.2);
-
-      tl.to(img3Ref.current, { scale: 0.9, duration: 0.6 }, 0.8);
-
-      tl.to(img2Ref.current, { y: 300, duration: 1 }, 0.8);
-      tl.to(img2Ref.current, { opacity: 0, duration: 0.7 }, 1.2);
+      tl.to(img2Ref.current, { y: 300, duration: 1 }, 1.4);
+      tl.to(img2Ref.current, { opacity: 0, duration: 0.7 }, 1.8);
 
       tl.to(
         img3Ref.current,
         { scale: 1, opacity: 1, zIndex: 3, duration: 1 },
-        1.2
+        1.6
       );
 
       return () => {
@@ -106,13 +110,24 @@ const OurStorySection: React.FC = () => {
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
 
-        {/* Left-side gradient block */}
+        {/* Left side gradient block - for large screen */}
         <div
-          className="absolute top-0 left-0 h-full z-10 pointer-events-none"
+          className="absolute top-0 left-0 h-full z-10 hidden sm:block pointer-events-none"
           style={{
             width: "50%",
             background: "linear-gradient(180deg, #0861AA 0%, #032744 100%)",
             clipPath: "polygon(0 0, 30% 0, 60% 100%, 0% 100%)",
+          }}
+        />
+
+        {/* Top side gradient block - for smaller screen */}
+        <div
+          className="absolute bottom-0 left-0 w-full z-10 block sm:hidden pointer-events-none rotate-180"
+          style={{
+            width: "100%",
+            height: "50%",
+            background: "linear-gradient(180deg, #0861AA 0%, #032744 100%)",
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 30%, 0% 60%)",
           }}
         />
       </div>
@@ -122,29 +137,32 @@ const OurStorySection: React.FC = () => {
         paddingX="lg"
         className="relative z-10 flex flex-col  items-center"
       >
-        <div className="relative z-10 w-full max-w-2xl flex flex-col sm:flex-row items-center">
-          <div className="relative flex-1 flex items-center justify-center min-h-[620px]">
+        <div className="relative z-10 w-full max-w-2xl flex flex-col-reverse sm:flex-row items-center">
+          <div className="sm:relative flex-1 flex items-center justify-center min-h-[400px] sm:min-h-[620px]">
             <img
               ref={img3Ref}
               src={StoryImg3}
               alt="story-img-3"
-              className="w-[450px] h-auto block rounded-xl"
+              className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
             <img
               ref={img2Ref}
               src={StoryImg2}
               alt="story-img-2"
-              className="w-[450px] h-auto block rounded-xl"
+              className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
             <img
               ref={img1Ref}
               src={StoryImg1}
               alt="story-img-1"
-              className="w-[450px] h-auto block rounded-xl"
+              className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
           </div>
 
-          <div ref={textRef} className="flex-1 text-left sm:pl-10 pt-8 sm:pt-0">
+          <div
+            ref={textRef}
+            className="flex-1 flex flex-col sm:pl-10 pt-8 sm:pt-0"
+          >
             <h2 className="font-heading font-bold text-title-lg uppercase mb-6 leading-tight bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
               OUR STORY
             </h2>
@@ -157,9 +175,11 @@ const OurStorySection: React.FC = () => {
               experiences.
             </p>
 
-            <CTAButton variant="secondary" size="large">
-              See All Projects
-            </CTAButton>
+            <div className="flex justify-center sm:justify-start">
+              <CTAButton variant="secondary" size="small" showIcon={false}>
+                See All Projects
+              </CTAButton>
+            </div>
           </div>
         </div>
       </ContentContainer>

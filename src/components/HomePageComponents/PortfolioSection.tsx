@@ -12,7 +12,6 @@ interface PortfolioItem {
   img: string;
   url: string;
   description: string;
-  bg: string;
   category: string;
 }
 

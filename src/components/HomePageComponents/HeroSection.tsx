@@ -122,7 +122,7 @@ const HeroSection: React.FC = () => {
       id="home"
       fullWidth
       padding="lg"
-      className="min-h-[120vh] overflow-hidden flex flex-col items-center justify-center text-center"
+      className="min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
       {/* Background Images */}
       {heroBackgrounds.map((bg, index) => (
@@ -139,17 +139,17 @@ const HeroSection: React.FC = () => {
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
-        className="relative z-10 flex flex-col justify-center items-center text-center"
+        className="relative z-10 py-10 flex flex-col justify-center items-center text-center"
       >
         <div className="relative w-full max-w-2xl flex flex-col justify-center items-center">
-          <div className="w-full max-w-2xl mx-auto mb-10 mt-12 md:mt-20 font-heading font-medium text-title-xl text-gray-800 leading-[1.1]">
-            <h1 className="mb-4">
+          <div className="w-full max-w-2xl flex flex-col justify-center items-center mb-16">
+            <h1 className="font-heading font-bold text-title-2xl text-center uppercase text-[#161616] leading-[1.1]">
               INNOVATIVE{" "}
               <span className="inline-block bg-gradient-to-r from-[#4F1E13] to-[#B5442C] bg-clip-text text-transparent">
                 DIGITAL SOLUTIONS,
-              </span>
+              </span>{" "}
+              BUILT FOR IMPACT
             </h1>
-            <h1 className="text-gray-800">BUILT FOR IMPACT</h1>
           </div>
 
           <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-10 leading-[1.5]">

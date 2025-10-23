@@ -67,8 +67,9 @@ const Footer: React.FC = () => {
       background="linear-gradient(287.56deg, #0861AA 0%, #032744 100%)"
       className="text-white flex flex-col items-center pt-20 relative"
     >
-      {/* Overlay Section - Always render but control visibility */}
-      <FooterRevealOverlay footerRef={footerRef} isActive={overlayActive} />
+      <div className="hidden lg:flex">
+        <FooterRevealOverlay footerRef={footerRef} isActive={overlayActive} />
+      </div>
 
       <ContentContainer
         maxWidth="7xl"
