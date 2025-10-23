@@ -1,79 +1,21 @@
-// import { motion, useScroll, useTransform } from "framer-motion";
-
-// export const FooterRevealOverlay = ({
-//   footerRef,
-//   isActive,
-// }: {
-//   footerRef: React.RefObject<HTMLElement | null>;
-//   isActive: boolean;
-// }) => {
-//   const { scrollYProgress } = useScroll({
-//     target: footerRef,
-//     offset: ["start end", "end end"],
-//   });
-
-//   // Overlay slides up as scroll
-//   const overlayY = useTransform(scrollYProgress, [0.7, 1], ["0%", "-100%"]);
-
-//   const glowOpacity = useTransform(scrollYProgress, [0, 0.9, 1], [1, 0, 0]);
-
-//   if (!isActive) return null;
-
-//   return (
-//     <motion.div
-//       style={{
-//         y: overlayY,
-//         position: "absolute",
-//         top: 0,
-//         left: 0,
-//         width: "100%",
-//         height: "100%",
-//         background: "#f0f0f0",
-//         display: "flex",
-//         justifyContent: "center",
-//         alignItems: "center",
-//         flexDirection: "column",
-//         zIndex: 20,
-//         pointerEvents: "none",
-//         gap: "10rem",
-//       }}
-//       className="footer-overlay min-h-[100vh] overflow-hidden"
-//     >
-//       {/* <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" /> */}
-
-//       <motion.div
-//         style={{
-//           opacity: glowOpacity,
-//         }}
-//         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full blur-[100px] bg-[#B5442C] z-0 pointer-events-none"
-//       />
-
-//       <motion.div className="font-heading text-center z-10">
-//         <p className="font-heading font-bold text-title-lg text-[#161616]">
-//           Got an Idea?
-//         </p>
-//         <p className="font-heading font-bold text-title-lg bg-gradient-to-r from-[#B5442C] to-[#FF9C87] bg-clip-text text-transparent uppercase">
-//           Contact Us
-//         </p>
-//       </motion.div>
-//     </motion.div>
-//   );
-// };
-
 import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import SectionContainer from "../shared/SectionContainer";
+import ContentContainer from "../shared/ContentContainer";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FooterRevealOverlay: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const gradientRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (!sliderRef.current || !wrapperRef.current) return;
+      if (!sliderRef.current || !wrapperRef.current || !gradientRef.current)
+        return;
 
       const slides = gsap.utils.toArray<HTMLElement>(".slide");
       const delay = 1;
@@ -90,6 +32,30 @@ const FooterRevealOverlay: React.FC = () => {
           pin: true,
           scrub: 1,
         },
+      });
+
+      // Gradient animation timeline
+      const gradientTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "top top",
+          end: `+=${(slides.length - 1) * 80}%`,
+          scrub: 1,
+        },
+      });
+
+      // Initial state - small gradient
+      gsap.set(gradientRef.current, {
+        width: "500px",
+        height: "250px",
+        opacity: 0.8,
+      });
+
+      // Animate gradient to grow during the transition
+      gradientTl.to(gradientRef.current, {
+        width: "50vw",
+        height: "50vh",
+        opacity: 0.8,
       });
 
       gsap.set(slides, {
@@ -125,13 +91,26 @@ const FooterRevealOverlay: React.FC = () => {
   );
 
   return (
-    <div
+    <SectionContainer
+      id="footer-overlay-section"
+      fullWidth
+      padding="lg"
+      background="#F0F0F0"
       ref={wrapperRef}
-      className="w-full min-h-screen flex justify-center items-center"
+      className="w-full min-h-screen flex justify-center items-center relative"
     >
       <div
+        ref={gradientRef}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full blur-[200px] md:blur-[500px] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] z-0 pointer-events-none transition-all duration-100"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0]/0 z-0 pointer-events-none" />
+
+      <ContentContainer
         ref={sliderRef}
-        className="min-w-md h-[105px] relative perspective-[300px] overflow-hidden"
+        maxWidth="2xl"
+        paddingX="lg"
+        className="min-w-md h-[105px] relative perspective-[300px] overflow-hidden z-10"
       >
         <div className="slide absolute w-full h-full top-0 left-0 flex justify-center items-center bg-transparent [backface-visibility:hidden]">
           <p className="font-heading font-bold text-title-2xl text-[#161616] uppercase">
@@ -143,8 +122,8 @@ const FooterRevealOverlay: React.FC = () => {
             Contact Us!
           </p>
         </div>
-      </div>
-    </div>
+      </ContentContainer>
+    </SectionContainer>
   );
 };
 
