@@ -10,6 +10,8 @@ import {
   Send,
   ServerCrash,
 } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { EMAILJS_CONFIG } from "../../utils/emailjsConfig";
 
 // Type definitions
 interface ScheduledData {
@@ -19,11 +21,6 @@ interface ScheduledData {
   date: string;
   time: string;
   timestamp: string;
-}
-
-interface ApiResponse {
-  success: boolean;
-  data: ScheduledData;
 }
 
 // 1: Calendar, 2: Details, 3: Confirmation, 4: Error
@@ -48,6 +45,11 @@ const ContactForm: React.FC = () => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
   }, []);
 
   // Calendar Helpers
@@ -158,21 +160,81 @@ const ContactForm: React.FC = () => {
     }
   };
 
-  // Mock API call
-  const scheduleCallAPI = async (
-    scheduledData: ScheduledData
-  ): Promise<ApiResponse> => {
-    // Simulate API call with random success/failure
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const isSuccess = Math.random() > 1; // Close to 0 success rate and to 1 failed
-        if (isSuccess) {
-          resolve({ success: true, data: scheduledData });
-        } else {
-          reject(new Error("Failed to schedule call. Please try again."));
-        }
-      }, 1000);
-    });
+  // EmailJS Send Function
+  const sendEmails = async (scheduledData: ScheduledData): Promise<boolean> => {
+    try {
+      // Checking if EmailJS is properly configured
+      if (!EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.PUBLIC_KEY) {
+        console.error("EmailJS not configured properly");
+        return false;
+      }
+
+      // Prepare template parameters
+      const templateParams = {
+        from_name: scheduledData.name,
+        from_email: scheduledData.email,
+        message: scheduledData.message || "No additional details provided",
+        scheduled_date: scheduledData.date,
+        scheduled_time: scheduledData.time,
+        user_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        timestamp: new Date().toLocaleString(),
+      };
+
+      // Sending to company
+      const companyEmail = emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.CVS_TEMPLATE_ID, // Template for company notifications
+        {
+          ...templateParams,
+          to_email: EMAILJS_CONFIG.TO_COMPANY_EMAIL_ID, // Send data to the cvs email id
+          to_name: EMAILJS_CONFIG.COMPANY_NAME,
+          reply_to: scheduledData.email, // Can be directly reply to the client
+        },
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+
+      // Sending to user - As confirmation
+      const userEmail = emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.USER_TEMPLATE_ID, // Template for user confirmations
+        {
+          ...templateParams,
+          to_email: scheduledData.email, // Send the the user given email id
+          to_name: scheduledData.name,
+          company_name: EMAILJS_CONFIG.COMPANY_NAME,
+          company_phone: EMAILJS_CONFIG.COMPANY_PHONE_NUMBER,
+          company_email: EMAILJS_CONFIG.COMPANY_EMAIL_ID,
+          company_website: EMAILJS_CONFIG.COMPANY_WEBSITE,
+          reply_to: EMAILJS_CONFIG.REPLY_TO_COMPANY_EMAIL_ID, // User can directly reply to cvs email id
+        },
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+
+      // Wait for both emails
+      const [companyResult, userResult] = await Promise.all([
+        companyEmail,
+        userEmail,
+      ]);
+
+      console.log("Company notification:", companyResult.text);
+      console.log("User confirmation:", userResult.text);
+
+      return true;
+    } catch (error) {
+      console.error("Email sending failed:", error);
+
+      // Detailed error information
+      if (error instanceof Error) {
+        console.error("Error details:", {
+          message: error.message,
+          serviceId: EMAILJS_CONFIG.SERVICE_ID,
+          hasCompanyTemplate: !!EMAILJS_CONFIG.CVS_TEMPLATE_ID,
+          hasUserTemplate: !!EMAILJS_CONFIG.USER_TEMPLATE_ID,
+        });
+      }
+
+      return false;
+    }
   };
 
   // API call to schedule a call
@@ -220,14 +282,18 @@ const ContactForm: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // API call
-      await scheduleCallAPI(scheduledData);
+      // Send email via EmailJS
+      const emailSent = await sendEmails(scheduledData);
 
-      // If API call is successful
+      if (!emailSent) {
+        throw new Error("Failed to send confirmation email");
+      }
+
+      // If email is sent successfully
       setCurrentStep(3);
     } catch (error) {
-      // If API call fails
-      console.error("API Error:", error);
+      // If email sending fails
+      console.error("Email Error:", error);
       setCurrentStep(4);
     } finally {
       setIsSubmitting(false);
