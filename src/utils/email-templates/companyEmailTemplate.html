@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New Meeting Scheduled</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background: #f5f7fa;
-        color: #333;
+        color: #333333;
         line-height: 1.6;
         margin: 0;
         padding: 0;
@@ -41,6 +45,7 @@
 
       /* Main container */
       .email-container {
+        width: 100%;
         max-width: 800px;
         margin: 0 auto;
         background: #ffffff;
@@ -49,7 +54,9 @@
       }
 
       .content {
+        width: 100%;
         padding: 40px 30px;
+        box-sizing: border-box;
       }
 
       .alert-box {
@@ -70,7 +77,8 @@
 
       .alert-info {
         display: flex;
-        justify-self: center;
+        justify-content: center;
+        text-align: center;
         margin-top: 8px;
         gap: 5px;
       }
@@ -104,10 +112,6 @@
       .info-row {
         display: flex;
         margin-bottom: 8px;
-      }
-
-      .info-row:last-child {
-        margin-bottom: 0;
       }
 
       .info-label {
@@ -183,9 +187,11 @@
         <div class="alert-box">
           <div class="alert-title">🗓️ New Meeting Scheduled</div>
           <p>A new meeting has been booked via website contact form.</p>
-          <div class="alert-info">
-            <div class="alert-info-label">Confirmation ID:</div>
-            <div class="alert-info-value">{{confirmation_id}}</div>
+          <div class="alert-info" style="justify-content: center">
+            <div style="display: inline-flex; gap: 5px; align-items: center">
+              <div class="alert-info-label">Confirmation ID:</div>
+              <div class="alert-info-value">{{confirmation_id}}</div>
+            </div>
           </div>
         </div>
 
@@ -209,7 +215,7 @@
               >
             </div>
           </div>
-          <div class="info-row">
+          <div class="info-row" style="margin-bottom: 0">
             <div class="info-label">Submitted:</div>
             <div class="info-value">{{timestamp}}</div>
           </div>
@@ -225,7 +231,7 @@
             <div class="info-label">Time:</div>
             <div class="info-value">{{scheduled_time}}</div>
           </div>
-          <div class="info-row">
+          <div class="info-row" style="margin-bottom:0;">
             <div class="info-label">Timezone:</div>
             <div class="info-value">{{user_timezone}}</div>
           </div>

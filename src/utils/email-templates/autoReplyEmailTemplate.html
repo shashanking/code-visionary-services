@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meeting Confirmation</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background: #f5f7fa;
-        color: #333;
+        color: #333333;
         line-height: 1.6;
         margin: 0;
         padding: 0;
@@ -41,6 +45,7 @@
 
       /* Main container */
       .email-container {
+        width: 100%;
         max-width: 800px;
         margin: 0 auto;
         background: #ffffff;
@@ -49,7 +54,9 @@
       }
 
       .content {
+        width: 100%;
         padding: 40px 30px;
+        box-sizing: border-box;
       }
 
       .confirmation-box {
@@ -70,7 +77,8 @@
 
       .confirmation-info {
         display: flex;
-        justify-self: center;
+        justify-content: center;
+        text-align: center;
         margin-top: 8px;
         gap: 5px;
       }
@@ -97,10 +105,6 @@
       .meeting-item {
         display: flex;
         margin-bottom: 8px;
-      }
-
-      .meeting-item:last-child {
-        margin-bottom: 0;
       }
 
       .meeting-label {
@@ -135,10 +139,6 @@
         margin-bottom: 12px;
       }
 
-      .step:last-child {
-        margin-bottom: 0;
-      }
-
       .step-number {
         background: #0e1a41;
         color: #ffffff;
@@ -160,7 +160,7 @@
       .support-btn {
         display: inline-block;
         background: #000000;
-        color: #ffffff;
+        color: #ffffff !important;
         padding: 12px 25px;
         text-decoration: none;
         border-radius: 8px;
@@ -225,9 +225,11 @@
             Thank you {{from_name}}, we’ve received your meeting request and are
             looking forward to connecting soon.
           </p>
-          <div class="confirmation-info">
-            <div class="confirmation-info-label">Confirmation ID:</div>
-            <div class="confirmation-info-value">{{confirmation_id}}</div>
+          <div class="confirmation-info" style="justify-content: center">
+            <div style="display: inline-flex; gap: 5px; align-items: center">
+              <div class="confirmation-info-label">Confirmation ID:</div>
+              <div class="confirmation-info-value">{{confirmation_id}}</div>
+            </div>
           </div>
         </div>
 
@@ -244,7 +246,7 @@
             <div class="meeting-label">Time:</div>
             <div class="meeting-value">{{scheduled_time}}</div>
           </div>
-          <div class="meeting-item">
+          <div class="meeting-item" style="margin-bottom:0;">
             <div class="meeting-label">Timezone:</div>
             <div class="meeting-value">{{user_timezone}}</div>
           </div>
@@ -262,7 +264,7 @@
               Our team will review your request and prepare accordingly.
             </div>
           </div>
-          <div class="step">
+          <div class="step" style="margin-bottom:0;">
             <div class="step-number">3</div>
             <div>We’ll remind you 1 hour before the meeting.</div>
           </div>
@@ -271,7 +273,7 @@
         <div class="support-section">
           <p>Need to make changes or reschedule?</p>
           <a
-            href="mailto:{{company_email}}?subject=Meeting Change Request - {{scheduled_date}}"
+            href="mailto:{{company_email}}?subject=Meeting Change Request - {{confirmation_id}}"
             class="support-btn"
             >Request Change</a
           >
