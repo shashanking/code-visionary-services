@@ -21,10 +21,33 @@ interface ScheduledData {
   date: string;
   time: string;
   timestamp: string;
+  confirmationId: string;
 }
 
 // 1: Calendar, 2: Details, 3: Confirmation, 4: Error
 type Step = 1 | 2 | 3 | 4;
+
+// Confirmation ID - CVS-DDMMYY-HHMMSS-SSSSSS
+const generateConfirmationId = (): string => {
+  const now = new Date();
+  
+  // Date in DDMMYY format
+  const day = now.getDate().toString().padStart(2, '0');
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const year = now.getFullYear().toString().slice(-2);
+  const dateStr = `${day}${month}${year}`;
+  
+  // Time in HHMMSS format
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const timeStr = `${hours}${minutes}${seconds}`;
+  
+  // Unique 6-character random string - SSSSSS
+  const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase();
+  
+  return `CVS-${dateStr}-${timeStr}-${randomStr}`;
+};
 
 const ContactForm: React.FC = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -36,6 +59,7 @@ const ContactForm: React.FC = () => {
   const [userMessage, setUserMessage] = useState<string>("");
   const [currentStep, setCurrentStep] = useState<Step>(1);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [confirmationId, setConfirmationId] = useState<string>("");
 
   const today = new Date();
 
@@ -171,6 +195,7 @@ const ContactForm: React.FC = () => {
 
       // Prepare template parameters
       const templateParams = {
+        confirmation_id: scheduledData.confirmationId,
         from_name: scheduledData.name,
         from_email: scheduledData.email,
         message: scheduledData.message || "No additional details provided",
@@ -198,29 +223,9 @@ const ContactForm: React.FC = () => {
         EMAILJS_CONFIG.PUBLIC_KEY
       );
 
-      // Sending to user - As confirmation
-      // const userEmail = emailjs.send(
-      //   EMAILJS_CONFIG.SERVICE_ID,
-      //   EMAILJS_CONFIG.USER_TEMPLATE_ID, // Template for user confirmations
-      //   {
-      //     ...templateParams,
-      //     to_email: scheduledData.email, // Send the the user given email id
-      //     to_name: scheduledData.name,
-      //     reply_to: EMAILJS_CONFIG.REPLY_TO_COMPANY_EMAIL_ID, // User can directly reply to cvs email id
-      //   },
-      //   EMAILJS_CONFIG.PUBLIC_KEY
-      // );
-
-      // Wait for both emails
-      // const [companyResult, userResult] = await Promise.all([
-      //   companyEmail,
-      //   userEmail,
-      // ]);
-
       const [companyResult] = await Promise.all([companyEmail]);
 
       console.log("Company notification:", companyResult.text);
-      // console.log("User confirmation:", userResult.text);
 
       return true;
     } catch (error) {
@@ -271,6 +276,10 @@ const ContactForm: React.FC = () => {
       return;
     }
 
+    // Generating unique confirmation ID
+    const newConfirmationId = generateConfirmationId();
+    setConfirmationId(newConfirmationId);
+
     const scheduledData: ScheduledData = {
       name: userName,
       email: userEmail,
@@ -278,6 +287,7 @@ const ContactForm: React.FC = () => {
       date: selectedDate.toDateString(),
       time: selectedTime,
       timestamp: new Date().toISOString(),
+      confirmationId: newConfirmationId,
     };
 
     // console.log("Scheduled Call Details:", scheduledData);
@@ -309,6 +319,7 @@ const ContactForm: React.FC = () => {
     setUserName("");
     setUserEmail("");
     setUserMessage("");
+    setConfirmationId("");
     setCurrentStep(1);
   };
 
@@ -544,6 +555,12 @@ const ContactForm: React.FC = () => {
                     </p>
                     <p className="text-[#161616] font-sans text-body2">
                       {selectedDate?.toLocaleDateString()} at {selectedTime}
+                    </p>
+                    <p className="font-sans font-semibold text-body2 text-[#4F1E13] mt-2">
+                      Confirmation ID:
+                    </p>
+                    <p className="text-[#161616] font-sans text-body2">
+                      {confirmationId}
                     </p>
                   </div>
                 </div>
