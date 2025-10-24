@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import SectionContainer from "../shared/SectionContainer";
@@ -86,6 +86,11 @@ const FooterRevealOverlay: React.FC = () => {
       });
 
       tl.to({}, { duration: delay });
+
+      return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      };
     },
     { scope: sliderRef }
   );

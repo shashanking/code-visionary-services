@@ -178,6 +178,10 @@ const ContactForm: React.FC = () => {
         scheduled_time: scheduledData.time,
         user_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         timestamp: new Date().toLocaleString(),
+        company_name: EMAILJS_CONFIG.COMPANY_NAME,
+        company_phone: EMAILJS_CONFIG.COMPANY_PHONE_NUMBER,
+        company_email: EMAILJS_CONFIG.COMPANY_EMAIL_ID,
+        company_website: EMAILJS_CONFIG.COMPANY_WEBSITE,
       };
 
       // Sending to company
@@ -186,38 +190,37 @@ const ContactForm: React.FC = () => {
         EMAILJS_CONFIG.CVS_TEMPLATE_ID, // Template for company notifications
         {
           ...templateParams,
-          to_email: EMAILJS_CONFIG.TO_COMPANY_EMAIL_ID, // Send data to the cvs email id
           to_name: EMAILJS_CONFIG.COMPANY_NAME,
-          reply_to: scheduledData.email, // Can be directly reply to the client
+          to_email: EMAILJS_CONFIG.TO_COMPANY_EMAIL_ID, // Send data to the cvs email id
+          user_reply_to: scheduledData.email, // Cvs can directly reply to the client email id
+          company_reply_to: EMAILJS_CONFIG.REPLY_TO_COMPANY_EMAIL_ID, // User can directly reply to cvs email id
         },
         EMAILJS_CONFIG.PUBLIC_KEY
       );
 
       // Sending to user - As confirmation
-      const userEmail = emailjs.send(
-        EMAILJS_CONFIG.SERVICE_ID,
-        EMAILJS_CONFIG.USER_TEMPLATE_ID, // Template for user confirmations
-        {
-          ...templateParams,
-          to_email: scheduledData.email, // Send the the user given email id
-          to_name: scheduledData.name,
-          company_name: EMAILJS_CONFIG.COMPANY_NAME,
-          company_phone: EMAILJS_CONFIG.COMPANY_PHONE_NUMBER,
-          company_email: EMAILJS_CONFIG.COMPANY_EMAIL_ID,
-          company_website: EMAILJS_CONFIG.COMPANY_WEBSITE,
-          reply_to: EMAILJS_CONFIG.REPLY_TO_COMPANY_EMAIL_ID, // User can directly reply to cvs email id
-        },
-        EMAILJS_CONFIG.PUBLIC_KEY
-      );
+      // const userEmail = emailjs.send(
+      //   EMAILJS_CONFIG.SERVICE_ID,
+      //   EMAILJS_CONFIG.USER_TEMPLATE_ID, // Template for user confirmations
+      //   {
+      //     ...templateParams,
+      //     to_email: scheduledData.email, // Send the the user given email id
+      //     to_name: scheduledData.name,
+      //     reply_to: EMAILJS_CONFIG.REPLY_TO_COMPANY_EMAIL_ID, // User can directly reply to cvs email id
+      //   },
+      //   EMAILJS_CONFIG.PUBLIC_KEY
+      // );
 
       // Wait for both emails
-      const [companyResult, userResult] = await Promise.all([
-        companyEmail,
-        userEmail,
-      ]);
+      // const [companyResult, userResult] = await Promise.all([
+      //   companyEmail,
+      //   userEmail,
+      // ]);
+
+      const [companyResult] = await Promise.all([companyEmail]);
 
       console.log("Company notification:", companyResult.text);
-      console.log("User confirmation:", userResult.text);
+      // console.log("User confirmation:", userResult.text);
 
       return true;
     } catch (error) {
@@ -277,7 +280,7 @@ const ContactForm: React.FC = () => {
       timestamp: new Date().toISOString(),
     };
 
-    console.log("Scheduled Call Details:", scheduledData);
+    // console.log("Scheduled Call Details:", scheduledData);
 
     setIsSubmitting(true);
 
