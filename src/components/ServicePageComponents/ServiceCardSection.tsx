@@ -12,7 +12,7 @@ const ServiceCardSection: React.FC = () => {
     <SectionContainer
       id="service-card"
       fullWidth
-      padding="none"
+      padding="lg"
       background="#e3e3e3"
       className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
