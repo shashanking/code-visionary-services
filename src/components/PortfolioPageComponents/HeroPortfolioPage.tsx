@@ -7,20 +7,19 @@ import {
   portfolioItems,
   type PortfolioItem,
 } from "../../constants/portfolio-section-data";
+import { useNavigate } from "react-router-dom";
 
 interface PortfolioCardProps {
   item: PortfolioItem;
   isHovered: boolean;
   onHover: () => void;
   onLeave: () => void;
-  onClick: () => void;
 }
 
 interface PortfolioGridProps {
   items: PortfolioItem[];
   hoverIdx: number | null;
   setHoverIdx: (index: number | null) => void;
-  onItemClick: (url: string) => void;
 }
 
 const PortfolioCard: React.FC<PortfolioCardProps> = ({
@@ -28,14 +27,18 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
   isHovered,
   onHover,
   onLeave,
-  onClick,
 }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/portfolio/${item.id}`);
+  };
+
   return (
     <div
       className="relative bg-white rounded-2xl overflow-hidden cursor-pointer shadow-lg transition-all duration-400 ease-out hover:scale-102 aspect-[4/3] min-h-[200px] group"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {/* Background Image */}
       <img
@@ -89,18 +92,16 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({
   items,
   hoverIdx,
   setHoverIdx,
-  onItemClick,
 }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 w-full max-w-2xl mx-auto">
       {items.map((item, idx) => (
         <PortfolioCard
-          key={item.title}
+          key={item.id}
           item={item}
           isHovered={hoverIdx === idx}
           onHover={() => setHoverIdx(idx)}
           onLeave={() => setHoverIdx(null)}
-          onClick={() => onItemClick(item.url)}
         />
       ))}
     </div>
@@ -127,10 +128,6 @@ const HeroPortfolioPage: React.FC = () => {
     activeCat === "All"
       ? portfolioItems
       : portfolioItems.filter((item) => item.category === activeCat);
-
-  const handleItemClick = (url: string) => {
-    window.open(url, "_blank");
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -208,7 +205,6 @@ const HeroPortfolioPage: React.FC = () => {
             items={visibleItems}
             hoverIdx={hoveredIdx}
             setHoverIdx={setHoveredIdx}
-            onItemClick={handleItemClick}
           />
         </div>
       </ContentContainer>

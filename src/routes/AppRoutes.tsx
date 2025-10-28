@@ -1,13 +1,14 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../pages/HomePage/HomePage";
 import Layout from "../components/Layout/Layout";
+import HomePage from "../pages/HomePage/HomePage";
 import AboutPage from "../pages/AboutPage/AboutPage";
 import ServicePage from "../pages/ServicePage/ServicePage";
 import PortfolioPage from "../pages/PortfolioPage/PortfolioPage";
 import ReviewPage from "../pages/ReviewPage/ReviewPage";
 import BlogPage from "../pages/BlogPage/BlogPage";
 import ContactPage from "../pages/ContactPage/ContactPage";
+import PortfolioDetailPage from "../pages/PortfolioDetailPage/PortfolioDetailPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -41,6 +42,14 @@ const AppRoutes: React.FC = () => {
         element={
           <Layout>
             <PortfolioPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/portfolio/:portfolioId"
+        element={
+          <Layout>
+            <PortfolioDetailPage />
           </Layout>
         }
       />
