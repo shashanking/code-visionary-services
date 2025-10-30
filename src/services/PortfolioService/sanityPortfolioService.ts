@@ -3,6 +3,7 @@ import type {
   PortfolioItemDetails,
 } from "../../constants/portfolio-section-data";
 import { client } from "../../lib/sanityClient";
+import type { SanityPortfolioDetails, SanityPortfolioItem } from "../../types/sanity";
 
 export class SanityPortfolioService {
   // Get all portfolios for the grid view - portfolio list
@@ -17,9 +18,9 @@ export class SanityPortfolioService {
       "image": hero.image.asset->url,
     }`;
 
-    const data = await client.fetch(query);
+    const data = await client.fetch<SanityPortfolioItem[]>(query);
 
-    return data.map((item: any) => ({
+    return data.map((item) => ({
       id: item._id,
       slug: item.slug,
       title: item.title,
@@ -87,14 +88,18 @@ export class SanityPortfolioService {
       }
     }`;
 
-    const data = await client.fetch(query, { slug });
+    const data = await client.fetch<SanityPortfolioDetails | null>(query, {
+      slug,
+    });
 
     if (!data) return null;
 
     return this.transformSanityData(data);
   }
 
-  private transformSanityData(data: any): PortfolioItemDetails {
+  private transformSanityData(
+    data: SanityPortfolioDetails
+  ): PortfolioItemDetails {
     return {
       id: data._id,
       slug: data.slug,
