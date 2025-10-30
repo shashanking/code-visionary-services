@@ -10,6 +10,8 @@ const HeroPortfolioDetailPage: React.FC = () => {
 
   const { portfolio, loading, error } = useSanityPortfolioBySlug(slug!);
 
+  console.log("Fetched portfolio data by slug ========>>>>>>>> ", portfolio);
+
   if (loading) {
     return (
       <SectionContainer fullWidth padding="lg" background="#e3e3e3">

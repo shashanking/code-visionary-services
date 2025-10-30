@@ -43,7 +43,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
     >
       {/* Background Image */}
       <img
-        src={item.img}
+        src={item.image}
         alt={item.title}
         className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out scale-100 hover:scale-105"
         loading="lazy"
@@ -126,6 +126,8 @@ const PortfolioSection: React.FC = () => {
 
   // Using Sanity hook to fetch portfolios
   const { portfolios, loading, error } = useSanityPortfolios();
+
+  console.log("Fetched portfolio list data ========>>>>>>>> ", portfolios);
 
   const visibleItems =
     activeCat === "All"

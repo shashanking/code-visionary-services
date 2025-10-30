@@ -134,6 +134,8 @@ const HeroPortfolioPage: React.FC = () => {
   // Using Sanity hook to fetch portfolios
   const { portfolios, loading, error } = useSanityPortfolios();
 
+  console.log("Fetched portfolio list data ========>>>>>>>> ", portfolios);
+
   const gradientColors = [
     "from-[#F23232] to-[#FEA656]",
     "from-[#FEA656] to-[#CCF232]",

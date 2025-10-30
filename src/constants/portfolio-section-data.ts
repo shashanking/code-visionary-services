@@ -15,7 +15,6 @@ export interface ChallengeItem {
 export interface TechStackItem {
   name: string;
   description: string;
-  image?: string;
 }
 
 export interface ApproachLevel {
@@ -40,7 +39,7 @@ export interface PortfolioBase {
   id: string;
   slug: string;
   title: string;
-  subtitle?: string;
+  subtitle: string;
   category: string;
 }
 
