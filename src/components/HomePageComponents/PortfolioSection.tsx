@@ -122,15 +122,13 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({
 
 const PortfolioSection: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [activeCat, setActiveCat] = useState<string>("All");
+  const [activeCat, setActiveCat] = useState<string>("all");
 
   // Using Sanity hook to fetch portfolios
   const { portfolios, loading, error } = useSanityPortfolios();
 
-  console.log("Fetched portfolio list data ========>>>>>>>> ", portfolios);
-
   const visibleItems =
-    activeCat === "All"
+    activeCat === "all"
       ? portfolios
       : portfolios.filter((item) => item.category === activeCat);
 
@@ -184,14 +182,14 @@ const PortfolioSection: React.FC = () => {
             <div className="flex flex-wrap items-center gap-2 md:gap-3 flex-1">
               {categories.map((cat) => (
                 <button
-                  key={cat.label}
-                  onClick={() => setActiveCat(cat.label)}
+                  key={cat.value}
+                  onClick={() => setActiveCat(cat.value)}
                   className={`
                     px-4 py-1 md:px-6 md:py-1 rounded-full font-sans text-sm md:text-base 
                     transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0
                     min-h-[30px] flex items-center justify-center
                     ${
-                      activeCat === cat.label
+                      activeCat === cat.value
                         ? "bg-[#B5442C] font-medium text-white shadow-sm"
                         : "bg-transparent text-[#303030] hover:bg-[#B5442C] hover:text-white"
                     }

@@ -16,8 +16,6 @@ export const useSanityPortfolios = () => {
         setLoading(true);
         const data = await sanityPortfolioService.getPortfolios();
         setPortfolios(data);
-
-        console.log("Portfolio data from sanity =======>>>>>> ", data);
       } catch (err) {
         setError("Failed to fetch portfolios");
         console.error("Sanity error:", err);
@@ -43,8 +41,6 @@ export const useSanityPortfolioBySlug = (slug: string) => {
         setLoading(true);
         const data = await sanityPortfolioService.getPortfolioBySlug(slug);
         setPortfolio(data);
-
-        console.log("Portfolio data by slug from sanity =======>>>>>> ", data);
       } catch (err) {
         setError("Failed to fetch portfolio");
         console.error("Sanity error:", err);

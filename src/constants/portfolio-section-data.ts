@@ -1,9 +1,9 @@
 export const categories = [
-  { label: "All" },
-  { label: "Websites" },
-  { label: "Mobile application" },
-  { label: "Web application" },
-  { label: "Branding" },
+  { label: "All", value: "all" },
+  { label: "Websites", value: "websites" },
+  { label: "Web Applications", value: "web-applications" },
+  { label: "Mobile Applications", value: "mobile-applications" },
+  { label: "Branding", value: "branding" },
 ];
 
 export interface ChallengeItem {

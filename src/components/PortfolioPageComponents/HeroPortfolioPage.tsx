@@ -129,12 +129,16 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({
 const HeroPortfolioPage: React.FC = () => {
   const [currentGradientIndex, setCurrentGradientIndex] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [activeCat, setActiveCat] = useState<string>("All");
+  const [activeCat, setActiveCat] = useState<string>("all");
 
   // Using Sanity hook to fetch portfolios
   const { portfolios, loading, error } = useSanityPortfolios();
 
-  console.log("Fetched portfolio list data ========>>>>>>>> ", portfolios);
+  // Filter items based on active category
+  const visibleItems =
+    activeCat === "all"
+      ? portfolios
+      : portfolios.filter((item) => item.category === activeCat);
 
   const gradientColors = [
     "from-[#F23232] to-[#FEA656]",
@@ -146,12 +150,6 @@ const HeroPortfolioPage: React.FC = () => {
     "from-[#C032F2] to-[#FE56BB]",
     "from-[#FE56BB] to-[#FF4848]",
   ];
-
-  // Filter items based on active category
-  const visibleItems =
-    activeCat === "All"
-      ? portfolios
-      : portfolios.filter((item) => item.category === activeCat);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -227,14 +225,14 @@ const HeroPortfolioPage: React.FC = () => {
             <div className="flex flex-wrap items-center gap-4">
               {categories.map((cat) => (
                 <button
-                  key={cat.label}
-                  onClick={() => setActiveCat(cat.label)}
+                  key={cat.value}
+                  onClick={() => setActiveCat(cat.value)}
                   className={`
                     px-4 py-1 md:px-8 md:py-2 rounded-full font-sans text-body2 
                     transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0
                     min-h-[30px] flex items-center justify-center
                     ${
-                      activeCat === cat.label
+                      activeCat === cat.value
                         ? "bg-[#161616] text-white shadow-sm border border-[#161616]"
                         : "bg-transparent text-[#303030] hover:bg-[#161616] hover:text-white border border-[#161616]"
                     }

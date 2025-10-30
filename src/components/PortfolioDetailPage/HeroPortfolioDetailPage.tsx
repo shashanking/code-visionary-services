@@ -10,8 +10,6 @@ const HeroPortfolioDetailPage: React.FC = () => {
 
   const { portfolio, loading, error } = useSanityPortfolioBySlug(slug!);
 
-  console.log("Fetched portfolio data by slug ========>>>>>>>> ", portfolio);
-
   if (loading) {
     return (
       <SectionContainer fullWidth padding="lg" background="#e3e3e3">
@@ -48,7 +46,16 @@ const HeroPortfolioDetailPage: React.FC = () => {
     );
   }
 
-  const { hero, challenges, services, solutions, summary, results } = portfolio;
+  const {
+    title,
+    subtitle,
+    hero,
+    challenges,
+    services,
+    solutions,
+    summary,
+    results,
+  } = portfolio;
 
   return (
     <SectionContainer
@@ -67,7 +74,7 @@ const HeroPortfolioDetailPage: React.FC = () => {
           <div className="absolute inset-0">
             <img
               src={hero.image}
-              alt={hero.title}
+              alt={title}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70" />
@@ -79,11 +86,11 @@ const HeroPortfolioDetailPage: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
                 <div className="text-white">
                   <h1 className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl uppercase mb-6 leading-tight">
-                    {hero.title}
+                    {title}
                   </h1>
-                  {hero.subtitle && (
+                  {subtitle && (
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-light mb-6 opacity-90">
-                      {hero.subtitle}
+                      {subtitle}
                     </h2>
                   )}
                   <p className="text-lg md:text-xl lg:text-2xl opacity-80 leading-relaxed max-w-2xl">

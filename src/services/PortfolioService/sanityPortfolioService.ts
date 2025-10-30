@@ -2,19 +2,19 @@ import type {
   PortfolioItem,
   PortfolioItemDetails,
 } from "../../constants/portfolio-section-data";
-import { client } from "../../lib/sanity";
+import { client } from "../../lib/sanityClient";
 
 export class SanityPortfolioService {
-  // Get all portfolios for the grid view
+  // Get all portfolios for the grid view - portfolio list
   async getPortfolios(): Promise<PortfolioItem[]> {
     const query = `*[_type == "portfolioItem"] | order(_createdAt desc) {
       _id,
       "slug": slug.current,
       title,
       subtitle,
-      "description": hero.description,
-      "image": image.asset->url,
       category,
+      "description": hero.description,
+      "image": hero.image.asset->url,
     }`;
 
     const data = await client.fetch(query);
@@ -26,11 +26,11 @@ export class SanityPortfolioService {
       subtitle: item.subtitle,
       description: item.description,
       image: item.image,
-      category: this.formatCategory(item.category),
+      category: item.category,
     }));
   }
 
-  // Get single portfolio by slug
+  // Get single portfolio by slug - portfolio details
   async getPortfolioBySlug(slug: string): Promise<PortfolioItemDetails | null> {
     const query = `*[_type == "portfolioItem" && slug.current == $slug][0]{
       _id,
@@ -51,7 +51,7 @@ export class SanityPortfolioService {
         items[] {
           title,
           description,
-          image
+          "image": image.asset->url,
         }
       },
       services,
@@ -62,7 +62,6 @@ export class SanityPortfolioService {
         techStack[] {
           name,
           description,
-          image
         },
         approaches[] {
           title,
@@ -70,7 +69,6 @@ export class SanityPortfolioService {
           levels[] {
             title,
             description,
-            descriptionArray
           }
         }
       },
@@ -99,56 +97,17 @@ export class SanityPortfolioService {
   private transformSanityData(data: any): PortfolioItemDetails {
     return {
       id: data._id,
-      slug: data.current,
+      slug: data.slug,
       title: data.title,
       subtitle: data.subtitle,
       category: data.category,
-      hero: {
-        description: data.hero?.description,
-        client: data.hero?.client,
-        role: data.hero?.role,
-        date: data.hero?.date,
-        image: data.hero?.image,
-      },
-      challenges: {
-        title: data.challenges?.title || "The Challenge",
-        subtitle: data.challenges?.subtitle,
-        items: data.challenges?.items || [],
-      },
-      services: data.services || [],
-      solutions: {
-        title: data.solutions?.title || "The Solution",
-        subtitle: data.solutions?.subtitle,
-        description: data.solutions?.description,
-        techStack: data.solutions?.techStack || [],
-        approaches: (data.solutions?.approaches || []).map((approach: any) => ({
-          ...approach,
-          levels: approach.levels.map((level: any) => ({
-            ...level,
-            description: level.descriptionArray || level.description,
-          })),
-        })),
-      },
-      summary: {
-        title: data.summary?.title || "Project Summary",
-        description: data.summary?.description,
-        image: data.summary?.image,
-      },
-      results: {
-        title: data.results?.title,
-        metrics: data.results?.metrics || [],
-      },
+      hero: data.hero,
+      challenges: data.challenges,
+      services: data.services,
+      solutions: data.solutions,
+      summary: data.summary,
+      results: data.results,
     };
-  }
-
-  private formatCategory(category: string): string {
-    const categoryMap: { [key: string]: string } = {
-      websites: "Websites",
-      "web-applications": "Web Applications",
-      "mobile-applications": "Mobile Applications",
-      branding: "Branding",
-    };
-    return categoryMap[category] || category;
   }
 }
 
