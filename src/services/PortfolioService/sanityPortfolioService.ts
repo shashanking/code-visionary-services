@@ -9,11 +9,11 @@ export class SanityPortfolioService {
   async getPortfolios(): Promise<PortfolioItem[]> {
     const query = `*[_type == "portfolioItem"] | order(_createdAt desc) {
       _id,
-      "title": hero.title,
-      "subtitle": hero.subtitle,
       "slug": slug.current,
+      title,
+      subtitle,
       "description": hero.description,
-      "heroImg": hero.heroImg.asset->url,
+      "image": image.asset->url,
       category,
     }`;
 
@@ -21,11 +21,11 @@ export class SanityPortfolioService {
 
     return data.map((item: any) => ({
       id: item._id,
+      slug: item.slug,
       title: item.title,
       subtitle: item.subtitle,
       description: item.description,
-      img: item.heroImg,
-      slug: item.slug,
+      image: item.image,
       category: this.formatCategory(item.category),
     }));
   }
@@ -34,16 +34,16 @@ export class SanityPortfolioService {
   async getPortfolioBySlug(slug: string): Promise<PortfolioItemDetails | null> {
     const query = `*[_type == "portfolioItem" && slug.current == $slug][0]{
       _id,
-      "title": hero.title,
       "slug": slug.current,
+      title,
+      subtitle,
+      category,
       hero {
-        subtitle,
         description,
         client,
         role,
         date,
-        "heroImg": heroImg.asset->url,
-        featuredVideo
+        "image": image.asset->url,
       },
       challenges {
         title,
@@ -51,7 +51,7 @@ export class SanityPortfolioService {
         items[] {
           title,
           description,
-          icon
+          image
         }
       },
       services,
@@ -62,7 +62,7 @@ export class SanityPortfolioService {
         techStack[] {
           name,
           description,
-          icon
+          image
         },
         approaches[] {
           title,
@@ -78,7 +78,6 @@ export class SanityPortfolioService {
         title,
         description,
         "image": image.asset->url,
-        keyAchievements
       },
       results {
         title,
@@ -101,15 +100,15 @@ export class SanityPortfolioService {
     return {
       id: data._id,
       slug: data.current,
+      title: data.title,
+      subtitle: data.subtitle,
+      category: data.category,
       hero: {
-        title: data.title,
-        subtitle: data.hero?.subtitle,
         description: data.hero?.description,
         client: data.hero?.client,
         role: data.hero?.role,
         date: data.hero?.date,
-        heroImg: data.hero?.heroImg,
-        featuredVideo: data.hero?.featuredVideo,
+        image: data.hero?.image,
       },
       challenges: {
         title: data.challenges?.title || "The Challenge",
@@ -134,7 +133,6 @@ export class SanityPortfolioService {
         title: data.summary?.title || "Project Summary",
         description: data.summary?.description,
         image: data.summary?.image,
-        keyAchievements: data.summary?.keyAchievements,
       },
       results: {
         title: data.results?.title,

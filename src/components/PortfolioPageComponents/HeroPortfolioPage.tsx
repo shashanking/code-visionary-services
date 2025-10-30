@@ -43,7 +43,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
     >
       {/* Background Image */}
       <img
-        src={item.img}
+        src={item.image}
         alt={item.title}
         className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out scale-100 group-hover:scale-105"
         loading="lazy"

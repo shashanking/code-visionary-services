@@ -64,7 +64,7 @@ const HeroPortfolioDetailPage: React.FC = () => {
         <div className="relative h-[80vh] min-h-[700px] w-full overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src={hero.heroImg}
+              src={hero.image}
               alt={hero.title}
               className="w-full h-full object-cover"
             />
@@ -293,22 +293,6 @@ const HeroPortfolioDetailPage: React.FC = () => {
               <p className="text-lg text-gray-700 leading-relaxed mb-8">
                 {summary.description}
               </p>
-
-              {summary.keyAchievements && (
-                <div>
-                  <h4 className="text-xl font-bold mb-4 text-gray-900">
-                    Key Achievements
-                  </h4>
-                  <ul className="space-y-3">
-                    {summary.keyAchievements.map((achievement, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <span className="w-2 h-2 bg-[#FEA656] rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-gray-700">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
 
             <div className="relative">
