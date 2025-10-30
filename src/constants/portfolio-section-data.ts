@@ -121,6 +121,7 @@ export interface PortfolioItemDetails {
     date: string;
     heroImg: string;
     featuredVideo?: string;
+    // category: string;
   };
 
   challenges: {

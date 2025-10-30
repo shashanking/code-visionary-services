@@ -9,12 +9,12 @@ export class SanityPortfolioService {
   async getPortfolios(): Promise<PortfolioItem[]> {
     const query = `*[_type == "portfolioItem"] | order(_createdAt desc) {
       _id,
-      title,
+      "title": hero.title,
+      "subtitle": hero.subtitle,
       "slug": slug.current,
-      category,
       "description": hero.description,
-      "img": hero.heroImage.asset->url,
-      services
+      "heroImg": hero.heroImg.asset->url,
+      category,
     }`;
 
     const data = await client.fetch(query);
@@ -22,10 +22,11 @@ export class SanityPortfolioService {
     return data.map((item: any) => ({
       id: item._id,
       title: item.title,
+      subtitle: item.subtitle,
       description: item.description,
-      category: this.formatCategory(item.category),
-      img: item.img,
+      img: item.heroImg,
       slug: item.slug,
+      category: this.formatCategory(item.category),
     }));
   }
 
