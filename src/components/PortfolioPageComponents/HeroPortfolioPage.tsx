@@ -30,7 +30,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/portfolio/${item.id}`);
+    navigate(`/portfolio/${item.slug}`);
   };
 
   return (

@@ -2,17 +2,15 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import { portfolioItemsDetails } from "../../constants/portfolio-section-data";
+import { useSanityPortfolioBySlug } from "../../hooks/Portfolios/useSanityPortfolios";
 
 const HeroPortfolioDetailPage: React.FC = () => {
-  const { portfolioId } = useParams<{ portfolioId: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
-  const portfolioItem = portfolioItemsDetails.find(
-    (item) => item.id === portfolioId
-  );
+  const { portfolio, loading, error } = useSanityPortfolioBySlug(slug!);
 
-  if (!portfolioItem) {
+  if (loading) {
     return (
       <SectionContainer fullWidth padding="lg" background="#e3e3e3">
         <ContentContainer
@@ -20,7 +18,23 @@ const HeroPortfolioDetailPage: React.FC = () => {
           paddingX="lg"
           className="py-20 text-center"
         >
-          <h1 className="text-2xl font-bold mb-4">Project Not Found</h1>
+          <h1 className="text-2xl font-bold mb-4">Loading...</h1>
+        </ContentContainer>
+      </SectionContainer>
+    );
+  }
+
+  if (error || !portfolio) {
+    return (
+      <SectionContainer fullWidth padding="lg" background="#e3e3e3">
+        <ContentContainer
+          maxWidth="7xl"
+          paddingX="lg"
+          className="py-20 text-center"
+        >
+          <h1 className="text-2xl font-bold mb-4">
+            {error || "Project Not Found"}
+          </h1>
           <button
             onClick={() => navigate("/portfolio")}
             className="px-6 py-2 bg-[#161616] text-white rounded-full hover:bg-[#303030] transition-colors"
@@ -32,12 +46,15 @@ const HeroPortfolioDetailPage: React.FC = () => {
     );
   }
 
-  const { hero, challenges, services, solutions, summary, results } =
-    portfolioItem;
+  const { hero, challenges, services, solutions, summary, results } = portfolio;
 
   return (
-    <div className="bg-[#e3e3e3] min-h-screen">
-      {/* Hero Section */}
+    <SectionContainer
+      fullWidth
+      padding="none"
+      background="#e3e3e3"
+      className="relative min-h-screen"
+    >
       <SectionContainer
         fullWidth
         padding="none"
@@ -45,7 +62,6 @@ const HeroPortfolioDetailPage: React.FC = () => {
         className="relative"
       >
         <div className="relative h-[80vh] min-h-[700px] w-full overflow-hidden">
-          {/* Background Image with Overlay */}
           <div className="absolute inset-0">
             <img
               src={hero.heroImg}
@@ -59,7 +75,6 @@ const HeroPortfolioDetailPage: React.FC = () => {
           <div className="relative h-full flex items-end">
             <ContentContainer maxWidth="7xl" paddingX="lg" className="pb-20">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
-                {/* Main Title & Description */}
                 <div className="text-white">
                   <h1 className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl uppercase mb-6 leading-tight">
                     {hero.title}
@@ -121,36 +136,6 @@ const HeroPortfolioDetailPage: React.FC = () => {
             </ContentContainer>
           </div>
         </div>
-      </SectionContainer>
-
-      {/* Back Button */}
-      <SectionContainer
-        fullWidth
-        padding="lg"
-        background="transparent"
-        className="relative -mt-20"
-      >
-        <ContentContainer maxWidth="7xl" paddingX="lg">
-          <button
-            onClick={() => navigate("/portfolio")}
-            className="flex items-center gap-3 px-6 py-3 bg-white/90 backdrop-blur-sm text-[#161616] rounded-full hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-            Back to Portfolio
-          </button>
-        </ContentContainer>
       </SectionContainer>
 
       {/* Services Pill */}
@@ -394,7 +379,7 @@ const HeroPortfolioDetailPage: React.FC = () => {
           </div>
         </ContentContainer>
       </SectionContainer>
-    </div>
+    </SectionContainer>
   );
 };
 

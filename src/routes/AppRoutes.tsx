@@ -46,7 +46,7 @@ const AppRoutes: React.FC = () => {
         }
       />
       <Route
-        path="/portfolio/:portfolioId"
+        path="/portfolio/:slug"
         element={
           <Layout>
             <PortfolioDetailPage />
