@@ -97,14 +97,6 @@ const HeroBlogPage: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return <div>Loading featured blogs...</div>;
-  }
-
-  if (error || featuredBlogs.length === 0) {
-    return <div>No featured blogs available.</div>;
-  }
-
   return (
     <SectionContainer
       id="blog-hero"
@@ -151,124 +143,153 @@ const HeroBlogPage: React.FC = () => {
         paddingX="lg"
         className="relative z-10 py-10 flex justify-center items-center"
       >
-        <div
-          className="relative z-10 w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* Left side vertical auto-scroll */}
-          <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
-            <img
-              src={featuredBlogs[activeIndex]?.image}
-              alt={featuredBlogs[activeIndex]?.title}
-              className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
-              loading="lazy"
-            />
+        {loading ? (
+          <div className="w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]">
+            <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-gray-300 animate-pulse min-h-[300px] lg:min-h-[450px]" />
+            <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-gray-300 animate-pulse min-h-[300px] lg:min-h-[450px]" />
+          </div>
+        ) : error ? (
+          <div className="w-full max-w-2xl mx-auto text-center py-20">
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-8">
+              <h3 className="text-xl font-semibold text-red-800 mb-2">
+                Failed to Load Featured Blogs
+              </h3>
+              <p className="text-red-600">{error}</p>
+            </div>
+          </div>
+        ) : featuredBlogs.length === 0 ? (
+          <div className="w-full max-w-2xl mx-auto text-center py-20">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-8">
+              <h3 className="text-xl font-semibold text-yellow-800 mb-2">
+                No Featured Blogs Available
+              </h3>
+              <p className="text-yellow-600">
+                Check back later for featured blog posts.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div
+            className="relative z-10 w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Left side vertical auto-scroll */}
+            <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+              <img
+                src={featuredBlogs[activeIndex]?.image}
+                alt={featuredBlogs[activeIndex]?.title}
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
+                loading="lazy"
+              />
 
-            {/* Background Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
+              {/* Background Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
 
-            <div
-              ref={leftScrollRef}
-              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
-            >
               <div
-                key={activeIndex}
-                onClick={() =>
-                  handleBlogClick(featuredBlogs[activeIndex]?.slug)
-                }
-                className={`flex flex-row justify-between overflow-hidden`}
+                ref={leftScrollRef}
+                className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
               >
-                <div className={`text-left overflow-hidden`}>
-                  <span
-                    className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
-                  >
-                    {featuredBlogs[activeIndex].blogId}
-                  </span>
-
-                  <div className="text-left overflow-hidden">
-                    <h2
-                      className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
+                <div
+                  key={activeIndex}
+                  onClick={() =>
+                    handleBlogClick(featuredBlogs[activeIndex]?.slug)
+                  }
+                  className={`flex flex-row justify-between overflow-hidden cursor-pointer`}
+                >
+                  <div className={`text-left overflow-hidden`}>
+                    <span
+                      className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
                     >
-                      {featuredBlogs[activeIndex].title}
-                    </h2>
+                      {featuredBlogs[activeIndex].blogId}
+                    </span>
+
+                    <div className="text-left overflow-hidden">
+                      <h2
+                        className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
+                      >
+                        {featuredBlogs[activeIndex].title}
+                      </h2>
+                    </div>
+                    <p className={`text-body2 text-white font-light`}>
+                      {new Date(
+                        featuredBlogs[activeIndex].date
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
                   </div>
-                  <p className={`text-body2 text-white font-light`}>
-                    {new Date(
-                      featuredBlogs[activeIndex].date
-                    ).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </p>
-                </div>
 
-                {/* Progress indicator */}
-                <div className="flex flex-col gap-2 w-[25px] mt-auto">
-                  {featuredBlogs
-                    .map((_, index) => (
-                      <div
-                        key={index}
-                        className={`w-2 h-2 rounded-full transition-all duration-1000 ${
-                          index === activeIndex
-                            ? "border border-white bg-transparent w-6"
-                            : "border border-white bg-transparent"
-                        }`}
-                      />
-                    ))
-                    .reverse()}
+                  {/* Progress indicator */}
+                  <div className="flex flex-col gap-2 w-[25px] mt-auto">
+                    {featuredBlogs
+                      .map((_, index) => (
+                        <div
+                          key={index}
+                          className={`w-2 h-2 rounded-full transition-all duration-1000 ${
+                            index === activeIndex
+                              ? "border border-white bg-transparent w-6"
+                              : "border border-white bg-transparent"
+                          }`}
+                        />
+                      ))
+                      .reverse()}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right side horizontal auto-scroll */}
-          <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
-            <img
-              src={featuredBlogs[rightIndex].image}
-              alt={featuredBlogs[rightIndex].title}
-              className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
-              loading="lazy"
-            />
+            {/* Right side horizontal auto-scroll */}
+            <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+              <img
+                src={featuredBlogs[rightIndex].image}
+                alt={featuredBlogs[rightIndex].title}
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
+                loading="lazy"
+              />
 
-            {/* Background Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
+              {/* Background Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
 
-            <div
-              ref={rightScrollRef}
-              className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
-            >
               <div
-                key={rightIndex}
-                onClick={() => handleBlogClick(featuredBlogs[rightIndex].slug)}
-                className={`w-full overflow-hidden`}
+                ref={rightScrollRef}
+                className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
               >
-                <div className="text-left">
-                  <span
-                    className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
-                  >
-                    {featuredBlogs[rightIndex].blogId}
-                  </span>
-                  <h2
-                    className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
-                  >
-                    {featuredBlogs[rightIndex].title}
-                  </h2>
-                  <p className={`text-body2 text-white font-light`}>
-                    {new Date(
-                      featuredBlogs[rightIndex].date
-                    ).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </p>
+                <div
+                  key={rightIndex}
+                  onClick={() =>
+                    handleBlogClick(featuredBlogs[rightIndex].slug)
+                  }
+                  className={`w-full overflow-hidden cursor-pointer`}
+                >
+                  <div className="text-left">
+                    <span
+                      className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
+                    >
+                      {featuredBlogs[rightIndex].blogId}
+                    </span>
+                    <h2
+                      className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
+                    >
+                      {featuredBlogs[rightIndex].title}
+                    </h2>
+                    <p className={`text-body2 text-white font-light`}>
+                      {new Date(
+                        featuredBlogs[rightIndex].date
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </ContentContainer>
     </SectionContainer>
   );
