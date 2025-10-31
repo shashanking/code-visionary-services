@@ -1,46 +1,106 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import BlogCardBg from "../../assets/blog-page/blog-card-bg.jpg";
 import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
 import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
-import { BlogsData } from "../../constants/blog-page-data";
 import { ArrowRightIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useSanityBlogs } from "../../hooks/Blogs/useSanityBlogs";
 
 const BlogCardSection: React.FC = () => {
-  const [hoveredId, setHoveredId] = useState<number | string | null>("02"); // second card hovered by default
+  const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(1);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 8;
 
-  // Calculate total pages
-  const totalPages = Math.ceil(BlogsData.length / cardsPerPage);
-
-  // Get current cards to display
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = BlogsData.slice(indexOfFirstCard, indexOfLastCard);
+  // Using Sanity hook to fetch portfolios
+  const { blogs, loading, error } = useSanityBlogs();
 
   const navigate = useNavigate();
+
+  // Set default hover to second card when blogs load
+  useEffect(() => {
+    if (blogs.length > 1) {
+      setHoveredIndex(1); // Always set to second card (index 1)
+    }
+  }, [blogs]);
 
   const handleBlogClick = (slug: string) => {
     navigate(`/blog/${slug}`);
   };
 
+  // Calculate total pages
+  const totalPages = Math.ceil(blogs.length / cardsPerPage);
+
   // Navigation functions for pagination
   const nextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
+      // Reset hover to second card when page changes
+      setHoveredIndex(1);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      // Reset hover to second card when page changes
+      setHoveredIndex(1);
     }
   };
+
+  if (loading) {
+    return (
+      <SectionContainer fullWidth padding="lg" background="#e3e3e3">
+        <ContentContainer
+          maxWidth="7xl"
+          paddingX="lg"
+          className="py-20 text-center"
+        >
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
+            {[...Array(8)].map((_, index) => (
+              <div
+                key={index}
+                className="relative w-full h-full p-3 rounded-2xl overflow-hidden bg-gray-200 animate-pulse min-h-[300px]"
+              />
+            ))}
+          </div>
+        </ContentContainer>
+      </SectionContainer>
+    );
+  }
+
+  if (error) {
+    return (
+      <SectionContainer fullWidth padding="lg" background="#e3e3e3">
+        <ContentContainer
+          maxWidth="7xl"
+          paddingX="lg"
+          className="py-20 text-center"
+        >
+          <h1 className="text-2xl font-bold mb-4">Error Loading Blogs</h1>
+          <p className="text-gray-600 mb-4">{error}</p>
+        </ContentContainer>
+      </SectionContainer>
+    );
+  }
+
+  if (blogs.length === 0) {
+    return (
+      <SectionContainer fullWidth padding="lg" background="#e3e3e3">
+        <ContentContainer
+          maxWidth="7xl"
+          paddingX="lg"
+          className="py-20 text-center"
+        >
+          <h1 className="text-2xl font-bold mb-4">No Blogs Available</h1>
+          <p className="text-gray-600">Check back later for new blog posts.</p>
+        </ContentContainer>
+      </SectionContainer>
+    );
+  }
 
   return (
     <SectionContainer
@@ -77,14 +137,14 @@ const BlogCardSection: React.FC = () => {
 
           <div className="relative w-full">
             <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
-              {currentCards.map((item) => {
-                const isHovered = hoveredId === item.id;
+              {blogs.map((item, index) => {
+                const isHovered = hoveredIndex === index;
 
                 return (
                   <div
-                    key={item.id}
-                    onMouseEnter={() => setHoveredId(item.id)}
-                    onMouseLeave={() => setHoveredId(null)}
+                    key={index}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(1)}
                     className={`relative w-full h-full p-3 rounded-2xl overflow-hidden transition-all duration-300 border border-[#B5442C]`}
                     style={{
                       background: isHovered
@@ -102,7 +162,10 @@ const BlogCardSection: React.FC = () => {
                       />
 
                       <button
-                        onClick={() => handleBlogClick(item.slug)}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent card click
+                          handleBlogClick(item.slug);
+                        }}
                         className={`absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                           isHovered
                             ? "bg-[#f0f0f0] text-[#B5442C] hover:bg-[#B5442C] hover:text-[#f0f0f0] border border-[#B5442C] -rotate-45 cursor-pointer"
@@ -121,7 +184,12 @@ const BlogCardSection: React.FC = () => {
                       }`}
                     >
                       <p className="text-body5 font-sans leading-[1.5] my-3">
-                        {item.date} | By {item.author}
+                        {new Date(item.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}{" "}
+                        | By {item.author}
                       </p>
 
                       <h3 className="text-body1 font-sans font-semibold mb-3 line-clamp-2">

@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import PortfolioPageBg from "../../assets/portfolio-page/hero-bg.jpg";
-import {
-  categories,
-  type PortfolioItem,
-} from "../../constants/portfolio-section-data";
 import { useNavigate } from "react-router-dom";
 import { useSanityPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
+import { categories, type PortfolioItem } from "../../types/portfolio-data";
 
 interface PortfolioCardProps {
   item: PortfolioItem;

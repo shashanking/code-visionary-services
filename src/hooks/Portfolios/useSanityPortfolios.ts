@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import type {
-  PortfolioItem,
-  PortfolioItemDetails,
-} from "../../constants/portfolio-section-data";
 import { sanityPortfolioService } from "../../services/PortfolioService/sanityPortfolioService";
+import type { PortfolioItem, PortfolioItemDetails } from "../../types/portfolio-data";
 
 export const useSanityPortfolios = () => {
   const [portfolios, setPortfolios] = useState<PortfolioItem[]>([]);

@@ -3,7 +3,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import BlogPageBg from "../../assets/blog-page/hero-bg.jpg";
 import { useNavigate } from "react-router-dom";
-import { BlogsData } from "../../constants/blog-page-data";
+import { useSanityFeaturedBlogs } from "../../hooks/Blogs/useSanityBlogs";
 
 const HeroBlogPage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,11 +14,16 @@ const HeroBlogPage: React.FC = () => {
   const rightScrollRef = useRef<HTMLDivElement>(null);
   const autoScrollInterval = useRef<number | null>(null);
 
-  const getNextIndex = (current: number) => (current + 1) % BlogsData.length;
+  const { blogs: featuredBlogs, loading, error } = useSanityFeaturedBlogs(6);
+
+  const getNextIndex = (current: number) =>
+    (current + 1) % featuredBlogs.length;
   const rightIndex = getNextIndex(activeIndex);
 
   // Auto scroll functionality
   useEffect(() => {
+    if (featuredBlogs.length === 0) return;
+
     const scrollInterval = 4000; // Change every 4 seconds
 
     autoScrollInterval.current = window.setInterval(() => {
@@ -38,7 +43,7 @@ const HeroBlogPage: React.FC = () => {
         clearInterval(autoScrollInterval.current);
       }
     };
-  }, []);
+  }, [featuredBlogs.length]);
 
   // Handle manual navigation
   const handleBlogClick = (slug: string) => {
@@ -55,7 +60,7 @@ const HeroBlogPage: React.FC = () => {
 
   // Resume auto-scroll on mouse leave
   const handleMouseLeave = () => {
-    if (!autoScrollInterval.current) {
+    if (!autoScrollInterval.current && featuredBlogs.length > 0) {
       autoScrollInterval.current = window.setInterval(() => {
         setLeftAnimation("exit");
         setRightAnimation("exit");
@@ -92,9 +97,17 @@ const HeroBlogPage: React.FC = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading featured blogs...</div>;
+  }
+
+  if (error || featuredBlogs.length === 0) {
+    return <div>No featured blogs available.</div>;
+  }
+
   return (
     <SectionContainer
-      id="review-hero"
+      id="blog-hero"
       fullWidth
       padding="lg"
       background="#e3e3e3"
@@ -146,8 +159,8 @@ const HeroBlogPage: React.FC = () => {
           {/* Left side vertical auto-scroll */}
           <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
             <img
-              src={BlogsData[activeIndex].image}
-              alt={BlogsData[activeIndex].title}
+              src={featuredBlogs[activeIndex]?.image}
+              alt={featuredBlogs[activeIndex]?.title}
               className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
               loading="lazy"
             />
@@ -161,40 +174,50 @@ const HeroBlogPage: React.FC = () => {
             >
               <div
                 key={activeIndex}
-                onClick={() => handleBlogClick(BlogsData[activeIndex].slug)}
+                onClick={() =>
+                  handleBlogClick(featuredBlogs[activeIndex]?.slug)
+                }
                 className={`flex flex-row justify-between overflow-hidden`}
               >
                 <div className={`text-left overflow-hidden`}>
                   <span
                     className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
                   >
-                    {BlogsData[activeIndex].id}
+                    {featuredBlogs[activeIndex].blogId}
                   </span>
 
                   <div className="text-left overflow-hidden">
                     <h2
                       className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
                     >
-                      {BlogsData[activeIndex].title}
+                      {featuredBlogs[activeIndex].title}
                     </h2>
                   </div>
                   <p className={`text-body2 text-white font-light`}>
-                    {BlogsData[activeIndex].date}
+                    {new Date(
+                      featuredBlogs[activeIndex].date
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </p>
                 </div>
 
                 {/* Progress indicator */}
                 <div className="flex flex-col gap-2 w-[25px] mt-auto">
-                  {BlogsData.map((_, index) => (
-                    <div
-                      key={index}
-                      className={`w-2 h-2 rounded-full transition-all duration-1000 ${
-                        index === activeIndex
-                          ? "border border-white bg-transparent w-6"
-                          : "border border-white bg-transparent"
-                      }`}
-                    />
-                  )).reverse()}
+                  {featuredBlogs
+                    .map((_, index) => (
+                      <div
+                        key={index}
+                        className={`w-2 h-2 rounded-full transition-all duration-1000 ${
+                          index === activeIndex
+                            ? "border border-white bg-transparent w-6"
+                            : "border border-white bg-transparent"
+                        }`}
+                      />
+                    ))
+                    .reverse()}
                 </div>
               </div>
             </div>
@@ -203,8 +226,8 @@ const HeroBlogPage: React.FC = () => {
           {/* Right side horizontal auto-scroll */}
           <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
             <img
-              src={BlogsData[rightIndex].image}
-              alt={BlogsData[rightIndex].title}
+              src={featuredBlogs[rightIndex].image}
+              alt={featuredBlogs[rightIndex].title}
               className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
               loading="lazy"
             />
@@ -218,22 +241,28 @@ const HeroBlogPage: React.FC = () => {
             >
               <div
                 key={rightIndex}
-                onClick={() => handleBlogClick(BlogsData[rightIndex].slug)}
+                onClick={() => handleBlogClick(featuredBlogs[rightIndex].slug)}
                 className={`w-full overflow-hidden`}
               >
                 <div className="text-left">
                   <span
                     className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
                   >
-                    {BlogsData[rightIndex].id}
+                    {featuredBlogs[rightIndex].blogId}
                   </span>
                   <h2
                     className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
                   >
-                    {BlogsData[rightIndex].title}
+                    {featuredBlogs[rightIndex].title}
                   </h2>
                   <p className={`text-body2 text-white font-light`}>
-                    {BlogsData[rightIndex].date}
+                    {new Date(
+                      featuredBlogs[rightIndex].date
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
                   </p>
                 </div>
               </div>
