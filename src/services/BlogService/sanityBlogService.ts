@@ -1,22 +1,10 @@
 import { client } from "../../lib/sanityClient";
-import type { BlogItem, BlogItemDetails } from "../../types/blog-data";
-
-// Sanity-specific types
-interface SanityBlogItem {
-  _id: string;
-  slug: string;
-  blogId: string;
-  title: string;
-  date: string;
-  author: string;
-  description: string;
-  image: string;
-  readTime?: string;
-}
-
-interface SanityBlogDetails extends SanityBlogItem {
-  content: any[];
-}
+import type {
+  BlogItem,
+  BlogItemDetails,
+  SanityBlogDetails,
+  SanityBlogItem,
+} from "../../types/blog-data";
 
 export class SanityBlogService {
   // Get all blogs for the list view
