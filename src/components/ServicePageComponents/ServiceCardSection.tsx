@@ -4,15 +4,20 @@ import ContentContainer from "../shared/ContentContainer";
 import ServiceCardBg from "../../assets/services-page/service-card-bg.png";
 import { ServicesData } from "../../constants/service-page-data";
 import { CTAButton } from "../shared";
+import { useNavigate } from "react-router-dom";
 
 const ServiceCardSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(1);
+  const navigate = useNavigate();
+  const handleCtaClick = () => {
+    navigate(`/contact`);
+  };
 
   return (
     <SectionContainer
       id="service-card"
       fullWidth
-      padding="none"
+      padding="lg"
       background="#e3e3e3"
       className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
@@ -137,7 +142,7 @@ const ServiceCardSection: React.FC = () => {
                               ? "bg-black text-white"
                               : "bg-black text-white"
                           }`}
-                          onClick={() => console.log("Button clicked")}
+                          onClick={handleCtaClick}
                         >
                           Get Started
                         </CTAButton>

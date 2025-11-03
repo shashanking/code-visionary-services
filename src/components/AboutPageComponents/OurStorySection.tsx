@@ -9,6 +9,7 @@ import StoryImg3 from "../../assets/about-page/our-story-img-3.png";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,11 @@ const OurStorySection: React.FC = () => {
   const img2Ref = useRef<HTMLImageElement | null>(null);
   const img3Ref = useRef<HTMLImageElement | null>(null);
   const textRef = useRef<HTMLDivElement | null>(null);
+
+  const navigate = useNavigate();
+  const handleCtaClick = () => {
+    navigate(`/portfolio`);
+  };
 
   useGSAP(
     () => {
@@ -176,7 +182,12 @@ const OurStorySection: React.FC = () => {
             </p>
 
             <div className="flex justify-center sm:justify-start">
-              <CTAButton variant="secondary" size="small" showIcon={false}>
+              <CTAButton
+                variant="secondary"
+                size="small"
+                showIcon={false}
+                onClick={handleCtaClick}
+              >
                 See All Projects
               </CTAButton>
             </div>

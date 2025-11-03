@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Meeting Scheduled</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f7fa;
+        color: #333333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Full width header and footer */
+      .header,
+      .footer {
+        width: 100%;
+      }
+
+      /* Header */
+      .header {
+        background: #1f2937;
+        color: #ffffff;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .header .company-name {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .header .tagline {
+        font-size: 15px;
+        opacity: 0.8;
+      }
+
+      /* Main container */
+      .email-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 8px 8px 0 0;
+        overflow: hidden;
+      }
+
+      .content {
+        width: 100%;
+        padding: 40px 30px;
+        box-sizing: border-box;
+      }
+
+      .alert-box {
+        background: #fff8e1;
+        border: 2px solid #fbc12d25;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        text-align: center;
+      }
+
+      .alert-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #7a6c00;
+      }
+
+      .alert-info {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-top: 8px;
+        gap: 5px;
+      }
+
+      .alert-info-label {
+        font-weight: 600;
+        width: 140px;
+        color: #000000;
+      }
+
+      .alert-info-value {
+        flex: 1;
+        color: #00360b;
+      }
+
+      .info-card {
+        background: #f9fafb;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #0f224025;
+      }
+
+      .info-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #0e1a41;
+        margin-bottom: 15px;
+      }
+
+      .info-row {
+        display: flex;
+        margin-bottom: 8px;
+      }
+
+      .info-label {
+        font-weight: 600;
+        width: 140px;
+        color: #555555;
+      }
+
+      .info-value {
+        flex: 1;
+        color: #333333;
+      }
+
+      .message-box {
+        background: #eef4ff;
+        border-radius: 8px;
+        border: 2px solid #bed4fc8a;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      /* Footer */
+      .footer {
+        background: #2e3e52;
+        color: #d1d5db;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .footer .company-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      .footer .contact-item {
+        margin: 5px 0;
+        font-size: 14px;
+      }
+
+      .footer a {
+        color: #93c5fd;
+        text-decoration: none;
+        margin: 0 5px;
+      }
+
+      .footer small {
+        display: block;
+        margin-top: 20px;
+        font-size: 12px;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 600px) {
+        .content {
+          padding: 25px 15px;
+        }
+        .info-row {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="company-name">{{company_name}}</div>
+      <div class="tagline">New Meeting Notification</div>
+    </div>
+
+    <div class="email-container">
+      <div class="content">
+        <div class="alert-box">
+          <div class="alert-title">🗓️ New Meeting Scheduled</div>
+          <p>A new meeting has been booked via website contact form.</p>
+          <div class="alert-info" style="justify-content: center">
+            <div style="display: inline-flex; gap: 5px; align-items: center">
+              <div class="alert-info-label">Confirmation ID:</div>
+              <div class="alert-info-value">{{confirmation_id}}</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="color: #1f2937; text-align: center; margin: 25px 0">
+          Meeting Details
+        </h2>
+
+        <div class="info-card">
+          <div class="info-title">Client Information</div>
+          <div class="info-row">
+            <div class="info-label">Name:</div>
+            <div class="info-value">{{from_name}}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Email:</div>
+            <div class="info-value">
+              <a
+                href="mailto:{{from_email}}"
+                style="color: #2563eb; text-decoration: none"
+                >{{from_email}}</a
+              >
+            </div>
+          </div>
+          <div class="info-row" style="margin-bottom: 0">
+            <div class="info-label">Submitted:</div>
+            <div class="info-value">{{timestamp}}</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-title">Scheduled Meeting</div>
+          <div class="info-row">
+            <div class="info-label">Date:</div>
+            <div class="info-value">{{scheduled_date}}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Time:</div>
+            <div class="info-value">{{scheduled_time}}</div>
+          </div>
+          <div class="info-row" style="margin-bottom:0;">
+            <div class="info-label">Timezone:</div>
+            <div class="info-value">{{user_timezone}}</div>
+          </div>
+        </div>
+
+        <div class="message-box">
+          <div class="info-title">Additional Message:</div>
+          <div style="font-style: italic">"{{message}}"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="company-name">{{company_name}}</div>
+      <div class="contact-item">📞 {{company_phone}}</div>
+      <div class="contact-item">✉️ {{company_email}}</div>
+      <div class="contact-item">🌐 {{company_website}}</div>
+
+      <div style="margin: 25px 0">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+
+      <div style="margin: 15px 0">
+        <a href="#">LinkedIn</a> • <a href="#">Twitter</a> •
+        <a href="#">Facebook</a>
+      </div>
+      <small
+        >This email was automatically generated from the website contact
+        form.</small
+      >
+    </div>
+  </body>
+</html>

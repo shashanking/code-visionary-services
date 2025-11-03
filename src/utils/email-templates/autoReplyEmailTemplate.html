@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meeting Confirmation</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f7fa;
+        color: #333333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Full width header and footer */
+      .header,
+      .footer {
+        width: 100%;
+      }
+
+      /* Header */
+      .header {
+        background: #1f2937;
+        color: #ffffff;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .header .company-name {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .header .subtitle {
+        font-size: 15px;
+        opacity: 0.8;
+      }
+
+      /* Main container */
+      .email-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 8px 8px 0 0;
+        overflow: hidden;
+      }
+
+      .content {
+        width: 100%;
+        padding: 40px 30px;
+        box-sizing: border-box;
+      }
+
+      .confirmation-box {
+        background: #ecfdf5;
+        border: 2px solid #05966925;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        text-align: center;
+      }
+
+      .confirmation-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #065f46;
+      }
+
+      .confirmation-info {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-top: 8px;
+        gap: 5px;
+      }
+
+      .confirmation-info-label {
+        font-weight: 600;
+        width: 140px;
+        color: #000000;
+      }
+
+      .confirmation-info-value {
+        flex: 1;
+        color: #00360b;
+      }
+
+      .meeting-card {
+        background: #f9fafb;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px solid #0f224025;
+      }
+
+      .meeting-item {
+        display: flex;
+        margin-bottom: 8px;
+      }
+
+      .meeting-label {
+        font-weight: 600;
+        width: 140px;
+        color: #555555;
+      }
+
+      .meeting-value {
+        flex: 1;
+        color: #333333;
+      }
+
+      .next-steps {
+        background: #eef4ff;
+        border-radius: 8px;
+        border: 2px solid #bed4fc8a;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .steps-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #0e1a41;
+        margin-bottom: 15px;
+      }
+
+      .step {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .step-number {
+        background: #0e1a41;
+        color: #ffffff;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 24px;
+        font-size: 12px;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+
+      .support-section {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .support-btn {
+        display: inline-block;
+        background: #000000;
+        color: #ffffff !important;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        margin: 0 10px;
+      }
+
+      /* Footer */
+      .footer {
+        background: #2e3e52;
+        color: #d1d5db;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .footer .company-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      .footer .contact-item {
+        margin: 5px 0;
+        font-size: 14px;
+      }
+
+      .footer a {
+        color: #93c5fd;
+        text-decoration: none;
+        margin: 0 5px;
+      }
+
+      .footer small {
+        display: block;
+        margin-top: 20px;
+        font-size: 12px;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 600px) {
+        .content {
+          padding: 25px 15px;
+        }
+        .meeting-item {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="company-name">{{company_name}}</div>
+      <div class="subtitle">Meeting Confirmation</div>
+    </div>
+
+    <div class="email-container">
+      <div class="content">
+        <div class="confirmation-box">
+          <div class="confirmation-title">✔︎ Meeting Confirmed!</div>
+          <p>
+            Thank you {{from_name}}, we’ve received your meeting request and are
+            looking forward to connecting soon.
+          </p>
+          <div class="confirmation-info" style="justify-content: center">
+            <div style="display: inline-flex; gap: 5px; align-items: center">
+              <div class="confirmation-info-label">Confirmation ID:</div>
+              <div class="confirmation-info-value">{{confirmation_id}}</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="color: #1f2937; text-align: center; margin: 25px 0">
+          🗓️ Your Meeting Details
+        </h2>
+
+        <div class="meeting-card">
+          <div class="meeting-item">
+            <div class="meeting-label">Date:</div>
+            <div class="meeting-value">{{scheduled_date}}</div>
+          </div>
+          <div class="meeting-item">
+            <div class="meeting-label">Time:</div>
+            <div class="meeting-value">{{scheduled_time}}</div>
+          </div>
+          <div class="meeting-item" style="margin-bottom:0;">
+            <div class="meeting-label">Timezone:</div>
+            <div class="meeting-value">{{user_timezone}}</div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <div class="steps-title">📋 What Happens Next?</div>
+          <div class="step">
+            <div class="step-number">1</div>
+            <div>You’ll receive a calendar invite shortly.</div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div>
+              Our team will review your request and prepare accordingly.
+            </div>
+          </div>
+          <div class="step" style="margin-bottom:0;">
+            <div class="step-number">3</div>
+            <div>We’ll remind you 1 hour before the meeting.</div>
+          </div>
+        </div>
+
+        <div class="support-section">
+          <p>Need to make changes or reschedule?</p>
+          <a
+            href="mailto:{{company_email}}?subject=Meeting Change Request - {{confirmation_id}}"
+            class="support-btn"
+            >Request Change</a
+          >
+          <a href="tel:{{company_phone}}" class="support-btn">Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="company-name">{{company_name}}</div>
+      <div class="contact-item">📞 {{company_phone}}</div>
+      <div class="contact-item">✉️ {{company_email}}</div>
+      <div class="contact-item">🌐 {{company_website}}</div>
+
+      <div style="margin: 25px 0">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+
+      <div style="margin: 15px 0">
+        <a href="#">LinkedIn</a> • <a href="#">Twitter</a> •
+        <a href="#">Facebook</a>
+      </div>
+      <small
+        >This is an automated confirmation email.<br />Please feel free to reply
+        to this email if you have any questions or contact us directly at
+        {{company_email}}</small
+      >
+    </div>
+  </body>
+</html>

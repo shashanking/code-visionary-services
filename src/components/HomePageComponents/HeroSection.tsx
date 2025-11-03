@@ -8,6 +8,7 @@ import heroBg3 from "../../assets/hero/hero-bg-3.png";
 import heroBg4 from "../../assets/hero/hero-bg-4.png";
 import arrowImg from "../../assets/mingcute_arrow-up-line.png";
 import { services } from "../../constants/hero-section-data";
+import { useNavigate } from "react-router-dom";
 
 const heroBackgrounds = [heroBg1, heroBg2, heroBg3, heroBg4];
 
@@ -17,6 +18,11 @@ const ServiceCard: React.FC<{
   onHover: () => void;
   onLeave: () => void;
 }> = ({ service, isHovered, onHover, onLeave }) => {
+  const navigate = useNavigate();
+  const handleServiceClick = () => {
+    navigate(`/services`);
+  };
+
   return (
     <div
       className="group relative bg-white rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer shadow-lg transition-all duration-400 ease-out hover:scale-102 aspect-[4/3] min-h-[200px]"
@@ -27,6 +33,7 @@ const ServiceCard: React.FC<{
         className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 z-20 ${
           isHovered ? "opacity-100 scale-100" : "opacity-0 scale-90"
         }`}
+        onClick={handleServiceClick}
       >
         <img
           src={arrowImg}
@@ -107,6 +114,10 @@ const ServicesGrid: React.FC<{
 const HeroSection: React.FC = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const handleCtaClick = () => {
+    navigate(`/contact`);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -163,7 +174,7 @@ const HeroSection: React.FC = () => {
             <CTAButton
               variant="secondary"
               size="large"
-              onClick={() => console.log("Clicked!")}
+              onClick={handleCtaClick}
             >
               Start a Project
             </CTAButton>

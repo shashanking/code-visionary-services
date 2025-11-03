@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import CVSLogoImg from "../../assets/cvs-logo/footer-logo.png";
@@ -16,7 +16,6 @@ import {
   PhoneIcon,
   Send,
 } from "lucide-react";
-import { FooterRevealOverlay } from "./footer-overlay";
 
 // TwitterX SVG Icon
 const TwitterXIcon: React.FC = () => (
@@ -36,41 +35,14 @@ const TwitterXIcon: React.FC = () => (
 );
 
 const Footer: React.FC = () => {
-  const footerRef = useRef<HTMLDivElement>(null);
-  const [overlayActive, setOverlayActive] = useState(true);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setOverlayActive(entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0,
-        rootMargin: "0px 0px 0px 0px",
-      }
-    );
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <SectionContainer
       id="footer-section"
-      ref={footerRef}
       fullWidth
       padding="none"
       background="linear-gradient(287.56deg, #0861AA 0%, #032744 100%)"
       className="text-white flex flex-col items-center pt-20 relative"
     >
-      <div className="hidden lg:flex">
-        <FooterRevealOverlay footerRef={footerRef} isActive={overlayActive} />
-      </div>
-
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
