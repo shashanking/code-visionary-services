@@ -112,7 +112,7 @@ const ReviewCardSection: React.FC = () => {
 
                 return (
                   <div
-                    key={item.id}
+                    key={index}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(1)}
                     className={`relative w-full h-[350px] sm:h-[390px] md:h-[420px] rounded-2xl overflow-hidden transition-all duration-300`}

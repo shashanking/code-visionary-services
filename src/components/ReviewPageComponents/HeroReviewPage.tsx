@@ -82,7 +82,7 @@ const HeroReviewPage: React.FC = () => {
 
             return (
               <div
-                key={item.id}
+                key={index}
                 className={`relative ${zIndex} transform ${rotation} ${translateY} transition-all duration-300 hover:scale-105 hover:z-20`}
                 style={{
                   marginLeft: index === 0 ? "0" : "-2rem",

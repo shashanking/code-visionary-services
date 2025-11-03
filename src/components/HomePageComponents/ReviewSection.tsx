@@ -152,7 +152,7 @@ const ReviewSection: React.FC = () => {
               }}
             >
               {reviewItems.map((item, index) => {
-                const isHovered = hoveredIndex === item.id;
+                const isHovered = hoveredIndex === index;
                 const isPlaying = playingId === index;
 
                 // Determine card background
@@ -164,8 +164,8 @@ const ReviewSection: React.FC = () => {
 
                 return (
                   <div
-                    key={item.id}
-                    onMouseEnter={() => setHoveredIndex(item.id)}
+                    key={index}
+                    onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(1)}
                     className={`relative flex-shrink-0 snap-start w-[280px] sm:w-[310px] md:w-[340px] lg:w-[380px] h-[350px] sm:h-[390px] md:h-[420px] lg:h-[450px] rounded-2xl overflow-hidden transition-all duration-300`}
                     style={{
