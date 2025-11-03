@@ -6,7 +6,7 @@ import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.
 import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
 import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
-const TestimonialSection: React.FC = () => {
+const ReviewSection: React.FC = () => {
   const rowRef = useRef<HTMLDivElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(1);
   const [playingId, setPlayingId] = useState<number | null>(null);
@@ -141,7 +141,7 @@ const TestimonialSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Testimonial Cards Container */}
+          {/* Review Cards Container */}
           <div className="relative">
             <div
               ref={rowRef}
@@ -327,4 +327,4 @@ const TestimonialSection: React.FC = () => {
   );
 };
 
-export default TestimonialSection;
+export default ReviewSection;

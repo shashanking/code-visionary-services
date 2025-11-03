@@ -256,7 +256,7 @@ html {
   }
 }
 
-/* Hide scrollbar for testimonial section */
+/* Hide scrollbar for review section */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;

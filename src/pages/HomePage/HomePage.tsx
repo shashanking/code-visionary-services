@@ -4,7 +4,7 @@ import ClientsMarqueeSection from "../../components/HomePageComponents/ClientsMa
 import AboutSection from "../../components/HomePageComponents/AboutSection";
 import PortfolioSection from "../../components/HomePageComponents/PortfolioSection";
 import TechStackSection from "../../components/HomePageComponents/TechStackSection";
-import TestimonialSection from "../../components/HomePageComponents/TestimonialSection";
+import ReviewSection from "../../components/HomePageComponents/ReviewSection";
 import OurTeamSection from "../../components/HomePageComponents/OurTeamSection";
 import BannerSection from "../../components/HomePageComponents/BannerSection";
 import ContactSection from "../../components/HomePageComponents/ContactSection";
@@ -18,7 +18,7 @@ const HomePage = React.memo(() => {
       <AboutSection />
       <PortfolioSection />
       <TechStackSection />
-      <TestimonialSection />
+      <ReviewSection />
       <OurTeamSection />
       <BannerSection />
       <ContactSection />
