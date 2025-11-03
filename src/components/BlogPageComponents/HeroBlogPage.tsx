@@ -47,7 +47,7 @@ const HeroBlogPage: React.FC = () => {
 
   // Handle manual navigation
   const handleBlogClick = (slug: string) => {
-    navigate(`/blog/${slug}`);
+    navigate(`/blogs/${slug}`);
   };
 
   // Pause auto-scroll on hover

@@ -28,7 +28,7 @@ const BlogCardSection: React.FC = () => {
   }, [blogs]);
 
   const handleBlogClick = (slug: string) => {
-    navigate(`/blog/${slug}`);
+    navigate(`/blogs/${slug}`);
   };
 
   // Calculate total pages
