@@ -6,7 +6,7 @@ import heroBg1 from "../../assets/hero/hero-bg-1.png";
 import heroBg2 from "../../assets/hero/hero-bg-2.png";
 import heroBg3 from "../../assets/hero/hero-bg-3.png";
 import heroBg4 from "../../assets/hero/hero-bg-4.png";
-import arrowImg from "../../assets/mingcute_arrow-up-line.png";
+import arrowImg from "../../assets/home-page/arrow-up-icon.png";
 import { services } from "../../constants/hero-section-data";
 import { useNavigate } from "react-router-dom";
 

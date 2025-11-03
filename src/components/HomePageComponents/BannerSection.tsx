@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgArrows from "../../assets/banner_section_bg_image.png";
-import blueCard from "../../assets/banner_section_blue_image.png";
-import blueCardMobile from "../../assets/banner_section_blue_image_mobile.png";
-import phoneStack from "../../assets/banner_section_phone_image.png";
+import bgArrows from "../../assets/home-page/home-banner-section-bg.png";
+import blueCard from "../../assets/home-page/home-banner-card-bg.png";
+import blueCardMobile from "../../assets/home-page/home-banner-card-bg-mobile.png";
+import phoneStack from "../../assets/home-page/home-banner-section-phone.png";
 import { useNavigate } from "react-router-dom";
 
 const BannerSection: React.FC = () => {
