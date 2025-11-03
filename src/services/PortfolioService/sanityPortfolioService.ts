@@ -1,9 +1,12 @@
+import { client } from "../../lib/sanityClient";
 import type {
   PortfolioItem,
   PortfolioItemDetails,
-} from "../../constants/portfolio-section-data";
-import { client } from "../../lib/sanityClient";
-import type { SanityPortfolioDetails, SanityPortfolioItem } from "../../types/sanity";
+} from "../../types/portfolio-data";
+import type {
+  SanityPortfolioDetails,
+  SanityPortfolioItem,
+} from "../../types/sanity";
 
 export class SanityPortfolioService {
   // Get all portfolios for the grid view - portfolio list
