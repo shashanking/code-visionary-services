@@ -4,17 +4,19 @@ import ContentContainer from "../shared/ContentContainer";
 import testimonialBg from "../../assets/Testimonial_section_bg_image.png";
 import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
 import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
-import { testimonials } from "../../constants/testimonials-data";
+import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
 const TestimonialSection: React.FC = () => {
   const rowRef = useRef<HTMLDivElement>(null);
-  const [hoveredId, setHoveredId] = useState<number | null>(2); // second card hovered by default
+  const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(1);
   const [playingId, setPlayingId] = useState<number | null>(null);
   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   const scrollByAmount = 360;
+
+  const { reviewItems, loading, error } = useSanityReviewItems();
 
   const updateScrollButtons = () => {
     if (!rowRef.current) return;
@@ -48,6 +50,14 @@ const TestimonialSection: React.FC = () => {
       Object.values(videoRefs.current).forEach((v) => v?.pause());
     };
   }, []);
+
+  if (loading) {
+    return <div>Loading reviews...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <SectionContainer
@@ -141,13 +151,12 @@ const TestimonialSection: React.FC = () => {
                 scrollPaddingRight: "10px", // Ensures last card snap includes right padding
               }}
             >
-              {testimonials.map((item, idx) => {
-                const isHovered = hoveredId === item.id;
-                const isPlaying = playingId === item.id;
-                const isDefaultDark = idx === 1;
+              {reviewItems.map((item, index) => {
+                const isHovered = hoveredIndex === item.id;
+                const isPlaying = playingId === index;
 
                 // Determine card background
-                const isActive = isHovered || isPlaying || isDefaultDark;
+                const isActive = isHovered || isPlaying;
                 const bgColor = isActive ? "#131A22" : "#F0F0F0";
 
                 // Determine text color based on background
@@ -156,8 +165,8 @@ const TestimonialSection: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    onMouseEnter={() => setHoveredId(item.id)}
-                    onMouseLeave={() => setHoveredId(null)}
+                    onMouseEnter={() => setHoveredIndex(item.id)}
+                    onMouseLeave={() => setHoveredIndex(1)}
                     className={`relative flex-shrink-0 snap-start w-[280px] sm:w-[310px] md:w-[340px] lg:w-[380px] h-[350px] sm:h-[390px] md:h-[420px] lg:h-[450px] rounded-2xl overflow-hidden transition-all duration-300`}
                     style={{
                       background: bgColor,
@@ -173,7 +182,7 @@ const TestimonialSection: React.FC = () => {
                     {/* Logo always visible */}
                     <img
                       src={item.image}
-                      alt={item.name}
+                      alt={item.reviewer}
                       className="absolute top-5 left-5 w-12 h-12 rounded-full border-2 border-[#0861AA] object-contain z-30"
                     />
 
@@ -181,7 +190,7 @@ const TestimonialSection: React.FC = () => {
                     {item.video && (
                       <video
                         ref={(el) => {
-                          videoRefs.current[item.id] = el;
+                          videoRefs.current[index] = el;
                         }}
                         src={item.video}
                         className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
@@ -207,23 +216,23 @@ const TestimonialSection: React.FC = () => {
                       `}
                         onClick={async (e) => {
                           e.stopPropagation();
-                          if (playingId && playingId !== item.id) {
+                          if (playingId && playingId !== index) {
                             videoRefs.current[playingId]?.pause();
                           }
-                          if (playingId === item.id) {
-                            videoRefs.current[item.id]?.pause();
+                          if (playingId === index) {
+                            videoRefs.current[index]?.pause();
                             setPlayingId(null);
                           } else {
                             try {
-                              await videoRefs.current[item.id]?.play();
-                              setPlayingId(item.id);
+                              await videoRefs.current[index]?.play();
+                              setPlayingId(index);
                             } catch (err) {
                               console.error("Video play error", err);
                             }
                           }
                         }}
                       >
-                        {playingId === item.id ? (
+                        {playingId === index ? (
                           <div className="flex gap-2">
                             <div className="w-1.5 h-6 bg-white rounded-sm" />
                             <div className="w-1.5 h-6 bg-white rounded-sm" />
@@ -246,13 +255,15 @@ const TestimonialSection: React.FC = () => {
                       style={{ color: textColor }}
                     >
                       <p className="text-body2 font-sans leading-[1.5]">
-                        {item.text}
+                        {item.description}
                       </p>
                       <div className="flex flex-col items-start mt-4 gap-2">
                         <h3 className="text-body1 font-sans font-bold">
-                          {item.name}
+                          {item.reviewer}
                         </h3>
-                        <p className="text-body2 font-sans">{item.title}</p>
+                        <p className="text-body2 font-sans">
+                          {item.clientType}
+                        </p>
                       </div>
                     </div>
 
@@ -260,9 +271,11 @@ const TestimonialSection: React.FC = () => {
                     {isHovered && (
                       <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 text-white z-10">
                         <h3 className="text-body1 font-sans font-bold">
-                          {item.name}
+                          {item.reviewer}
                         </h3>
-                        <p className="text-body2 font-sans">{item.title}</p>
+                        <p className="text-body2 font-sans">
+                          {item.clientType}
+                        </p>
                       </div>
                     )}
                   </div>
