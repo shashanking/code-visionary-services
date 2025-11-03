@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import testimonialBg from "../../assets/Testimonial_section_bg_image.png";
-import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
-import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
+import reviewBg from "../../assets/review-page/home-page-review-bg.png";
+import leftArrow from "../../assets/review-page/review-left-arrow.png";
+import rightArrow from "../../assets/review-page/review-right-arrow.png";
 import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
 const ReviewSection: React.FC = () => {
@@ -70,7 +70,7 @@ const ReviewSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center scale-x-[-1]"
-          style={{ backgroundImage: `url(${testimonialBg})` }}
+          style={{ backgroundImage: `url(${reviewBg})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
       </div>

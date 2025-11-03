@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ReviewCardBg from "../../assets/review-page/review-bg.jpg";
-import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
-import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
+import leftArrow from "../../assets/review-page/review-left-arrow.png";
+import rightArrow from "../../assets/review-page/review-right-arrow.png";
 import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
 const ReviewCardSection: React.FC = () => {
