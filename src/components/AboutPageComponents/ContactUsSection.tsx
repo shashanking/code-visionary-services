@@ -5,8 +5,14 @@ import ContactBg from "../../assets/about-page/contact-us-bg.jpg";
 import ContactCardBg from "../../assets/about-page/contact-us-card-bg.jpg";
 import ContactImgBg from "../../assets/about-page/contact-us-img.png";
 import { CTAButton } from "../shared";
+import { useNavigate } from "react-router-dom";
 
 const ContactUsSection: React.FC = () => {
+  const navigate = useNavigate();
+  const handleContactClick = () => {
+    navigate(`/contact`);
+  };
+
   return (
     <SectionContainer
       id="contact-us"
@@ -65,7 +71,7 @@ const ContactUsSection: React.FC = () => {
                   size="small"
                   showIcon={false}
                   className="bg-white text-black shadow-[0px_0px_8px_0px_#B5442C] hover:shadow-[0px_0px_12px_0px_#B5442C] transition-shadow"
-                  onClick={() => console.log("Button clicked")}
+                  onClick={handleContactClick}
                 >
                   Contact Us!
                 </CTAButton>
