@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ReviewCardBg from "../../assets/review-page/review-bg.jpg";
-import { testimonials } from "../../constants/testimonials-data";
 import leftArrow from "../../assets/Testimonial_section_left_arrow_vector_image.png";
 import rightArrow from "../../assets/Testimonial_section_right_arrow_vector_image.png";
+import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
 const ReviewCardSection: React.FC = () => {
-  const [hoveredId, setHoveredId] = useState<number | null>(2); // second card hovered by default
+  const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(1);
   const [playingId, setPlayingId] = useState<number | null>(null);
   const videoRefs = React.useRef<Record<number, HTMLVideoElement | null>>({});
 
@@ -15,24 +15,25 @@ const ReviewCardSection: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 8;
 
-  // Calculate total pages
-  const totalPages = Math.ceil(testimonials.length / cardsPerPage);
+  const { reviewItems, loading, error } = useSanityReviewItems();
 
-  // Get current cards to display
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = testimonials.slice(indexOfFirstCard, indexOfLastCard);
+  // Calculate total pages
+  const totalPages = Math.ceil(reviewItems.length / cardsPerPage);
 
   // Navigation functions
   const nextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
+      // Reset hover to second card when page changes
+      setHoveredIndex(1);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      // Reset hover to second card when page changes
+      setHoveredIndex(1);
     }
   };
 
@@ -41,6 +42,14 @@ const ReviewCardSection: React.FC = () => {
       Object.values(videoRefs.current).forEach((v) => v?.pause());
     };
   }, []);
+
+  if (loading) {
+    return <div>Loading reviews...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <SectionContainer
@@ -92,12 +101,11 @@ const ReviewCardSection: React.FC = () => {
           {/* Review Cards Grid */}
           <div className="relative w-full">
             <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
-              {currentCards.map((item, idx) => {
-                const isHovered = hoveredId === item.id;
-                const isPlaying = playingId === item.id;
-                const isDefaultDark = idx === 1;
+              {reviewItems.map((item, index) => {
+                const isHovered = hoveredIndex === index;
+                const isPlaying = playingId === index;
 
-                const isActive = isHovered || isPlaying || isDefaultDark;
+                const isActive = isHovered || isPlaying;
                 const bgColor = isActive ? "#131A22" : "#F0F0F0";
 
                 const textColor = bgColor === "#131A22" ? "#FFFFFF" : "#000000";
@@ -105,8 +113,8 @@ const ReviewCardSection: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    onMouseEnter={() => setHoveredId(item.id)}
-                    onMouseLeave={() => setHoveredId(null)}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(1)}
                     className={`relative w-full h-[350px] sm:h-[390px] md:h-[420px] rounded-2xl overflow-hidden transition-all duration-300`}
                     style={{
                       background: bgColor,
@@ -122,7 +130,7 @@ const ReviewCardSection: React.FC = () => {
                     {/* Logo always visible */}
                     <img
                       src={item.image}
-                      alt={item.name}
+                      alt={item.reviewer}
                       className="absolute top-5 left-5 w-12 h-12 rounded-full border-2 border-[#0861AA] object-contain z-30"
                     />
 
@@ -130,7 +138,7 @@ const ReviewCardSection: React.FC = () => {
                     {item.video && (
                       <video
                         ref={(el) => {
-                          videoRefs.current[item.id] = el;
+                          videoRefs.current[index] = el;
                         }}
                         src={item.video}
                         className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
@@ -156,23 +164,23 @@ const ReviewCardSection: React.FC = () => {
                                 `}
                         onClick={async (e) => {
                           e.stopPropagation();
-                          if (playingId && playingId !== item.id) {
+                          if (playingId && playingId !== index) {
                             videoRefs.current[playingId]?.pause();
                           }
-                          if (playingId === item.id) {
-                            videoRefs.current[item.id]?.pause();
+                          if (playingId === index) {
+                            videoRefs.current[index]?.pause();
                             setPlayingId(null);
                           } else {
                             try {
-                              await videoRefs.current[item.id]?.play();
-                              setPlayingId(item.id);
+                              await videoRefs.current[index]?.play();
+                              setPlayingId(index);
                             } catch (err) {
                               console.error("Video play error", err);
                             }
                           }
                         }}
                       >
-                        {playingId === item.id ? (
+                        {playingId === index ? (
                           <div className="flex gap-2">
                             <div className="w-1.5 h-6 bg-white rounded-sm" />
                             <div className="w-1.5 h-6 bg-white rounded-sm" />
@@ -195,13 +203,15 @@ const ReviewCardSection: React.FC = () => {
                       style={{ color: textColor }}
                     >
                       <p className="text-body2 font-sans leading-[1.5]">
-                        {item.text}
+                        {item.description}
                       </p>
                       <div className="flex flex-col items-start mt-4 gap-2">
                         <h3 className="text-body1 font-sans font-bold">
-                          {item.name}
+                          {item.reviewer}
                         </h3>
-                        <p className="text-body2 font-sans">{item.title}</p>
+                        <p className="text-body2 font-sans">
+                          {item.clientType}
+                        </p>
                       </div>
                     </div>
 
@@ -209,9 +219,11 @@ const ReviewCardSection: React.FC = () => {
                     {isHovered && (
                       <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 text-white z-10">
                         <h3 className="text-body1 font-sans font-bold">
-                          {item.name}
+                          {item.reviewer}
                         </h3>
-                        <p className="text-body2 font-sans">{item.title}</p>
+                        <p className="text-body2 font-sans">
+                          {item.clientType}
+                        </p>
                       </div>
                     )}
                   </div>
