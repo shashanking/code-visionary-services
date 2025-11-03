@@ -13,7 +13,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/blog/:slug*",
+      "source": "/blogs/:slug*",
       "destination": "/index.html"
     },
     {
