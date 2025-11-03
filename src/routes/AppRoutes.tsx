@@ -86,6 +86,7 @@ const AppRoutes: React.FC = () => {
           </Layout>
         }
       />
+      <Route path="*" element={<ComingSoon />} />
     </Routes>
   );
 };
