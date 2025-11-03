@@ -140,7 +140,6 @@ const BlogCardSection: React.FC = () => {
                             : "#F0F0F0",
                           boxShadow: "0px 0px 8px 0px #B5442C80",
                         }}
-                        onClick={() => handleBlogClick(item.slug)}
                       >
                         <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
                           <img

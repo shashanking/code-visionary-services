@@ -5,9 +5,14 @@ import bgArrows from "../../assets/banner_section_bg_image.png";
 import blueCard from "../../assets/banner_section_blue_image.png";
 import blueCardMobile from "../../assets/banner_section_blue_image_mobile.png";
 import phoneStack from "../../assets/banner_section_phone_image.png";
+import { useNavigate } from "react-router-dom";
 
 const BannerSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate();
+  const handleCtaClick = () => {
+    navigate(`/contact`);
+  };
 
   useEffect(() => {
     // Check screen size once on mount and on resize
@@ -81,6 +86,7 @@ const BannerSection: React.FC = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col xs:flex-row gap-4 mt-6">
               <button
+                onClick={handleCtaClick}
                 className="uppercase font-heading font-bold text-body1 rounded-full
                   bg-[#F0F0F0] text-[#161616] px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
                   hover:bg-[#ECECEC] transition-colors duration-200 cursor-pointer"
@@ -89,6 +95,7 @@ const BannerSection: React.FC = () => {
               </button>
 
               <button
+                onClick={handleCtaClick}
                 className="uppercase font-heading font-bold text-body1 rounded-full
                   bg-[#B5442C] text-white px-6 md:px-10 py-1 md:py-2 shadow-[0px_0px_8px_#B5442C]
                   hover:bg-[linear-gradient(90deg,#c8462b_0%,#e86d3a_100%)] transition-all duration-200 cursor-pointer"

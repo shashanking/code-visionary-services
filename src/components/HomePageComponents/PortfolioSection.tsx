@@ -120,6 +120,10 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({
 const PortfolioSection: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [activeCat, setActiveCat] = useState<string>("all");
+  const navigate = useNavigate();
+  const handleViewClick = () => {
+    navigate(`/portfolio`);
+  };
 
   // Using Sanity hook to fetch portfolios
   const { portfolios, loading, error } = useSanityPortfolios();
@@ -199,7 +203,10 @@ const PortfolioSection: React.FC = () => {
 
             {/* VIEW ALL button - fixed on the right */}
             <div className="flex-shrink-0">
-              <button className="px-6 py-1 md:px-8 md:py-1 rounded-full font-bold font-heading text-sm md:text-base text-white bg-[#212A36] hover:bg-[#B5442C] transition-all duration-200 cursor-pointer whitespace-nowrap min-h-[30px] flex items-center justify-center shadow-sm">
+              <button
+                onClick={handleViewClick}
+                className="px-6 py-1 md:px-8 md:py-1 rounded-full font-bold font-heading text-sm md:text-base text-white bg-[#212A36] hover:bg-[#B5442C] transition-all duration-200 cursor-pointer whitespace-nowrap min-h-[30px] flex items-center justify-center shadow-sm"
+              >
                 VIEW ALL
               </button>
             </div>

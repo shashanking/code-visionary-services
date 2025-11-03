@@ -192,12 +192,14 @@ const HeroBlogPage: React.FC = () => {
               >
                 <div
                   key={activeIndex}
-                  onClick={() =>
-                    handleBlogClick(featuredBlogs[activeIndex]?.slug)
-                  }
-                  className={`flex flex-row justify-between overflow-hidden cursor-pointer`}
+                  className={`flex flex-row justify-between overflow-hidden`}
                 >
-                  <div className={`text-left overflow-hidden`}>
+                  <div
+                    onClick={() =>
+                      handleBlogClick(featuredBlogs[activeIndex]?.slug)
+                    }
+                    className={`text-left overflow-hidden cursor-pointer`}
+                  >
                     <span
                       className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
                     >
