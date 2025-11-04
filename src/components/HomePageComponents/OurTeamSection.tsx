@@ -2,13 +2,20 @@ import { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/about-page/home-our-team-bg.png";
-import {
-  teamMembers,
-  type TeamMember,
-} from "../../constants/team-section-data";
+import { useSanityTeamMembers } from "../../hooks/Team/useSanityTeam";
 
 const OurTeamSection: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(1);
+
+  const { teamMembers, loading, error } = useSanityTeamMembers();
+
+  if (loading) {
+    return <div>Loading reviews...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <SectionContainer
@@ -35,21 +42,21 @@ const OurTeamSection: React.FC = () => {
 
         {/* Team Cards */}
         <div className="relative z-10 max-w-2xl mx-auto flex flex-wrap justify-center items-center gap-4 lg:gap-2 xl:gap-6">
-          {teamMembers.map((member: TeamMember, idx: number) => {
-            const isActive = hoverIndex === idx;
+          {teamMembers.map((member, index) => {
+            const isActive = hoverIndex === index;
 
             const translateClass =
-              idx % 2 === 0
+              index % 2 === 0
                 ? "lg:-translate-y-[26px]"
                 : "lg:translate-y-[26px]";
 
             return (
               <div
-                key={member.id}
+                key={index}
                 tabIndex={0}
-                onMouseEnter={() => setHoverIndex(idx)}
-                onMouseLeave={() => setHoverIndex(null)}
-                onFocus={() => setHoverIndex(idx)}
+                onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(1)}
+                onFocus={() => setHoverIndex(index)}
                 onBlur={() => setHoverIndex(null)}
                 className={`relative flex-shrink-0 w-[220px] h-[320px] lg:w-[180px] lg:h-[280px] xl:w-[220px] xl:h-[320px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 flex flex-col justify-end
                   ${isActive ? "z-20" : "z-10"}
