@@ -1,7 +1,7 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import { clients } from "../../constants/clients-data";
+import { useSanityClients } from "../../hooks/Clients/useSanityClients";
 
 const RowItem: React.FC<{ name: string; logo?: string }> = ({ name, logo }) => {
   return (
@@ -30,7 +30,28 @@ const RowItem: React.FC<{ name: string; logo?: string }> = ({ name, logo }) => {
 };
 
 const ClientsMarqueeSection: React.FC = () => {
-  const marqueeList = [...clients, ...clients, ...clients];
+  const { clients, loading, error } = useSanityClients();
+
+  const marqueeList = [
+    ...clients,
+    ...clients,
+    ...clients,
+    ...clients,
+    ...clients,
+    ...clients,
+    ...clients,
+    ...clients,
+    ...clients,
+    ...clients,
+  ];
+
+  if (loading) {
+    return <div>Loading reviews...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <SectionContainer
@@ -53,7 +74,7 @@ const ClientsMarqueeSection: React.FC = () => {
         <div className="w-full max-w-2xl mx-auto relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
           <div className="flex items-center gap-6 animate-marquee w-max">
             {marqueeList.map((c, i) => (
-              <RowItem key={`${c.name}-${i}`} name={c.name} logo={c.logo} />
+              <RowItem key={`${c.name}-${i}`} name={c.name} logo={c.image} />
             ))}
           </div>
         </div>
