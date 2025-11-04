@@ -1,33 +1,28 @@
 import {defineType, defineField} from 'sanity'
 
 export default defineType({
-  name: 'teamItem',
-  title: 'Team Item',
+  name: 'clientItem',
+  title: 'Client Item',
   type: 'document',
   fields: [
     defineField({
-      name: 'teamId',
+      name: 'clientId',
       type: 'string',
-      title: 'Team ID',
+      title: 'Client ID',
       validation: (Rule) => Rule.required(),
     }),
 
     defineField({
       name: 'name',
-      type: 'array',
-      title: 'Team Member Name',
-      of: [
-        {
-          type: 'string',
-        },
-      ],
+      type: 'string',
+      title: 'Client Name',
       validation: (Rule) => Rule.required(),
     }),
 
     defineField({
       name: 'image',
       type: 'image',
-      title: 'Service Image',
+      title: 'Client Logo/Image',
       options: {hotspot: true},
       validation: (Rule) => Rule.required(),
       fields: [
@@ -43,45 +38,25 @@ export default defineType({
     defineField({
       name: 'date',
       type: 'date',
-      title: 'Service Date',
+      title: 'Date',
       // options: {
       //   dateFormat: 'MMMM DD, YYYY',
       // },
-      description: 'By this date the services will be appears in the service page and hero section',
-      validation: (Rule) => Rule.required(),
-    }),
-
-    defineField({
-      name: 'description',
-      type: 'text',
-      title: 'Description',
-      description: 'Please add 10 to 200 characters',
-      validation: (Rule) => Rule.required().min(10).max(200),
-    }),
-
-    defineField({
-      name: 'tools',
-      type: 'array',
-      title: 'Tech Stack',
-      of: [
-        {
-          type: 'string',
-        },
-      ],
+      description: 'By this date the clients will be appears in the client section',
       validation: (Rule) => Rule.required(),
     }),
   ],
 
   preview: {
     select: {
-      title: 'label',
+      title: 'name',
       subtitle: 'date',
       media: 'image',
     },
     prepare(selection) {
       const {title, subtitle, media} = selection
       return {
-        title: title || 'Untitled Service',
+        title: title || 'Untitled Client',
         subtitle: `Date: ${subtitle || 'Unknown Date'}`,
         media,
       }
