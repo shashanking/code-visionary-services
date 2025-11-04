@@ -3,6 +3,7 @@ import {clientTypes} from './client'
 import {portfolioTypes} from './portfolio'
 import {reviewTypes} from './review'
 import {serviceTypes} from './service'
+import {teamTypes} from './team'
 
 export const schemaTypes = [
   ...portfolioTypes,
@@ -10,4 +11,5 @@ export const schemaTypes = [
   ...reviewTypes,
   ...serviceTypes,
   ...clientTypes,
+  ...teamTypes,
 ]
