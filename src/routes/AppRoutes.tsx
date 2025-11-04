@@ -11,8 +11,11 @@ import ContactPage from "../pages/ContactPage/ContactPage";
 import PortfolioDetailPage from "../pages/PortfolioDetailPage/PortfolioDetailPage";
 import ComingSoon from "../components/shared/ComingSoon";
 import NotFound from "../components/shared/NotFound";
+import { useScrollRestoration } from "../hooks/useScrollRestoration";
 
 const AppRoutes: React.FC = () => {
+  useScrollRestoration();
+
   return (
     <Routes>
       <Route
