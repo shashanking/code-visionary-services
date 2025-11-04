@@ -2,16 +2,45 @@ import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ServiceCardBg from "../../assets/services-page/service-card-bg.png";
-import { ServicesData } from "../../constants/service-page-data";
 import { CTAButton } from "../shared";
 import { useNavigate } from "react-router-dom";
+import { useSanityServices } from "../../hooks/Services/useSanityServices";
 
 const ServiceCardSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(1);
+
   const navigate = useNavigate();
   const handleCtaClick = () => {
     navigate(`/contact`);
   };
+
+  const { services, loading, error } = useSanityServices();
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-10 py-20">
+        {[...Array(6)].map((_, index) => (
+          <div
+            key={index}
+            className="bg-gray-200 animate-pulse rounded-lg h-80"
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center p-10 py-40">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+          <h3 className="text-lg font-semibold text-red-800 mb-2">
+            Error Loading Services
+          </h3>
+          <p className="text-red-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <SectionContainer
@@ -35,7 +64,7 @@ const ServiceCardSection: React.FC = () => {
         paddingX="lg"
         className="relative z-10 py-10 flex flex-col justify-center items-center text-left overflow-hidden"
       >
-        <div className="relative w-full max-w-2xl pt-20 pb-10 flex flex-col justify-start items-center">
+        <div className="relative w-full max-w-2xl py-10 flex flex-col justify-start items-center">
           <h1 className="font-heading font-bold text-title-lg text-center uppercase mb-10 leading-tight max-w-md text-[#161616] leading-[1.1]">
             Your One-Stop Solution for Digital Excellence
           </h1>
@@ -43,13 +72,13 @@ const ServiceCardSection: React.FC = () => {
 
         {/* --- SERVICES LIST --- */}
         <div className="w-screen flex flex-col divide-y divide-[#B5442C]/30 border border-t-[#B5442C]">
-          {ServicesData.map((service, index) => {
+          {services.map((service, index) => {
             const isEven = index % 2 === 1;
             const isActive = activeIndex === index;
 
             return (
               <div
-                key={service.id}
+                key={index}
                 onMouseEnter={() => setActiveIndex(index)}
                 className={`group relative w-full transition-all duration-500 ease-in-out border-b border-[#B5442C] px-4 md:px-8 lg:px-10 ${
                   isActive
