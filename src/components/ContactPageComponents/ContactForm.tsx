@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ContentContainer from "../shared/ContentContainer";
-import bgImgInsideMobile from "../../assets/contact-page/contact_bg_image_inside_mobile.png";
-import bgImgInside from "../../assets/contact-page/contact_bg_image_inside.png";
+import bgImgInsideMobile from "../../assets/contact-page/contact-bg-mobile.png";
+import bgImgInside from "../../assets/contact-page/contact-bg.png";
 import {
   BadgeCheck,
   CalendarCheck,
@@ -30,22 +30,22 @@ type Step = 1 | 2 | 3 | 4;
 // Confirmation ID - CVS-DDMMYY-HHMMSS-SSSSSS
 const generateConfirmationId = (): string => {
   const now = new Date();
-  
+
   // Date in DDMMYY format
-  const day = now.getDate().toString().padStart(2, '0');
-  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, "0");
+  const month = (now.getMonth() + 1).toString().padStart(2, "0");
   const year = now.getFullYear().toString().slice(-2);
   const dateStr = `${day}${month}${year}`;
-  
+
   // Time in HHMMSS format
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
   const timeStr = `${hours}${minutes}${seconds}`;
-  
+
   // Unique 6-character random string - SSSSSS
   const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase();
-  
+
   return `CVS-${dateStr}-${timeStr}-${randomStr}`;
 };
 

@@ -1,8 +1,8 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/about_section_bg_image.png";
-import laptopImg from "../../assets/Laptop.png";
+import bgImg from "../../assets/about-page/home-about-bg.png";
+import laptopImg from "../../assets/about-page/home-about-laptop.png";
 import { useNavigate } from "react-router-dom";
 
 const AboutSection: React.FC = () => {

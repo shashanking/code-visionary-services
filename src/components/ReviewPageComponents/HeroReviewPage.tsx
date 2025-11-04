@@ -2,9 +2,19 @@ import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ReviewPageBg from "../../assets/review-page/hero-bg.jpg";
-import { TestimonialsHeroData } from "../../constants/testimonials-data";
+import { useSanityHeroReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
 const HeroReviewPage: React.FC = () => {
+  const { heroReviewItems, loading, error } = useSanityHeroReviewItems();
+
+  if (loading) {
+    return <div>Loading reviews...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <SectionContainer
       id="review-hero"
@@ -51,7 +61,7 @@ const HeroReviewPage: React.FC = () => {
         className="relative z-10 pt-22 pb-10 flex justify-center items-center"
       >
         <div className="relative flex items-center justify-center h-40 md:h-80">
-          {TestimonialsHeroData.map((item, index) => {
+          {heroReviewItems.map((item, index) => {
             const isEven = (index + 1) % 2 === 0;
             const rotation = isEven
               ? index === 1
@@ -72,7 +82,7 @@ const HeroReviewPage: React.FC = () => {
 
             return (
               <div
-                key={item.id}
+                key={index}
                 className={`relative ${zIndex} transform ${rotation} ${translateY} transition-all duration-300 hover:scale-105 hover:z-20`}
                 style={{
                   marginLeft: index === 0 ? "0" : "-2rem",

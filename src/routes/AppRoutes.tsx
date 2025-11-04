@@ -10,6 +10,7 @@ import BlogPage from "../pages/BlogPage/BlogPage";
 import ContactPage from "../pages/ContactPage/ContactPage";
 import PortfolioDetailPage from "../pages/PortfolioDetailPage/PortfolioDetailPage";
 import ComingSoon from "../components/shared/ComingSoon";
+import NotFound from "../components/shared/NotFound";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -86,6 +87,7 @@ const AppRoutes: React.FC = () => {
           </Layout>
         }
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

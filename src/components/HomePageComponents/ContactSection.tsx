@@ -1,7 +1,7 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/contact_bg_image.png";
+import bgImg from "../../assets/contact-page/home-contact-bg.png";
 import ContactForm from "../ContactPageComponents/ContactForm";
 
 const ContactSection: React.FC = () => {
