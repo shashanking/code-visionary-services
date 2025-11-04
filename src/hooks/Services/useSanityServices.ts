@@ -78,3 +78,28 @@ export const useSanityFeaturedServices = (limit: number = 6) => {
 
   return { services, loading, error };
 };
+
+export const useSanityHeroServices = (limit: number = 8) => {
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchHeroServices = async () => {
+      try {
+        setLoading(true);
+        const data = await sanityServiceDataService.getFeaturedServices(limit);
+        setServices(data);
+      } catch (err) {
+        setError("Failed to fetch hero services");
+        console.error("Sanity error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroServices();
+  }, [limit]);
+
+  return { services, loading, error };
+};
