@@ -90,7 +90,8 @@ const ServicesGrid: React.FC<{
   const getGridConfig = () => {
     const count = services.length;
     if (count === 6) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
-    if (count === 8) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
+    if (count === 4 || count === 8)
+      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
     return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
   };
 
@@ -107,6 +108,37 @@ const ServicesGrid: React.FC<{
           onLeave={() => setHoverIdx(null)}
         />
       ))}
+    </div>
+  );
+};
+
+// Loading Skeleton for Services
+const ServicesLoadingSkeleton: React.FC = () => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-6 w-full max-w-2xl mx-auto">
+      {[...Array(8)].map((_, index) => (
+        <div
+          key={index}
+          className="bg-gray-200 animate-pulse rounded-2xl md:rounded-3xl aspect-[4/3] min-h-[200px]"
+        />
+      ))}
+    </div>
+  );
+};
+
+// Error Display for Services
+const ServicesErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
+  return (
+    <div className="w-full max-w-2xl mx-auto text-center py-8">
+      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-red-800 mb-2">
+          Unable to Load Services
+        </h3>
+        <p className="text-red-600 text-sm mb-4">{error}</p>
+        <p className="text-gray-500 text-sm">
+          Please check your connection and try again later.
+        </p>
+      </div>
     </div>
   );
 };
@@ -130,32 +162,6 @@ const HeroSection: React.FC = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-
-  if (loading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 p-10 py-40">
-        {[...Array(8)].map((_, index) => (
-          <div
-            key={index}
-            className="bg-gray-200 animate-pulse rounded-lg h-80"
-          />
-        ))}
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center p-10 py-40">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-          <h3 className="text-lg font-semibold text-red-800 mb-2">
-            Error Loading Services
-          </h3>
-          <p className="text-red-600">{error}</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <SectionContainer
@@ -192,7 +198,7 @@ const HeroSection: React.FC = () => {
             </h1>
           </div>
 
-          <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-10 leading-[1.5]">
+          <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-15 leading-[1.5]">
             At Code Visionary Services, we craft high-performance websites,
             software, and visual identities that elevate your brand and drive
             results. From code to creativity, we turn your ideas into powerful
@@ -215,11 +221,17 @@ const HeroSection: React.FC = () => {
               OUR SERVICES
             </h2>
 
-            <ServicesGrid
-              services={services}
-              hoverIdx={hoverIdx}
-              setHoverIdx={setHoverIdx}
-            />
+            {loading ? (
+              <ServicesLoadingSkeleton />
+            ) : error ? (
+              <ServicesErrorDisplay error={error} />
+            ) : (
+              <ServicesGrid
+                services={services}
+                hoverIdx={hoverIdx}
+                setHoverIdx={setHoverIdx}
+              />
+            )}
           </div>
         </div>
       </ContentContainer>
