@@ -23,7 +23,7 @@ export class SanityTechStackService {
         highlighted,
         order
       },
-      "technologies": *[_type == "technology"] | order(name asc) {
+      "technologies": *[_type == "technology" && active == true] | order(name asc) {
         _id,
         name,
         image {
@@ -74,7 +74,7 @@ export class SanityTechStackService {
 
   // Get technologies by category
   async getTechnologiesByCategory(categoryName: string): Promise<Technology[]> {
-    const query = `*[_type == "technology" && category->name == $categoryName] | order(name asc) {
+    const query = `*[_type == "technology" && category->name == $categoryName && active == true] | order(name asc) {
       _id,
       name,
       image {
@@ -84,6 +84,7 @@ export class SanityTechStackService {
         alt
       },
       active,
+      highlighted,
       category->{
         _id,
         name,
@@ -97,9 +98,9 @@ export class SanityTechStackService {
     return data.map(this.transformTechnology);
   }
 
-  // Get featured technologies (active ones)
+  // Get featured technologies - highlighted ones - and only active technologies
   async getFeaturedTechnologies(): Promise<Technology[]> {
-    const query = `*[_type == "technology" && active == true] | order(name asc) {
+    const query = `*[_type == "technology" && active == true && highlighted == true] | order(name asc) {
       _id,
       name,
       image {
@@ -109,6 +110,7 @@ export class SanityTechStackService {
         alt
       },
       active,
+      highlighted,
       category->{
         _id,
         name,
