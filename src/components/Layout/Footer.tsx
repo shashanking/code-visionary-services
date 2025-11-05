@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
                     className="h-12 w-auto mb-10"
                   />
                   <p className="font-sans text-white text-left mb-12 leading-relaxed max-w-xs">
-                    We help startups and brands launch fast, reliable digital
+                    We help companies and brands launch fast, reliable digital
                     products. From UX and design to modern development and
                     growth, our team builds experiences that look great and
                     perform even better.
@@ -257,10 +257,10 @@ const Footer: React.FC = () => {
               {/* Bottom Footer */}
               <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
                 <p className="text-sm text-[#f0f0f0]">
-                  2025 All rights reserved.
+                  Copyright © 2025, Visionary Services LLP. All rights reserved.
                 </p>
                 <p className="text-sm text-[#f0f0f0]">
-                  Designed by Code Visionary Services.
+                  Code Visionary Services is now Visionary Services LLP.
                 </p>
               </div>
             </div>
