@@ -7,13 +7,13 @@ import heroBg2 from "../../assets/hero/hero-bg-2.png";
 import heroBg3 from "../../assets/hero/hero-bg-3.png";
 import heroBg4 from "../../assets/hero/hero-bg-4.png";
 import arrowImg from "../../assets/home-page/arrow-up-icon.png";
-import { services } from "../../constants/hero-section-data";
 import { useNavigate } from "react-router-dom";
+import { useSanityHeroServices } from "../../hooks/Services/useSanityServices";
 
 const heroBackgrounds = [heroBg1, heroBg2, heroBg3, heroBg4];
 
 const ServiceCard: React.FC<{
-  service: { img: string; label: string; description: string };
+  service: { image: string; label: string; description: string };
   isHovered: boolean;
   onHover: () => void;
   onLeave: () => void;
@@ -25,12 +25,12 @@ const ServiceCard: React.FC<{
 
   return (
     <div
-      className="group relative bg-white rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer shadow-lg transition-all duration-400 ease-out hover:scale-102 aspect-[4/3] min-h-[200px]"
+      className="group relative bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg transition-all duration-400 ease-out hover:scale-102 aspect-[4/3] min-h-[200px]"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
       <div
-        className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 z-20 ${
+        className={`absolute top-3 right-3 w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 z-20 cursor-pointer ${
           isHovered ? "opacity-100 scale-100" : "opacity-0 scale-90"
         }`}
         onClick={handleServiceClick}
@@ -44,7 +44,7 @@ const ServiceCard: React.FC<{
       </div>
 
       <img
-        src={service.img}
+        src={service.image}
         alt={service.label}
         className={`absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out ${
           isHovered ? "grayscale-0 scale-105" : "grayscale scale-100"
@@ -83,14 +83,15 @@ const ServiceCard: React.FC<{
 };
 
 const ServicesGrid: React.FC<{
-  services: Array<{ img: string; label: string; description: string }>;
+  services: Array<{ image: string; label: string; description: string }>;
   hoverIdx: number | null;
   setHoverIdx: (index: number | null) => void;
 }> = ({ services, hoverIdx, setHoverIdx }) => {
   const getGridConfig = () => {
     const count = services.length;
     if (count === 6) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
-    if (count === 8) return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
+    if (count === 4 || count === 8)
+      return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
     return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
   };
 
@@ -111,13 +112,47 @@ const ServicesGrid: React.FC<{
   );
 };
 
+// Loading Skeleton for Services
+const ServicesLoadingSkeleton: React.FC = () => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-6 w-full max-w-2xl mx-auto">
+      {[...Array(8)].map((_, index) => (
+        <div
+          key={index}
+          className="bg-gray-200 animate-pulse rounded-2xl md:rounded-3xl aspect-[4/3] min-h-[200px]"
+        />
+      ))}
+    </div>
+  );
+};
+
+// Error Display for Services
+const ServicesErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
+  return (
+    <div className="w-full max-w-2xl mx-auto text-center py-8">
+      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-red-800 mb-2">
+          Unable to Load Services
+        </h3>
+        <p className="text-red-600 text-sm mb-4">{error}</p>
+        <p className="text-gray-500 text-sm">
+          Please check your connection and try again later.
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const HeroSection: React.FC = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+
   const navigate = useNavigate();
   const handleCtaClick = () => {
     navigate(`/contact`);
   };
+
+  const { services, loading, error } = useSanityHeroServices(8);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -163,7 +198,7 @@ const HeroSection: React.FC = () => {
             </h1>
           </div>
 
-          <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-10 leading-[1.5]">
+          <p className="font-sans font-normal text-body1 text-gray-800 max-w-lg mx-auto mb-15 leading-[1.5]">
             At Code Visionary Services, we craft high-performance websites,
             software, and visual identities that elevate your brand and drive
             results. From code to creativity, we turn your ideas into powerful
@@ -186,11 +221,17 @@ const HeroSection: React.FC = () => {
               OUR SERVICES
             </h2>
 
-            <ServicesGrid
-              services={services}
-              hoverIdx={hoverIdx}
-              setHoverIdx={setHoverIdx}
-            />
+            {loading ? (
+              <ServicesLoadingSkeleton />
+            ) : error ? (
+              <ServicesErrorDisplay error={error} />
+            ) : (
+              <ServicesGrid
+                services={services}
+                hoverIdx={hoverIdx}
+                setHoverIdx={setHoverIdx}
+              />
+            )}
           </div>
         </div>
       </ContentContainer>

@@ -6,6 +6,54 @@ import leftArrow from "../../assets/review-page/review-left-arrow.png";
 import rightArrow from "../../assets/review-page/review-right-arrow.png";
 import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
+// Loading Skeleton Component
+const ReviewsLoadingSkeleton: React.FC = () => {
+  return (
+    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
+      {[...Array(8)].map((_, index) => (
+        <div
+          key={index}
+          className="relative w-full h-[350px] sm:h-[390px] md:h-[420px] rounded-2xl overflow-hidden bg-gray-200 animate-pulse"
+        >
+          {/* Logo skeleton */}
+          <div className="absolute top-5 left-5 w-12 h-12 rounded-full bg-gray-300 z-30" />
+
+          {/* Content skeleton */}
+          <div className="absolute inset-0 flex flex-col justify-between p-6 pt-22">
+            <div className="space-y-3">
+              <div className="h-4 bg-gray-300 rounded w-full" />
+              <div className="h-4 bg-gray-300 rounded w-5/6" />
+              <div className="h-4 bg-gray-300 rounded w-4/6" />
+              <div className="h-4 bg-gray-300 rounded w-3/6" />
+            </div>
+            <div className="flex flex-col items-start mt-4 gap-2">
+              <div className="h-5 bg-gray-300 rounded w-24" />
+              <div className="h-4 bg-gray-300 rounded w-32" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Error Display Component
+const ReviewsErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
+  return (
+    <div className="w-full max-w-2xl mx-auto text-center py-10">
+      <div className="bg-red-50 border border-red-200 rounded-xl p-8">
+        <h3 className="text-xl font-semibold text-red-800 mb-3">
+          Unable to Load Reviews
+        </h3>
+        <p className="text-red-600 mb-4">{error}</p>
+        <p className="text-gray-500 text-sm">
+          Please check your connection and try again later.
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const ReviewCardSection: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(1);
   const [playingId, setPlayingId] = useState<number | null>(null);
@@ -42,14 +90,6 @@ const ReviewCardSection: React.FC = () => {
       Object.values(videoRefs.current).forEach((v) => v?.pause());
     };
   }, []);
-
-  if (loading) {
-    return <div>Loading reviews...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <SectionContainer
@@ -98,185 +138,194 @@ const ReviewCardSection: React.FC = () => {
             />
           </div>
 
-          {/* Review Cards Grid */}
+          {/* Review Cards Section */}
           <div className="relative w-full">
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
-              {reviewItems.map((item, index) => {
-                const isHovered = hoveredIndex === index;
-                const isPlaying = playingId === index;
+            {loading ? (
+              <ReviewsLoadingSkeleton />
+            ) : error ? (
+              <ReviewsErrorDisplay error={error} />
+            ) : (
+              <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-4">
+                {reviewItems.map((item, index) => {
+                  const isHovered = hoveredIndex === index;
+                  const isPlaying = playingId === index;
 
-                const isActive = isHovered || isPlaying;
-                const bgColor = isActive ? "#131A22" : "#F0F0F0";
+                  const isActive = isHovered || isPlaying;
+                  const bgColor = isActive ? "#131A22" : "#F0F0F0";
 
-                const textColor = bgColor === "#131A22" ? "#FFFFFF" : "#000000";
+                  const textColor =
+                    bgColor === "#131A22" ? "#FFFFFF" : "#000000";
 
-                return (
-                  <div
-                    key={index}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(1)}
-                    className={`relative w-full h-[350px] sm:h-[390px] md:h-[420px] rounded-2xl overflow-hidden transition-all duration-300`}
-                    style={{
-                      background: bgColor,
-                      boxShadow: isHovered
-                        ? "0px 0px 8px 2px #B5442C80"
-                        : "0px 0px 8px 2px #0861AA80",
-                      borderImageSource: isHovered
-                        ? "linear-gradient(91.08deg, #B5442C 0.34%, #FF9C87 99.62%)"
-                        : undefined,
-                      borderImageSlice: isHovered ? 1 : undefined,
-                    }}
-                  >
-                    {/* Logo always visible */}
-                    <img
-                      src={item.image}
-                      alt={item.reviewer}
-                      className="absolute top-5 left-5 w-12 h-12 rounded-full border-2 border-[#0861AA] object-contain z-30"
-                    />
-
-                    {/* Video */}
-                    {item.video && (
-                      <video
-                        ref={(el) => {
-                          videoRefs.current[index] = el;
-                        }}
-                        src={item.video}
-                        className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
-                          isHovered || isPlaying
-                            ? "opacity-100"
-                            : "opacity-0 pointer-events-none"
-                        }`}
-                        muted
-                        loop
-                        playsInline
-                      />
-                    )}
-
-                    {/* Play/Pause button overlay */}
-                    {item.video && isHovered && (
-                      <button
-                        className={`
-                                  absolute z-20 flex items-center justify-center
-                                  w-[90px] h-[50px] 
-                                  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                                  gap-2 rounded-[68px] pt-[20px] pb-[20px]
-                                  bg-black/30 hover:bg-white/50 opacity-100 cursor-pointer
-                                `}
-                        onClick={async (e) => {
-                          e.stopPropagation();
-                          if (playingId && playingId !== index) {
-                            videoRefs.current[playingId]?.pause();
-                          }
-                          if (playingId === index) {
-                            videoRefs.current[index]?.pause();
-                            setPlayingId(null);
-                          } else {
-                            try {
-                              await videoRefs.current[index]?.play();
-                              setPlayingId(index);
-                            } catch (err) {
-                              console.error("Video play error", err);
-                            }
-                          }
-                        }}
-                      >
-                        {playingId === index ? (
-                          <div className="flex gap-2">
-                            <div className="w-1.5 h-6 bg-white rounded-sm" />
-                            <div className="w-1.5 h-6 bg-white rounded-sm" />
-                          </div>
-                        ) : (
-                          <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white" />
-                        )}
-                      </button>
-                    )}
-
-                    {/* Text */}
+                  return (
                     <div
-                      className={`absolute inset-0 flex flex-col justify-between p-6 pt-22 transition-opacity duration-300 ${
-                        item.video
-                          ? isHovered || isPlaying
-                            ? "opacity-0"
-                            : "opacity-100"
-                          : "opacity-100" // always visible text if no video
-                      }`}
-                      style={{ color: textColor }}
+                      key={index}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(1)}
+                      className={`relative w-full h-[350px] sm:h-[390px] md:h-[420px] rounded-2xl overflow-hidden transition-all duration-300`}
+                      style={{
+                        background: bgColor,
+                        boxShadow: isHovered
+                          ? "0px 0px 8px 2px #B5442C80"
+                          : "0px 0px 8px 2px #0861AA80",
+                        borderImageSource: isHovered
+                          ? "linear-gradient(91.08deg, #B5442C 0.34%, #FF9C87 99.62%)"
+                          : undefined,
+                        borderImageSlice: isHovered ? 1 : undefined,
+                      }}
                     >
-                      <p className="text-body2 font-sans leading-[1.5]">
-                        {item.description}
-                      </p>
-                      <div className="flex flex-col items-start mt-4 gap-2">
-                        <h3 className="text-body1 font-sans font-bold">
-                          {item.reviewer}
-                        </h3>
-                        <p className="text-body2 font-sans">
-                          {item.clientType}
-                        </p>
-                      </div>
-                    </div>
+                      {/* Logo always visible */}
+                      <img
+                        src={item.image}
+                        alt={item.reviewer}
+                        className="absolute top-5 left-5 w-12 h-12 rounded-full border-2 border-[#0861AA] object-contain z-30"
+                      />
 
-                    {/* Hover info */}
-                    {isHovered && (
-                      <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 text-white z-10">
-                        <h3 className="text-body1 font-sans font-bold">
-                          {item.reviewer}
-                        </h3>
-                        <p className="text-body2 font-sans">
-                          {item.clientType}
+                      {/* Video */}
+                      {item.video && (
+                        <video
+                          ref={(el) => {
+                            videoRefs.current[index] = el;
+                          }}
+                          src={item.video}
+                          className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
+                            isHovered || isPlaying
+                              ? "opacity-100"
+                              : "opacity-0 pointer-events-none"
+                          }`}
+                          muted
+                          loop
+                          playsInline
+                        />
+                      )}
+
+                      {/* Play/Pause button overlay */}
+                      {item.video && isHovered && (
+                        <button
+                          className={`
+                                    absolute z-20 flex items-center justify-center
+                                    w-[90px] h-[50px] 
+                                    top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                                    gap-2 rounded-[68px] pt-[20px] pb-[20px]
+                                    bg-black/30 hover:bg-white/50 opacity-100 cursor-pointer
+                                  `}
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (playingId && playingId !== index) {
+                              videoRefs.current[playingId]?.pause();
+                            }
+                            if (playingId === index) {
+                              videoRefs.current[index]?.pause();
+                              setPlayingId(null);
+                            } else {
+                              try {
+                                await videoRefs.current[index]?.play();
+                                setPlayingId(index);
+                              } catch (err) {
+                                console.error("Video play error", err);
+                              }
+                            }
+                          }}
+                        >
+                          {playingId === index ? (
+                            <div className="flex gap-2">
+                              <div className="w-1.5 h-6 bg-white rounded-sm" />
+                              <div className="w-1.5 h-6 bg-white rounded-sm" />
+                            </div>
+                          ) : (
+                            <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white" />
+                          )}
+                        </button>
+                      )}
+
+                      {/* Text */}
+                      <div
+                        className={`absolute inset-0 flex flex-col justify-between p-6 pt-22 transition-opacity duration-300 ${
+                          item.video
+                            ? isHovered || isPlaying
+                              ? "opacity-0"
+                              : "opacity-100"
+                            : "opacity-100" // always visible text if no video
+                        }`}
+                        style={{ color: textColor }}
+                      >
+                        <p className="text-body2 font-sans leading-[1.5]">
+                          {item.description}
                         </p>
+                        <div className="flex flex-col items-start mt-4 gap-2">
+                          <h3 className="text-body1 font-sans font-bold">
+                            {item.reviewer}
+                          </h3>
+                          <p className="text-body2 font-sans">
+                            {item.clientType}
+                          </p>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+
+                      {/* Hover info */}
+                      {isHovered && (
+                        <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 text-white z-10">
+                          <h3 className="text-body1 font-sans font-bold">
+                            {item.reviewer}
+                          </h3>
+                          <p className="text-body2 font-sans">
+                            {item.clientType}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Pagination Controls */}
-          <div className="flex items-center justify-center gap-8 mt-10 px-4">
-            <button
-              onClick={prevPage}
-              disabled={currentPage === 1}
-              className={`w-14 h-14 flex items-center justify-center border rounded-full ${
-                currentPage > 1
-                  ? "border-[#161616] cursor-pointer hover:bg-gray-100"
-                  : "border-[#161616]/20 cursor-not-allowed"
-              }`}
-            >
-              <img
-                src={leftArrow}
-                alt="Previous"
-                className={`w-5 h-5 ${
-                  currentPage > 1 ? "opacity-100" : "opacity-50"
+          {!loading && !error && reviewItems.length > 0 && totalPages > 1 && (
+            <div className="flex items-center justify-center gap-8 mt-10 px-4">
+              <button
+                onClick={prevPage}
+                disabled={currentPage === 1}
+                className={`w-14 h-14 flex items-center justify-center border rounded-full ${
+                  currentPage > 1
+                    ? "border-[#161616] cursor-pointer hover:bg-gray-100"
+                    : "border-[#161616]/20 cursor-not-allowed"
                 }`}
-              />
-            </button>
+              >
+                <img
+                  src={leftArrow}
+                  alt="Previous"
+                  className={`w-5 h-5 ${
+                    currentPage > 1 ? "opacity-100" : "opacity-50"
+                  }`}
+                />
+              </button>
 
-            {/* Page Indicator */}
-            <div className="flex items-center gap-2">
-              <span className="text-body1 font-sans text-[#161616]">
-                Page {currentPage} of {totalPages}
-              </span>
+              {/* Page Indicator */}
+              <div className="flex items-center gap-2">
+                <span className="text-body1 font-sans text-[#161616]">
+                  Page {currentPage} of {totalPages}
+                </span>
+              </div>
+
+              <button
+                onClick={nextPage}
+                disabled={currentPage === totalPages}
+                className={`w-14 h-14 flex items-center justify-center border rounded-full ${
+                  currentPage < totalPages
+                    ? "border-[#161616] cursor-pointer hover:bg-gray-100"
+                    : "border-[#161616]/20 cursor-not-allowed"
+                }`}
+              >
+                <img
+                  src={rightArrow}
+                  alt="Next"
+                  className={`w-5 h-5 ${
+                    currentPage < totalPages ? "opacity-100" : "opacity-50"
+                  }`}
+                />
+              </button>
             </div>
-
-            <button
-              onClick={nextPage}
-              disabled={currentPage === totalPages}
-              className={`w-14 h-14 flex items-center justify-center border rounded-full ${
-                currentPage < totalPages
-                  ? "border-[#161616] cursor-pointer hover:bg-gray-100"
-                  : "border-[#161616]/20 cursor-not-allowed"
-              }`}
-            >
-              <img
-                src={rightArrow}
-                alt="Next"
-                className={`w-5 h-5 ${
-                  currentPage < totalPages ? "opacity-100" : "opacity-50"
-                }`}
-              />
-            </button>
-          </div>
+          )}
         </div>
       </ContentContainer>
     </SectionContainer>

@@ -4,16 +4,86 @@ import ContentContainer from "../shared/ContentContainer";
 import ReviewPageBg from "../../assets/review-page/hero-bg.jpg";
 import { useSanityHeroReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
+// Loading Skeleton Component
+const HeroReviewsLoadingSkeleton: React.FC = () => {
+  return (
+    <div className="relative flex items-center justify-center h-40 md:h-80">
+      {[...Array(4)].map((_, index) => {
+        const isEven = (index + 1) % 2 === 0;
+        const rotation = isEven
+          ? index === 1
+            ? "-rotate-12"
+            : "-rotate-8"
+          : index === 0
+          ? "rotate-9"
+          : "rotate-14";
+
+        const zIndex = isEven ? "z-10" : "z-0";
+        const translateY = isEven
+          ? index === 1
+            ? "-translate-y-2"
+            : "-translate-y-0"
+          : index === 0
+          ? "translate-y-2"
+          : "translate-y-4";
+
+        return (
+          <div
+            key={index}
+            className={`relative ${zIndex} transform ${rotation} ${translateY}`}
+            style={{
+              marginLeft: index === 0 ? "0" : "-2rem",
+            }}
+          >
+            {/* Name skeleton */}
+            <div
+              className={`absolute left-1/2 transform -translate-x-1/2 w-full text-center ${
+                isEven
+                  ? "bottom-[-2rem] md:bottom-[-2.5rem]"
+                  : "top-[-2rem] md:top-[-2.5rem]"
+              }`}
+            >
+              <div className="inline-block bg-gray-200 px-4 py-2 rounded-lg animate-pulse">
+                <div className="w-20 h-4 bg-gray-300 rounded"></div>
+              </div>
+            </div>
+
+            {/* Image skeleton */}
+            <div className="relative w-32 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-gray-200 p-2 rounded-lg shadow-lg border-4 border-white animate-pulse">
+              <div className="w-full h-full bg-gray-300 rounded-sm"></div>
+
+              {/* Corner decorations */}
+              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-gray-300 rounded-tl-sm"></div>
+              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-gray-300 rounded-tr-sm"></div>
+              <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-gray-300 rounded-bl-sm"></div>
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-gray-300 rounded-br-sm"></div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+// Error Display Component
+const HeroReviewsErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
+  return (
+    <div className="relative flex items-center justify-center h-40 md:h-80">
+      <div className="bg-red-50 border border-red-200 rounded-xl p-6 max-w-md text-center">
+        <h3 className="text-lg font-semibold text-red-800 mb-2">
+          Unable to Load Featured Reviews
+        </h3>
+        <p className="text-red-600 text-sm mb-3">{error}</p>
+        <p className="text-gray-500 text-xs">
+          The testimonials section will be available shortly.
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const HeroReviewPage: React.FC = () => {
   const { heroReviewItems, loading, error } = useSanityHeroReviewItems();
-
-  if (loading) {
-    return <div>Loading reviews...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <SectionContainer
@@ -60,63 +130,69 @@ const HeroReviewPage: React.FC = () => {
         paddingX="lg"
         className="relative z-10 pt-22 pb-10 flex justify-center items-center"
       >
-        <div className="relative flex items-center justify-center h-40 md:h-80">
-          {heroReviewItems.map((item, index) => {
-            const isEven = (index + 1) % 2 === 0;
-            const rotation = isEven
-              ? index === 1
-                ? "-rotate-12"
-                : "-rotate-8"
-              : index === 0
-              ? "rotate-9"
-              : "rotate-14";
+        {loading ? (
+          <HeroReviewsLoadingSkeleton />
+        ) : error ? (
+          <HeroReviewsErrorDisplay error={error} />
+        ) : (
+          <div className="relative flex items-center justify-center h-40 md:h-80">
+            {heroReviewItems.map((item, index) => {
+              const isEven = (index + 1) % 2 === 0;
+              const rotation = isEven
+                ? index === 1
+                  ? "-rotate-12"
+                  : "-rotate-8"
+                : index === 0
+                ? "rotate-9"
+                : "rotate-14";
 
-            const zIndex = isEven ? "z-10" : "z-0";
-            const translateY = isEven
-              ? index === 1
-                ? "-translate-y-2"
-                : "-translate-y-0"
-              : index === 0
-              ? "translate-y-2"
-              : "translate-y-4";
+              const zIndex = isEven ? "z-10" : "z-0";
+              const translateY = isEven
+                ? index === 1
+                  ? "-translate-y-2"
+                  : "-translate-y-0"
+                : index === 0
+                ? "translate-y-2"
+                : "translate-y-4";
 
-            return (
-              <div
-                key={index}
-                className={`relative ${zIndex} transform ${rotation} ${translateY} transition-all duration-300 hover:scale-105 hover:z-20`}
-                style={{
-                  marginLeft: index === 0 ? "0" : "-2rem",
-                }}
-              >
+              return (
                 <div
-                  className={`absolute left-1/2 transform -translate-x-1/2 w-full text-center ${
-                    isEven
-                      ? "bottom-[-2rem] md:bottom-[-2.5rem]"
-                      : "top-[-2rem] md:top-[-2.5rem]"
-                  }`}
+                  key={index}
+                  className={`relative ${zIndex} transform ${rotation} ${translateY} transition-all duration-300 hover:scale-105 hover:z-20`}
+                  style={{
+                    marginLeft: index === 0 ? "0" : "-2rem",
+                  }}
                 >
-                  <p className="inline-block bg-transparent px-4 py-2 rounded-lg text-body4 font-semibold text-[#0861AA] whitespace-nowrap">
-                    <span className="text-body3">@ </span>
-                    {item.name}
-                  </p>
-                </div>
+                  <div
+                    className={`absolute left-1/2 transform -translate-x-1/2 w-full text-center ${
+                      isEven
+                        ? "bottom-[-2rem] md:bottom-[-2.5rem]"
+                        : "top-[-2rem] md:top-[-2.5rem]"
+                    }`}
+                  >
+                    <p className="inline-block bg-transparent px-4 py-2 rounded-lg text-body4 font-semibold text-[#0861AA] whitespace-nowrap">
+                      <span className="text-body3">@ </span>
+                      {item.name}
+                    </p>
+                  </div>
 
-                <div className="relative w-32 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-white p-2 rounded-lg shadow-lg border-4 border-white">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover rounded-sm"
-                  />
+                  <div className="relative w-32 h-40 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-white p-2 rounded-lg shadow-lg border-4 border-white">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover rounded-sm"
+                    />
 
-                  <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-gray-300 rounded-tl-sm"></div>
-                  <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-gray-300 rounded-tr-sm"></div>
-                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-gray-300 rounded-bl-sm"></div>
-                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-gray-300 rounded-br-sm"></div>
+                    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-gray-300 rounded-tl-sm"></div>
+                    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-gray-300 rounded-tr-sm"></div>
+                    <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-gray-300 rounded-bl-sm"></div>
+                    <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-gray-300 rounded-br-sm"></div>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </ContentContainer>
     </SectionContainer>
   );
