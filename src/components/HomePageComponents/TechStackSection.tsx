@@ -70,58 +70,6 @@ const TechStackSection: React.FC = () => {
     return () => clearInterval(interval);
   }, [activeTag, techTags]);
 
-  // Loading state
-  if (loading) {
-    return (
-      <SectionContainer
-        id="services"
-        fullWidth
-        padding="none"
-        className="relative min-h-screen overflow-hidden flex items-center justify-center"
-      >
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b44a2c] mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading technologies...</p>
-        </div>
-      </SectionContainer>
-    );
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <SectionContainer
-        id="services"
-        fullWidth
-        padding="none"
-        className="relative min-h-screen overflow-hidden flex items-center justify-center"
-      >
-        <div className="text-center text-red-600">
-          <p>Error loading technologies: {error}</p>
-        </div>
-      </SectionContainer>
-    );
-  }
-
-  // No data state
-  if (categories.length === 0 || technologies.length === 0) {
-    return (
-      <SectionContainer
-        id="services"
-        fullWidth
-        padding="none"
-        className="relative min-h-screen overflow-hidden flex items-center justify-center"
-      >
-        <div className="text-center text-gray-600">
-          <p>No technology data found.</p>
-          <p className="text-sm">
-            Please add categories and technologies in Sanity Studio.
-          </p>
-        </div>
-      </SectionContainer>
-    );
-  }
-
   return (
     <SectionContainer
       id="services"
@@ -152,55 +100,70 @@ const TechStackSection: React.FC = () => {
           {/* Left: Tech Grid */}
           <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center self-start md:self-center h-138 xs:h-100 md:h-full">
             <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full max-w-2xl">
-              {visibleTechs.map(({ label, img, highlighted }) => (
-                <div
-                  key={label}
-                  className={`
-                    rounded-2xl shadow-lg cursor-pointer transition-all duration-300 
-                    w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40
-                    flex flex-col items-center justify-center p-3 flex-shrink-0
-                    ${
-                      highlighted
-                        ? "bg-gradient-to-br from-[#b44a2c] to-[#882f1a] text-white shadow-2xl shadow-orange-900/30"
-                        : "bg-white text-[#143255] border-2 border-gray-100 hover:shadow-xl"
-                    }
-                  `}
-                >
-                  {img ? (
-                    <img
-                      src={img}
-                      alt={label}
-                      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain`}
-                    />
-                  ) : (
-                    <div
-                      className={`
-                        w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full 
-                        flex items-center justify-center font-montserrat font-bold 
-                        uppercase tracking-wider text-xs sm:text-sm
-                        ${
-                          highlighted
-                            ? "bg-white/20 text-white"
-                            : "bg-gray-100 text-[#143255]"
-                        }
-                      `}
-                    >
-                      {label
-                        .split(" ")
-                        .map((w) => w[0])
-                        .join("")
-                        .slice(0, 2)}
-                    </div>
-                  )}
-                  <div
-                    className={`font-sans font-bold text-center mt-2 ${
-                      highlighted ? "text-white" : "text-[#143255]"
-                    } text-xs sm:text-sm md:text-base leading-tight`}
-                  >
-                    {label}
-                  </div>
+              {loading ? (
+                <div className="flex items-center justify-center w-full text-gray-200 py-20">
+                  <p>Loading tech stack...</p>
                 </div>
-              ))}
+              ) : error ? (
+                <div className="text-center text-red-400 py-20">
+                  <p>Error loading technologies</p>
+                  <p className="text-sm mt-2">{error}</p>
+                </div>
+              ) : visibleTechs.length === 0 ? (
+                <div className="text-center text-gray-200 py-20">
+                  <p>No technologies found for this category.</p>
+                </div>
+              ) : (
+                visibleTechs.map(({ label, img, highlighted }) => (
+                  <div
+                    key={label}
+                    className={`
+                      rounded-2xl shadow-lg cursor-pointer transition-all duration-300 
+                      w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40
+                      flex flex-col items-center justify-center p-3 flex-shrink-0
+                      ${
+                        highlighted
+                          ? "bg-gradient-to-br from-[#b44a2c] to-[#882f1a] text-white shadow-2xl shadow-orange-900/30"
+                          : "bg-white text-[#143255] border-2 border-gray-100 hover:shadow-xl"
+                      }
+                    `}
+                  >
+                    {img ? (
+                      <img
+                        src={img}
+                        alt={label}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain`}
+                      />
+                    ) : (
+                      <div
+                        className={`
+                          w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full 
+                          flex items-center justify-center font-montserrat font-bold 
+                          uppercase tracking-wider text-xs sm:text-sm
+                          ${
+                            highlighted
+                              ? "bg-white/20 text-white"
+                              : "bg-gray-100 text-[#143255]"
+                          }
+                        `}
+                      >
+                        {label
+                          .split(" ")
+                          .map((w) => w[0])
+                          .join("")
+                          .slice(0, 2)}
+                      </div>
+                    )}
+                    <div
+                      className={`font-sans font-bold text-center mt-2 ${
+                        highlighted ? "text-white" : "text-[#143255]"
+                      } text-xs sm:text-sm md:text-base leading-tight`}
+                    >
+                      {label}
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
@@ -220,25 +183,41 @@ const TechStackSection: React.FC = () => {
             </p>
 
             <div className="w-full max-w-lg flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
-              {techTags.map(({ label, highlighted }) => (
-                <button
-                  key={label}
-                  onClick={() => setActiveTag(label)}
-                  className={`
-                    px-4 py-2 rounded-full font-montserrat font-semibold text-sm md:text-base 
-                    transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0
-                    ${
-                      activeTag === label
-                        ? "bg-[#232323] text-white shadow-lg border border-transparent"
-                        : highlighted
-                        ? "bg-[#b44a2c] text-white border border-transparent hover:bg-[#a43a1c]"
-                        : "text-[#161616] border border-[#161616]/35 hover:bg-[#b44a2c] hover:text-white hover:border-transparent"
-                    }
-                  `}
-                >
-                  {label}
-                </button>
-              ))}
+              {loading ? (
+                <div className="flex gap-2">
+                  {[1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className="px-4 py-2 rounded-full bg-gray-200 animate-pulse"
+                      style={{ width: "80px", height: "40px" }}
+                    ></div>
+                  ))}
+                </div>
+              ) : error ? (
+                <div className="text-red-400 text-sm">
+                  Failed to load categories
+                </div>
+              ) : (
+                techTags.map(({ label, highlighted }) => (
+                  <button
+                    key={label}
+                    onClick={() => setActiveTag(label)}
+                    className={`
+                      px-4 py-2 rounded-full font-montserrat font-semibold text-sm md:text-base 
+                      transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0
+                      ${
+                        activeTag === label
+                          ? "bg-[#232323] text-white shadow-lg border border-transparent"
+                          : highlighted
+                          ? "bg-[#b44a2c] text-white border border-transparent hover:bg-[#a43a1c]"
+                          : "text-[#161616] border border-[#161616]/35 hover:bg-[#b44a2c] hover:text-white hover:border-transparent"
+                      }
+                    `}
+                  >
+                    {label}
+                  </button>
+                ))
+              )}
             </div>
           </div>
         </div>
