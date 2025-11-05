@@ -1,31 +1,126 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/home-page/tech-stack/tech-stack-bg.png";
-import {
-  mainTechs,
-  techTags,
-  tagToTechs,
-} from "../../constants/tech-stack-section-data";
+import { useSanityTechStack } from "../../hooks/TechStack/useSanityTechStack";
 
 const TechStackSection: React.FC = () => {
-  const [activeTag, setActiveTag] = useState<string>("Web Development");
+  const { categories, technologies, loading, error } = useSanityTechStack();
+  const [activeTag, setActiveTag] = useState<string>("");
 
-  const visibleTechs = mainTechs.filter((t) =>
-    (
-      tagToTechs[activeTag] || ["ReactJS", "AngularJS", "NextJS", "VueJS"]
-    ).includes(t.label)
-  );
+  // Transform data to match your existing structure
+  const { techTags, tagToTechs, mainTechs } = useMemo(() => {
+    // Transform categories to techTags
+    const techTags = categories.map((cat) => ({
+      label: cat.name,
+      highlighted: cat.highlighted,
+    }));
+
+    // Transform technologies to mainTechs
+    const mainTechs = technologies.map((tech) => ({
+      label: tech.name,
+      img: tech.image,
+      highlighted: tech.highlighted,
+    }));
+
+    // Create tagToTechs mapping
+    const tagToTechs: Record<string, string[]> = {};
+    technologies.forEach((tech) => {
+      if (tech.category.name) {
+        if (!tagToTechs[tech.category.name]) {
+          tagToTechs[tech.category.name] = [];
+        }
+        tagToTechs[tech.category.name].push(tech.name);
+      }
+    });
+
+    return { techTags, tagToTechs, mainTechs };
+  }, [categories, technologies]);
+
+  // Set default active tag when data loads
+  useEffect(() => {
+    if (categories.length > 0 && !activeTag) {
+      // Try to find a highlighted category first, otherwise use the first one
+      const highlightedCategory = categories.find((cat) => cat.highlighted);
+      setActiveTag(
+        highlightedCategory ? highlightedCategory.name : categories[0].name
+      );
+    }
+  }, [categories, activeTag]);
+
+  // Filter technologies based on active tag
+  const visibleTechs = useMemo(() => {
+    if (!activeTag) return [];
+
+    return mainTechs.filter((t) =>
+      (tagToTechs[activeTag] || []).includes(t.label)
+    );
+  }, [mainTechs, activeTag, tagToTechs]);
 
   // Auto-rotate selected chip (only on desktop)
   useEffect(() => {
+    if (techTags.length === 0) return;
+
     const interval = setInterval(() => {
       const currentIdx = techTags.findIndex((t) => t.label === activeTag);
       const nextIdx = (currentIdx + 1) % techTags.length;
       setActiveTag(techTags[nextIdx].label);
     }, 4000);
+
     return () => clearInterval(interval);
-  }, [activeTag]);
+  }, [activeTag, techTags]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <SectionContainer
+        id="services"
+        fullWidth
+        padding="none"
+        className="relative min-h-screen overflow-hidden flex items-center justify-center"
+      >
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b44a2c] mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading technologies...</p>
+        </div>
+      </SectionContainer>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <SectionContainer
+        id="services"
+        fullWidth
+        padding="none"
+        className="relative min-h-screen overflow-hidden flex items-center justify-center"
+      >
+        <div className="text-center text-red-600">
+          <p>Error loading technologies: {error}</p>
+        </div>
+      </SectionContainer>
+    );
+  }
+
+  // No data state
+  if (categories.length === 0 || technologies.length === 0) {
+    return (
+      <SectionContainer
+        id="services"
+        fullWidth
+        padding="none"
+        className="relative min-h-screen overflow-hidden flex items-center justify-center"
+      >
+        <div className="text-center text-gray-600">
+          <p>No technology data found.</p>
+          <p className="text-sm">
+            Please add categories and technologies in Sanity Studio.
+          </p>
+        </div>
+      </SectionContainer>
+    );
+  }
 
   return (
     <SectionContainer
@@ -57,7 +152,7 @@ const TechStackSection: React.FC = () => {
           {/* Left: Tech Grid */}
           <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center self-start md:self-center h-138 xs:h-100 md:h-full">
             <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full max-w-2xl">
-              {visibleTechs.map(({ label, img, active }) => (
+              {visibleTechs.map(({ label, img, highlighted }) => (
                 <div
                   key={label}
                   className={`
@@ -65,7 +160,7 @@ const TechStackSection: React.FC = () => {
                     w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40
                     flex flex-col items-center justify-center p-3 flex-shrink-0
                     ${
-                      active
+                      highlighted
                         ? "bg-gradient-to-br from-[#b44a2c] to-[#882f1a] text-white shadow-2xl shadow-orange-900/30"
                         : "bg-white text-[#143255] border-2 border-gray-100 hover:shadow-xl"
                     }
@@ -84,7 +179,7 @@ const TechStackSection: React.FC = () => {
                         flex items-center justify-center font-montserrat font-bold 
                         uppercase tracking-wider text-xs sm:text-sm
                         ${
-                          active
+                          highlighted
                             ? "bg-white/20 text-white"
                             : "bg-gray-100 text-[#143255]"
                         }
@@ -99,7 +194,7 @@ const TechStackSection: React.FC = () => {
                   )}
                   <div
                     className={`font-sans font-bold text-center mt-2 ${
-                      active ? "text-white" : "text-[#143255]"
+                      highlighted ? "text-white" : "text-[#143255]"
                     } text-xs sm:text-sm md:text-base leading-tight`}
                   >
                     {label}
@@ -125,7 +220,7 @@ const TechStackSection: React.FC = () => {
             </p>
 
             <div className="w-full max-w-lg flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
-              {techTags.map(({ label }) => (
+              {techTags.map(({ label, highlighted }) => (
                 <button
                   key={label}
                   onClick={() => setActiveTag(label)}
@@ -135,6 +230,8 @@ const TechStackSection: React.FC = () => {
                     ${
                       activeTag === label
                         ? "bg-[#232323] text-white shadow-lg border border-transparent"
+                        : highlighted
+                        ? "bg-[#b44a2c] text-white border border-transparent hover:bg-[#a43a1c]"
                         : "text-[#161616] border border-[#161616]/35 hover:bg-[#b44a2c] hover:text-white hover:border-transparent"
                     }
                   `}
