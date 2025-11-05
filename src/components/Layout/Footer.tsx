@@ -201,7 +201,8 @@ const Footer: React.FC = () => {
                       office@codevisionaryservices.com
                     </div>
                     <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
-                      <MapPin className="w-5 h-5" /> Flat no. 402, Harendra Niwas, 71/A \n H.N. Nag Road, Jagaccha, Howrah, 711112
+                      <MapPin className="w-5 h-5" /> Flat no. 402, Harendra Niwas, 71/A 
+                      H.N. Nag Road, Jagaccha, Howrah, 711112
                     </div>
                   </div>
                 </div>
