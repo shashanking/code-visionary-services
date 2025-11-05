@@ -46,11 +46,13 @@ export default defineType({
     select: {
       title: 'name',
       subtitle: 'highlighted',
+      media: 'image',
     },
-    prepare({title, subtitle}) {
+    prepare({title, subtitle, media}) {
       return {
         title,
         subtitle: subtitle ? 'Highlighted' : 'Normal',
+        media,
       }
     },
   },

@@ -13,7 +13,7 @@ export default defineType({
     }),
 
     defineField({
-      name: 'logo',
+      name: 'image',
       title: 'Technology Logo',
       type: 'image',
       options: {hotspot: true},
@@ -49,7 +49,7 @@ export default defineType({
     select: {
       title: 'name',
       subtitle: 'category.name',
-      media: 'logo',
+      media: 'image',
     },
     prepare({title, subtitle, media}) {
       return {
