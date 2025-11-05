@@ -1,5 +1,6 @@
 import {blogTypes} from './blog'
 import {clientTypes} from './client'
+import {faqTypes} from './faq'
 import {portfolioTypes} from './portfolio'
 import {reviewTypes} from './review'
 import {serviceTypes} from './service'
@@ -14,4 +15,5 @@ export const schemaTypes = [
   ...clientTypes,
   ...teamTypes,
   ...techStackTypes,
+  ...faqTypes,
 ]
