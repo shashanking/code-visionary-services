@@ -57,7 +57,7 @@ const TechStackSection: React.FC = () => {
     );
   }, [mainTechs, activeTag, tagToTechs]);
 
-  // Auto-rotate selected chip (only on desktop)
+  // Auto-rotate selected chip
   useEffect(() => {
     if (techTags.length === 0) return;
 
@@ -69,6 +69,34 @@ const TechStackSection: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [activeTag, techTags]);
+
+  // Skeleton loader for tech grid
+  const TechGridSkeleton = () => (
+    <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full max-w-2xl">
+      {[1, 2, 3, 4, 5, 6].map((item) => (
+        <div
+          key={item}
+          className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-2xl bg-white border-2 border-gray-100 animate-pulse flex flex-col items-center justify-center p-3"
+        >
+          <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gray-200 rounded-lg mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-16"></div>
+        </div>
+      ))}
+    </div>
+  );
+
+  // Skeleton loader for category buttons
+  const CategoryButtonsSkeleton = () => (
+    <div className="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
+      {[1, 2, 3, 4].map((item) => (
+        <div
+          key={item}
+          className="px-4 py-2 rounded-full bg-gray-200 animate-pulse"
+          style={{ width: "120px", height: "40px" }}
+        ></div>
+      ))}
+    </div>
+  );
 
   return (
     <SectionContainer
@@ -100,20 +128,18 @@ const TechStackSection: React.FC = () => {
           {/* Left: Tech Grid */}
           <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center self-start md:self-center h-138 xs:h-100 md:h-full">
             <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full max-w-2xl">
-              {loading ? (
-                <div className="flex items-center justify-center w-full text-gray-200 py-20">
-                  <p>Loading tech stack...</p>
-                </div>
-              ) : error ? (
-                <div className="text-center text-red-400 py-20">
-                  <p>Error loading technologies</p>
-                  <p className="text-sm mt-2">{error}</p>
-                </div>
-              ) : visibleTechs.length === 0 ? (
+            {loading ? (
+              <TechGridSkeleton />
+            ) : error ? (
+              <div className="text-center text-red-400 py-20">
+                <p>Failed to load technologies</p>
+                <p className="text-sm mt-2">{error}</p>
+              </div>
+            ) : visibleTechs.length === 0 ? (
                 <div className="text-center text-gray-200 py-20">
-                  <p>No technologies found for this category.</p>
-                </div>
-              ) : (
+                <p>No technologies found for this category.</p>
+              </div>
+            ) : (
                 visibleTechs.map(({ label, img, highlighted }) => (
                   <div
                     key={label}
@@ -163,7 +189,7 @@ const TechStackSection: React.FC = () => {
                     </div>
                   </div>
                 ))
-              )}
+            )}
             </div>
           </div>
 
@@ -184,15 +210,7 @@ const TechStackSection: React.FC = () => {
 
             <div className="w-full max-w-lg flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
               {loading ? (
-                <div className="flex gap-2">
-                  {[1, 2, 3].map((i) => (
-                    <div
-                      key={i}
-                      className="px-4 py-2 rounded-full bg-gray-200 animate-pulse"
-                      style={{ width: "80px", height: "40px" }}
-                    ></div>
-                  ))}
-                </div>
+                <CategoryButtonsSkeleton />
               ) : error ? (
                 <div className="text-red-400 text-sm">
                   Failed to load categories
