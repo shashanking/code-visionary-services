@@ -22,6 +22,7 @@ export interface SanityTechnology {
     alt?: string;
   };
   active: boolean;
+  highlighted: boolean;
   category: {
     _id: string;
     name: string;
@@ -44,6 +45,7 @@ export interface Technology {
   image: string;
   imageAlt?: string;
   active: boolean;
+  highlighted: boolean;
   category: {
     id: string;
     name: string;

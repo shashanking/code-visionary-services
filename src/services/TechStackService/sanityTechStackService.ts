@@ -33,6 +33,7 @@ export class SanityTechStackService {
           alt
         },
         active,
+        highlighted,
         category->{
           _id,
           name,
@@ -137,6 +138,7 @@ export class SanityTechStackService {
       image: data.image.asset.url,
       imageAlt: data.image.alt,
       active: data.active,
+      highlighted: data.highlighted,
       category: {
         id: data.category._id,
         name: data.category.name,
