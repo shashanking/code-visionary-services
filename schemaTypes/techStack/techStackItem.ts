@@ -34,6 +34,16 @@ export default defineType({
       type: 'boolean',
       initialValue: false,
       validation: (Rule) => Rule.required(),
+      description: 'Active = true, only then the technology will be visible in the UI',
+    }),
+
+    defineField({
+      name: 'highlighted',
+      title: 'Highlighted Category',
+      type: 'boolean',
+      initialValue: false,
+      description:
+        'Show this technology with special highlighting (e.g., different background color)',
     }),
 
     defineField({
@@ -50,11 +60,13 @@ export default defineType({
       title: 'name',
       subtitle: 'category.name',
       media: 'image',
+      active: 'active',
+      highlighted: 'highlighted',
     },
-    prepare({title, subtitle, media}) {
+    prepare({title, subtitle, media, active, highlighted}) {
       return {
         title,
-        subtitle: subtitle ? `Category: ${subtitle}` : 'Uncategorized',
+        subtitle: `${subtitle ? `Category: ${subtitle}` : 'Uncategorized'} ${active ? '• Active' : ''} ${highlighted ? '• Highlighted' : ''}`,
         media,
       }
     },

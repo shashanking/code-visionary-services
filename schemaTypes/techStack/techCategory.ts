@@ -32,6 +32,8 @@ export default defineType({
       title: 'Highlighted Category',
       type: 'boolean',
       initialValue: false,
+      description:
+        'Show this technology with special highlighting (e.g., different background color)',
     }),
 
     defineField({
