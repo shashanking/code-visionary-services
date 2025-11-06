@@ -144,7 +144,7 @@ const ChallengeSection: React.FC = () => {
                         {/* Glossy Overlay Effect */}
                         <div className="absolute inset-0 rounded-4xl bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none" />
 
-                        <div className="w-[100px] h-[100px] rounded-lg overflow-hidden mb-6 relative z-10">
+                        <div className="w-[100px] h-[100px] rounded-lg overflow-hidden m-4 mb-6 relative z-10">
                           <img
                             src={challenge.image}
                             alt={challenge.title}
@@ -190,7 +190,7 @@ const ChallengeSection: React.FC = () => {
             {services.map((service, index) => (
               <span
                 key={index}
-                className="px-6 py-3 bg-[#161616] text-white rounded-full text-sm font-semibold uppercase tracking-wide"
+                className="px-8 py-2.5 bg-[#161616] text-white rounded-full text-sm tracking-wide"
               >
                 {service}
               </span>
