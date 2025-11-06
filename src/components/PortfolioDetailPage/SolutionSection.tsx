@@ -110,10 +110,10 @@ const SolutionSection: React.FC = () => {
                           background: isHovered
                             ? "linear-gradient(270deg, #B5442C 0%, #4F1E13 100%)"
                             : "transparent",
-                          border: "1px solid #B5442C",
                           borderImageSource:
                             "linear-gradient(91.08deg, #B5442C 0.34%, #FF9C87 99.62%)",
                           boxShadow: "0px 0px 8px 0px #B5442C80",
+                          border: "1px solid #B5442C",
                         }}
                       >
                         <div
@@ -122,7 +122,7 @@ const SolutionSection: React.FC = () => {
                           ${
                             isHovered
                               ? "transform -translate-y-2 text-white"
-                              : "text-[#161616]"
+                              : "text-transparent bg-clip-text bg-gradient-to-r from-[#4F1E13] via-[#B5442C] to-[#B5442C]"
                           }
                         `}
                         >
