@@ -117,9 +117,26 @@ const SolutionSection: React.FC = () => {
                 {leftApproaches.map((approach, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-3xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                    className={`
+                      rounded-3xl p-4 backdrop-blur-sm border border-transparent relative overflow-hidden
+                      shadow-[0px_8px_13px_0px_#00000040,-1px_-3px_4px_0px_#FFFFFF66_inset,4px_5px_6px_0px_#FFFFFF66_inset]
+                      before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:border before:border-transparent
+                      before:bg-gradient-to-br before:from-[rgba(255,255,255,0.05)] before:via-[#FFFFFF] before:to-[rgba(255,255,255,0.05)]
+                      before:bg-gradient-225deg before:-z-10
+                    `}
+                    style={{
+                      background: `
+                        linear-gradient(0deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+                        linear-gradient(156.04deg, rgba(111, 184, 244, 0.2) 0%, rgba(255, 255, 255, 0) 100%)
+                      `,
+                      borderImageSource:
+                        "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
+                      borderImageSlice: 0,
+                    }}
                   >
-                    <div className="text-left mb-4">
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#6FB8F4]/10 to-transparent opacity-30 pointer-events-none" />
+
+                    <div className="text-left mb-4 relative z-10">
                       <h3 className="font-sans font-semibold text-body w-[200px] mb-2 text-[#161616] leading-tight">
                         {approach.title}
                       </h3>
@@ -130,11 +147,11 @@ const SolutionSection: React.FC = () => {
                       )}
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 relative z-10">
                       {approach.levels.map((level, levelIndex) => (
                         <div key={levelIndex} className="">
                           <p className="font-sans text-body4 mb-2 text-gray-900">
-                            <span className="font-semibold ">
+                            <span className="font-semibold">
                               {level.title}:
                             </span>{" "}
                             {level.description}
@@ -150,9 +167,26 @@ const SolutionSection: React.FC = () => {
                 {rightApproaches.map((approach, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-3xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                    className={`
+                      rounded-3xl p-4 backdrop-blur-sm border border-transparent relative overflow-hidden
+                      shadow-[0px_8px_13px_0px_#00000040,-1px_-3px_4px_0px_#FFFFFF66_inset,4px_5px_6px_0px_#FFFFFF66_inset]
+                      before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:border before:border-transparent
+                      before:bg-gradient-to-br before:from-[rgba(255,255,255,0.05)] before:via-[#FFFFFF] before:to-[rgba(255,255,255,0.05)]
+                      before:bg-gradient-225deg before:-z-10
+                    `}
+                    style={{
+                      background: `
+                        linear-gradient(0deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+                        linear-gradient(156.04deg, rgba(255, 160, 141, 0.2) 0%, rgba(255, 255, 255, 0) 100%)
+                      `,
+                      borderImageSource:
+                        "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
+                      borderImageSlice: 0,
+                    }}
                   >
-                    <div className="text-left mb-4">
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#FFA08D]/10 to-transparent opacity-30 pointer-events-none" />
+
+                    <div className="text-left mb-4 relative z-10">
                       <h3 className="font-sans font-semibold text-body w-[200px] mb-4 text-[#161616] leading-tight">
                         {approach.title}
                       </h3>
@@ -163,7 +197,7 @@ const SolutionSection: React.FC = () => {
                       )}
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 relative z-10">
                       {approach.levels.map((level, levelIndex) => (
                         <div key={levelIndex} className="">
                           <h4 className="font-sans font-semibold text-body3 mb-4 text-gray-900">
