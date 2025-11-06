@@ -4,7 +4,7 @@ import ContentContainer from "../shared/ContentContainer";
 import reviewBg from "../../assets/review-page/home-page-review-bg.png";
 import leftArrow from "../../assets/review-page/review-left-arrow.png";
 import rightArrow from "../../assets/review-page/review-right-arrow.png";
-import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
+import { useSanityTopRatedLatestReviews } from "../../hooks/Reviews/useSanityReviews";
 
 const ReviewSection: React.FC = () => {
   const rowRef = useRef<HTMLDivElement>(null);
@@ -16,7 +16,7 @@ const ReviewSection: React.FC = () => {
 
   const scrollByAmount = 360;
 
-  const { reviewItems, loading, error } = useSanityReviewItems();
+  const { reviewItems, loading, error } = useSanityTopRatedLatestReviews(8, 4);
 
   const updateScrollButtons = () => {
     if (!rowRef.current) return;
