@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { FAQItem } from "../../types/faq-data";
-import { sanityFAQService } from "../../services/FaqService/sanityFaqService";
+import { sanityFAQService } from "../../services/FaqService/sanityFAQService";
 
 export const useSanityFAQs = () => {
   const [faqs, setFaqs] = useState<FAQItem[]>([]);
