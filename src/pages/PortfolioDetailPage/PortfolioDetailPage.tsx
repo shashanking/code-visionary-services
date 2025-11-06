@@ -4,6 +4,7 @@ import ChallengeSection from "../../components/PortfolioDetailPage/ChallengeSect
 import SolutionSection from "../../components/PortfolioDetailPage/SolutionSection";
 import SummarySection from "../../components/PortfolioDetailPage/SummarySection";
 import ResultSection from "../../components/PortfolioDetailPage/ResultSection";
+import CTASection from "../../components/PortfolioDetailPage/CTASection";
 
 const PortfolioDetailPage = React.memo(() => {
   return (
@@ -13,6 +14,7 @@ const PortfolioDetailPage = React.memo(() => {
       <SolutionSection />
       <SummarySection />
       <ResultSection />
+      <CTASection />
     </div>
   );
 });
