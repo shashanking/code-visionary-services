@@ -75,7 +75,7 @@ export default defineType({
       type: 'number',
       title: 'Rating',
       description: 'Rating from 1 to 5',
-      validation: (Rule) => Rule.min(1).max(5),
+      validation: (Rule) => Rule.required().min(1).max(5),
       options: {
         list: [
           {title: '1 Star', value: 1},
