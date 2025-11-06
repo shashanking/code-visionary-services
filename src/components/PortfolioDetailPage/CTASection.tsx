@@ -28,16 +28,17 @@ const CTASection: React.FC = () => {
 
         {/* Left side design element */}
         <div
-          className="absolute z-30 left-0 w-20 h-auto bg-cover bg-no-repeat bg-bottom opacity-90"
+          className="absolute z-30 left-0 top-1/2 -translate-y-1/2 w-[50vh] md:h-[50vh] bg-cover bg-no-repeat bg-center opacity-90"
           style={{ backgroundImage: `url(${CtaSectionElement})` }}
         />
 
         {/* Right side design element */}
         <div
-          className="absolute z-30 right-0 w-20 h-auto bg-cover bg-no-repeat bg-bottom opacity-90"
+          className="absolute z-30 right-0 top-1/2 -translate-y-1/2 w-[50vh] md:h-[50vh] bg-cover bg-no-repeat bg-center opacity-90"
           style={{ backgroundImage: `url(${CtaSectionElement})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/60 via-[#000000]/20 to-[#F0F0F0/0 z-0 pointer-events-none" />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/60 via-[#000000]/20 to-[#F0F0F0]/0 z-0 pointer-events-none" />
       </div>
 
       <ContentContainer
@@ -51,7 +52,7 @@ const CTASection: React.FC = () => {
           </h1>
 
           <p className="font-sans text-body2 max-w-md text-center text-white leading-[1.5] mb-4">
-            Let’s collaborate to build something extraordinary. Get in touch
+            Let's collaborate to build something extraordinary. Get in touch
             with Code Visionary Services today and start your digital
             transformation journey.
           </p>
