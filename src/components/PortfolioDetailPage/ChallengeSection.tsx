@@ -127,9 +127,24 @@ const ChallengeSection: React.FC = () => {
                     return (
                       <div
                         key={index}
-                        className={`relative flex flex-col justify-start items-center w-full h-full p-4 rounded-4xl bg-white/30 backdrop-blur-sm overflow-hidden`}
+                        className={`
+                          relative flex flex-col justify-start items-center w-full h-full p-4 rounded-4xl overflow-hidden
+                          backdrop-blur-sm border border-transparent bg-[#FFFFFF]/10
+                          shadow-[0px_8px_13px_0px_#00000040,-1px_-3px_4px_0px_#FFFFFF66_inset,4px_5px_6px_0px_#FFFFFF66_inset]
+                          before:content-[''] before:absolute before:inset-0 before:rounded-4xl
+                          before:border before:border-transparent before:bg-gradient-to-br before:from-[rgba(255,255,255,0.05)] before:via-[#FFFFFF]/10 before:to-[rgba(255,255,255,0.05)]
+                          before:bg-gradient-225deg before:-z-10
+                        `}
+                        style={{
+                          borderImageSource:
+                            "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
+                          borderImageSlice: 0,
+                        }}
                       >
-                        <div className="w-[100px] h-[100px] rounded-lg overflow-hidden mb-6">
+                        {/* Glossy Overlay Effect */}
+                        <div className="absolute inset-0 rounded-4xl bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none" />
+
+                        <div className="w-[100px] h-[100px] rounded-lg overflow-hidden mb-6 relative z-10">
                           <img
                             src={challenge.image}
                             alt={challenge.title}
@@ -140,9 +155,9 @@ const ChallengeSection: React.FC = () => {
 
                         {/* Text Content */}
                         <div
-                          className={`relative flex flex-col justify-between text-center transition-opacity duration-300 text-[#161616]`}
+                          className={`relative flex flex-col justify-between text-center transition-opacity duration-300 text-[#161616] z-10`}
                         >
-                          <h3 className="text-body text-[#161616] font-sans font-semibold mb-3 text-center">
+                          <h3 className="text-title-sm text-[#161616] font-sans font-[650] mb-3 text-center leading-tight max-w-[300px] mx-auto">
                             {challenge.title}
                           </h3>
 
