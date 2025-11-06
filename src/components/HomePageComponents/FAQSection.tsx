@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import faqBg from "../../assets/home-page/home-faq-bg.png";
-import { useSanityFAQs } from "../../hooks/FAQs/useSanityFaqs";
+import { useSanityFAQs } from "../../hooks/FAQs/useSanityFAQs";
 
 const FAQSection: React.FC = () => {
   const { faqs, loading, error } = useSanityFAQs();
