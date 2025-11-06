@@ -139,6 +139,7 @@ const ChallengeSection: React.FC = () => {
                           borderImageSource:
                             "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
                           borderImageSlice: 0,
+                          border: "1px solid #ffffff",
                         }}
                       >
                         {/* Glossy Overlay Effect */}
