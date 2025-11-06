@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/portfolio-page/home-portfolio-bg.png";
-import { useSanityPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
+import { useSanityLatestPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
 import { useNavigate } from "react-router-dom";
 import { categories, type PortfolioItem } from "../../types/portfolio-data";
 
@@ -69,7 +69,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
         <p
           className={`text-white font-sans transition-all duration-350 ease-in-out ${
             isHovered && item.description
-              ? "opacity-95 max-h-32 mt-2"
+              ? "opacity-95 max-h-32 mt-2 line-clamp-3"
               : "opacity-0 max-h-0"
           } text-body2 leading-relaxed`}
         >
@@ -126,7 +126,7 @@ const PortfolioSection: React.FC = () => {
   };
 
   // Using Sanity hook to fetch portfolios
-  const { portfolios, loading, error } = useSanityPortfolios();
+  const { portfolios, loading, error } = useSanityLatestPortfolios(6);
 
   const visibleItems =
     activeCat === "all"
