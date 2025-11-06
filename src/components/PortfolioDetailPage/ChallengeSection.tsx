@@ -54,7 +54,7 @@ const ChallengeSection: React.FC = () => {
       id="review-card"
       fullWidth
       padding="lg"
-      background="#e3e3e3"
+      background="#f0f0f0"
       className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center gap-10"
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
