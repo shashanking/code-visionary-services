@@ -1,10 +1,10 @@
 import React from "react";
-import HeroPortfolioDetailPage from "../../components/PortfolioDetailPage/HeroPortfolioDetailPage";
+import HeroPortfolioDetailsPage from "../../components/PortfolioDetailPage/HeroPortfolioDetailsPage";
 
 const PortfolioDetailPage = React.memo(() => {
   return (
     <div>
-      <HeroPortfolioDetailPage />
+      <HeroPortfolioDetailsPage />
     </div>
   );
 });
