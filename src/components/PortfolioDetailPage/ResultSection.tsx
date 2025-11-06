@@ -4,7 +4,7 @@ import ContentContainer from "../shared/ContentContainer";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSanityPortfolioBySlug } from "../../hooks/Portfolios/useSanityPortfolios";
 
-const SummarySection: React.FC = () => {
+const ResultSection: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ const SummarySection: React.FC = () => {
     );
   }
 
-  const { summary } = portfolio;
+  const { results } = portfolio;
 
   return (
     <SectionContainer
@@ -62,27 +62,31 @@ const SummarySection: React.FC = () => {
         className="relative z-10 py-10 flex flex-col justify-between items-start"
       >
         <div className="relative w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-center items-center gap-10">
-          {/* Left Side */}
-          <div className="w-full md:w-1/2 flex flex-col">
-            <div className="w-auto h-[300px] sm:h-[500px] rounded-lg overflow-hidden relative z-10">
-              <img
-                src={summary.image}
-                alt={summary.title}
-                className="w-full h-full object-contain transition-all duration-400 ease-out"
-                loading="lazy"
-              />
-            </div>
-          </div>
+          {results.title && (
+            <h2 className="font-heading font-bold text-title-lg text-left uppercase text-[#161616] leading-[1.1] mb-6">
+              {results.title}
+            </h2>
+          )}
 
-          {/* Right Side */}
-          <div className="relative flex flex-col w-full md:w-1/2">
-            <h1 className="font-heading font-bold text-title-lg text-left uppercase text-[#161616] leading-[1.1] mb-6">
-              {summary.title}
-            </h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {results.metrics.map((metric, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-4xl p-6 text-center border border-gray-200 hover:shadow-xl transition-all duration-500 hover:scale-105 group"
+              >
+                <h3 className="text-title-sm font-semibold mb-4 text-gray-900">
+                  {metric.title}
+                </h3>
 
-            <p className="font-sans text-body text-left text-[#161616] leading-[1.5]">
-              {summary.description}
-            </p>
+                <div className="text-title-lg font-[700] text-[#161616] mb-4">
+                  {metric.percentage}
+                </div>
+
+                <p className="text-body4 text-[#161616] leading-[1.5]">
+                  {metric.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </ContentContainer>
@@ -90,4 +94,4 @@ const SummarySection: React.FC = () => {
   );
 };
 
-export default SummarySection;
+export default ResultSection;

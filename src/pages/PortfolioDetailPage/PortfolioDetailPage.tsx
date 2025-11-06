@@ -3,6 +3,7 @@ import HeroPortfolioDetailsPage from "../../components/PortfolioDetailPage/HeroS
 import ChallengeSection from "../../components/PortfolioDetailPage/ChallengeSection";
 import SolutionSection from "../../components/PortfolioDetailPage/SolutionSection";
 import SummarySection from "../../components/PortfolioDetailPage/SummarySection";
+import ResultSection from "../../components/PortfolioDetailPage/ResultSection";
 
 const PortfolioDetailPage = React.memo(() => {
   return (
@@ -11,6 +12,7 @@ const PortfolioDetailPage = React.memo(() => {
       <ChallengeSection />
       <SolutionSection />
       <SummarySection />
+      <ResultSection />
     </div>
   );
 });
