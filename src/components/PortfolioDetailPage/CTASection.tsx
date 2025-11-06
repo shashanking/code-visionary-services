@@ -28,17 +28,25 @@ const CTASection: React.FC = () => {
 
         {/* Left side design element */}
         <div
-          className="absolute z-30 left-0 top-1/2 -translate-y-1/2 w-[50vh] md:h-[50vh] bg-cover bg-no-repeat bg-center opacity-90"
-          style={{ backgroundImage: `url(${CtaSectionElement})` }}
+          className="absolute z-30 left-0 top-1/2 -translate-y-1/2 w-[40vh] h-[40vh] bg-cover bg-no-repeat bg-center opacity-40"
+          style={{
+            backgroundImage: `url(${CtaSectionElement})`,
+            clipPath: "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)",
+            transform: "translateX(-52%)",
+          }}
         />
 
         {/* Right side design element */}
         <div
-          className="absolute z-30 right-0 top-1/2 -translate-y-1/2 w-[50vh] md:h-[50vh] bg-cover bg-no-repeat bg-center opacity-90"
-          style={{ backgroundImage: `url(${CtaSectionElement})` }}
+          className="absolute z-30 right-0 top-1/2 -translate-y-1/2 w-[40vh] h-[40vh] bg-cover bg-no-repeat bg-center opacity-40"
+          style={{
+            backgroundImage: `url(${CtaSectionElement})`,
+            clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
+            transform: "translateX(50%)",
+          }}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/60 via-[#000000]/20 to-[#F0F0F0]/0 z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/70 via-[#000000]/20 to-[#F0F0F0]/0 z-0 pointer-events-none" />
       </div>
 
       <ContentContainer
@@ -47,7 +55,7 @@ const CTASection: React.FC = () => {
         className="relative z-10 py-10 flex flex-col justify-between items-start"
       >
         <div className="relative w-full max-w-2xl mx-auto flex flex-col justify-center items-center">
-          <h1 className="font-heading max-w-xl text-center font-bold text-title-lg text-left uppercase text-white leading-[1.1] mb-6">
+          <h1 className="font-heading max-w-xl text-center font-bold text-title-lg uppercase text-white leading-[1.1] mb-6">
             Ready to Bring Your Vision to Life?
           </h1>
 
