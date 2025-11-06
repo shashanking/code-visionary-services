@@ -70,7 +70,7 @@ const SolutionSection: React.FC = () => {
         paddingX="lg"
         className="relative z-10 py-10 flex flex-col lg:flex-row justify-between items-start"
       >
-        <div className="relative w-full max-w-2xl mx-auto flex flex-row justify-start items-center gap-10">
+        <div className="relative w-full max-w-2xl mx-auto flex flex-col lg:flex-row justify-start items-center gap-10">
           <div className="w-full lg:w-1/2 flex flex-col justify-start items-start">
             <div className="flex flex-col w-full justify-start items-start mb-10">
               <h1 className="font-heading font-bold text-title-lg text-left uppercase text-[#161616] leading-[1.1] mb-6">
@@ -112,123 +112,128 @@ const SolutionSection: React.FC = () => {
           </div>
 
           <div className="w-full lg:w-1/2">
-            <div className="relative flex gap-4">
-              <div className="flex-1 space-y-6">
-                {leftApproaches.map((approach, index) => (
-                  <div
-                    key={index}
-                    className={`
-                      rounded-3xl p-4 backdrop-blur-sm border border-transparent relative overflow-hidden
-                      shadow-[0px_8px_13px_0px_#00000040,-1px_-3px_4px_0px_#FFFFFF66_inset,4px_5px_6px_0px_#FFFFFF66_inset]
-                      before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:border before:border-transparent
-                      before:bg-gradient-to-br before:from-[rgba(255,255,255,0.05)] before:via-[#FFFFFF] before:to-[rgba(255,255,255,0.05)]
-                      before:bg-gradient-225deg before:-z-10
-                    `}
-                    style={{
-                      background: `
-                        linear-gradient(0deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
-                        linear-gradient(156.04deg, rgba(111, 184, 244, 0.2) 0%, rgba(255, 255, 255, 0) 100%)
-                      `,
-                      borderImageSource:
-                        "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
-                      borderImageSlice: 0,
-                    }}
-                  >
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#6FB8F4]/10 to-transparent opacity-30 pointer-events-none" />
+            <div className="relative flex flex-col sm:flex-row gap-4 min-h-[600px] sm:min-h-[700px]">
+              <div className="flex-1">
+                <div className="space-y-6">
+                  {leftApproaches.map((approach, index) => (
+                    <div
+                      key={index}
+                      className={`
+                        rounded-3xl p-4 backdrop-blur-sm border border-transparent relative overflow-hidden
+                        shadow-[0px_8px_13px_0px_#00000040,-1px_-3px_4px_0px_#FFFFFF66_inset,4px_5px_6px_0px_#FFFFFF66_inset]
+                        before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:border before:border-transparent
+                        before:bg-gradient-to-br before:from-[rgba(255,255,255,0.05)] before:via-[#FFFFFF]/0 before:to-[rgba(255,255,255,0.05)]
+                        before:bg-gradient-225deg before:-z-10
+                      `}
+                      style={{
+                        background: `
+                          linear-gradient(0deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+                          linear-gradient(156.04deg, rgba(111, 184, 244, 0.2) 0%, rgba(255, 255, 255, 0) 100%)
+                        `,
+                        borderImageSource:
+                          "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
+                        borderImageSlice: 0,
+                      }}
+                    >
+                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#6FB8F4]/10 to-transparent opacity-30 pointer-events-none" />
 
-                    <div className="text-left mb-4 relative z-10">
-                      <h3 className="font-sans font-semibold text-body w-[200px] mb-2 text-[#161616] leading-tight">
-                        {approach.title}
-                      </h3>
-                      {approach.subtitle && (
-                        <p className="font-sans text-body3 text-[#161616]">
-                          {approach.subtitle}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-4 relative z-10">
-                      {approach.levels.map((level, levelIndex) => (
-                        <div key={levelIndex} className="">
-                          <p className="font-sans text-body4 mb-2 text-gray-900">
-                            <span className="font-semibold">
-                              {level.title}:
-                            </span>{" "}
-                            {level.description}
+                      <div className="text-left mb-4 relative z-10">
+                        <h3 className="font-sans font-semibold text-body w-[200px] mb-2 text-[#161616] leading-tight">
+                          {approach.title}
+                        </h3>
+                        {approach.subtitle && (
+                          <p className="font-sans text-body3 text-[#161616]">
+                            {approach.subtitle}
                           </p>
-                        </div>
-                      ))}
+                        )}
+                      </div>
+
+                      <div className="space-y-4 relative z-10">
+                        {approach.levels.map((level, levelIndex) => (
+                          <div key={levelIndex} className="">
+                            <p className="font-sans text-body4 mb-2 text-gray-900">
+                              <span className="font-semibold">
+                                {level.title}:
+                              </span>{" "}
+                              {level.description}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
-              <div className="flex-1 flex flex-col justify-end space-y-6">
-                {rightApproaches.map((approach, index) => (
-                  <div
-                    key={index}
-                    className={`
-                      rounded-3xl p-4 backdrop-blur-sm border border-transparent relative overflow-hidden
-                      shadow-[0px_8px_13px_0px_#00000040,-1px_-3px_4px_0px_#FFFFFF66_inset,4px_5px_6px_0px_#FFFFFF66_inset]
-                      before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:border before:border-transparent
-                      before:bg-gradient-to-br before:from-[rgba(255,255,255,0.05)] before:via-[#FFFFFF] before:to-[rgba(255,255,255,0.05)]
-                      before:bg-gradient-225deg before:-z-10
-                    `}
-                    style={{
-                      background: `
-                        linear-gradient(0deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
-                        linear-gradient(156.04deg, rgba(255, 160, 141, 0.2) 0%, rgba(255, 255, 255, 0) 100%)
-                      `,
-                      borderImageSource:
-                        "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
-                      borderImageSlice: 0,
-                    }}
-                  >
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#FFA08D]/10 to-transparent opacity-30 pointer-events-none" />
+              <div className="flex-1 flex flex-col">
+                <div className="flex-1"></div>
+                <div className="space-y-6">
+                  {rightApproaches.map((approach, index) => (
+                    <div
+                      key={index}
+                      className={`
+                        rounded-3xl p-4 backdrop-blur-sm border border-transparent relative overflow-hidden
+                        shadow-[0px_8px_13px_0px_#00000040,-1px_-3px_4px_0px_#FFFFFF66_inset,4px_5px_6px_0px_#FFFFFF66_inset]
+                        before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:border before:border-transparent
+                        before:bg-gradient-to-br before:from-[rgba(255,255,255,0.05)] before:via-[#FFFFFF]/0 before:to-[rgba(255,255,255,0.05)]
+                        before:bg-gradient-225deg before:-z-10
+                      `}
+                      style={{
+                        background: `
+                          linear-gradient(0deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+                          linear-gradient(156.04deg, rgba(255, 160, 141, 0.2) 0%, rgba(255, 255, 255, 0) 100%)
+                        `,
+                        borderImageSource:
+                          "linear-gradient(225deg, rgba(255, 255, 255, 0.05) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.05) 100%)",
+                        borderImageSlice: 0,
+                      }}
+                    >
+                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#FFA08D]/10 to-transparent opacity-30 pointer-events-none" />
 
-                    <div className="text-left mb-4 relative z-10">
-                      <h3 className="font-sans font-semibold text-body w-[200px] mb-4 text-[#161616] leading-tight">
-                        {approach.title}
-                      </h3>
-                      {approach.subtitle && (
-                        <p className="font-sans text-body3 text-[#161616]">
-                          {approach.subtitle}
-                        </p>
-                      )}
-                    </div>
+                      <div className="text-left mb-4 relative z-10">
+                        <h3 className="font-sans font-semibold text-body w-[200px] mb-4 text-[#161616] leading-tight">
+                          {approach.title}
+                        </h3>
+                        {approach.subtitle && (
+                          <p className="font-sans text-body3 text-[#161616]">
+                            {approach.subtitle}
+                          </p>
+                        )}
+                      </div>
 
-                    <div className="space-y-4 relative z-10">
-                      {approach.levels.map((level, levelIndex) => (
-                        <div key={levelIndex} className="">
-                          <h4 className="font-sans font-semibold text-body3 mb-4 text-gray-900">
-                            {level.title}
-                          </h4>
-                          <div className="text-gray-700">
-                            {Array.isArray(level.description) ? (
-                              <ul className="space-y-1 pl-4">
-                                {level.description.map((item, idx) => (
-                                  <li
-                                    key={idx}
-                                    className="flex items-start gap-2"
-                                  >
-                                    <span className="w-1 h-1 bg-[#161616] rounded-full mt-2 flex-shrink-0" />
-                                    <span className="font-sans text-body3">
-                                      {item}
-                                    </span>
-                                  </li>
-                                ))}
-                              </ul>
-                            ) : (
-                              <p className="font-sans text-body3 leading-relaxed">
-                                {level.description}
-                              </p>
-                            )}
+                      <div className="space-y-4 relative z-10">
+                        {approach.levels.map((level, levelIndex) => (
+                          <div key={levelIndex} className="">
+                            <h4 className="font-sans font-semibold text-body3 mb-4 text-gray-900">
+                              {level.title}
+                            </h4>
+                            <div className="text-gray-700">
+                              {Array.isArray(level.description) ? (
+                                <ul className="space-y-1 pl-4">
+                                  {level.description.map((item, idx) => (
+                                    <li
+                                      key={idx}
+                                      className="flex items-start gap-2"
+                                    >
+                                      <span className="w-1 h-1 bg-[#161616] rounded-full mt-2 flex-shrink-0" />
+                                      <span className="font-sans text-body3">
+                                        {item}
+                                      </span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p className="font-sans text-body3 leading-relaxed">
+                                  {level.description}
+                                </p>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
