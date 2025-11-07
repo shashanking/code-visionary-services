@@ -78,3 +78,34 @@ export const useSanityHighRatedReviewItems = (minRating: number = 4) => {
 
   return { reviewItems, loading, error };
 };
+
+export const useSanityTopRatedLatestReviews = (
+  limit: number = 8,
+  minRating: number = 4
+) => {
+  const [reviewItems, setReviewItems] = useState<ReviewItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTopRatedLatestReviews = async () => {
+      try {
+        setLoading(true);
+        const data = await sanityReviewService.getTopRatedLatestReviews(
+          limit,
+          minRating
+        );
+        setReviewItems(data);
+      } catch (err) {
+        setError("Failed to fetch top-rated latest reviews");
+        console.error("Sanity error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTopRatedLatestReviews();
+  }, [limit, minRating]);
+
+  return { reviewItems, loading, error };
+};

@@ -86,6 +86,41 @@ export class SanityReviewService {
     }));
   }
 
+  // Get top-rated latest reviews (high rating + recent)
+  async getTopRatedLatestReviews(
+    limit: number = 8,
+    minRating: number = 4
+  ): Promise<ReviewItem[]> {
+    const query = `*[_type == "reviewItem" && rating >= $minRating] | order(date desc, rating desc)[0...$limit] {
+      _id,
+      reviewId,
+      reviewer,
+      clientType,
+      date,
+      "image": image.asset->url,
+      description,
+      video,
+      rating
+    }`;
+
+    const data = await client.fetch<SanityReviewItem[]>(query, {
+      minRating,
+      limit,
+    });
+
+    return data.map((item) => ({
+      id: item._id,
+      reviewId: item.reviewId,
+      reviewer: item.reviewer,
+      clientType: item.clientType,
+      description: item.description,
+      image: item.image,
+      video: item.video?.asset?.url,
+      date: this.formatDate(item.date),
+      rating: item.rating,
+    }));
+  }
+
   private formatDate(dateString: string): string {
     try {
       const date = new Date(dateString);

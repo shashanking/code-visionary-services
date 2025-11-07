@@ -75,7 +75,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
         <p
           className={`text-white text-left font-sans transition-all duration-350 ease-in-out ${
             isHovered && item.description
-              ? "opacity-95 max-h-32 mt-2"
+              ? "opacity-95 max-h-32 mt-2 line-clamp-3"
               : "opacity-0 max-h-0"
           } text-body2 leading-relaxed`}
         >
