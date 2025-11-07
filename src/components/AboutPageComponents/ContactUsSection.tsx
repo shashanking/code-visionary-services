@@ -61,7 +61,7 @@ const ContactUsSection: React.FC = () => {
 
               <p className="font-sans text-body2 text-white mb-6 md:mb-10 leading-relaxed max-w-sm">
                 Whether you’re starting a new project or looking to enhance your
-                current digital strategy, Code Visionary Studios is here to
+                current digital strategy, Code Visionary Services is here to
                 assist you. Reach out to us today to learn more about our
                 services and how we can help your business succeed.
               </p>

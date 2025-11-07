@@ -133,7 +133,7 @@ const HeroBlogPage: React.FC = () => {
             Stay ahead in the digital world with our expert insights, industry
             trends, and creative inspiration. Explore our blog for valuable
             tips, thought leadership, and the latest innovations from Code
-            Visionary Studios.
+            Visionary Services.
           </p>
         </div>
       </ContentContainer>

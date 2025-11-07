@@ -44,7 +44,7 @@ const AboutSection: React.FC = () => {
             </h1>
 
             <p className="font-sans font-normal text-body1 text-gray-800 leading-[1.5] mb-10 max-w-xl mx-auto md:mx-0 text-center md:text-left">
-              At Code Visionary Studios, we design and build reliable digital
+              At Code Visionary Services, we design and build reliable digital
               products that move businesses forward. Our team blends strategy,
               clean design, and modern engineering to deliver fast, accessible
               websites and applications.

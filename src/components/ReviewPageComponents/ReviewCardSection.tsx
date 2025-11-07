@@ -123,7 +123,7 @@ const ReviewCardSection: React.FC = () => {
           </h1>
 
           <p className="font-sans font-normal text-body1 text-[#161616] max-w-lg mx-auto leading-[1.5]">
-            Discover how Code Visionary Studios has made a difference for our
+            Discover how Code Visionary Services has made a difference for our
             clients. Our testimonials showcase the positive impact of our web
             design, app development, branding, and digital marketing services.
           </p>
