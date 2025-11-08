@@ -195,11 +195,7 @@ const ReviewCardSection: React.FC = () => {
                               videoRefs.current[index] = el;
                             }}
                             src={item.video}
-                            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
-                              isHovered || isPlaying
-                                ? "opacity-100"
-                                : "opacity-0 pointer-events-none"
-                            }`}
+                            className={`absolute inset-0 w-full h-full object-contain`}
                             loop
                             playsInline
                           />
