@@ -200,7 +200,6 @@ const ReviewCardSection: React.FC = () => {
                                 ? "opacity-100"
                                 : "opacity-0 pointer-events-none"
                             }`}
-                            muted
                             loop
                             playsInline
                           />
