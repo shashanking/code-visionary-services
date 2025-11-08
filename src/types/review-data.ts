@@ -7,11 +7,7 @@ export interface SanityReviewItem {
   date: string;
   image: string;
   description: string;
-  video?: {
-    asset?: {
-      url: string;
-    };
-  };
+  video?: string; // Direct URL after query transformation
   rating?: number;
 }
 

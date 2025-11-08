@@ -17,7 +17,7 @@ export class SanityReviewService {
       date,
       "image": image.asset->url,
       description,
-      video,
+      "video": video.asset->url,
       rating
     }`;
 
@@ -30,7 +30,7 @@ export class SanityReviewService {
       clientType: item.clientType,
       description: item.description,
       image: item.image,
-      video: item.video?.asset?.url, // Extract video URL
+      video: item.video, // Video URL is now directly fetched
       date: this.formatDate(item.date),
       rating: item.rating,
     }));
@@ -67,7 +67,7 @@ export class SanityReviewService {
       date,
       "image": image.asset->url,
       description,
-      video,
+      "video": video.asset->url,
       rating
     }`;
 
@@ -80,7 +80,7 @@ export class SanityReviewService {
       clientType: item.clientType,
       description: item.description,
       image: item.image,
-      video: item.video?.asset?.url,
+      video: item.video,
       date: this.formatDate(item.date),
       rating: item.rating,
     }));
@@ -99,7 +99,7 @@ export class SanityReviewService {
       date,
       "image": image.asset->url,
       description,
-      video,
+      "video": video.asset->url,
       rating
     }`;
 
@@ -115,7 +115,7 @@ export class SanityReviewService {
       clientType: item.clientType,
       description: item.description,
       image: item.image,
-      video: item.video?.asset?.url,
+      video: item.video,
       date: this.formatDate(item.date),
       rating: item.rating,
     }));
