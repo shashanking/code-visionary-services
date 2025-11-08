@@ -244,28 +244,24 @@ const ReviewSection: React.FC = () => {
                     )}
 
                     {/* Text */}
-                    <div
-                      className={`absolute inset-0 flex flex-col justify-between p-6 pt-22 transition-opacity duration-300 ${
-                        item.video
-                          ? isHovered || isPlaying
-                            ? "opacity-0"
-                            : "opacity-100"
-                          : "opacity-100" // always visible text if no video
-                      }`}
-                      style={{ color: textColor }}
-                    >
-                      <p className="text-body2 font-sans leading-[1.5]">
-                        {item.description}
-                      </p>
-                      <div className="flex flex-col items-start mt-4 gap-2">
-                        <h3 className="text-body1 font-sans font-bold">
-                          {item.reviewer}
-                        </h3>
-                        <p className="text-body2 font-sans">
-                          {item.clientType}
+                    {!item.video && (
+                      <div
+                        className="absolute inset-0 flex flex-col justify-between p-6 pt-22"
+                        style={{ color: textColor }}
+                      >
+                        <p className="text-body2 font-sans leading-[1.5]">
+                          {item.description}
                         </p>
+                        <div className="flex flex-col items-start mt-4 gap-2">
+                          <h3 className="text-body1 font-sans font-bold">
+                            {item.reviewer}
+                          </h3>
+                          <p className="text-body2 font-sans">
+                            {item.clientType}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     {/* Hover info */}
                     {isHovered && (
