@@ -163,9 +163,11 @@ const ResultSection: React.FC = () => {
                     {metric.title}
                   </h3>
 
-                  <div className="text-title-lg font-[700] text-[#161616] mb-5">
-                    {metric.percentage}
-                  </div>
+                  {metric.percentage && (
+                    <div className="text-title-lg font-[700] text-[#161616] mb-5">
+                      {metric.percentage}
+                    </div>
+                  )}
 
                   <p className="text-body4 text-[#161616] leading-[1.5]">
                     {metric.description}

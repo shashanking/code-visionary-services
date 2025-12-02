@@ -29,7 +29,7 @@ export interface Approach {
 }
 
 export interface ResultMetric {
-  percentage: string;
+  percentage?: string;
   title: string;
   description: string;
 }
