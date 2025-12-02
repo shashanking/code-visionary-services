@@ -49,6 +49,36 @@ const HeroPortfolioDetailsPage: React.FC = () => {
 
   const { title, subtitle, hero } = portfolio;
 
+  if (!hero) {
+    return (
+      <SectionContainer
+        id="service-hero"
+        fullWidth
+        padding="none"
+        background="#e3e3e3"
+        className="relative min-h-[50vh] overflow-hidden flex flex-col items-center justify-center text-center"
+      >
+        <ContentContainer
+          maxWidth="7xl"
+          paddingX="lg"
+          className="relative z-10 pt-20 pb-10 flex flex-col justify-center items-center text-center"
+        >
+          <div className="relative z-10 w-full max-w-2xl flex flex-col justify-center items-center">
+            <h1 className="font-heading font-semibold text-title-sm uppercase mb-6 leading-[1.5] bg-gradient-to-t from-[#4F1E13] to-[#B5442C] bg-clip-text text-transparent">
+              {title}
+            </h1>
+
+            {subtitle && (
+              <h2 className="relative w-full max-w-2xl mx-auto text-center text-[#161616] leading-[1.1] text-title-2xl font-[700] mb-6">
+                {subtitle}
+              </h2>
+            )}
+          </div>
+        </ContentContainer>
+      </SectionContainer>
+    );
+  }
+
   return (
     <SectionContainer
       id="service-hero"

@@ -117,6 +117,10 @@ const ResultSection: React.FC = () => {
 
   const { results } = portfolio;
 
+  if (!results) {
+    return null;
+  }
+
   return (
     <SectionContainer
       id="review-card"

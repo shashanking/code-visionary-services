@@ -49,6 +49,10 @@ const ChallengeSection: React.FC = () => {
 
   const { challenges, services } = portfolio;
 
+  if (!challenges) {
+    return null;
+  }
+
   return (
     <SectionContainer
       id="review-card"
@@ -176,29 +180,31 @@ const ChallengeSection: React.FC = () => {
         </div>
       </ContentContainer>
 
-      <ContentContainer
-        maxWidth="7xl"
-        paddingX="lg"
-        className="relative z-10 py-10 flex flex-col justify-center items-center text-center overflow-hidden"
-      >
-        <div className="relative w-full max-w-2xl flex flex-col justify-start items-center">
-          <div className="flex flex-row w-full mx-auto justify-center items-center mb-10">
-            <h1 className="font-heading font-bold text-title-lg text-center uppercase leading-tight max-w-md text-[#161616] leading-[1.1]">
-              Services
-            </h1>
+      {services && services.length > 0 && (
+        <ContentContainer
+          maxWidth="7xl"
+          paddingX="lg"
+          className="relative z-10 py-10 flex flex-col justify-center items-center text-center overflow-hidden"
+        >
+          <div className="relative w-full max-w-2xl flex flex-col justify-start items-center">
+            <div className="flex flex-row w-full mx-auto justify-center items-center mb-10">
+              <h1 className="font-heading font-bold text-title-lg text-center uppercase leading-tight max-w-md text-[#161616] leading-[1.1]">
+                Services
+              </h1>
+            </div>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {services.map((service, index) => (
+                <span
+                  key={index}
+                  className="px-8 py-2.5 bg-[#161616] text-white rounded-full text-sm tracking-wide"
+                >
+                  {service}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {services.map((service, index) => (
-              <span
-                key={index}
-                className="px-8 py-2.5 bg-[#161616] text-white rounded-full text-sm tracking-wide"
-              >
-                {service}
-              </span>
-            ))}
-          </div>
-        </div>
-      </ContentContainer>
+        </ContentContainer>
+      )}
     </SectionContainer>
   );
 };

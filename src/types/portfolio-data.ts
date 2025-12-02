@@ -51,7 +51,7 @@ export interface PortfolioItem extends PortfolioBase {
 
 // Portfolio details page
 export interface PortfolioItemDetails extends PortfolioBase {
-  hero: {
+  hero?: {
     description: string;
     client: string;
     role: string;
@@ -59,15 +59,15 @@ export interface PortfolioItemDetails extends PortfolioBase {
     image: string;
   };
 
-  challenges: {
+  challenges?: {
     title: string;
     subtitle: string;
     items: ChallengeItem[];
   };
 
-  services: string[];
+  services?: string[];
 
-  solutions: {
+  solutions?: {
     title: string;
     subtitle: string;
     description: string;
@@ -75,13 +75,13 @@ export interface PortfolioItemDetails extends PortfolioBase {
     approaches: Approach[];
   };
 
-  summary: {
+  summary?: {
     title: string;
     description: string;
     image: string;
   };
 
-  results: {
+  results?: {
     title?: string;
     metrics: ResultMetric[];
   };

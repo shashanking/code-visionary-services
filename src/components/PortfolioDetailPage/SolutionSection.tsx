@@ -49,6 +49,10 @@ const SolutionSection: React.FC = () => {
 
   const { solutions } = portfolio;
 
+  if (!solutions) {
+    return null;
+  }
+
   // Split approaches into two columns
   const leftApproaches = solutions.approaches.slice(
     0,
@@ -119,11 +123,10 @@ const SolutionSection: React.FC = () => {
                         <div
                           className={`
                           relative z-10 transition-all duration-100 ease-out
-                          ${
-                            isHovered
+                          ${isHovered
                               ? "transform -translate-y-2 text-white"
                               : "text-transparent bg-clip-text bg-gradient-to-r from-[#4F1E13] via-[#B5442C] to-[#B5442C]"
-                          }
+                            }
                         `}
                         >
                           <h4
@@ -139,11 +142,10 @@ const SolutionSection: React.FC = () => {
                         <div
                           className={`
                           relative z-10 transition-all duration-500 ease-out overflow-hidden
-                          ${
-                            isHovered
+                          ${isHovered
                               ? "max-h-20 opacity-100 transform translate-y-0"
                               : "max-h-0 opacity-0 transform translate-y-4"
-                          }
+                            }
                         `}
                         >
                           <p

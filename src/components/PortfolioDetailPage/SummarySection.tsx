@@ -48,6 +48,10 @@ const SummarySection: React.FC = () => {
 
   const { summary } = portfolio;
 
+  if (!summary) {
+    return null;
+  }
+
   return (
     <SectionContainer
       id="review-card"
