@@ -3,7 +3,10 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import CVSLogoImg from "../../assets/cvs-logo/footer-logo.png";
 import CVSLogoBg from "../../assets/cvs-logo/footer-bg.png";
-
+import CenturyBank from "../../assets/footer-img/first-century-bank.png";
+import PNCbank from "../../assets/footer-img/pnc-bank.png";
+import DMCAprotected from "../../assets/footer-img/dmca-protected.png";
+import GoogleDevAgency from "../../assets/footer-img/google-dev-agency.png";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -105,16 +108,13 @@ const Footer: React.FC = () => {
                   </p>
                   <div className="flex justify-start md:justify-center items-center space-x-3">
                     <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
-                      <FacebookIcon />
+                      <a href="https://www.facebook.com/profile.php?id=61579748491813"><FacebookIcon /></a>
                     </button>
                     <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
-                      <InstagramIcon />
+                      <a href="https://www.instagram.com/codevisionaryservices/"><InstagramIcon /></a>
                     </button>
                     <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
-                      <LinkedinIcon />
-                    </button>
-                    <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
-                      <TwitterXIcon />
+                      <a href="https://www.linkedin.com/company/code-visionary-services/posts/?feedView=all"><LinkedinIcon /></a>
                     </button>
                   </div>
                 </div>
@@ -143,7 +143,26 @@ const Footer: React.FC = () => {
                     ))}
                   </div>
 
+                  <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
+                    PARTNERS
+                  </h6>
+                  <div className="flex flex-col items-start gap-2">
+                    <div className="">
+                      <img
+                        src={PNCbank}
+                        alt="PNC Bank"
+                        className="h-8 w-auto"
+                      />
+                    </div>
 
+                    <div className="">
+                      <img
+                        src={CenturyBank}
+                        alt="Century Bank"
+                        className="h-8 w-auto"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex flex-col items-start mb-8">
@@ -199,22 +218,25 @@ const Footer: React.FC = () => {
                   <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
                     PAYMENT
                   </h6>
-                  <div className="flex flex-wrap gap-3 mt-2">
-                    <img
-                      src="/indusind-logo.jpg"
-                      alt="IndusInd Bank"
-                      className="h-8 w-auto object-contain bg-white rounded p-1"
-                    />
-                    <img
-                      src="/psypal-logo.png"
-                      alt="PsyPal"
-                      className="h-8 w-auto object-contain bg-white rounded p-1"
-                    />
-                    <img
-                      src="/skydo-logo.webp"
-                      alt="Skydo"
-                      className="h-8 w-auto object-contain bg-white rounded p-1"
-                    />
+                  <button className="font-heading font-semibold text-white text-sm py-2 px-10 mb-2 rounded-full bg-gradient-to-r from-[#B5442C] to-[#4F1E13] hover:from-[#c8462b] hover:to-[#e86d3a] shadow cursor-pointer">
+                    PAY NOW!
+                  </button>
+                  <div className="flex gap-1.5 mt-2">
+                    <div className="">
+                      <img
+                        src={GoogleDevAgency}
+                        alt="Google Developer Agency"
+                        className="h-10 w-auto"
+                      />
+                    </div>
+
+                    <div className="">
+                      <img
+                        src={DMCAprotected}
+                        alt="DMCA Protected"
+                        className="h-10 w-auto"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
