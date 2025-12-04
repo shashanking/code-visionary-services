@@ -36,7 +36,7 @@ export const StatsCardData: Stats[] = [
 export const StatsData: Stats[] = [
   {
     id: 1,
-    title: "4+",
+    title: "5+",
     description: "Years Of Experience",
   },
   {
