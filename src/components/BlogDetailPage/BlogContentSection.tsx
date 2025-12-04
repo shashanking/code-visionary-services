@@ -72,8 +72,8 @@ const BlogContentSection: React.FC<BlogContentSectionProps> = ({ content }) => {
 
     return (
         <div className="w-full flex justify-center pb-[60px]">
-            <div className="w-full max-w-[1600px] px-4 md:px-0">
-                <div className="max-w-[1200px]">
+            <div className="w-full max-w-[1600px] px-5 md:px-10 lg:px-20">
+                <div className="max-w-[1000px] mx-auto">
                     <PortableText value={content} components={components} />
                 </div>
             </div>
