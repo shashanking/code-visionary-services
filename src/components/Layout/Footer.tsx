@@ -108,13 +108,13 @@ const Footer: React.FC = () => {
                   </p>
                   <div className="flex justify-start md:justify-center items-center space-x-3">
                     <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
-                      <a href="https://www.facebook.com/profile.php?id=61579748491813"><FacebookIcon /></a>
+                      <a href="https://www.facebook.com/profile.php?id=61579748491813" target="_blank"><FacebookIcon /></a>
                     </button>
                     <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
-                      <a href="https://www.instagram.com/codevisionaryservices/"><InstagramIcon /></a>
+                      <a href="https://www.instagram.com/codevisionaryservices/" target="_blank"><InstagramIcon /></a>
                     </button>
                     <button className="flex items-center justify-center w-11 h-11 rounded-full text-black hover:text-[#131a22] bg-gradient-to-r from-[#B5442C] to-[#FF9C87] hover:from-[#f0f0f0] hover:to-[#ffffff] cursor-pointer">
-                      <a href="https://www.linkedin.com/company/code-visionary-services/posts/?feedView=all"><LinkedinIcon /></a>
+                      <a href="https://www.linkedin.com/company/code-visionary-services/posts/?feedView=all" target="_blank"><LinkedinIcon /></a>
                     </button>
                   </div>
                 </div>
