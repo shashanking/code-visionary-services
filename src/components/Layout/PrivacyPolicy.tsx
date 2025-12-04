@@ -729,7 +729,7 @@ const PrivacyPolicyPage = () => {
                 <p>If you have any questions, feel free to reach out to us:</p>
                 <ul>
                   <li>
-                    <strong>Via Email:</strong> sales@codevisionaryservices.com
+                    <strong>Via Email:</strong> hr@codevisionaryservices.com
                   </li>
                   <li>
                     <strong>Via Phone Number:</strong> +91-8637515632
