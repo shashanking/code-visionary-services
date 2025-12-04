@@ -12,13 +12,13 @@ const TermsAndConditionsPage = () => {
           <div className="md:mt-[10%] text-center mt-[215px] mx-auto md:w-[76%] w-[90%]">
             {/* Heading text */}
             <div
-              className="font-semibold md:text-[72px]  text-[40px] md:leading-[72px] leading-[40px] uppercase mb-16 text-white"
+              className="font-semibold md:text-[72px]  text-[40px] md:leading-[72px] leading-[40px] uppercase mb-16 text-[#161616]"
             >
               Terms and Conditions
             </div>
           </div>
           <div className="flex justify-center mx-6 ">
-            <div className="max-w-[1400px] m-6 text-white ">
+            <div className="max-w-[1400px] m-6 text-gray-800 ">
               <div>
                 <h2>General Terms</h2>
                 <p>
