@@ -732,7 +732,7 @@ const PrivacyPolicyPage = () => {
                     <strong>Via Email:</strong> sales@codevisionaryservices.com
                   </li>
                   <li>
-                    <strong>Via Phone Number:</strong> +91-8240833838
+                    <strong>Via Phone Number:</strong> +91-8637515632
                   </li>
                   <li>
                     <strong>Via Website:</strong>{" "}
