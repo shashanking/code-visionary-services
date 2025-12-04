@@ -1,6 +1,7 @@
 import React from "react";
 import type { BlogItemDetails } from "../../types/blog-data";
 import { Calendar, User } from "lucide-react";
+import ContentContainer from "../shared/ContentContainer";
 
 interface HeroBlogDetailsPageProps {
     blog: BlogItemDetails;
@@ -14,7 +15,11 @@ const HeroBlogDetailsPage: React.FC<HeroBlogDetailsPageProps> = ({ blog }) => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#F0F0F0]" />
             </div>
 
-            <div className="w-full max-w-[1600px] px-4 md:px-0 flex flex-col gap-6">
+            <ContentContainer
+                maxWidth="7xl"
+                paddingX="lg"
+                className="flex flex-col gap-6"
+            >
                 {/* Title */}
                 <h1 className="font-montserrat font-bold text-[32px] md:text-[40px] leading-[130%] text-[#303030]">
                     {blog.title}
@@ -54,7 +59,7 @@ const HeroBlogDetailsPage: React.FC<HeroBlogDetailsPageProps> = ({ blog }) => {
                         className="w-full h-full object-cover"
                     />
                 </div>
-            </div>
+            </ContentContainer>
         </div>
     );
 };

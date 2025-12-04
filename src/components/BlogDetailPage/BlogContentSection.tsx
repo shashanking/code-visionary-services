@@ -2,6 +2,7 @@ import React from "react";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import type { SanityBaseContent } from "../../types/blog-data";
 import { urlFor } from "../../lib/sanityClient";
+import ContentContainer from "../shared/ContentContainer";
 
 interface BlogContentSectionProps {
     content?: SanityBaseContent[];
@@ -72,11 +73,11 @@ const BlogContentSection: React.FC<BlogContentSectionProps> = ({ content }) => {
 
     return (
         <div className="w-full flex justify-center pb-[60px]">
-            <div className="w-full max-w-[1600px] px-5 md:px-10 lg:px-20">
-                <div className="max-w-[1000px] mx-auto">
+            <ContentContainer maxWidth="7xl" paddingX="lg">
+                <div className="max-w-[1200px]">
                     <PortableText value={content} components={components} />
                 </div>
-            </div>
+            </ContentContainer>
         </div>
     );
 };

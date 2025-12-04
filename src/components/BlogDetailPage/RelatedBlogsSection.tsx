@@ -3,6 +3,7 @@ import type { BlogItem } from "../../types/blog-data";
 import { sanityBlogService } from "../../services/BlogService/sanityBlogService";
 import { BlogCard } from "../BlogPageComponents";
 import { Link } from "react-router-dom";
+import ContentContainer from "../shared/ContentContainer";
 
 interface RelatedBlogsSectionProps {
     currentBlogId: string;
@@ -38,7 +39,11 @@ const RelatedBlogsSection: React.FC<RelatedBlogsSectionProps> = ({
 
     return (
         <div className="w-full flex flex-col items-center py-[60px] bg-[#F0F0F0]">
-            <div className="w-full max-w-[1600px] px-4 md:px-0 flex flex-col gap-[60px]">
+            <ContentContainer
+                maxWidth="7xl"
+                paddingX="lg"
+                className="flex flex-col gap-[60px]"
+            >
                 {/* Header */}
                 <div className="flex flex-row justify-between items-center w-full">
                     <h2 className="font-earth-orbiter font-bold text-[32px] md:text-[48px] leading-[100%] text-[#161616] text-center w-full">
@@ -64,7 +69,7 @@ const RelatedBlogsSection: React.FC<RelatedBlogsSectionProps> = ({
                         </span>
                     </Link>
                 </div>
-            </div>
+            </ContentContainer>
         </div>
     );
 };
