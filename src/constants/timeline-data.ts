@@ -5,23 +5,28 @@ interface Timeline {
 
 export const TimelineData: Timeline[] = [
   {
-    year: 2022,
+    year: 2021,
     description:
       "Founded with a vision to deliver innovative engineering solutions.",
   },
   {
+    year: 2022,
+    description:
+      "Expanded services to include consulting.",
+  },
+  {
     year: 2023,
     description:
-      "Expanded services to include sustainability consulting and submittal reviews.",
+      "Grew our team to include dynamic and innovative Developers.",
   },
   {
     year: 2024,
     description:
-      "Achieved ISO certification for quality and environmental standards.",
+      "Completed our 100th project, setting a new benchmark.",
   },
   {
     year: 2025,
     description:
-      "Completed our 500th project, setting a new benchmark in the industry.",
+      "Expanded services to include AI and ML services.",
   },
 ];
