@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { NAV_ITEMS } from "../../constants/navigation";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import CVSLogoImg from "../../assets/cvs-logo/footer-logo.png";
@@ -136,22 +138,14 @@ const Footer: React.FC = () => {
                     MENU
                   </h6>
                   <div className="flex flex-col items-start space-y-2">
-                    {[
-                      "Home",
-                      "About Us",
-                      "Services",
-                      "Reviews",
-                      "Portfolio",
-                      "Blog",
-                      "Contact",
-                    ].map((label) => (
-                      <a
-                        key={label}
-                        href="#"
+                    {NAV_ITEMS.map((item) => (
+                      <Link
+                        key={item.label}
+                        to={item.href}
                         className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
                       >
-                        {label}
-                      </a>
+                        {item.label}
+                      </Link>
                     ))}
                   </div>
 
