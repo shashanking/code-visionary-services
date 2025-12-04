@@ -18,21 +18,21 @@ import {
 } from "lucide-react";
 
 // TwitterX SVG Icon
-const TwitterXIcon: React.FC = () => (
-  <svg
-    width={24}
-    height={24}
-    viewBox="0 0 24 24"
-    fill="none"
-    style={{ display: "block" }}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M17.1 2H21.4025L14.1125 10.2536L22.6632 22H16.2042L10.9695 15.0114L4.97779 22H0.6726L8.38867 13.2268L0.119141 2H6.73336L11.4871 8.41057L17.1 2ZM16.0346 20.0887H17.7977L6.79774 3.81441H4.91137L16.0346 20.0887Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+// const TwitterXIcon: React.FC = () => (
+//   <svg
+//     width={24}
+//     height={24}
+//     viewBox="0 0 24 24"
+//     fill="none"
+//     style={{ display: "block" }}
+//     xmlns="http://www.w3.org/2000/svg"
+//   >
+//     <path
+//       d="M17.1 2H21.4025L14.1125 10.2536L22.6632 22H16.2042L10.9695 15.0114L4.97779 22H0.6726L8.38867 13.2268L0.119141 2H6.73336L11.4871 8.41057L17.1 2ZM16.0346 20.0887H17.7977L6.79774 3.81441H4.91137L16.0346 20.0887Z"
+//       fill="currentColor"
+//     />
+//   </svg>
+// );
 
 const Footer: React.FC = () => {
   return (
