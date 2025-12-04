@@ -22,10 +22,10 @@ const PrivacyPolicyPage = () => {
             <div className="max-w-[1400px] sm:mx-6 my-6  text-gray-800">
               <div>
                 <p>
-                  Code Visionary Studio (“we”, “our”, or “us”) is committed to
+                  Code Visionary Services (“we”, “our”, or “us”) is committed to
                   protecting your privacy. This Privacy Policy explains how your
                   personal information is collected, used, and disclosed by Code
-                  Visionary Studio.
+                  Visionary Services.
                 </p>
 
                 <p>
@@ -55,7 +55,7 @@ const PrivacyPolicyPage = () => {
 
                 {/* <p>
                   <strong>Company:</strong> When this policy mentions “Company”,
-                  “we”, “us,” or “our,” it refers to Code Visionary Studio,
+                  “we”, “us,” or “our,” it refers to Code Visionary Services,
                   13-239/2/NEW Bidyasagar Park Road at Saparaipur Bidyasagar
                   Park SARANYA NIBAS District :- South 24 Parganas Pincode :-
                   700142, India that is responsible for your information under
@@ -63,14 +63,14 @@ const PrivacyPolicyPage = () => {
                 </p> */}
 
                 <p>
-                  <strong>Country:</strong> Where Code Visionary Studio or the
-                  owners/founders of CodeVisionaryStudio are based, in this
+                  <strong>Country:</strong> Where Code Visionary Services or the
+                  owners/founders of CodeVisionaryServices are based, in this
                   case, is India.
                 </p>
 
                 <p>
                   <strong>Customer:</strong> Refers to the company, organization
-                  or person that signs up to use the CodeVisionaryStudio Service
+                  or person that signs up to use the CodeVisionaryServices Service
                   to manage the relationships with your consumers or service
                   users.
                 </p>
@@ -78,7 +78,7 @@ const PrivacyPolicyPage = () => {
                 <p>
                   <strong>Device:</strong> Any internet-connected device such as
                   a phone, tablet, computer or any other device that can be used
-                  to visit Code Visionary Studio and use the services.
+                  to visit Code Visionary Services and use the services.
                 </p>
 
                 <p>
@@ -91,7 +91,7 @@ const PrivacyPolicyPage = () => {
 
                 <p>
                   <strong>Personnel:</strong> Refers to those individuals who
-                  are employed by CodeVisionaryStudio or are under contract to
+                  are employed by CodeVisionaryServices or are under contract to
                   perform a service on behalf of one of the parties.
                 </p>
 
@@ -104,7 +104,7 @@ const PrivacyPolicyPage = () => {
 
                 <p>
                   <strong>Service:</strong> Refers to the service provided by
-                  CodeVisionaryStudio as described in the relative terms (if
+                  CodeVisionaryServices as described in the relative terms (if
                   available) and on this platform.
                 </p>
 
@@ -116,7 +116,7 @@ const PrivacyPolicyPage = () => {
                 </p>
 
                 <p>
-                  <strong>Website:</strong> Code Visionary Studio’s site, which
+                  <strong>Website:</strong> Code Visionary Services’s site, which
                   can be accessed via this URL:{" "}
                   <a href="https://www.codevisionaryservices.com/">
                     https://www.codevisionaryservices.com/
@@ -125,7 +125,7 @@ const PrivacyPolicyPage = () => {
 
                 <p>
                   <strong>You:</strong> A person or entity that is registered
-                  with CodeVisionaryStudio to use the Services.
+                  with CodeVisionaryServices to use the Services.
                 </p>
               </div>
               <div>

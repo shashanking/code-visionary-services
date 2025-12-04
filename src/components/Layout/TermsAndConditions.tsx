@@ -22,12 +22,12 @@ const TermsAndConditionsPage = () => {
               <div>
                 <h2>General Terms</h2>
                 <p>
-                  Be accessing and placing an order with Code Visionary Studio,
+                  Be accessing and placing an order with Code Visionary Services,
                   you confirm that you are in agreement with and bound by the
                   terms of service contained in the Terms & Conditions outlined
                   below. These terms apply to the entire website and any email
                   or other type of communication between you and Code Visionary
-                  Studio. <br />
+                  Services. <br />
                   Under no circumstances shall the team be liable for any
                   direct, indirect, special, incidental or consequential
                   damages, including, but not limited to, loss of data or
@@ -37,7 +37,7 @@ const TermsAndConditionsPage = () => {
                   damages. If your use of materials from this site results in
                   the need for servicing, repair or correction of equipment or
                   data, you assume any costs thereof. <br />
-                  Code Visionary Studio will not be responsible for any outcome
+                  Code Visionary Services will not be responsible for any outcome
                   that may occur during the course of usage of our resources. We
                   reserve the rights to change prices and revise the resources
                   usage policy at any moment.
@@ -46,17 +46,17 @@ const TermsAndConditionsPage = () => {
               <div>
                 <h2>License</h2>
                 <p>
-                  Code Visionary Studio grants you a revocable, non-exclusive,
+                  Code Visionary Services grants you a revocable, non-exclusive,
                   non-transferable, limited license to download, install and use
                   our service strictly in accordance with the terms of this
                   Agreement. <br />
                   These Terms & Conditions are a contract between you and Code
-                  Visionary Studio (referred to in these Terms & Conditions as
-                  “Code Visionary Studio”, “us”, “we” or “our”), the provider of
-                  the Code Visionary Studio website and the services accessible
-                  from the Code Visionary Studio website (which are collectively
+                  Visionary Services (referred to in these Terms & Conditions as
+                  “Code Visionary Services”, “us”, “we” or “our”), the provider of
+                  the Code Visionary Services website and the services accessible
+                  from the Code Visionary Services website (which are collectively
                   referred to in these Terms & Conditions as the “Code Visionary
-                  Studio Service”). <br />
+                  Services Service”). <br />
                   You are agreeing to be bound by these Terms & Conditions. If
                   you do not agree to these Terms & Conditions, please do not
                   use the Service. In these Terms & Conditions, “you” refers
@@ -79,27 +79,27 @@ const TermsAndConditionsPage = () => {
                   </li>
                   {/* <li>
                     <span>Company:</span> When this policy mentions “Company”,
-                    “we”, “us,” or “our,” it refers to Code Visionary Studio,
+                    “we”, “us,” or “our,” it refers to Code Visionary Services,
                     13-239/2/NEW Bidyasagar Park Road at Saparaipur Bidyasagar
                     Park SARANYA NIBAS District :- South 24 Parganas Pincode :-
                     700142, Indiathat is responsible for your information under
                     this Privacy Policy.
                   </li> */}
                   <li>
-                    <span>Country:</span> Where Code Visionary Studio or the
-                    owners/founders of Code Visionary Studio are based, in this
+                    <span>Country:</span> Where Code Visionary Services or the
+                    owners/founders of Code Visionary Services are based, in this
                     case, is India.
                   </li>
                   <li>
                     <span>Customer:</span> Refers to the company, organization
-                    or person that signs up to use the Code Visionary Studio
+                    or person that signs up to use the Code Visionary Services
                     Service to manage the relationships with your consumers or
                     service users.
                   </li>
                   <li>
                     <span>Device: </span>Any internet-connected device such as a
                     phone, tablet, computer or any other device that can be used
-                    to visit Code Visionary Studio and use the services.
+                    to visit Code Visionary Services and use the services.
                   </li>
                   <li>
                     <span>IP Address:</span> Every device connected to the
@@ -111,7 +111,7 @@ const TermsAndConditionsPage = () => {
                   </li>
                   <li>
                     <span>Personnel:</span> Refers to those individuals who are
-                    employed by Code Visionary Studio or are under contract to
+                    employed by Code Visionary Services or are under contract to
                     perform a service on behalf of one of the parties.
                   </li>
                   <li>
@@ -122,7 +122,7 @@ const TermsAndConditionsPage = () => {
                   </li>
                   <li>
                     <span>Service:</span> Refers to the service provided by Code
-                    Visionary Studio as described in the relative terms (if
+                    Visionary Services as described in the relative terms (if
                     available) and on this platform.
                   </li>
                   <li>
@@ -132,13 +132,13 @@ const TermsAndConditionsPage = () => {
                     we think may interest you.
                   </li>
                   <li>
-                    <span>Website:</span> Code Visionary Studio’s site, which
+                    <span>Website:</span> Code Visionary Services’s site, which
                     can be accessed via this URL:
                     https://www.codevisionaryservices.com/
                   </li>
                   <li>
                     <span>You:</span> A person or entity that is registered with
-                    Code Visionary Studio to use the Services.
+                    Code Visionary Services to use the Services.
                   </li>
                 </ol>
               </div>
