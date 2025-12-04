@@ -9,7 +9,7 @@ import ReviewPage from "../pages/ReviewPage/ReviewPage";
 import BlogPage from "../pages/BlogPage/BlogPage";
 import ContactPage from "../pages/ContactPage/ContactPage";
 import PortfolioDetailPage from "../pages/PortfolioDetailPage/PortfolioDetailPage";
-import ComingSoon from "../components/shared/ComingSoon";
+import BlogDetailPage from "../pages/BlogDetailPage/BlogDetailPage";
 import NotFound from "../components/shared/NotFound";
 import { useScrollRestoration } from "../hooks/useScrollRestoration";
 
@@ -78,7 +78,7 @@ const AppRoutes: React.FC = () => {
         path="/blogs/:slug"
         element={
           <Layout>
-            <ComingSoon />
+            <BlogDetailPage />
           </Layout>
         }
       />

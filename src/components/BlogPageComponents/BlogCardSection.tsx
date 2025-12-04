@@ -4,9 +4,10 @@ import ContentContainer from "../shared/ContentContainer";
 import BlogCardBg from "../../assets/blog-page/blog-card-bg.jpg";
 import leftArrow from "../../assets/review-page/review-left-arrow.png";
 import rightArrow from "../../assets/review-page/review-right-arrow.png";
-import { ArrowRightIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+
+
 import { useSanityBlogs } from "../../hooks/Blogs/useSanityBlogs";
+import { BlogCard } from "./";
 
 const BlogCardSection: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(1);
@@ -18,7 +19,7 @@ const BlogCardSection: React.FC = () => {
   // Using Sanity hook to fetch blogs
   const { blogs, loading, error } = useSanityBlogs();
 
-  const navigate = useNavigate();
+
 
   // Set default hover to second card when blogs load
   useEffect(() => {
@@ -27,9 +28,7 @@ const BlogCardSection: React.FC = () => {
     }
   }, [blogs]);
 
-  const handleBlogClick = (slug: string) => {
-    navigate(`/blogs/${slug}`);
-  };
+
 
   // Calculate total pages
   const totalPages = Math.ceil(blogs.length / cardsPerPage);
@@ -126,68 +125,16 @@ const BlogCardSection: React.FC = () => {
               <div className="relative w-full">
                 <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
                   {blogs.map((item, index) => {
-                    const isHovered = hoveredIndex === index;
+
 
                     return (
-                      <div
-                        key={index}
-                        onMouseEnter={() => setHoveredIndex(index)}
-                        onMouseLeave={() => setHoveredIndex(1)}
-                        className={`relative w-full h-full p-3 rounded-2xl overflow-hidden transition-all duration-300 border border-[#B5442C]`}
-                        style={{
-                          background: isHovered
-                            ? "linear-gradient(270deg, #B5442C 0%, #4F1E13 100%)"
-                            : "#F0F0F0",
-                          boxShadow: "0px 0px 8px 0px #B5442C80",
-                        }}
-                      >
-                        <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="w-full h-full object-cover transition-all duration-400 ease-out"
-                            loading="lazy"
-                          />
-
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation(); // Prevent card click
-                              handleBlogClick(item.slug);
-                            }}
-                            className={`absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                              isHovered
-                                ? "bg-[#f0f0f0] text-[#B5442C] hover:bg-[#B5442C] hover:text-[#f0f0f0] border border-[#B5442C] -rotate-45 cursor-pointer"
-                                : "bg-[#B5442C] text-[#f0f0f0] hover:bg-[#f0f0f0] hover:text-[#B5442C] border border-[#B5442C]"
-                            }`}
-                            title={`Read more about ${item.title}`}
-                          >
-                            <ArrowRightIcon />
-                          </button>
-                        </div>
-
-                        {/* Text Content */}
-                        <div
-                          className={`relative flex flex-col justify-between text-left transition-opacity duration-300 ${
-                            isHovered ? "text-[#f0f0f0]" : "text-[#000000]"
-                          }`}
-                        >
-                          <p className="text-body5 font-sans leading-[1.5] my-3">
-                            {new Date(item.date).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                            })}{" "}
-                            | By {item.author}
-                          </p>
-
-                          <h3 className="text-body1 font-sans font-semibold mb-3 line-clamp-2">
-                            {item.title}
-                          </h3>
-
-                          <p className="text-body3 font-sans line-clamp-6">
-                            {item.description}
-                          </p>
-                        </div>
+                      <div key={index} className="relative w-full h-full">
+                        <BlogCard
+                          blog={item}
+                          isHovered={hoveredIndex === index}
+                          onMouseEnter={() => setHoveredIndex(index)}
+                          onMouseLeave={() => setHoveredIndex(1)}
+                        />
                       </div>
                     );
                   })}
@@ -200,18 +147,16 @@ const BlogCardSection: React.FC = () => {
                   <button
                     onClick={prevPage}
                     disabled={currentPage === 1}
-                    className={`w-14 h-14 flex items-center justify-center border rounded-full ${
-                      currentPage > 1
-                        ? "border-[#161616] cursor-pointer hover:bg-gray-100"
-                        : "border-[#161616]/20 cursor-not-allowed"
-                    }`}
+                    className={`w-14 h-14 flex items-center justify-center border rounded-full ${currentPage > 1
+                      ? "border-[#161616] cursor-pointer hover:bg-gray-100"
+                      : "border-[#161616]/20 cursor-not-allowed"
+                      }`}
                   >
                     <img
                       src={leftArrow}
                       alt="Previous"
-                      className={`w-5 h-5 ${
-                        currentPage > 1 ? "opacity-100" : "opacity-50"
-                      }`}
+                      className={`w-5 h-5 ${currentPage > 1 ? "opacity-100" : "opacity-50"
+                        }`}
                     />
                   </button>
 
@@ -225,18 +170,16 @@ const BlogCardSection: React.FC = () => {
                   <button
                     onClick={nextPage}
                     disabled={currentPage === totalPages}
-                    className={`w-14 h-14 flex items-center justify-center border rounded-full ${
-                      currentPage < totalPages
-                        ? "border-[#161616] cursor-pointer hover:bg-gray-100"
-                        : "border-[#161616]/20 cursor-not-allowed"
-                    }`}
+                    className={`w-14 h-14 flex items-center justify-center border rounded-full ${currentPage < totalPages
+                      ? "border-[#161616] cursor-pointer hover:bg-gray-100"
+                      : "border-[#161616]/20 cursor-not-allowed"
+                      }`}
                   >
                     <img
                       src={rightArrow}
                       alt="Next"
-                      className={`w-5 h-5 ${
-                        currentPage < totalPages ? "opacity-100" : "opacity-50"
-                      }`}
+                      className={`w-5 h-5 ${currentPage < totalPages ? "opacity-100" : "opacity-50"
+                        }`}
                     />
                   </button>
                 </div>
