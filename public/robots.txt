@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /services
+Allow: /portfolio
+Allow: /reviews
+Allow: /blogs
+Allow: /contact
+
+Sitemap: https://codevisionaryservices.com/sitemap.xml

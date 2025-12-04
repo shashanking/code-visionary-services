@@ -1,0 +1,32 @@
+# LLMS Permissions File
+# More info: https://llms.txt
+
+# --- OpenAI ---
+User-Agent: OpenAI
+Allow: /
+
+# --- Anthropic (Claude) ---
+User-Agent: anthropic-ai
+Allow: /
+
+# --- Google (Gemini / Bard) ---
+User-Agent: Google-Extended
+Allow: /
+
+# --- Perplexity ---
+User-Agent: Perplexity
+Allow: /
+
+# --- Amazon / AWS AI ---
+User-Agent: Amazonbot
+Allow: /
+
+# --- Meta (LLaMA) ---
+User-Agent: Meta-ExternalAgent
+Allow: /
+
+# --- Default ---
+User-Agent: *
+Allow: /
+
+Sitemap: https://codevisionaryservices.com/sitemap.xml
