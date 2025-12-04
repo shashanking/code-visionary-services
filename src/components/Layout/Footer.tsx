@@ -158,18 +158,16 @@ const Footer: React.FC = () => {
                   </h6>
                   <div className="flex flex-col items-start space-y-2">
                     {[
-                      "Refund Policy",
-                      "Privacy Policy",
-                      "Terms & Conditions",
-                      "Careers at CVS",
-                    ].map((label) => (
-                      <a
-                        key={label}
-                        href="#"
+                      { label: "Privacy Policy", href: "/privacy-policy" },
+                      { label: "Terms & Conditions", href: "/terms-and-conditions" },
+                    ].map((item) => (
+                      <Link
+                        key={item.label}
+                        to={item.href}
                         className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
                       >
-                        {label}
-                      </a>
+                        {item.label}
+                      </Link>
                     ))}
                   </div>
 

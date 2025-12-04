@@ -10,6 +10,8 @@ import BlogPage from "../pages/BlogPage/BlogPage";
 import ContactPage from "../pages/ContactPage/ContactPage";
 import PortfolioDetailPage from "../pages/PortfolioDetailPage/PortfolioDetailPage";
 import BlogDetailPage from "../pages/BlogDetailPage/BlogDetailPage";
+import PrivacyPolicyPage from "../components/Layout/PrivacyPolicy";
+import TermsAndConditionsPage from "../components/Layout/TermsAndConditions";
 import NotFound from "../components/shared/NotFound";
 import { useScrollRestoration } from "../hooks/useScrollRestoration";
 
@@ -87,6 +89,22 @@ const AppRoutes: React.FC = () => {
         element={
           <Layout>
             <ContactPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/privacy-policy"
+        element={
+          <Layout>
+            <PrivacyPolicyPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/terms-and-conditions"
+        element={
+          <Layout>
+            <TermsAndConditionsPage />
           </Layout>
         }
       />
