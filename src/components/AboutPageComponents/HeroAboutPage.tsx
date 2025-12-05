@@ -82,11 +82,11 @@ const HeroAboutPage: React.FC = () => {
       fullWidth
       padding="none"
       background="#e3e3e3"
-      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
+      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-start md:justify-center text-center"
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
-          className="w-full h-full bg-cover bg-no-repeat bg-center bg-fixed"
+          className="w-full h-full bg-contain bg-no-repeat bg-top bg-fixed md:bg-cover md:bg-center"
           style={{ backgroundImage: `url(${HeroBg})` }}
         />
       </div>
