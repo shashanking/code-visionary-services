@@ -13,6 +13,7 @@ import BlogDetailPage from "../pages/BlogDetailPage/BlogDetailPage";
 import PrivacyPolicyPage from "../components/Layout/PrivacyPolicy";
 import TermsAndConditionsPage from "../components/Layout/TermsAndConditions";
 import NotFound from "../components/shared/NotFound";
+import ThankYouPage from "../pages/ThankYouPage/ThankYouPage";
 import { useScrollRestoration } from "../hooks/useScrollRestoration";
 
 const AppRoutes: React.FC = () => {
@@ -89,6 +90,14 @@ const AppRoutes: React.FC = () => {
         element={
           <Layout>
             <ContactPage />
+          </Layout>
+        }
+      />
+      <Route
+        path="/thank-you"
+        element={
+          <Layout>
+            <ThankYouPage />
           </Layout>
         }
       />

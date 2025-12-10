@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ContentContainer from "../shared/ContentContainer";
 import bgImgInsideMobile from "../../assets/contact-page/contact-bg-mobile.png";
 import bgImgInside from "../../assets/contact-page/contact-bg.png";
@@ -50,6 +51,7 @@ const generateConfirmationId = (): string => {
 };
 
 const ContactForm: React.FC = () => {
+  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
@@ -303,7 +305,7 @@ const ContactForm: React.FC = () => {
       }
 
       // If email is sent successfully
-      setCurrentStep(3);
+      navigate("/thank-you");
     } catch (error) {
       // If email sending fails
       console.error("Email Error:", error);
