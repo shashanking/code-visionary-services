@@ -250,22 +250,9 @@ html {
   background-position: center center;
 }
 
-.about-hero-bg {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-}
-
 @media (max-width: 768px) {
   .mobile-bg-rotate {
     transform: translate(-50%, -50%) rotate(90deg) scale(1.4);
-  }
-
-  .about-hero-bg {
-    background-size: 100% auto;
-    background-position: center;
-    background-attachment: scroll;
   }
 }
 
