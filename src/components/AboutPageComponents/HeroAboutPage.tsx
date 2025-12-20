@@ -86,7 +86,7 @@ const HeroAboutPage: React.FC = () => {
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
-          className="w-full h-full bg-cover bg-no-repeat bg-center bg-fixed"
+          className="w-full h-full bg-contain md:bg-cover bg-no-repeat bg-center bg-fixed"
           style={{ backgroundImage: `url(${HeroBg})` }}
         />
       </div>
