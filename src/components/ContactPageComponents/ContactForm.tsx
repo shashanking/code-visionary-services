@@ -18,6 +18,7 @@ import { EMAILJS_CONFIG } from "../../utils/emailjsConfig";
 interface ScheduledData {
   name: string;
   email: string;
+  mobile: string;
   message: string;
   date: string;
   time: string;
@@ -58,6 +59,7 @@ const ContactForm: React.FC = () => {
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
+  const [userMobile, setUserMobile] = useState<string>("");
   const [userMessage, setUserMessage] = useState<string>("");
   const [currentStep, setCurrentStep] = useState<Step>(1);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -144,6 +146,13 @@ const ContactForm: React.FC = () => {
     return re.test(email);
   };
 
+  const validateMobile = (mobile: string): boolean => {
+    const trimmed = mobile.trim();
+    if (!trimmed) return false;
+    const normalized = trimmed.replace(/[\s()-]/g, "");
+    return /^\+?\d{7,15}$/.test(normalized);
+  };
+
   // Check if selected time is in the past
   const isSelectedTimeInPast = (): boolean => {
     if (!selectedDate || !selectedTime) return false;
@@ -200,6 +209,7 @@ const ContactForm: React.FC = () => {
         confirmation_id: scheduledData.confirmationId,
         from_name: scheduledData.name,
         from_email: scheduledData.email,
+        from_mobile: scheduledData.mobile,
         message: scheduledData.message || "No additional details provided",
         scheduled_date: scheduledData.date,
         scheduled_time: scheduledData.time,
@@ -265,6 +275,11 @@ const ContactForm: React.FC = () => {
       return;
     }
 
+    if (!validateMobile(userMobile)) {
+      alert("Please enter a valid mobile number before scheduling.");
+      return;
+    }
+
     if (!selectedDate || !selectedTime) {
       alert("Please select both a date and a time slot before scheduling.");
       return;
@@ -285,6 +300,7 @@ const ContactForm: React.FC = () => {
     const scheduledData: ScheduledData = {
       name: userName,
       email: userEmail,
+      mobile: userMobile.trim(),
       message: userMessage,
       date: selectedDate.toDateString(),
       time: selectedTime,
@@ -320,6 +336,7 @@ const ContactForm: React.FC = () => {
     setSelectedTime("");
     setUserName("");
     setUserEmail("");
+    setUserMobile("");
     setUserMessage("");
     setConfirmationId("");
     setCurrentStep(1);
@@ -508,6 +525,19 @@ const ContactForm: React.FC = () => {
                                 Please enter a valid email address
                               </p>
                             )} */}
+                    </div>
+
+                    <div>
+                      <label className="block font-sans text-body2 font-medium text-[#161616] mb-1 text-left">
+                        Mobile Number <span className="text-[#B5442C]">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        value={userMobile}
+                        onChange={(e) => setUserMobile(e.target.value)}
+                        placeholder="e.g. +1 267 654 3210"
+                        className="w-full px-3 py-2 text-body2 text-[#161616] border rounded-lg focus:border-[#B5442C] focus:ring-1 focus:ring-[#B5442C] outline-none transition-all"
+                      />
                     </div>
 
                     <div>
