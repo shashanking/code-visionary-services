@@ -241,6 +241,12 @@ const Footer: React.FC = () => {
                 <p className="text-sm text-[#f0f0f0]">
                   Code Visionary Services is now Visionary Services LLP.
                 </p>
+                <p className="text-sm text-[#f0f0f0]">
+                  Udyam Registration Number: UDYAM-WB-08-0128101
+                </p>
+                <p className="text-sm text-[#f0f0f0]">
+                  CIN: ACR-1254
+                </p>
               </div>
             </div>
           </div>
