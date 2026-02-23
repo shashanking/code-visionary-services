@@ -193,12 +193,7 @@ const Footer: React.FC = () => {
                   <h6 className="font-heading font-bold text-body mb-2 tracking-wider text-white">
                     BUSINESS
                   </h6>
-                  <p className="text-sm text-[#f0f0f0]">
-                    Udyam Registration Number:<br />UDYAM-WB-08-0128101<br />
-                  </p>
-                  <p className="text-sm text-[#f0f0f0]">
-                    CIN:<br />ACR-1254<br />
-                  </p>
+                  
                   <p className="text-left text-sm text-[#f0f0f0] font-sans font-[300]">
                     Monday - Friday :<br /> 10:00 PST to 5:00 PST
                     <br />
