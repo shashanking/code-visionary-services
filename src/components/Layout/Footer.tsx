@@ -204,6 +204,13 @@ const Footer: React.FC = () => {
                     <br />
                     Saturday & Sunday :<br />
                     Fixed Off
+                    <br />
+                    CIN:<br />
+                    ACR-1254
+                    <br />
+                    Udyam Registration Number:<br />
+                    UDYAM-WB-08-0128101
+                    <br />
                   </p>
 
                   <h6 className="font-heading font-bold text-body mt-8 mb-2 tracking-wider text-white">
