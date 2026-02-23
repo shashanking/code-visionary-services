@@ -194,10 +194,10 @@ const Footer: React.FC = () => {
                     BUSINESS
                   </h6>
                   <p className="text-sm text-[#f0f0f0]">
-                    Udyam Registration Number: UDYAM-WB-08-0128101
+                    Udyam Registration Number:<br />UDYAM-WB-08-0128101
                   </p>
                   <p className="text-sm text-[#f0f0f0]">
-                    CIN: ACR-1254
+                    CIN:<br />ACR-1254
                   </p>
                   <p className="text-left text-sm text-[#f0f0f0] font-sans font-[300]">
                     Monday - Friday :<br /> 10:00 PST to 5:00 PST
