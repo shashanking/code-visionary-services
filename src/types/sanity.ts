@@ -33,15 +33,15 @@ interface SanityTechStackItem {
   description: string;
 }
 
-interface SanityApproachLevel {
-  title: string;
-  description: string[];
+interface SanityGalleryImage {
+  url: string;
+  alt?: string;
 }
 
-interface SanityApproach {
+interface SanityGallery {
   title: string;
-  subtitle?: string;
-  levels: SanityApproachLevel[];
+  description: string;
+  images: SanityGalleryImage[];
 }
 
 interface SanitySolutions {
@@ -49,7 +49,6 @@ interface SanitySolutions {
   subtitle: string;
   description: string;
   techStack: SanityTechStackItem[];
-  approaches: SanityApproach[];
 }
 
 interface SanitySummary {
@@ -79,6 +78,7 @@ export interface SanityPortfolioDetails {
   challenges: SanityChallenges;
   services: string[];
   solutions: SanitySolutions;
+  gallery: SanityGallery;
   summary: SanitySummary;
   results: SanityResults;
 }

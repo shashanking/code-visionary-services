@@ -17,15 +17,9 @@ export interface TechStackItem {
   description: string;
 }
 
-export interface ApproachLevel {
-  title: string;
-  description: string | string[];
-}
-
-export interface Approach {
-  title: string;
-  subtitle?: string;
-  levels: ApproachLevel[];
+export interface GalleryImage {
+  url: string;
+  alt?: string;
 }
 
 export interface ResultMetric {
@@ -72,7 +66,12 @@ export interface PortfolioItemDetails extends PortfolioBase {
     subtitle: string;
     description: string;
     techStack: TechStackItem[];
-    approaches: Approach[];
+  };
+
+  gallery?: {
+    title: string;
+    description: string;
+    images: GalleryImage[];
   };
 
   summary?: {

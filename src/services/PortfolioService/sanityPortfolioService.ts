@@ -91,14 +91,14 @@ export class SanityPortfolioService {
         techStack[] {
           name,
           description,
-        },
-        approaches[] {
-          title,
-          subtitle,
-          levels[] {
-            title,
-            description,
-          }
+        }
+      },
+      gallery {
+        title,
+        description,
+        images[] {
+          "url": asset->url,
+          alt
         }
       },
       summary {
@@ -138,6 +138,7 @@ export class SanityPortfolioService {
       challenges: data.challenges,
       services: data.services,
       solutions: data.solutions,
+      gallery: data.gallery,
       summary: data.summary,
       results: data.results,
     };
