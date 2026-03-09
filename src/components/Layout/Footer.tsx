@@ -184,7 +184,7 @@ const Footer: React.FC = () => {
                     </div>
                     <div className="flex text-left text-sm text-[#f0f0f0] font-sans font-[300] gap-2">
                       <MapPin className="w-5 h-5" /> Flat no. 402, Harendra Niwas, 71/A <br />
-                      H.N. Nag Road, Jagaccha, Howrah, 711112
+                      H.N. Nag Road, Jagaccha, Howrah, West Bengal, 711112
                     </div>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ const Footer: React.FC = () => {
                     Saturday & Sunday :<br />
                     Fixed Off
                     <br />
-                    CIN:<br />
+                    Company Identification Number:<br />
                     ACR-1254
                     <br />
                     Udyam Registration Number:<br />
