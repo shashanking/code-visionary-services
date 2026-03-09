@@ -246,55 +246,6 @@ const HeroPortfolioDetailPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Approaches */}
-            <div className="space-y-12">
-              {solutions.approaches.map((approach, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-3xl p-8 border border-gray-200"
-                >
-                  <div className="text-center mb-8">
-                    <h3 className="text-3xl font-bold mb-3 text-gray-900">
-                      {approach.title}
-                    </h3>
-                    {approach.subtitle && (
-                      <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-                        {approach.subtitle}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-6">
-                    {approach.levels.map((level, levelIndex) => (
-                      <div
-                        key={levelIndex}
-                        className="border-l-4 border-[#FEA656] pl-6 py-2"
-                      >
-                        <h4 className="text-xl font-bold mb-3 text-gray-900">
-                          {level.title}
-                        </h4>
-                        <div className="text-gray-700 leading-relaxed">
-                          {Array.isArray(level.description) ? (
-                            <ul className="space-y-2">
-                              {level.description.map((item, idx) => (
-                                <li key={idx} className="flex items-start gap-3">
-                                  <span className="w-2 h-2 bg-[#FEA656] rounded-full mt-2 flex-shrink-0" />
-                                  <span className="text-lg">{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <p className="text-lg leading-relaxed">
-                              {level.description}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
           </ContentContainer>
         </SectionContainer>
       )}
