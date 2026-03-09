@@ -245,7 +245,7 @@ const Footer: React.FC = () => {
               <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
                 
                 <p className="text-sm text-[#f0f0f0]">
-                  Copyright © 2025, Visionary Services LLP. All rights reserved.
+                  Copyright © 2026, Visionary Services LLP. All rights reserved.
                 </p>
                 <p className="text-sm text-[#f0f0f0]">
                   Code Visionary Services is now Visionary Services LLP.
