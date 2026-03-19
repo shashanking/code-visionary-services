@@ -1,184 +1,95 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import PortfolioPageBg from "../../assets/portfolio-page/hero-bg.jpg";
 import { useNavigate } from "react-router-dom";
-import { useSanityPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
-import { categories, type PortfolioItem } from "../../types/portfolio-data";
-
-interface PortfolioCardProps {
-  item: PortfolioItem;
-  isHovered: boolean;
-  onHover: () => void;
-  onLeave: () => void;
-}
-
-interface PortfolioGridProps {
-  items: PortfolioItem[];
-  hoverIdx: number | null;
-  setHoverIdx: (index: number | null) => void;
-  loading?: boolean;
-}
-
-const PortfolioCard: React.FC<PortfolioCardProps> = ({
-  item,
-  isHovered,
-  onHover,
-  onLeave,
-}) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate(`/portfolio/${item.slug}`);
-  };
-
-  return (
-    <div
-      className="relative bg-white rounded-2xl overflow-hidden cursor-pointer shadow-lg transition-all duration-400 ease-out hover:scale-102 aspect-[4/3] min-h-[200px] group"
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
-      onClick={handleClick}
-    >
-      {/* Background Image */}
-      <img
-        src={item.image}
-        alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out scale-100 group-hover:scale-105"
-        loading="lazy"
-      />
-
-      {/* Background Overlay */}
-      <div
-        className={`absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden ${
-          isHovered ? "border-2 border-[#FEA656] rounded-2xl shadow-md" : ""
-        }`}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
-
-        <div
-          className={`absolute w-full h-full transition-all duration-700 ease-in-out ${
-            isHovered
-              ? "bg-gradient-to-b from-black/0 via-black/70 to-black/95 transform translate-y-0"
-              : "bg-gradient-to-b from-black/10 via-black/30 to-black/80 opacity-0 transform translate-y-full"
-          }`}
-        />
-      </div>
-
-      {/* Content Overlay */}
-      <div className="absolute bottom-0 left-0 w-full z-10 p-4 md:p-6">
-        <h3
-          className={`text-body text-white text-left max-w-20 font-heading transition-all duration-350 ease-in-out uppercase tracking-wider ${
-            isHovered ? "font-bold -translate-y-2 " : "font-semibold"
-          }`}
-        >
-          {item.title}
-        </h3>
-        <p
-          className={`text-white text-left font-sans transition-all duration-350 ease-in-out ${
-            isHovered && item.description
-              ? "opacity-95 max-h-32 mt-2 line-clamp-3"
-              : "opacity-0 max-h-0"
-          } text-body2 leading-relaxed`}
-        >
-          {item.description}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-const PortfolioGrid: React.FC<PortfolioGridProps> = ({
-  items,
-  hoverIdx,
-  setHoverIdx,
-  loading = false,
-}) => {
-  if (loading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 w-full max-w-2xl mx-auto">
-        {/* Loading skeletons */}
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div
-            key={item}
-            className="relative bg-gray-200 rounded-2xl overflow-hidden aspect-[4/3] min-h-[200px] animate-pulse"
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-300 to-gray-400" />
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 w-full max-w-2xl mx-auto">
-      {items.map((item, idx) => (
-        <PortfolioCard
-          key={item.id}
-          item={item}
-          isHovered={hoverIdx === idx}
-          onHover={() => setHoverIdx(idx)}
-          onLeave={() => setHoverIdx(null)}
-        />
-      ))}
-    </div>
-  );
-};
+import { useSanityFeaturedPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
 
 const HeroPortfolioPage: React.FC = () => {
-  const [currentGradientIndex, setCurrentGradientIndex] = useState(0);
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [activeCat, setActiveCat] = useState<string>("all");
+  const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [leftAnimation, setLeftAnimation] = useState("enter");
+  const [rightAnimation, setRightAnimation] = useState("enter");
+  const leftScrollRef = useRef<HTMLDivElement>(null);
+  const rightScrollRef = useRef<HTMLDivElement>(null);
+  const autoScrollInterval = useRef<number | null>(null);
 
-  // Using Sanity hook to fetch portfolios
-  const { portfolios, loading, error } = useSanityPortfolios();
+  const { portfolios: featuredPortfolios, loading, error } = useSanityFeaturedPortfolios(6);
 
-  // Filter items based on active category
-  const visibleItems =
-    activeCat === "all"
-      ? portfolios
-      : portfolios.filter((item) => item.category === activeCat);
-
-  const gradientColors = [
-    "from-[#F23232] to-[#FEA656]",
-    "from-[#FEA656] to-[#CCF232]",
-    "from-[#CCF232] to-[#63FE56]",
-    "from-[#63FE56] to-[#32F2D0]",
-    "from-[#32F2D0] to-[#5685FE]",
-    "from-[#5685FE] to-[#C032F2]",
-    "from-[#C032F2] to-[#FE56BB]",
-    "from-[#FE56BB] to-[#FF4848]",
-  ];
+  const getNextIndex = (current: number) =>
+    (current + 1) % featuredPortfolios.length;
+  const rightIndex = getNextIndex(activeIndex);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentGradientIndex((prevIndex) =>
-        prevIndex === gradientColors.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 2000);
+    if (featuredPortfolios.length === 0) return;
 
-    return () => clearInterval(interval);
-  }, [gradientColors.length]);
+    const scrollInterval = 4000;
 
-  // Handle error state
-  if (error) {
-    return (
-      <SectionContainer fullWidth padding="lg" background="#e3e3e3">
-        <ContentContainer
-          maxWidth="7xl"
-          paddingX="lg"
-          className="py-20 text-center"
-        >
-          <h1 className="text-2xl font-bold mb-4">Error Loading Portfolios</h1>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-6 py-2 bg-[#161616] text-white rounded-full hover:bg-[#303030] transition-colors"
-          >
-            Try Again
-          </button>
-        </ContentContainer>
-      </SectionContainer>
-    );
-  }
+    autoScrollInterval.current = window.setInterval(() => {
+      setLeftAnimation("exit");
+      setRightAnimation("exit");
+
+      setTimeout(() => {
+        setActiveIndex((prev) => getNextIndex(prev));
+        setLeftAnimation("enter");
+        setRightAnimation("enter");
+      }, 500);
+    }, scrollInterval);
+
+    return () => {
+      if (autoScrollInterval.current) {
+        clearInterval(autoScrollInterval.current);
+      }
+    };
+  }, [featuredPortfolios.length]);
+
+  const handlePortfolioClick = (slug: string) => {
+    navigate(`/portfolio/${slug}`);
+  };
+
+  const handleMouseEnter = () => {
+    if (autoScrollInterval.current) {
+      clearInterval(autoScrollInterval.current);
+      autoScrollInterval.current = null;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!autoScrollInterval.current && featuredPortfolios.length > 0) {
+      autoScrollInterval.current = window.setInterval(() => {
+        setLeftAnimation("exit");
+        setRightAnimation("exit");
+
+        setTimeout(() => {
+          setActiveIndex((prev) => getNextIndex(prev));
+          setLeftAnimation("enter");
+          setRightAnimation("enter");
+        }, 500);
+      }, 4000);
+    }
+  };
+
+  const getLeftAnimationClass = () => {
+    switch (leftAnimation) {
+      case "enter":
+        return "translate-y-0";
+      case "exit":
+        return "-translate-y-full";
+      default:
+        return "translate-y-full";
+    }
+  };
+
+  const getRightAnimationClass = () => {
+    switch (rightAnimation) {
+      case "enter":
+        return "translate-x-0";
+      case "exit":
+        return "-translate-x-full";
+      default:
+        return "translate-x-full";
+    }
+  };
 
   return (
     <SectionContainer
@@ -186,7 +97,7 @@ const HeroPortfolioPage: React.FC = () => {
       fullWidth
       padding="lg"
       background="#e3e3e3"
-      className="relative min-h-[55vh] overflow-hidden flex flex-col items-center justify-center text-center"
+      className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
@@ -204,65 +115,171 @@ const HeroPortfolioPage: React.FC = () => {
       >
         <div className="relative z-10 w-full max-w-2xl flex flex-col justify-center items-center">
           <h1
-            className={`font-heading font-bold text-title-5xl text-center uppercase mb-6 bg-gradient-to-r ${gradientColors[currentGradientIndex]} bg-clip-text text-transparent leading-[1.1] transition-colors duration-2000`}
+            className={`font-heading font-bold text-title-2xl text-center uppercase mb-6 bg-gradient-to-r text-[#161616] leading-[1.1]`}
           >
-            OUR PROJECTS
+            Explore{" "}
+            <span className="bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
+              Our Portfolio
+            </span>
           </h1>
+
+          <p className="font-sans font-normal text-body1 text-[#161616] max-w-xl mx-auto leading-[1.5]">
+            Discover our latest projects showcasing innovation, creativity, and
+            technical excellence. From web applications to mobile solutions,
+            explore how we bring ideas to life.
+          </p>
         </div>
       </ContentContainer>
 
       <ContentContainer
         maxWidth="7xl"
         paddingX="lg"
-        className="relative z-10 py-10 flex flex-col justify-start items-center text-center min-h-screen bg-transparent"
+        className="relative z-10 py-10 flex justify-center items-center"
       >
-        <div className="relative z-10 w-full max-w-2xl flex flex-col justify-center items-center">
-          {/* Category Pills */}
-          <div className="w-full max-w-lg mr-auto mb-10">
-            <div className="flex flex-wrap items-center gap-4">
-              {categories.map((cat) => (
-                <button
-                  key={cat.value}
-                  onClick={() => setActiveCat(cat.value)}
-                  className={`
-                    px-4 py-1 md:px-8 md:py-2 rounded-full font-sans text-body2 
-                    transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0
-                    min-h-[30px] flex items-center justify-center
-                    ${
-                      activeCat === cat.value
-                        ? "bg-[#161616] text-white shadow-sm border border-[#161616]"
-                        : "bg-transparent text-[#303030] hover:bg-[#161616] hover:text-white border border-[#161616]"
-                    }
-                  `}
-                >
-                  {cat.label}
-                </button>
-              ))}
+        {loading ? (
+          <div className="w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]">
+            <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-gray-300 animate-pulse min-h-[300px] lg:min-h-[450px]" />
+            <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-gray-300 animate-pulse min-h-[300px] lg:min-h-[450px]" />
+          </div>
+        ) : error ? (
+          <div className="w-full max-w-2xl mx-auto text-center py-20">
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-8">
+              <h3 className="text-xl font-semibold text-red-800 mb-2">
+                Failed to Load Featured Portfolios
+              </h3>
+              <p className="text-red-600">{error}</p>
             </div>
           </div>
-
-          {/* Portfolio Grid */}
-          <PortfolioGrid
-            items={visibleItems}
-            hoverIdx={hoveredIdx}
-            setHoverIdx={setHoveredIdx}
-            loading={loading}
-          />
-
-          {/* Empty state */}
-          {!loading && visibleItems.length === 0 && (
-            <div className="text-center py-12">
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                No projects found
+        ) : featuredPortfolios.length === 0 ? (
+          <div className="w-full max-w-2xl mx-auto text-center py-20">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-8">
+              <h3 className="text-xl font-semibold text-yellow-800 mb-2">
+                No Featured Portfolios Available
               </h3>
-              <p className="text-gray-500">
-                {activeCat === "All"
-                  ? "No portfolios have been added yet."
-                  : `No portfolios found in the ${activeCat} category.`}
+              <p className="text-yellow-600">
+                Check back later for featured portfolio projects.
               </p>
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div
+            className="relative z-10 w-full max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-stretch gap-3 lg:gap-6 min-h-[450px]"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="w-full md:w-3/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+              <img
+                src={featuredPortfolios[activeIndex]?.image}
+                alt={featuredPortfolios[activeIndex]?.title}
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
+                loading="lazy"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
+
+              <div
+                ref={leftScrollRef}
+                className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
+              >
+                <div
+                  key={activeIndex}
+                  className={`flex flex-row justify-between overflow-hidden`}
+                >
+                  <div
+                    onClick={() =>
+                      handlePortfolioClick(featuredPortfolios[activeIndex]?.slug)
+                    }
+                    className={`text-left overflow-hidden cursor-pointer`}
+                  >
+                    <span
+                      className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
+                    >
+                      {featuredPortfolios[activeIndex].portfolioId}
+                    </span>
+
+                    <div className="text-left overflow-hidden">
+                      <h2
+                        className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getLeftAnimationClass()}`}
+                      >
+                        {featuredPortfolios[activeIndex].title}
+                      </h2>
+                    </div>
+                    <p className={`text-body2 text-white font-light`}>
+                      {new Date(
+                        featuredPortfolios[activeIndex].date
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col gap-2 w-[25px] mt-auto">
+                    {featuredPortfolios
+                      .map((_, index) => (
+                        <div
+                          key={index}
+                          className={`w-2 h-2 rounded-full transition-all duration-1000 ${
+                            index === activeIndex
+                              ? "border border-white bg-transparent w-6"
+                              : "border border-white bg-transparent"
+                          }`}
+                        />
+                      ))
+                      .reverse()}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full md:w-2/5 relative overflow-hidden rounded-2xl bg-black/80 backdrop-blur-sm border border-white/20 shadow-2xl min-h-[300px] lg:min-h-[450px]">
+              <img
+                src={featuredPortfolios[rightIndex].image}
+                alt={featuredPortfolios[rightIndex].title}
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-400 ease-out"
+                loading="lazy"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80" />
+
+              <div
+                ref={rightScrollRef}
+                className="relative h-full flex flex-col justify-end p-6 lg:p-8 gap-6 overflow-hidden"
+              >
+                <div
+                  key={rightIndex}
+                  onClick={() =>
+                    handlePortfolioClick(featuredPortfolios[rightIndex].slug)
+                  }
+                  className={`w-full overflow-hidden cursor-pointer`}
+                >
+                  <div className="text-left">
+                    <span
+                      className={`text-title-sm font-heading font-bold text-white mb-4 leading-tight block transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
+                    >
+                      {featuredPortfolios[rightIndex].portfolioId}
+                    </span>
+                    <h2
+                      className={`max-w-[600px] text-body font-semibold text-white mb-4 leading-tight transform transition-transform duration-500 ease-in-out ${getRightAnimationClass()}`}
+                    >
+                      {featuredPortfolios[rightIndex].title}
+                    </h2>
+                    <p className={`text-body2 text-white font-light`}>
+                      {new Date(
+                        featuredPortfolios[rightIndex].date
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </ContentContainer>
     </SectionContainer>
   );

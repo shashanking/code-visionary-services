@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { sanityPortfolioService } from "../../services/PortfolioService/sanityPortfolioService";
-import type {
-  PortfolioItem,
-  PortfolioItemDetails,
-} from "../../types/portfolio-data";
+import type { PortfolioItem, PortfolioItemDetails } from "../../types/portfolio-data";
 
 export const useSanityPortfolios = () => {
   const [portfolios, setPortfolios] = useState<PortfolioItem[]>([]);
@@ -26,31 +23,6 @@ export const useSanityPortfolios = () => {
 
     fetchPortfolios();
   }, []);
-
-  return { portfolios, loading, error };
-};
-
-export const useSanityLatestPortfolios = (limit: number = 6) => {
-  const [portfolios, setPortfolios] = useState<PortfolioItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchLatestPortfolios = async () => {
-      try {
-        setLoading(true);
-        const data = await sanityPortfolioService.getLatestPortfolios(limit);
-        setPortfolios(data);
-      } catch (err) {
-        setError("Failed to fetch latest portfolios");
-        console.error("Sanity error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLatestPortfolios();
-  }, [limit]);
 
   return { portfolios, loading, error };
 };
@@ -80,4 +52,29 @@ export const useSanityPortfolioBySlug = (slug: string) => {
   }, [slug]);
 
   return { portfolio, loading, error };
+};
+
+export const useSanityFeaturedPortfolios = (limit: number = 2) => {
+  const [portfolios, setPortfolios] = useState<PortfolioItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchFeaturedPortfolios = async () => {
+      try {
+        setLoading(true);
+        const data = await sanityPortfolioService.getFeaturedPortfolios(limit);
+        setPortfolios(data);
+      } catch (err) {
+        setError("Failed to fetch featured portfolios");
+        console.error("Sanity error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedPortfolios();
+  }, [limit]);
+
+  return { portfolios, loading, error };
 };
