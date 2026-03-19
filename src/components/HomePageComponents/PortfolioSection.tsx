@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/portfolio-page/home-portfolio-bg.png";
-import { useSanityLatestPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
+import { useSanityFeaturedPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
 import { useNavigate } from "react-router-dom";
 import { categories, type PortfolioItem } from "../../types/portfolio-data";
 
@@ -126,12 +126,12 @@ const PortfolioSection: React.FC = () => {
   };
 
   // Using Sanity hook to fetch portfolios
-  const { portfolios, loading, error } = useSanityLatestPortfolios(6);
+  const { portfolios, loading, error } = useSanityFeaturedPortfolios(6);
 
   const visibleItems =
     activeCat === "all"
       ? portfolios
-      : portfolios.filter((item) => item.category === activeCat);
+      : portfolios.filter((item: PortfolioItem) => item.category === activeCat);
 
   // Handle error state
   if (error) {
