@@ -203,6 +203,9 @@ const Footer: React.FC = () => {
                     Company Identification Number:<br />
                     ACR-1254
                     <br />
+                    GSTIN:<br />
+                    19ABAFV8134H1ZX
+                    <br />
                     Udyam Registration Number:<br />
                     UDYAM-WB-08-0128101
                     <br />
