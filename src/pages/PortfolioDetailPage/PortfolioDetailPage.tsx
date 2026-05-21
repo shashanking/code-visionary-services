@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams, Navigate } from "react-router-dom";
 import { useSanityPortfolioBySlug } from "../../hooks/Portfolios/useSanityPortfolios";
 import HeroPortfolioDetailsPage from "../../components/PortfolioDetailPage/HeroPortfolioDetailsPage";
@@ -21,8 +22,23 @@ const PortfolioDetailPage: React.FC = () => {
     return <Navigate to="/portfolio" replace />;
   }
 
+  const siteUrl = "https://codevisionaryservices.com";
+
   return (
     <div className="flex flex-col">
+      <Helmet>
+        <title>{`${portfolio.title} — Code Visionary Services`}</title>
+        <meta name="description" content={portfolio.description} />
+        <link rel="canonical" href={`${siteUrl}/portfolio/${portfolio.slug}`} />
+        <meta property="og:title" content={`${portfolio.title} — Code Visionary Services`} />
+        <meta property="og:description" content={portfolio.description} />
+        <meta property="og:image" content={portfolio.image || `${siteUrl}/og-image.png`} />
+        <meta property="og:url" content={`${siteUrl}/portfolio/${portfolio.slug}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${portfolio.title} — Code Visionary Services`} />
+        <meta name="twitter:description" content={portfolio.description} />
+        <meta name="twitter:image" content={portfolio.image || `${siteUrl}/og-image.png`} />
+      </Helmet>
       <HeroPortfolioDetailsPage portfolio={portfolio} />
       <PortfolioContentSection content={portfolio.content} />
       <RelatedPortfoliosSection currentPortfolioId={portfolio.id} />

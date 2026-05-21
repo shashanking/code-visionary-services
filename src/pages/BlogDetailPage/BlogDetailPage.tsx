@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate } from "react-router-dom";
 import { sanityBlogService } from "../../services/BlogService/sanityBlogService";
 import type { BlogItemDetails } from "../../types/blog-data";
@@ -47,8 +48,23 @@ const BlogDetailPage: React.FC = () => {
         return null;
     }
 
+    const siteUrl = "https://codevisionaryservices.com";
+
     return (
         <div className="bg-[#F0F0F0] min-h-screen">
+            <Helmet>
+                <title>{`${blog.title} — Code Visionary Services`}</title>
+                <meta name="description" content={blog.description} />
+                <link rel="canonical" href={`${siteUrl}/blogs/${blog.slug}`} />
+                <meta property="og:title" content={`${blog.title} — Code Visionary Services`} />
+                <meta property="og:description" content={blog.description} />
+                <meta property="og:image" content={blog.image || `${siteUrl}/og-image.png`} />
+                <meta property="og:url" content={`${siteUrl}/blogs/${blog.slug}`} />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={`${blog.title} — Code Visionary Services`} />
+                <meta name="twitter:description" content={blog.description} />
+                <meta name="twitter:image" content={blog.image || `${siteUrl}/og-image.png`} />
+            </Helmet>
             <HeroBlogDetailsPage blog={blog} />
             <BlogContentSection content={blog.content} />
             <RelatedBlogsSection currentBlogId={blog.id} />

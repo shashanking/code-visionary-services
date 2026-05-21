@@ -1,8 +1,15 @@
-
+import { Helmet } from "react-helmet-async";
 
 const PrivacyPolicyPage = () => {
   return (
     <div>
+      <Helmet>
+        <title>Privacy Policy — Code Visionary Services</title>
+        <meta name="description" content="Read the Code Visionary Services privacy policy to understand how we collect, use, and protect your personal information." />
+        <link rel="canonical" href="https://codevisionaryservices.com/privacy-policy" />
+        <meta property="og:title" content="Privacy Policy — Code Visionary Services" />
+        <meta property="og:url" content="https://codevisionaryservices.com/privacy-policy" />
+      </Helmet>
       <div className="w-full h flex items-center relative">
         {/* Dynamic half-circle blur effect */}
         <div className="absolute w-[80%] md:h-[700px] h-[343px] md:-top-[460px] -top-[200px] left-1/2 -translate-x-1/2 opacity-80 bg-gradient-to-t from-transparent via-[#007fa97e] to-transparent rounded-full blur-md md:blur-xl" />
