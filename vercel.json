@@ -1,15 +1,4 @@
 {
-  "version": 2,
-  "env": {
-    "PRERENDER_TOKEN": "hBop6h64kyjUNwREyDLu"
-  },
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
-    }
-  ],
   "rewrites": [
     {
       "source": "/portfolio/:slug*",
@@ -20,7 +9,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api|_vercel|.*\\..*).*)",
       "destination": "/index.html"
     }
   ],
