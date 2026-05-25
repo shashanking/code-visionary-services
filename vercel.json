@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "env": {
+    "PRERENDER_TOKEN": "hBop6h64kyjUNwREyDLu"
+  },
   "builds": [
     {
       "src": "package.json",
