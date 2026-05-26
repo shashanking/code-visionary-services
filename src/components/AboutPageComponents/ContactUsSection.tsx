@@ -1,9 +1,9 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ContactBg from "../../assets/about-page/contact-us-bg.jpg";
-import ContactCardBg from "../../assets/about-page/contact-us-card-bg.jpg";
-import ContactImgBg from "../../assets/about-page/contact-us-img.png";
+import ContactBg from "../../assets/about-page/contact-us-bg.webp";
+import ContactCardBg from "../../assets/about-page/contact-us-card-bg.webp";
+import ContactImgBg from "../../assets/about-page/contact-us-img.webp";
 import { CTAButton } from "../shared";
 import { useNavigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "../../lib/utils";
-import logo from "../../assets/cvs-logo-navbar.png";
+import logo from "../../assets/cvs-logo-navbar.webp";
 
 interface LogoProps {
   variant?: "navbar" | "footer" | "menubar" | "default";

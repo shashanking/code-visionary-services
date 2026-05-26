@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/portfolio-page/home-portfolio-bg.png";
+import bgImg from "../../assets/portfolio-page/home-portfolio-bg.webp";
 import { useSanityFeaturedPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
 import { useNavigate } from "react-router-dom";
 import { categories, type PortfolioItem } from "../../types/portfolio-data";

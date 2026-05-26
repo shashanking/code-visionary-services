@@ -1,8 +1,8 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/about-page/home-about-bg.png";
-import laptopImg from "../../assets/about-page/home-about-laptop.png";
+import bgImg from "../../assets/about-page/home-about-bg.webp";
+import laptopImg from "../../assets/about-page/home-about-laptop.webp";
 import { useNavigate } from "react-router-dom";
 
 const AboutSection: React.FC = () => {
@@ -65,6 +65,7 @@ const AboutSection: React.FC = () => {
               src={laptopImg}
               alt="Laptop"
               className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md xl:max-w-lg"
+              loading="lazy"
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ReviewPageBg from "../../assets/review-page/hero-bg.jpg";
+import ReviewPageBg from "../../assets/review-page/hero-bg.webp";
 import { useSanityHeroReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
 // Loading Skeleton Component

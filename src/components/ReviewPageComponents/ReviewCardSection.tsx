@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ReviewCardBg from "../../assets/review-page/review-bg.jpg";
-import leftArrow from "../../assets/review-page/review-left-arrow.png";
-import rightArrow from "../../assets/review-page/review-right-arrow.png";
+import ReviewCardBg from "../../assets/review-page/review-bg.webp";
+import leftArrow from "../../assets/review-page/review-left-arrow.webp";
+import rightArrow from "../../assets/review-page/review-right-arrow.webp";
 import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 
 // Loading Skeleton Component

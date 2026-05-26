@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ServiceCardBg from "../../assets/services-page/service-card-bg.png";
+import ServiceCardBg from "../../assets/services-page/service-card-bg.webp";
 import { CTAButton } from "../shared";
 import { useNavigate } from "react-router-dom";
 import { useSanityServices } from "../../hooks/Services/useSanityServices";

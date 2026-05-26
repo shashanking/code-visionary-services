@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import reviewBg from "../../assets/review-page/home-page-review-bg.png";
-import leftArrow from "../../assets/review-page/review-left-arrow.png";
-import rightArrow from "../../assets/review-page/review-right-arrow.png";
+import reviewBg from "../../assets/review-page/home-page-review-bg.webp";
+import leftArrow from "../../assets/review-page/review-left-arrow.webp";
+import rightArrow from "../../assets/review-page/review-right-arrow.webp";
 import { useSanityTopRatedLatestReviews } from "../../hooks/Reviews/useSanityReviews";
 
 const ReviewSection: React.FC = () => {
@@ -99,6 +99,7 @@ const ReviewSection: React.FC = () => {
                   className={`w-6 h-6 ${
                     canScrollLeft ? "opacity-100" : "opacity-50"
                   }`}
+                  loading="lazy"
                 />
               </button>
               <button
@@ -116,6 +117,7 @@ const ReviewSection: React.FC = () => {
                   className={`w-6 h-6 ${
                     canScrollRight ? "opacity-100" : "opacity-50"
                   }`}
+                  loading="lazy"
                 />
               </button>
             </div>
@@ -184,6 +186,7 @@ const ReviewSection: React.FC = () => {
                       src={item.image}
                       alt={item.reviewer}
                       className="absolute top-5 left-5 w-12 h-12 rounded-full border-2 border-[#0861AA] object-contain z-30"
+                      loading="lazy"
                     />
 
                     {/* Video */}
@@ -293,6 +296,7 @@ const ReviewSection: React.FC = () => {
                 className={`w-5 h-5 ${
                   canScrollLeft ? "opacity-100" : "opacity-50"
                 }`}
+                loading="lazy"
               />
             </button>
             <button
@@ -310,6 +314,7 @@ const ReviewSection: React.FC = () => {
                 className={`w-5 h-5 ${
                   canScrollRight ? "opacity-100" : "opacity-50"
                 }`}
+                loading="lazy"
               />
             </button>
           </div>

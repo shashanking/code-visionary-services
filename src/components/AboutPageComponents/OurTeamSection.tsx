@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import TeamBg from "../../assets/about-page/our-team-bg.jpg";
+import TeamBg from "../../assets/about-page/our-team-bg.webp";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSanityTeamMembers } from "../../hooks/Team/useSanityTeam";
 

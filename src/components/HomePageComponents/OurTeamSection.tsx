@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/about-page/home-our-team-bg.png";
+import bgImg from "../../assets/about-page/home-our-team-bg.webp";
 import { useSanityTeamMembers } from "../../hooks/Team/useSanityTeam";
 
 const OurTeamSection: React.FC = () => {

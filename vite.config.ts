@@ -7,5 +7,14 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     outDir: "dist",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-sanity": ["@sanity/client"],
+          "vendor-helmet": ["react-helmet-async"],
+        },
+      },
+    },
   },
 });

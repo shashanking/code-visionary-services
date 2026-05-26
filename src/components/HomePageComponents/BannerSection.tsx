@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgArrows from "../../assets/home-page/home-banner-section-bg.png";
-import blueCard from "../../assets/home-page/home-banner-card-bg.png";
-import blueCardMobile from "../../assets/home-page/home-banner-card-bg-mobile.png";
-import phoneStack from "../../assets/home-page/home-banner-section-phone.png";
+import bgArrows from "../../assets/home-page/home-banner-section-bg.webp";
+import blueCard from "../../assets/home-page/home-banner-card-bg.webp";
+import blueCardMobile from "../../assets/home-page/home-banner-card-bg-mobile.webp";
+import phoneStack from "../../assets/home-page/home-banner-section-phone.webp";
 import { useNavigate } from "react-router-dom";
 
 const BannerSection: React.FC = () => {
@@ -60,6 +60,7 @@ const BannerSection: React.FC = () => {
               src={phoneStack}
               alt="App preview phones"
               className="w-[400px] md:w-[600px] h-auto -translate-y-24 drop-shadow-[4px_4px_14.9px_rgba(0,0,0,0.5)] md:drop-shadow-none select-none pointer-events-none"
+              loading="lazy"
             />
           </div>
 

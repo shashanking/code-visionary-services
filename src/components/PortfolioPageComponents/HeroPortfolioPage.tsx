@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import PortfolioPageBg from "../../assets/portfolio-page/hero-bg.jpg";
+import PortfolioPageBg from "../../assets/portfolio-page/hero-bg.webp";
 import { useNavigate } from "react-router-dom";
 import { useSanityFeaturedPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
 

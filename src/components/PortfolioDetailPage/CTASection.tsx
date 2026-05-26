@@ -1,8 +1,8 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import CtaSectionBg from "../../assets/portfolio-page/cta-section-bg.jpg";
-import CtaSectionElement from "../../assets/portfolio-page/cta-section-element.png";
+import CtaSectionBg from "../../assets/portfolio-page/cta-section-bg.webp";
+import CtaSectionElement from "../../assets/portfolio-page/cta-section-element.webp";
 import { useNavigate } from "react-router-dom";
 
 const CTASection: React.FC = () => {

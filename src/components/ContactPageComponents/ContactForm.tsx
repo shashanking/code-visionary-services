@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContentContainer from "../shared/ContentContainer";
-import bgImgInsideMobile from "../../assets/contact-page/contact-bg-mobile.png";
-import bgImgInside from "../../assets/contact-page/contact-bg.png";
+import bgImgInsideMobile from "../../assets/contact-page/contact-bg-mobile.webp";
+import bgImgInside from "../../assets/contact-page/contact-bg.webp";
 import {
   BadgeCheck,
   CalendarCheck,

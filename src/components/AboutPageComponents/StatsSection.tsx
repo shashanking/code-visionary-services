@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import StatsBg from "../../assets/about-page/stats-bg.jpg";
+import StatsBg from "../../assets/about-page/stats-bg.webp";
 import { StatsCardData, StatsData } from "../../constants/stats-data";
 
 const StatsSection: React.FC = () => {

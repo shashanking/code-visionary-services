@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import bgImg from "../../assets/home-page/tech-stack/tech-stack-bg.png";
+import bgImg from "../../assets/home-page/tech-stack/tech-stack-bg.webp";
 import { useSanityTechStack } from "../../hooks/TechStack/useSanityTechStack";
 
 const TechStackSection: React.FC = () => {

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import TimelineBg from "../../assets/about-page/timeline-bg.jpg";
+import TimelineBg from "../../assets/about-page/timeline-bg.webp";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";

@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import HeroBg from "../../assets/about-page/hero-bg.png";
-import ArrowDown from "../../assets/about-page/arrow-down.png";
+import HeroBg from "../../assets/about-page/hero-bg.webp";
+import ArrowDown from "../../assets/about-page/arrow-down.webp";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -86,7 +86,7 @@ const HeroAboutPage: React.FC = () => {
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
-          className="w-full h-full bg-contain md:bg-cover bg-no-repeat bg-center bg-fixed"
+          className="w-full h-full bg-contain md:bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: `url(${HeroBg})` }}
         />
       </div>

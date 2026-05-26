@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import BlogPageBg from "../../assets/blog-page/hero-bg.jpg";
+import BlogPageBg from "../../assets/blog-page/hero-bg.webp";
 import { useNavigate } from "react-router-dom";
 import { useSanityFeaturedBlogs } from "../../hooks/Blogs/useSanityBlogs";
 

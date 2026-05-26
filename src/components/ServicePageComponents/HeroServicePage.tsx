@@ -1,8 +1,8 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ServicePageBg from "../../assets/services-page/service-page-bg.png";
-import ServiceHeroBg from "../../assets/services-page/service-hero-bg.png";
+import ServicePageBg from "../../assets/services-page/service-page-bg.webp";
+import ServiceHeroBg from "../../assets/services-page/service-hero-bg.webp";
 
 const HeroServicePage: React.FC = () => {
   return (
@@ -15,7 +15,7 @@ const HeroServicePage: React.FC = () => {
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
-          className="w-full h-full bg-cover bg-no-repeat bg-center bg-fixed"
+          className="w-full h-full bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: `url(${ServicePageBg})` }}
         />
       </div>

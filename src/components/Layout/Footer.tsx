@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { NAV_ITEMS } from "../../constants/navigation";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import CVSLogoImg from "../../assets/cvs-logo/footer-logo.png";
-import CVSLogoBg from "../../assets/cvs-logo/footer-bg.png";
+import CVSLogoImg from "../../assets/cvs-logo/footer-logo.webp";
+import CVSLogoBg from "../../assets/cvs-logo/footer-bg.webp";
 
 import {
   FacebookIcon,

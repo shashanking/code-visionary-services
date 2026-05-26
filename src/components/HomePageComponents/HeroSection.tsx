@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { CTAButton } from "../shared";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import heroBg1 from "../../assets/hero/hero-bg-1.png";
-import heroBg2 from "../../assets/hero/hero-bg-2.png";
-import heroBg3 from "../../assets/hero/hero-bg-3.png";
-import heroBg4 from "../../assets/hero/hero-bg-4.png";
-import arrowImg from "../../assets/home-page/arrow-up-icon.png";
+import heroBg1 from "../../assets/hero/hero-bg-1.webp";
+import heroBg2 from "../../assets/hero/hero-bg-2.webp";
+import heroBg3 from "../../assets/hero/hero-bg-3.webp";
+import heroBg4 from "../../assets/hero/hero-bg-4.webp";
+import arrowImg from "../../assets/home-page/arrow-up-icon.webp";
 import { useNavigate } from "react-router-dom";
 import { useSanityHeroServices } from "../../hooks/Services/useSanityServices";
 
