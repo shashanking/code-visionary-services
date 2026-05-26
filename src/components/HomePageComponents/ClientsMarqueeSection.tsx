@@ -22,7 +22,7 @@ const RowItem: React.FC<{ name: string; logo?: string }> = ({ name, logo }) => {
         </div>
       )}
 
-      <div className="font-montserrat font-bold text-xs md:text-sm text-[#143255] text-center mt-2 max-w-full overflow-hidden text-ellipsis">
+      <div aria-hidden="true" className="font-montserrat font-bold text-xs md:text-sm text-[#143255] text-center mt-2 max-w-full overflow-hidden text-ellipsis">
         {name}
       </div>
     </div>
