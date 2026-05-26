@@ -1,4 +1,4 @@
-import { client } from "../../lib/sanityClient";
+import { client, optimizeSanityUrl } from "../../lib/sanityClient";
 import type { Client, SanityClient } from "../../types/client-data";
 
 export class SanityClientService {
@@ -18,7 +18,7 @@ export class SanityClientService {
       id: item._id,
       clientId: item.clientId,
       name: item.name,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 200, 80) ?? undefined,
       date: this.formatDate(item.date),
     }));
   }
@@ -39,7 +39,7 @@ export class SanityClientService {
       id: item._id,
       clientId: item.clientId,
       name: item.name,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 200, 80) ?? undefined,
       date: this.formatDate(item.date),
     }));
   }

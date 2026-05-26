@@ -1,4 +1,4 @@
-import { client } from "../../lib/sanityClient";
+import { client, optimizeSanityUrl } from "../../lib/sanityClient";
 import type { SanityTeamMember, TeamMember } from "../../types/team-data";
 
 export class SanityTeamService {
@@ -21,7 +21,7 @@ export class SanityTeamService {
       teamId: item.teamId,
       name: item.name,
       role: item.role,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 400, 80) ?? undefined,
       description: item.description,
       date: this.formatDate(item.date),
     }));
@@ -46,7 +46,7 @@ export class SanityTeamService {
       teamId: item.teamId,
       name: item.name,
       role: item.role,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 400, 80) ?? undefined,
       description: item.description,
       date: this.formatDate(item.date),
     }));
@@ -73,7 +73,7 @@ export class SanityTeamService {
       teamId: data.teamId,
       name: data.name,
       role: data.role,
-      image: data.image,
+      image: optimizeSanityUrl(data.image, 400, 80) ?? undefined,
       description: data.description,
       date: this.formatDate(data.date),
     };

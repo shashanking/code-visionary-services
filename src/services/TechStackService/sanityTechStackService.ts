@@ -1,4 +1,4 @@
-import { client } from "../../lib/sanityClient";
+import { client, optimizeSanityUrl } from "../../lib/sanityClient";
 import type {
   TechCategory,
   Technology,
@@ -126,7 +126,7 @@ export class SanityTechStackService {
     return {
       id: data._id,
       name: data.name,
-      image: data.image?.asset.url,
+      image: optimizeSanityUrl(data.image?.asset.url, 80, 80) ?? undefined,
       imageAlt: data.image?.alt,
       highlighted: data.highlighted,
       order: data.order,
@@ -137,7 +137,7 @@ export class SanityTechStackService {
     return {
       id: data._id,
       name: data.name,
-      image: data.image.asset.url,
+      image: optimizeSanityUrl(data.image.asset.url, 80, 80) ?? data.image.asset.url,
       imageAlt: data.image.alt,
       active: data.active,
       highlighted: data.highlighted,

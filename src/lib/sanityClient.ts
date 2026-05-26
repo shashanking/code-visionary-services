@@ -12,3 +12,13 @@ export const client = createClient({
 const builder = imageUrlBuilder(client);
 
 export const urlFor = (source: SanityImageSource) => builder.image(source);
+
+export function optimizeSanityUrl(
+  url: string | null | undefined,
+  width = 800,
+  quality = 80
+): string | null | undefined {
+  if (!url || !url.includes("cdn.sanity.io")) return url;
+  const sep = url.includes("?") ? "&" : "?";
+  return `${url}${sep}w=${width}&q=${quality}&auto=format`;
+}

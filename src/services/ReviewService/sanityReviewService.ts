@@ -1,4 +1,4 @@
-import { client } from "../../lib/sanityClient";
+import { client, optimizeSanityUrl } from "../../lib/sanityClient";
 import type {
   ReviewItem,
   ReviewHeroItem,
@@ -29,7 +29,7 @@ export class SanityReviewService {
       reviewer: item.reviewer,
       clientType: item.clientType,
       description: item.description,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
       video: item.video, // Video URL is now directly fetched
       date: this.formatDate(item.date),
       rating: item.rating,
@@ -52,7 +52,7 @@ export class SanityReviewService {
       id: item._id, // Map _id to id
       reviewerId: item.reviewerId,
       name: item.name,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
       date: this.formatDate(item.date),
     }));
   }
@@ -79,7 +79,7 @@ export class SanityReviewService {
       reviewer: item.reviewer,
       clientType: item.clientType,
       description: item.description,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
       video: item.video,
       date: this.formatDate(item.date),
       rating: item.rating,
@@ -114,7 +114,7 @@ export class SanityReviewService {
       reviewer: item.reviewer,
       clientType: item.clientType,
       description: item.description,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
       video: item.video,
       date: this.formatDate(item.date),
       rating: item.rating,

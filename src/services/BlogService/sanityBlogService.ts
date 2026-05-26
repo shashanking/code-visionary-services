@@ -1,4 +1,4 @@
-import { client } from "../../lib/sanityClient";
+import { client, optimizeSanityUrl } from "../../lib/sanityClient";
 import type {
   BlogItem,
   BlogItemDetails,
@@ -31,7 +31,7 @@ export class SanityBlogService {
       date: new Date(item.date),
       author: item.author,
       description: item.description,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 800, 80) ?? undefined,
       readTime: item.readTime,
     }));
   }
@@ -82,7 +82,7 @@ export class SanityBlogService {
       date: new Date(item.date),
       author: item.author,
       description: item.description,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 800, 80) ?? undefined,
       readTime: item.readTime,
     }));
   }
@@ -96,7 +96,7 @@ export class SanityBlogService {
       date: new Date(data.date),
       author: data.author,
       description: data.description,
-      image: data.image,
+      image: optimizeSanityUrl(data.image, 800, 80) ?? undefined,
       readTime: data.readTime,
       content: data.content,
     };

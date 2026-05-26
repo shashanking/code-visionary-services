@@ -1,4 +1,4 @@
-import { client } from "../../lib/sanityClient";
+import { client, optimizeSanityUrl } from "../../lib/sanityClient";
 import type { SanityService, Service } from "../../types/service-data";
 
 
@@ -21,7 +21,7 @@ export class SanityServiceDataService {
       id: item._id,
       serviceId: item.serviceId,
       label: item.label,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 400, 80) ?? undefined,
       tools: item.tools || [],
       description: item.description,
       date: this.formatDate(item.date),
@@ -48,7 +48,7 @@ export class SanityServiceDataService {
       id: data._id,
       serviceId: data.serviceId,
       label: data.label,
-      image: data.image,
+      image: optimizeSanityUrl(data.image, 400, 80) ?? undefined,
       tools: data.tools || [],
       description: data.description,
       date: this.formatDate(data.date),
@@ -73,7 +73,7 @@ export class SanityServiceDataService {
       id: item._id,
       serviceId: item.serviceId,
       label: item.label,
-      image: item.image,
+      image: optimizeSanityUrl(item.image, 400, 80) ?? undefined,
       tools: item.tools || [],
       description: item.description,
       date: this.formatDate(item.date),
