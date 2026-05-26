@@ -126,13 +126,13 @@ const ReviewSection: React.FC = () => {
             <div className="hidden md:flex w-0.5 h-32 rounded-xl bg-gradient-to-b from-[#0861AA]/0 via-[#0861AA] to-[#0861AA]/0" />
 
             <div className="flex-1 text-center md:text-left">
-              <h1 className="font-heading font-bold text-title-md text-center md:text-left uppercase mb-6 leading-tight max-w-full md:max-w-sm">
+              <h2 className="font-heading font-bold text-title-md text-center md:text-left uppercase mb-6 leading-tight max-w-full md:max-w-sm">
                 <span className="text-[#161616]">WHAT OUR</span>{" "}
                 <span className="bg-gradient-to-l from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
                   CLIENTS
                 </span>{" "}
                 <span className="text-[#161616] inline-block">SAY</span>
-              </h1>
+              </h2>
 
               <p className="font-sans font-normal text-body1 text-[#3C4454] leading-[1.5] text-center md:text-left">
                 Discover how Code Visionary Services makes a difference for our

@@ -195,11 +195,11 @@ const TechStackSection: React.FC = () => {
 
           {/* Right: Content Section*/}
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start text-center md:text-left self-end md:self-center md:pl-25">
-            <h1 className="font-heading font-bold text-title-md text-center md:text-left uppercase mb-6 leading-tight max-w-xs md:max-w-sm">
+            <h2 className="font-heading font-bold text-title-md text-center md:text-left uppercase mb-6 leading-tight max-w-xs md:max-w-sm">
               <span className="text-[#b44a2c]">TECHNOLOGIES</span>{" "}
               <span className="text-[#161616]">WE</span>{" "}
               <span className="text-[#161616] inline-block">WORK WITH</span>
-            </h1>
+            </h2>
 
             <p className="font-sans font-normal text-body1 text-[#3C4454] leading-[1.5] mb-10 text-center md:text-left">
               At CVS, we stay ahead of the curve by using the latest technology

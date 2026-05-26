@@ -36,12 +36,12 @@ const AboutSection: React.FC = () => {
       >
         <div className="w-full max-w-2xl mx-auto">
           <div className="font-heading md:w-1/2 mb-12 md:mb-0 md:pr-8 lg:pr-16">
-            <h1 className="text-title-md font-bold text-gray-800 uppercase leading-tight mb-6 text-center md:text-left mx-auto max-w-xs md:max-w-sm">
+            <h2 className="text-title-md font-bold text-gray-800 uppercase leading-tight mb-6 text-center md:text-left mx-auto max-w-xs md:max-w-sm">
               YOUR PARTNER IN{" "}
               <span className="inline-block bg-gradient-to-r from-[#B5442C] to-[#4F1E13] bg-clip-text text-transparent">
                 DIGITAL INNOVATION
               </span>
-            </h1>
+            </h2>
 
             <p className="font-sans font-normal text-body1 text-gray-800 leading-[1.5] mb-10 max-w-xl mx-auto md:mx-0 text-center md:text-left">
               At Code Visionary Services, we design and build reliable digital
