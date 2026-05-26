@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.codevisionaryservices.com" }],
+      "destination": "https://codevisionaryservices.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/portfolio/:slug*",
