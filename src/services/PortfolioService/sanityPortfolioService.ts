@@ -31,7 +31,7 @@ export class SanityPortfolioService {
       date: new Date(item.date),
       author: item.author,
       description: item.description,
-      image: optimizeSanityUrl(item.image, 800, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 800, 80) || "",
       category: item.category,
     }));
   }
@@ -82,7 +82,7 @@ export class SanityPortfolioService {
       date: new Date(item.date),
       author: item.author,
       description: item.description,
-      image: optimizeSanityUrl(item.image, 800, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 800, 80) || "",
       category: item.category,
     }));
   }
@@ -96,7 +96,7 @@ export class SanityPortfolioService {
       date: new Date(data.date),
       author: data.author,
       description: data.description,
-      image: optimizeSanityUrl(data.image, 800, 80) ?? undefined,
+      image: optimizeSanityUrl(data.image, 800, 80) || "",
       category: data.category,
       content: data.content,
     };

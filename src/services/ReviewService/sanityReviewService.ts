@@ -29,7 +29,7 @@ export class SanityReviewService {
       reviewer: item.reviewer,
       clientType: item.clientType,
       description: item.description,
-      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 300, 80) || "",
       video: item.video, // Video URL is now directly fetched
       date: this.formatDate(item.date),
       rating: item.rating,
@@ -52,7 +52,7 @@ export class SanityReviewService {
       id: item._id, // Map _id to id
       reviewerId: item.reviewerId,
       name: item.name,
-      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 300, 80) || "",
       date: this.formatDate(item.date),
     }));
   }
@@ -79,7 +79,7 @@ export class SanityReviewService {
       reviewer: item.reviewer,
       clientType: item.clientType,
       description: item.description,
-      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 300, 80) || "",
       video: item.video,
       date: this.formatDate(item.date),
       rating: item.rating,
@@ -114,7 +114,7 @@ export class SanityReviewService {
       reviewer: item.reviewer,
       clientType: item.clientType,
       description: item.description,
-      image: optimizeSanityUrl(item.image, 300, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 300, 80) || "",
       video: item.video,
       date: this.formatDate(item.date),
       rating: item.rating,

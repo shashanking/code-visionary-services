@@ -18,7 +18,7 @@ export class SanityClientService {
       id: item._id,
       clientId: item.clientId,
       name: item.name,
-      image: optimizeSanityUrl(item.image, 200, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 200, 80) || "",
       date: this.formatDate(item.date),
     }));
   }
@@ -39,7 +39,7 @@ export class SanityClientService {
       id: item._id,
       clientId: item.clientId,
       name: item.name,
-      image: optimizeSanityUrl(item.image, 200, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 200, 80) || "",
       date: this.formatDate(item.date),
     }));
   }

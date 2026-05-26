@@ -31,7 +31,7 @@ export class SanityBlogService {
       date: new Date(item.date),
       author: item.author,
       description: item.description,
-      image: optimizeSanityUrl(item.image, 800, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 800, 80) || "",
       readTime: item.readTime,
     }));
   }
@@ -82,7 +82,7 @@ export class SanityBlogService {
       date: new Date(item.date),
       author: item.author,
       description: item.description,
-      image: optimizeSanityUrl(item.image, 800, 80) ?? undefined,
+      image: optimizeSanityUrl(item.image, 800, 80) || "",
       readTime: item.readTime,
     }));
   }
@@ -96,7 +96,7 @@ export class SanityBlogService {
       date: new Date(data.date),
       author: data.author,
       description: data.description,
-      image: optimizeSanityUrl(data.image, 800, 80) ?? undefined,
+      image: optimizeSanityUrl(data.image, 800, 80) || "",
       readTime: data.readTime,
       content: data.content,
     };
