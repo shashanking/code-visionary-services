@@ -9,10 +9,13 @@ export default defineConfig({
     outDir: "dist",
     rollupOptions: {
       output: {
-        manualChunks: {
-          "vendor-react": ["react", "react-dom", "react-router-dom"],
-          "vendor-sanity": ["@sanity/client"],
-          "vendor-helmet": ["react-helmet-async"],
+        manualChunks: (id) => {
+          if (id.includes('node_modules/gsap')) return 'vendor-gsap';
+          if (id.includes('node_modules/framer-motion')) return 'vendor-framer';
+          if (id.includes('node_modules/@sanity')) return 'vendor-sanity';
+          if (id.includes('node_modules/react-dom')) return 'vendor-react';
+          if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router')) return 'vendor-router';
+          if (id.includes('node_modules/react-helmet-async')) return 'vendor-helmet';
         },
       },
     },

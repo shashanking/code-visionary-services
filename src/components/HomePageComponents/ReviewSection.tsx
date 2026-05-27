@@ -197,7 +197,8 @@ const ReviewSection: React.FC = () => {
                         }}
                         src={item.video}
                         className={`absolute inset-0 w-full h-full object-contain`}
-                        
+                        muted
+                        preload="none"
                         loop
                         playsInline
                       />

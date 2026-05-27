@@ -51,13 +51,15 @@ const OurStorySection: React.FC = () => {
       gsap.set(img3Ref.current, { scale: 0.8, opacity: 1, zIndex: 1 });
       gsap.set(textRef.current, { y: 40, opacity: 0 });
 
+      const isMobile = window.innerWidth < 768;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=250%",
-          scrub: 1,
-          pin: true,
+          end: isMobile ? "+=100%" : "+=250%",
+          scrub: isMobile ? false : 1,
+          pin: isMobile ? false : true,
           anticipatePin: 1,
         },
         defaults: { ease: "power2.out" },

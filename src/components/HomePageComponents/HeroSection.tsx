@@ -171,16 +171,21 @@ const HeroSection: React.FC = () => {
       className="min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
       {/* Background Images */}
-      {heroBackgrounds.map((bg, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-2000 ease-in-out z-0 ${
-            currentBgIndex === index ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ backgroundImage: `url(${bg})` }}
-          aria-hidden="true"
-        />
-      ))}
+      {heroBackgrounds.map((bg, index) => {
+        const isActive = currentBgIndex === index;
+        const isNext = index === (currentBgIndex + 1) % heroBackgrounds.length;
+        if (!isActive && !isNext) return null;
+        return (
+          <div
+            key={index}
+            className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-2000 ease-in-out z-0 ${
+              isActive ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ backgroundImage: `url(${bg})` }}
+            aria-hidden="true"
+          />
+        );
+      })}
 
       <ContentContainer
         maxWidth="7xl"

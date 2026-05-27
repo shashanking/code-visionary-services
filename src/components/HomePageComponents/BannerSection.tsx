@@ -60,7 +60,6 @@ const BannerSection: React.FC = () => {
               src={phoneStack}
               alt="App preview phones"
               className="w-[400px] md:w-[600px] h-auto -translate-y-24 drop-shadow-[4px_4px_14.9px_rgba(0,0,0,0.5)] md:drop-shadow-none select-none pointer-events-none"
-              loading="lazy"
             />
           </div>
 

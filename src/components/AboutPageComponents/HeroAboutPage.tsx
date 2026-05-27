@@ -40,14 +40,16 @@ const HeroAboutPage: React.FC = () => {
 
       const letters = textEl.querySelectorAll<HTMLSpanElement>(".letter");
 
+      const isMobile = window.innerWidth < 768;
+
       // GSAP timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionEl,
           start: "top top",
-          end: "+=250%",
-          scrub: true,
-          pin: true,
+          end: isMobile ? "+=100%" : "+=250%",
+          scrub: isMobile ? false : true,
+          pin: isMobile ? false : true,
           pinSpacing: true,
         },
       });
