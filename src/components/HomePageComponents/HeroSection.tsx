@@ -40,9 +40,8 @@ const ServiceCard: React.FC<{
       >
         <img
           src={imgSrc(arrowImg)}
-          alt=""
+          alt={`View ${service.label} service`}
           className="w-5 h-5 invert"
-          aria-hidden="true"
         />
       </div>
 
