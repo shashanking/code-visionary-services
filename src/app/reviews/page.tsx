@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import HeroReviewPage from '../../components/ReviewPageComponents/HeroReviewPage';
 import ReviewCardSection from '../../components/ReviewPageComponents/ReviewCardSection';
+import { sanityReviewService } from '../../services/ReviewService/sanityReviewService';
 
 const SITE_URL = 'https://codevisionaryservices.com';
 
@@ -22,11 +23,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ReviewPage() {
+export default async function ReviewPage() {
+  const [reviewItems, heroReviewItems] = await Promise.all([
+    sanityReviewService.getReviewItems(),
+    sanityReviewService.getHeroReviewItems(),
+  ]);
+
   return (
     <div>
-      <HeroReviewPage />
-      <ReviewCardSection />
+      <HeroReviewPage initialData={heroReviewItems} />
+      <ReviewCardSection initialData={reviewItems} />
     </div>
   );
 }

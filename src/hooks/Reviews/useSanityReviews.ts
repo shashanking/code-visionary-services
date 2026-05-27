@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import type { ReviewHeroItem, ReviewItem } from "../../types/review-data";
 import { sanityReviewService } from "../../services/ReviewService/sanityReviewService";
 
-export const useSanityReviewItems = () => {
-  const [reviewItems, setReviewItems] = useState<ReviewItem[]>([]);
-  const [loading, setLoading] = useState(true);
+export const useSanityReviewItems = (initialData?: ReviewItem[]) => {
+  const [reviewItems, setReviewItems] = useState<ReviewItem[]>(initialData ?? []);
+  const [loading, setLoading] = useState(initialData === undefined);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (initialData !== undefined) return;
     const fetchReviewItems = async () => {
       try {
         setLoading(true);
@@ -20,19 +21,19 @@ export const useSanityReviewItems = () => {
         setLoading(false);
       }
     };
-
     fetchReviewItems();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { reviewItems, loading, error };
 };
 
-export const useSanityHeroReviewItems = () => {
-  const [heroReviewItems, setHeroReviewItems] = useState<ReviewHeroItem[]>([]);
-  const [loading, setLoading] = useState(true);
+export const useSanityHeroReviewItems = (initialData?: ReviewHeroItem[]) => {
+  const [heroReviewItems, setHeroReviewItems] = useState<ReviewHeroItem[]>(initialData ?? []);
+  const [loading, setLoading] = useState(initialData === undefined);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (initialData !== undefined) return;
     const fetchHeroReviewItems = async () => {
       try {
         setLoading(true);
@@ -45,9 +46,8 @@ export const useSanityHeroReviewItems = () => {
         setLoading(false);
       }
     };
-
     fetchHeroReviewItems();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { heroReviewItems, loading, error };
 };
@@ -81,13 +81,15 @@ export const useSanityHighRatedReviewItems = (minRating: number = 4) => {
 
 export const useSanityTopRatedLatestReviews = (
   limit: number = 8,
-  minRating: number = 4
+  minRating: number = 4,
+  initialData?: ReviewItem[]
 ) => {
-  const [reviewItems, setReviewItems] = useState<ReviewItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [reviewItems, setReviewItems] = useState<ReviewItem[]>(initialData ?? []);
+  const [loading, setLoading] = useState(initialData === undefined);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (initialData !== undefined) return;
     const fetchTopRatedLatestReviews = async () => {
       try {
         setLoading(true);
@@ -105,7 +107,7 @@ export const useSanityTopRatedLatestReviews = (
     };
 
     fetchTopRatedLatestReviews();
-  }, [limit, minRating]);
+  }, [limit, minRating]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { reviewItems, loading, error };
 };

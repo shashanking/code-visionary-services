@@ -6,6 +6,7 @@ import ContentContainer from "../shared/ContentContainer";
 import ReviewPageBg from "../../assets/review-page/hero-bg.webp";
 import { useSanityHeroReviewItems } from "../../hooks/Reviews/useSanityReviews";
 import { imgSrc } from "../../utils/imageUrl";
+import type { ReviewHeroItem } from "../../types/review-data";
 
 // Loading Skeleton Component
 const HeroReviewsLoadingSkeleton: React.FC = () => {
@@ -85,8 +86,8 @@ const HeroReviewsErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
   );
 };
 
-const HeroReviewPage: React.FC = () => {
-  const { heroReviewItems, loading, error } = useSanityHeroReviewItems();
+const HeroReviewPage: React.FC<{ initialData?: ReviewHeroItem[] }> = ({ initialData }) => {
+  const { heroReviewItems, loading, error } = useSanityHeroReviewItems(initialData);
 
   return (
     <SectionContainer

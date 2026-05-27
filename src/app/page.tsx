@@ -9,6 +9,7 @@ import OurTeamSection from '../components/HomePageComponents/OurTeamSection';
 import BannerSection from '../components/HomePageComponents/BannerSection';
 import ContactSection from '../components/HomePageComponents/ContactSection';
 import FAQSection from '../components/HomePageComponents/FAQSection';
+import { sanityReviewService } from '../services/ReviewService/sanityReviewService';
 
 const SITE_URL = 'https://codevisionaryservices.com';
 
@@ -30,7 +31,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const reviewItems = await sanityReviewService.getTopRatedLatestReviews(8, 4);
+
   return (
     <div>
       <HeroSection />
@@ -38,7 +41,7 @@ export default function HomePage() {
       <AboutSection />
       <PortfolioSection />
       <TechStackSection />
-      <ReviewSection />
+      <ReviewSection initialData={reviewItems} />
       <OurTeamSection />
       <BannerSection />
       <ContactSection />

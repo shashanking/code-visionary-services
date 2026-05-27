@@ -8,6 +8,7 @@ import leftArrow from "../../assets/review-page/review-left-arrow.webp";
 import rightArrow from "../../assets/review-page/review-right-arrow.webp";
 import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
 import { imgSrc } from "../../utils/imageUrl";
+import type { ReviewItem } from "../../types/review-data";
 
 // Loading Skeleton Component
 const ReviewsLoadingSkeleton: React.FC = () => {
@@ -57,7 +58,7 @@ const ReviewsErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
   );
 };
 
-const ReviewCardSection: React.FC = () => {
+const ReviewCardSection: React.FC<{ initialData?: ReviewItem[] }> = ({ initialData }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | string | null>(1);
   const [playingId, setPlayingId] = useState<number | null>(null);
   const videoRefs = React.useRef<Record<number, HTMLVideoElement | null>>({});
@@ -66,7 +67,7 @@ const ReviewCardSection: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 8;
 
-  const { reviewItems: rawReviewItems, loading, error } = useSanityReviewItems();
+  const { reviewItems: rawReviewItems, loading, error } = useSanityReviewItems(initialData);
   const reviewItems = [...rawReviewItems].sort((a, b) =>
     a.video && !b.video ? -1 : !a.video && b.video ? 1 : 0
   );
