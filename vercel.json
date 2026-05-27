@@ -1,24 +1,11 @@
 {
+  "framework": "nextjs",
   "redirects": [
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.codevisionaryservices.com" }],
       "destination": "https://codevisionaryservices.com/:path*",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/portfolio/:slug*",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/blogs/:slug*",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/((?!api|_vercel|.*\\..*).*)",
-      "destination": "/index.html"
     }
   ],
   "headers": [
