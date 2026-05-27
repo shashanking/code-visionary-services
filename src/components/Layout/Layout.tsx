@@ -12,7 +12,7 @@ const organizationSchema = {
   "@type": "ProfessionalService",
   name: "Code Visionary Services",
   url: "https://codevisionaryservices.com",
-  logo: "https://codevisionaryservices.com/logo.png",
+  logo: "https://codevisionaryservices.com/logo.webp",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Kolkata",

@@ -12,12 +12,12 @@ const PortfolioPage: React.FC = () => {
         <link rel="canonical" href="https://codevisionaryservices.com/portfolio" />
         <meta property="og:title" content="Our Digital Projects That Drive Results | Code Visionary Services" />
         <meta property="og:description" content="See how we transform ideas into results through web development, app solutions, branding, and performance-driven digital projects." />
-        <meta property="og:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta property="og:image" content="https://codevisionaryservices.com/og-image.webp" />
         <meta property="og:url" content="https://codevisionaryservices.com/portfolio" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Our Digital Projects That Drive Results | Code Visionary Services" />
         <meta name="twitter:description" content="See how we transform ideas into results through web development, app solutions, branding, and performance-driven digital projects." />
-        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.webp" />
       </Helmet>
       <HeroPortfolioPage />
       <PortfolioCardSection />

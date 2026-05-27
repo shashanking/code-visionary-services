@@ -11,12 +11,12 @@ const ContactPage = React.memo(() => {
         <link rel="canonical" href="https://codevisionaryservices.com/contact" />
         <meta property="og:title" content="Ready to Hire Dedicated Developers? Contact Code Visionary Services" />
         <meta property="og:description" content="Got a project in mind? Hire dedicated Python, React & app developers at Code Visionary Services. Schedule a call & get a clear plan in one business day." />
-        <meta property="og:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta property="og:image" content="https://codevisionaryservices.com/og-image.webp" />
         <meta property="og:url" content="https://codevisionaryservices.com/contact" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Ready to Hire Dedicated Developers? Contact Code Visionary Services" />
         <meta name="twitter:description" content="Got a project in mind? Hire dedicated Python, React & app developers at Code Visionary Services. Schedule a call & get a clear plan in one business day." />
-        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.webp" />
       </Helmet>
       <HeroContactPage />
     </div>

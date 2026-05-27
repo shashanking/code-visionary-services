@@ -12,12 +12,12 @@ const BlogPage = React.memo(() => {
         <link rel="canonical" href="https://codevisionaryservices.com/blogs" />
         <meta property="og:title" content="Digital Innovation Blog | Code Visionary Services" />
         <meta property="og:description" content="Stay updated with the latest digital trends, marketing strategies, web technologies, and creative insights from our expert blog." />
-        <meta property="og:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta property="og:image" content="https://codevisionaryservices.com/og-image.webp" />
         <meta property="og:url" content="https://codevisionaryservices.com/blogs" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Digital Innovation Blog | Code Visionary Services" />
         <meta name="twitter:description" content="Stay updated with the latest digital trends, marketing strategies, web technologies, and creative insights from our expert blog." />
-        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.webp" />
       </Helmet>
       <HeroBlogPage />
       <BlogCardSection />

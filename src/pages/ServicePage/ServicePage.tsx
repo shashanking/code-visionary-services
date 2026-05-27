@@ -12,12 +12,12 @@ const ServicePage = React.memo(() => {
         <link rel="canonical" href="https://codevisionaryservices.com/services" />
         <meta property="og:title" content="Hire Dedicated Developers | Web, App & Tech Marketing | Code Visionary Services" />
         <meta property="og:description" content="Code Visionary Services offers web development, mobile apps, UI/UX design, branding, AI automation, and performance-driven digital funnels" />
-        <meta property="og:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta property="og:image" content="https://codevisionaryservices.com/og-image.webp" />
         <meta property="og:url" content="https://codevisionaryservices.com/services" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Hire Dedicated Developers | Web, App & Tech Marketing | Code Visionary Services" />
         <meta name="twitter:description" content="Code Visionary Services offers web development, mobile apps, UI/UX design, branding, AI automation, and performance-driven digital funnels" />
-        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.webp" />
       </Helmet>
       <HeroServicePage />
       <ServiceCardSection />

@@ -12,12 +12,12 @@ const ReviewPage = React.memo(() => {
         <link rel="canonical" href="https://codevisionaryservices.com/reviews" />
         <meta property="og:title" content="Customer Stories & Testimonials | Code Visionary Services" />
         <meta property="og:description" content="Read real customer stories and testimonials showcasing how Code Visionary Services helped businesses grow with web, app, and marketing solutions." />
-        <meta property="og:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta property="og:image" content="https://codevisionaryservices.com/og-image.webp" />
         <meta property="og:url" content="https://codevisionaryservices.com/reviews" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Customer Stories & Testimonials | Code Visionary Services" />
         <meta name="twitter:description" content="Read real customer stories and testimonials showcasing how Code Visionary Services helped businesses grow with web, app, and marketing solutions." />
-        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.png" />
+        <meta name="twitter:image" content="https://codevisionaryservices.com/og-image.webp" />
       </Helmet>
       <HeroReviewPage />
       <ReviewCardSection />
