@@ -19,13 +19,13 @@ const ComingSoon: React.FC<{ pageName?: string }> = ({ pageName = "page" }) => {
         </p>
         <div className="space-y-3">
           <Link
-            to="/blogs"
+            href="/blogs"
             className="block w-full bg-[#B5442C] text-white py-3 px-6 rounded-full hover:bg-[#9a3823] transition-colors"
           >
             Back to Blogs
           </Link>
           <Link
-            to="/"
+            href="/"
             className="block w-full border border-gray-300 text-gray-700 py-3 px-6 rounded-full hover:bg-gray-50 transition-colors"
           >
             Go Home

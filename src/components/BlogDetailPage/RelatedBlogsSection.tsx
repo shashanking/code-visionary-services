@@ -63,7 +63,7 @@ const RelatedBlogsSection: React.FC<RelatedBlogsSectionProps> = ({
                 {/* See All Button */}
                 <div className="flex justify-center mt-10">
                     <Link
-                        to="/blogs"
+                        href="/blogs"
                         className="flex flex-row justify-center items-center px-10 py-5 gap-2.5 bg-[#303030] rounded-[34px] hover:bg-[#404040] transition-colors"
                     >
                         <span className="font-earth-orbiter font-bold text-[20px] leading-[20px] text-[#F0F0F0] text-center">
