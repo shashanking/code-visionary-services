@@ -1,8 +1,10 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import type { BlogItem } from "../../types/blog-data";
 import { sanityBlogService } from "../../services/BlogService/sanityBlogService";
 import { BlogCard } from "../BlogPageComponents";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import ContentContainer from "../shared/ContentContainer";
 
 interface RelatedBlogsSectionProps {

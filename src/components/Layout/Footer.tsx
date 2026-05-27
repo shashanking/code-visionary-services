@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { NAV_ITEMS } from "../../constants/navigation";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
@@ -141,7 +143,7 @@ const Footer: React.FC = () => {
                     {NAV_ITEMS.map((item) => (
                       <Link
                         key={item.label}
-                        to={item.href}
+                        href={item.href}
                         className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
                       >
                         {item.label}
@@ -163,7 +165,7 @@ const Footer: React.FC = () => {
                     ].map((item) => (
                       <Link
                         key={item.label}
-                        to={item.href}
+                        href={item.href}
                         className="text-[#a6b5ce] text-sm hover:text-[#ffffff] font-sans font-[300]"
                       >
                         {item.label}

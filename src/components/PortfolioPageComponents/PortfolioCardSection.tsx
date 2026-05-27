@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { useSanityPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
 import PortfolioCard from "./PortfolioCard";

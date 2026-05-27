@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import type { SanityBaseContent } from "../../types/blog-data";

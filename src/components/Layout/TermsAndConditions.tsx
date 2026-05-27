@@ -1,16 +1,7 @@
-import { Helmet } from "react-helmet-async";
 
 const TermsAndConditionsPage = () => {
   return (
-    <div>
-      <Helmet>
-        <title>Terms and Conditions — Code Visionary Services</title>
-        <meta name="description" content="Review the terms and conditions governing your use of Code Visionary Services' website and services." />
-        <link rel="canonical" href="https://codevisionaryservices.com/terms-and-conditions" />
-        <meta property="og:title" content="Terms and Conditions — Code Visionary Services" />
-        <meta property="og:url" content="https://codevisionaryservices.com/terms-and-conditions" />
-      </Helmet>
-      <div className="w-full h flex items-center relative">
+    <div>      <div className="w-full h flex items-center relative">
         {/* Dynamic half-circle blur effect */}
         <div className="absolute w-[80%] md:h-[700px] h-[343px] md:-top-[460px] -top-[200px] left-1/2 -translate-x-1/2 opacity-80 bg-gradient-to-t from-transparent via-[#007fa97e] to-transparent rounded-full blur-md md:blur-xl" />
 

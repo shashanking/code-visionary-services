@@ -1,15 +1,17 @@
+"use client";
+
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import CtaSectionBg from "../../assets/portfolio-page/cta-section-bg.webp";
 import CtaSectionElement from "../../assets/portfolio-page/cta-section-element.webp";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const CTASection: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleCtaClick = () => {
-    navigate(`/contact`);
+    router.push(`/contact`);
   };
 
   return (

@@ -3,8 +3,8 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 export const client = createClient({
-  projectId: import.meta.env.VITE_SANITY_PROJECT_ID!,
-  dataset: import.meta.env.VITE_SANITY_DATASET!,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'cz1w2qmj',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: "2024-01-01",
   useCdn: true, // true - in production
 });

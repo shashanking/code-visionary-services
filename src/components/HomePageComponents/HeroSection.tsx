@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { CTAButton } from "../shared";
 import SectionContainer from "../shared/SectionContainer";
@@ -7,7 +9,7 @@ import heroBg2 from "../../assets/hero/hero-bg-2.webp";
 import heroBg3 from "../../assets/hero/hero-bg-3.webp";
 import heroBg4 from "../../assets/hero/hero-bg-4.webp";
 import arrowImg from "../../assets/home-page/arrow-up-icon.webp";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useSanityHeroServices } from "../../hooks/Services/useSanityServices";
 
 const heroBackgrounds = [heroBg1, heroBg2, heroBg3, heroBg4];
@@ -18,9 +20,9 @@ const ServiceCard: React.FC<{
   onHover: () => void;
   onLeave: () => void;
 }> = ({ service, isHovered, onHover, onLeave }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleServiceClick = () => {
-    navigate(`/services`);
+    router.push(`/services`);
   };
 
   return (
@@ -147,9 +149,9 @@ const HeroSection: React.FC = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleCtaClick = () => {
-    navigate(`/contact`);
+    router.push(`/contact`);
   };
 
   const { services, loading, error } = useSanityHeroServices(8);

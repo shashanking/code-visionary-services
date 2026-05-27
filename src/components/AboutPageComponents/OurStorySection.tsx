@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import { CTAButton } from "../shared";
 import SectionContainer from "../shared/SectionContainer";
@@ -9,7 +11,7 @@ import StoryImg3 from "../../assets/about-page/our-story-img-3.webp";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,9 +22,9 @@ const OurStorySection: React.FC = () => {
   const img3Ref = useRef<HTMLImageElement | null>(null);
   const textRef = useRef<HTMLDivElement | null>(null);
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleCtaClick = () => {
-    navigate(`/portfolio`);
+    router.push(`/portfolio`);
   };
 
   useGSAP(

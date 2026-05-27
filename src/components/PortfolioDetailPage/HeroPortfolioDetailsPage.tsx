@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import type { PortfolioItemDetails } from "../../types/portfolio-data";
 import { Calendar, User } from "lucide-react";
