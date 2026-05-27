@@ -198,7 +198,7 @@ const ReviewCardSection: React.FC = () => {
                           loop
                           playsInline
                           onLoadedMetadata={(e) => {
-                            e.currentTarget.currentTime = 10 / 30;
+                            e.currentTarget.currentTime = 1;
                           }}
                         />
                       )}
