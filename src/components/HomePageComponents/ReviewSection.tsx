@@ -19,7 +19,10 @@ const ReviewSection: React.FC = () => {
 
   const scrollByAmount = 360;
 
-  const { reviewItems, loading, error } = useSanityTopRatedLatestReviews(8, 4);
+  const { reviewItems: rawReviewItems, loading, error } = useSanityTopRatedLatestReviews(8, 4);
+  const reviewItems = [...rawReviewItems].sort((a, b) =>
+    a.video && !b.video ? -1 : !a.video && b.video ? 1 : 0
+  );
 
   const updateScrollButtons = () => {
     if (!rowRef.current) return;
@@ -199,10 +202,13 @@ const ReviewSection: React.FC = () => {
                           videoRefs.current[index] = el;
                         }}
                         src={item.video}
-                        className={`absolute inset-0 w-full h-full object-contain`}
+                        className="absolute inset-0 w-full h-full object-cover"
                         preload="metadata"
                         loop
                         playsInline
+                        onLoadedMetadata={(e) => {
+                          e.currentTarget.currentTime = 10 / 30;
+                        }}
                       />
                     )}
 

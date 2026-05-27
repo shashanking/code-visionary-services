@@ -66,13 +66,10 @@ const ReviewCardSection: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 8;
 
-  const { reviewItems, loading, error } = useSanityReviewItems();
-
-  // Debug: Log review items to check video data
-  React.useEffect(() => {
-    console.log("Review items fetched:", reviewItems);
-    console.log("Items with videos:", reviewItems.filter(item => item.video));
-  }, [reviewItems]);
+  const { reviewItems: rawReviewItems, loading, error } = useSanityReviewItems();
+  const reviewItems = [...rawReviewItems].sort((a, b) =>
+    a.video && !b.video ? -1 : !a.video && b.video ? 1 : 0
+  );
 
   // Calculate total pages
   const totalPages = Math.ceil(reviewItems.length / cardsPerPage);
@@ -191,51 +188,43 @@ const ReviewCardSection: React.FC = () => {
 
                       {/* Video */}
                       {item.video && (
-                        <>
-                          {console.log(`Rendering video for item ${index}:`, item.video)}
-                          <video
-                            ref={(el) => {
-                              videoRefs.current[index] = el;
-                            }}
-                            src={item.video}
-                            className={`absolute inset-0 w-full h-full object-contain`}
-                            loop
-                            playsInline
-                          />
-                        </>
+                        <video
+                          ref={(el) => {
+                            videoRefs.current[index] = el;
+                          }}
+                          src={item.video}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          preload="metadata"
+                          loop
+                          playsInline
+                          onLoadedMetadata={(e) => {
+                            e.currentTarget.currentTime = 10 / 30;
+                          }}
+                        />
                       )}
 
                       {/* Play/Pause button overlay */}
                       {item.video && isHovered && (
-                        <>
-                          {console.log(`Rendering play button for item ${index}, isHovered: ${isHovered}, hasVideo: ${!!item.video}`)}
-                          <button
-                            className={`
-                                      absolute z-20 flex items-center justify-center
-                                      w-[90px] h-[50px] 
-                                      top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                                      gap-2 rounded-[68px] pt-[20px] pb-[20px]
-                                      bg-black/30 hover:bg-white/50 opacity-100 cursor-pointer
-                                    `}
-                            onClick={async (e) => {
-                              e.stopPropagation();
-                              console.log(`Play button clicked for item ${index}`);
-                              if (playingId && playingId !== index) {
-                                videoRefs.current[playingId]?.pause();
+                        <button
+                          className="absolute z-20 flex items-center justify-center w-[90px] h-[50px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 gap-2 rounded-[68px] pt-[20px] pb-[20px] bg-black/30 hover:bg-white/50 opacity-100 cursor-pointer"
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (playingId && playingId !== index) {
+                              videoRefs.current[playingId]?.pause();
+                            }
+                            if (playingId === index) {
+                              videoRefs.current[index]?.pause();
+                              setPlayingId(null);
+                            } else {
+                              try {
+                                await videoRefs.current[index]?.play();
+                                setPlayingId(index);
+                              } catch (err) {
+                                console.error("Video play error", err);
                               }
-                              if (playingId === index) {
-                                videoRefs.current[index]?.pause();
-                                setPlayingId(null);
-                              } else {
-                                try {
-                                  await videoRefs.current[index]?.play();
-                                  setPlayingId(index);
-                                } catch (err) {
-                                  console.error("Video play error", err);
-                                }
-                              }
-                            }}
-                          >
+                            }
+                          }}
+                        >
                           {playingId === index ? (
                             <div className="flex gap-2">
                               <div className="w-1.5 h-6 bg-white rounded-sm" />
@@ -245,32 +234,27 @@ const ReviewCardSection: React.FC = () => {
                             <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[20px] border-l-white" />
                           )}
                         </button>
-                        </>
                       )}
 
-                      {/* Text */}
-                      <div
-                        className={`absolute inset-0 flex flex-col justify-between p-6 pt-22 transition-opacity duration-300 ${
-                          item.video
-                            ? isHovered || isPlaying
-                              ? "opacity-0"
-                              : "opacity-100"
-                            : "opacity-100" // always visible text if no video
-                        }`}
-                        style={{ color: textColor }}
-                      >
-                        <p className="text-body2 font-sans leading-[1.5]">
-                          {item.description}
-                        </p>
-                        <div className="flex flex-col items-start mt-4 gap-2">
-                          <h3 className="text-body1 font-sans font-bold">
-                            {item.reviewer}
-                          </h3>
-                          <p className="text-body2 font-sans">
-                            {item.clientType}
+                      {/* Text — only for non-video cards */}
+                      {!item.video && (
+                        <div
+                          className="absolute inset-0 flex flex-col justify-between p-6 pt-22"
+                          style={{ color: textColor }}
+                        >
+                          <p className="text-body2 font-sans leading-[1.5]">
+                            {item.description}
                           </p>
+                          <div className="flex flex-col items-start mt-4 gap-2">
+                            <h3 className="text-body1 font-sans font-bold">
+                              {item.reviewer}
+                            </h3>
+                            <p className="text-body2 font-sans">
+                              {item.clientType}
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      )}
 
                       {/* Hover info */}
                       {isHovered && (
