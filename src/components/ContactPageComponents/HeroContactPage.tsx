@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import { MessageCircleMore, Phone } from "lucide-react";
@@ -9,7 +11,7 @@ const HeroContactPage: React.FC = () => {
   const [gridCount, setGridCount] = useState(0);
   const [isHoveringCall, setIsHoveringCall] = useState(false);
   const [isHoveringChat, setIsHoveringChat] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const updateGrid = () => {
@@ -25,11 +27,11 @@ const HeroContactPage: React.FC = () => {
   }, []);
 
   const handleCallClick = () => {
-    navigate("/contact");
+    router.push("/contact");
   };
 
   const handleChatClick = () => {
-    navigate("/contact");
+    router.push("/contact");
   };
 
   return (

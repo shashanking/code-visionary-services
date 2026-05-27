@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ServiceCardBg from "../../assets/services-page/service-card-bg.webp";
 import { CTAButton } from "../shared";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useSanityServices } from "../../hooks/Services/useSanityServices";
 
 // Loading Skeleton Component
@@ -65,9 +67,9 @@ const ServicesLoadingSkeleton: React.FC = () => {
 
 // Error Display Component
 const ServicesErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleCtaClick = () => {
-    navigate(`/contact`);
+    router.push(`/contact`);
   };
 
   return (
@@ -95,9 +97,9 @@ const ServicesErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
 const ServiceCardSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(1);
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleCtaClick = () => {
-    navigate(`/contact`);
+    router.push(`/contact`);
   };
 
   const { services, loading, error } = useSanityServices();

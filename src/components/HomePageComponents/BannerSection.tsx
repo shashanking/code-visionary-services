@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
@@ -5,13 +7,13 @@ import bgArrows from "../../assets/home-page/home-banner-section-bg.webp";
 import blueCard from "../../assets/home-page/home-banner-card-bg.webp";
 import blueCardMobile from "../../assets/home-page/home-banner-card-bg-mobile.webp";
 import phoneStack from "../../assets/home-page/home-banner-section-phone.webp";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const BannerSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleCtaClick = () => {
-    navigate(`/contact`);
+    router.push(`/contact`);
   };
 
   useEffect(() => {

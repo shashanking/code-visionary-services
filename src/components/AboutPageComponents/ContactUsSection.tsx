@@ -1,16 +1,23 @@
+"use client";
+
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ContactBg from "../../assets/about-page/contact-us-bg.webp";
-import ContactCardBg from "../../assets/about-page/contact-us-card-bg.webp";
-import ContactImgBg from "../../assets/about-page/contact-us-img.webp";
+import ContactBgRaw from "../../assets/about-page/contact-us-bg.webp";
+import ContactCardBgRaw from "../../assets/about-page/contact-us-card-bg.webp";
+import ContactImgBgRaw from "../../assets/about-page/contact-us-img.webp";
+// Handle both Next.js StaticImageData and plain string imports
+const toSrc = (img: { src?: string } | string) => (typeof img === 'string' ? img : (img as { src: string }).src);
+const ContactBg = toSrc(ContactBgRaw as { src?: string } | string);
+const ContactCardBg = toSrc(ContactCardBgRaw as { src?: string } | string);
+const ContactImgBg = toSrc(ContactImgBgRaw as { src?: string } | string);
 import { CTAButton } from "../shared";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const ContactUsSection: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleContactClick = () => {
-    navigate(`/contact`);
+    router.push(`/contact`);
   };
 
   return (

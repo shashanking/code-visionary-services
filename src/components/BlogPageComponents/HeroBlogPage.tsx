@@ -1,12 +1,14 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import BlogPageBg from "../../assets/blog-page/hero-bg.webp";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useSanityFeaturedBlogs } from "../../hooks/Blogs/useSanityBlogs";
 
 const HeroBlogPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [leftAnimation, setLeftAnimation] = useState("enter");
   const [rightAnimation, setRightAnimation] = useState("enter");
@@ -47,7 +49,7 @@ const HeroBlogPage: React.FC = () => {
 
   // Handle manual navigation
   const handleBlogClick = (slug: string) => {
-    navigate(`/blogs/${slug}`);
+    router.push(`/blogs/${slug}`);
   };
 
   // Pause auto-scroll on hover

@@ -1,32 +1,14 @@
-import { next } from "@vercel/edge";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+// With Next.js SSG, prerendering middleware is no longer needed.
+// All pages are statically generated at build time.
+// This middleware is kept as a pass-through placeholder.
+
+export function middleware(_request: NextRequest) {
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: "/((?!_next|api|assets|\\..*$).*)",
+  matcher: '/((?!_next/static|_next/image|favicon.ico).*)',
 };
-
-const BOT_UA = /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|slackbot|vkshare|w3c_validator|redditbot|applebot|whatsapp|flipboard|tumblr|bitlybot|skypeuripreview|nuzzel|discordbot|google page speed|qwantify|pinterestbot|bitrix link preview|xing-contenttabreceiver|chrome-lighthouse|telegrambot|integration-test|petalbot|duckduckbot/i;
-
-const ASSET_EXT = /\.(js|css|json|xml|png|jpg|jpeg|gif|webp|avif|svg|ico|woff|woff2|ttf|eot|mp4|webm|pdf|zip|txt|map)$/i;
-
-export default async function middleware(request: Request) {
-  const ua = request.headers.get("user-agent") || "";
-  const url = new URL(request.url);
-
-  if (!BOT_UA.test(ua) || ASSET_EXT.test(url.pathname)) {
-    return next();
-  }
-
-  const prerenderUrl = `https://service.prerender.io/${url.href}`;
-  const res = await fetch(prerenderUrl, {
-    headers: {
-      "X-Prerender-Token": process.env.PRERENDER_TOKEN || "",
-      "User-Agent": ua,
-    },
-    redirect: "manual",
-  });
-
-  return new Response(res.body, {
-    status: res.status,
-    headers: res.headers,
-  });
-}

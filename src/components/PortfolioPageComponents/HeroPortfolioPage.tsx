@@ -1,12 +1,14 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import PortfolioPageBg from "../../assets/portfolio-page/hero-bg.webp";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useSanityFeaturedPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
 
 const HeroPortfolioPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [leftAnimation, setLeftAnimation] = useState("enter");
   const [rightAnimation, setRightAnimation] = useState("enter");
@@ -44,7 +46,7 @@ const HeroPortfolioPage: React.FC = () => {
   }, [featuredPortfolios.length]);
 
   const handlePortfolioClick = (slug: string) => {
-    navigate(`/portfolio/${slug}`);
+    router.push(`/portfolio/${slug}`);
   };
 
   const handleMouseEnter = () => {

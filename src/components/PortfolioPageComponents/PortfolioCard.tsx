@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import { ArrowRightIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import type { PortfolioItem } from "../../types/portfolio-data";
 
 interface PortfolioCardProps {
@@ -16,7 +18,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
     onMouseEnter,
     onMouseLeave,
 }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const [internalIsHovered, setInternalIsHovered] = React.useState(false);
 
     const isHovered =
@@ -33,7 +35,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
     };
 
     const handlePortfolioClick = (slug: string) => {
-        navigate(`/portfolio/${slug}`);
+        router.push(`/portfolio/${slug}`);
     };
 
     return (

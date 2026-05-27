@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/portfolio-page/home-portfolio-bg.webp";
 import { useSanityFeaturedPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { categories, type PortfolioItem } from "../../types/portfolio-data";
 
 interface PortfolioCardProps {
@@ -26,9 +28,9 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
   onHover,
   onLeave,
 }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleClick = () => {
-    navigate(`/portfolio/${item.slug}`);
+    router.push(`/portfolio/${item.slug}`);
   };
 
   return (
@@ -120,9 +122,9 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({
 const PortfolioSection: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [activeCat, setActiveCat] = useState<string>("all");
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleViewClick = () => {
-    navigate(`/portfolio`);
+    router.push(`/portfolio`);
   };
 
   // Using Sanity hook to fetch portfolios

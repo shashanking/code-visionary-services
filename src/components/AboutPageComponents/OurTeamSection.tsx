@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";

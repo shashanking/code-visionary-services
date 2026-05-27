@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import type { BlogItemDetails } from "../../types/blog-data";
 import { Calendar, User } from "lucide-react";

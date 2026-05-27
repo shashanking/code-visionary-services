@@ -1,8 +1,10 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import type { PortfolioItem } from "../../types/portfolio-data";
 import { sanityPortfolioService } from "../../services/PortfolioService/sanityPortfolioService";
 import PortfolioCard from "../PortfolioPageComponents/PortfolioCard";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import ContentContainer from "../shared/ContentContainer";
 
 interface RelatedPortfoliosSectionProps {

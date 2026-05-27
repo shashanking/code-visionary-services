@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
 import { CTAButton, Logo } from "../shared";
 import { NAV_ITEMS } from "../../constants/navigation";
 import { cn } from "../../lib/utils";
@@ -10,11 +12,11 @@ const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
-    const currentPath = location.pathname;
+    const currentPath = pathname;
     const currentItem = NAV_ITEMS.find(
       (item) =>
         item.href === currentPath || (currentPath === "/" && item.href === "/")
@@ -22,7 +24,7 @@ const Navbar: React.FC = () => {
     if (currentItem) {
       setActive(currentItem.label);
     }
-  }, [location.pathname]);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,9 +43,7 @@ const Navbar: React.FC = () => {
   const handleNavigate = (href: string, label: string) => {
     setActive(label);
     setMobileOpen(false);
-
-    // Use React Router navigation
-    navigate(href);
+    router.push(href);
   };
 
   const GradientUnderlineV2: React.FC = () => (
@@ -137,9 +137,8 @@ const Navbar: React.FC = () => {
               size="small"
               fullWidth
               onClick={() => {
-                console.log("Start project clicked from mobile");
                 setMobileOpen(false);
-                navigate("/contact");
+                router.push("/contact");
               }}
               className="text-button-xsm"
             >
@@ -210,7 +209,7 @@ const Navbar: React.FC = () => {
               <CTAButton
                 variant="primary"
                 size="small"
-                onClick={() => navigate("/contact")}
+                onClick={() => router.push("/contact")}
               >
                 Start a Project
               </CTAButton>
@@ -248,9 +247,6 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       <MobileDrawer />
-
-      {/* Spacer for fixed navbar */}
-      {/* <div style={{ height: "64px" }} /> */}
     </>
   );
 };

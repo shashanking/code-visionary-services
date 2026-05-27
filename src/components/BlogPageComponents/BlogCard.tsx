@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import { ArrowRightIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import type { BlogItem } from "../../types/blog-data";
 
 interface BlogCardProps {
@@ -16,7 +18,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
     onMouseEnter,
     onMouseLeave,
 }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const [internalIsHovered, setInternalIsHovered] = React.useState(false);
 
     // Use external hover state if provided, otherwise use internal state
@@ -34,7 +36,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
     };
 
     const handleBlogClick = (slug: string) => {
-        navigate(`/blogs/${slug}`);
+        router.push(`/blogs/${slug}`);
     };
 
     return (

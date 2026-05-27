@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { Home, ArrowLeft } from "lucide-react";
 import Logo from "./Logo";
 
@@ -15,7 +17,7 @@ const NotFound: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="max-w-md w-full text-center">
         <div className="mb-12">
-          <Link to="/" className="inline-block">
+          <Link href="/" className="inline-block">
             <Logo variant="navbar" />
           </Link>
         </div>
@@ -37,7 +39,7 @@ const NotFound: React.FC = () => {
 
           <div className="space-y-3">
             <Link
-              to="/"
+              href="/"
               className="w-full flex items-center justify-center gap-2 bg-[#B5442C] text-white py-3 px-6 rounded-full hover:bg-[#9a3823] transition-colors font-semibold"
             >
               <Home size={20} />
@@ -61,7 +63,7 @@ const NotFound: React.FC = () => {
             {quickLinks.map((link) => (
               <Link
                 key={link.name}
-                to={link.path}
+                href={link.path}
                 className="flex items-center justify-center gap-2 py-2 px-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors text-sm font-medium"
               >
                 {link.icon && <link.icon size={16} />}

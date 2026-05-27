@@ -1,14 +1,16 @@
+"use client";
+
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/about-page/home-about-bg.webp";
 import laptopImg from "../../assets/about-page/home-about-laptop.webp";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const AboutSection: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleCtaClick = () => {
-    navigate(`/contact`);
+    router.push(`/contact`);
   };
 
   return (
