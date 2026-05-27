@@ -7,6 +7,7 @@ import ReviewCardBg from "../../assets/review-page/review-bg.webp";
 import leftArrow from "../../assets/review-page/review-left-arrow.webp";
 import rightArrow from "../../assets/review-page/review-right-arrow.webp";
 import { useSanityReviewItems } from "../../hooks/Reviews/useSanityReviews";
+import { imgSrc } from "../../utils/imageUrl";
 
 // Loading Skeleton Component
 const ReviewsLoadingSkeleton: React.FC = () => {
@@ -110,7 +111,7 @@ const ReviewCardSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${ReviewCardBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(ReviewCardBg)})` }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
@@ -302,7 +303,7 @@ const ReviewCardSection: React.FC = () => {
                 }`}
               >
                 <img
-                  src={leftArrow}
+                  src={imgSrc(leftArrow)}
                   alt="Previous"
                   className={`w-5 h-5 ${
                     currentPage > 1 ? "opacity-100" : "opacity-50"
@@ -327,7 +328,7 @@ const ReviewCardSection: React.FC = () => {
                 }`}
               >
                 <img
-                  src={rightArrow}
+                  src={imgSrc(rightArrow)}
                   alt="Next"
                   className={`w-5 h-5 ${
                     currentPage < totalPages ? "opacity-100" : "opacity-50"

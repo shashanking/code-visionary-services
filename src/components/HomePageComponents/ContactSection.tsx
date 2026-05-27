@@ -3,6 +3,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/contact-page/home-contact-bg.webp";
 import ContactForm from "../ContactPageComponents/ContactForm";
+import { imgSrc } from "../../utils/imageUrl";
 
 const ContactSection: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const ContactSection: React.FC = () => {
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: `url(${bgImg})` }}
+        style={{ backgroundImage: `url(${imgSrc(bgImg)})` }}
       />
 
       {/* Content */}

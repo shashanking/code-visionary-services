@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import HeroBg from "../../assets/about-page/hero-bg.webp";
 import ArrowDown from "../../assets/about-page/arrow-down.webp";
+import { imgSrc } from "../../utils/imageUrl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -91,7 +92,7 @@ const HeroAboutPage: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-contain md:bg-cover bg-no-repeat bg-center bg-fixed"
-          style={{ backgroundImage: `url(${HeroBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(HeroBg)})` }}
         />
       </div>
 
@@ -124,7 +125,7 @@ const HeroAboutPage: React.FC = () => {
               Scroll Down
             </p>
             <img
-              src={ArrowDown}
+              src={imgSrc(ArrowDown)}
               alt="arrow-down"
               className="relative w-[30px] h-[30px] text-gray-400"
             />

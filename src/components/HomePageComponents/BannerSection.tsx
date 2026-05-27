@@ -8,6 +8,7 @@ import blueCard from "../../assets/home-page/home-banner-card-bg.webp";
 import blueCardMobile from "../../assets/home-page/home-banner-card-bg-mobile.webp";
 import phoneStack from "../../assets/home-page/home-banner-section-phone.webp";
 import { useRouter } from "next/navigation";
+import { imgSrc } from "../../utils/imageUrl";
 
 const BannerSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -35,7 +36,7 @@ const BannerSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center scale-x-[-1]"
-          style={{ backgroundImage: `url(${bgArrows})` }}
+          style={{ backgroundImage: `url(${imgSrc(bgArrows)})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
       </div>
@@ -51,7 +52,7 @@ const BannerSection: React.FC = () => {
         <div
           className="relative max-w-2xl min-h-fit md:h-[530px] rounded-xl md:rounded-2xl overflow-visible flex flex-col md:flex-row shadow-[0_10px_40px_rgba(0,0,0,0.25)] bg-gradient-to-b from-[#0861AA] to-[#032744] bg-cover bg-center p-4"
           style={{
-            backgroundImage: `url(${isMobile ? blueCardMobile : blueCard})`,
+            backgroundImage: `url(${imgSrc(isMobile ? blueCardMobile : blueCard)})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -59,7 +60,7 @@ const BannerSection: React.FC = () => {
           {/* Left / Top - Phone Image */}
           <div className="relative flex justify-center items-center w-full md:w-1/2 z-10">
             <img
-              src={phoneStack}
+              src={imgSrc(phoneStack)}
               alt="App preview phones"
               className="w-[400px] md:w-[600px] h-auto -translate-y-24 drop-shadow-[4px_4px_14.9px_rgba(0,0,0,0.5)] md:drop-shadow-none select-none pointer-events-none"
             />

@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import TeamBg from "../../assets/about-page/our-team-bg.webp";
 import { motion, AnimatePresence } from "framer-motion";
+import { imgSrc } from "../../utils/imageUrl";
 import { useSanityTeamMembers } from "../../hooks/Team/useSanityTeam";
 
 const OurTeamSection: React.FC = () => {
@@ -39,7 +40,7 @@ const OurTeamSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${TeamBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(TeamBg)})` }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />

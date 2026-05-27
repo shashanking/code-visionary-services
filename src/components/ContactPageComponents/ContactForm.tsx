@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import ContentContainer from "../shared/ContentContainer";
 import bgImgInsideMobile from "../../assets/contact-page/contact-bg-mobile.webp";
 import bgImgInside from "../../assets/contact-page/contact-bg.webp";
+import { imgSrc } from "../../utils/imageUrl";
 import {
   BadgeCheck,
   CalendarCheck,
@@ -358,7 +359,7 @@ const ContactForm: React.FC = () => {
       <div
         className="relative w-full rounded-[20px] bg-white bg-opacity-95 p-4 md:p-8 shadow-[0_8px_32px_rgba(44,62,80,0.13)] flex flex-col items-stretch justify-between overflow-hidden"
         style={{
-          backgroundImage: `url(${isMobile ? bgImgInsideMobile : bgImgInside})`,
+          backgroundImage: `url(${imgSrc(isMobile ? bgImgInsideMobile : bgImgInside)})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",

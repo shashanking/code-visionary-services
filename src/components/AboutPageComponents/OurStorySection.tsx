@@ -8,6 +8,7 @@ import StoryBg from "../../assets/about-page/our-story-bg.webp";
 import StoryImg1 from "../../assets/about-page/our-story-img-1.webp";
 import StoryImg2 from "../../assets/about-page/our-story-img-2.webp";
 import StoryImg3 from "../../assets/about-page/our-story-img-3.webp";
+import { imgSrc } from "../../utils/imageUrl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -115,7 +116,7 @@ const OurStorySection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${StoryBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(StoryBg)})` }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
@@ -151,19 +152,19 @@ const OurStorySection: React.FC = () => {
           <div className="sm:relative flex-1 flex items-center justify-center min-h-[400px] sm:min-h-[620px]">
             <img
               ref={img3Ref}
-              src={StoryImg3}
+              src={imgSrc(StoryImg3)}
               alt="story-img-3"
               className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
             <img
               ref={img2Ref}
-              src={StoryImg2}
+              src={imgSrc(StoryImg2)}
               alt="story-img-2"
               className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />
             <img
               ref={img1Ref}
-              src={StoryImg1}
+              src={imgSrc(StoryImg1)}
               alt="story-img-1"
               className="w-[250px] sm:w-[400px] md:w-[450px] h-auto block rounded-xl mt-40 sm:mt-0"
             />

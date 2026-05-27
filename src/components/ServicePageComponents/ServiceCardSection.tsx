@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ServiceCardBg from "../../assets/services-page/service-card-bg.webp";
 import { CTAButton } from "../shared";
+import { imgSrc } from "../../utils/imageUrl";
 import { useRouter } from "next/navigation";
 import { useSanityServices } from "../../hooks/Services/useSanityServices";
 
@@ -115,7 +116,7 @@ const ServiceCardSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${ServiceCardBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(ServiceCardBg)})` }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />

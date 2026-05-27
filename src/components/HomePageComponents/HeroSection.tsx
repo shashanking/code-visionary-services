@@ -10,6 +10,7 @@ import heroBg3 from "../../assets/hero/hero-bg-3.webp";
 import heroBg4 from "../../assets/hero/hero-bg-4.webp";
 import arrowImg from "../../assets/home-page/arrow-up-icon.webp";
 import { useRouter } from "next/navigation";
+import { imgSrc } from "../../utils/imageUrl";
 import { useSanityHeroServices } from "../../hooks/Services/useSanityServices";
 
 const heroBackgrounds = [heroBg1, heroBg2, heroBg3, heroBg4];
@@ -38,7 +39,7 @@ const ServiceCard: React.FC<{
         onClick={handleServiceClick}
       >
         <img
-          src={arrowImg}
+          src={imgSrc(arrowImg)}
           alt=""
           className="w-5 h-5 invert"
           aria-hidden="true"
@@ -183,7 +184,7 @@ const HeroSection: React.FC = () => {
             className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-2000 ease-in-out z-0 ${
               isActive ? "opacity-100" : "opacity-0"
             }`}
-            style={{ backgroundImage: `url(${bg})` }}
+            style={{ backgroundImage: `url(${imgSrc(bg)})` }}
             aria-hidden="true"
           />
         );

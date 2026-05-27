@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/home-page/tech-stack/tech-stack-bg.webp";
 import { useSanityTechStack } from "../../hooks/TechStack/useSanityTechStack";
+import { imgSrc } from "../../utils/imageUrl";
 
 const TechStackSection: React.FC = () => {
   const { categories, technologies, loading, error } = useSanityTechStack();
@@ -112,12 +113,12 @@ const TechStackSection: React.FC = () => {
         {/* Desktop Background */}
         <div
           className="hidden md:block w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${bgImg})` }}
+          style={{ backgroundImage: `url(${imgSrc(bgImg)})` }}
         />
         {/* Mobile Background (rotated) */}
         <div
           className="md:hidden mobile-bg-rotate"
-          style={{ backgroundImage: `url(${bgImg})` }}
+          style={{ backgroundImage: `url(${imgSrc(bgImg)})` }}
         />
       </div>
 

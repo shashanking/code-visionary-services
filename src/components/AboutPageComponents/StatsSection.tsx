@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import StatsBg from "../../assets/about-page/stats-bg.webp";
 import { StatsCardData, StatsData } from "../../constants/stats-data";
+import { imgSrc } from "../../utils/imageUrl";
 
 const StatsSection: React.FC = () => {
   const [activeCard, setActiveCard] = useState<number>(
@@ -43,7 +44,7 @@ const StatsSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${StatsBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(StatsBg)})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-transparent to-[#F0F0F0] z-0 pointer-events-none" />
       </div>

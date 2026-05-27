@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import BlogPageBg from "../../assets/blog-page/hero-bg.webp";
 import { useRouter } from "next/navigation";
+import { imgSrc } from "../../utils/imageUrl";
 import { useSanityFeaturedBlogs } from "../../hooks/Blogs/useSanityBlogs";
 
 const HeroBlogPage: React.FC = () => {
@@ -110,7 +111,7 @@ const HeroBlogPage: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${BlogPageBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(BlogPageBg)})` }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0]/0 via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />

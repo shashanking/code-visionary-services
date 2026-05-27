@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/portfolio-page/home-portfolio-bg.webp";
 import { useSanityFeaturedPortfolios } from "../../hooks/Portfolios/useSanityPortfolios";
+import { imgSrc } from "../../utils/imageUrl";
 import { useRouter } from "next/navigation";
 import { categories, type PortfolioItem } from "../../types/portfolio-data";
 
@@ -169,7 +170,7 @@ const PortfolioSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${bgImg})` }}
+          style={{ backgroundImage: `url(${imgSrc(bgImg)})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />
       </div>

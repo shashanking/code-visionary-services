@@ -3,14 +3,10 @@
 import React from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
-import ContactBgRaw from "../../assets/about-page/contact-us-bg.webp";
-import ContactCardBgRaw from "../../assets/about-page/contact-us-card-bg.webp";
-import ContactImgBgRaw from "../../assets/about-page/contact-us-img.webp";
-// Handle both Next.js StaticImageData and plain string imports
-const toSrc = (img: { src?: string } | string) => (typeof img === 'string' ? img : (img as { src: string }).src);
-const ContactBg = toSrc(ContactBgRaw as { src?: string } | string);
-const ContactCardBg = toSrc(ContactCardBgRaw as { src?: string } | string);
-const ContactImgBg = toSrc(ContactImgBgRaw as { src?: string } | string);
+import ContactBg from "../../assets/about-page/contact-us-bg.webp";
+import ContactCardBg from "../../assets/about-page/contact-us-card-bg.webp";
+import ContactImgBg from "../../assets/about-page/contact-us-img.webp";
+import { imgSrc } from "../../utils/imageUrl";
 import { CTAButton } from "../shared";
 import { useRouter } from "next/navigation";
 
@@ -32,7 +28,7 @@ const ContactUsSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${ContactBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(ContactBg)})` }}
         />
 
         <div className="absolute inset-0 flex items-center justify-center">
@@ -51,7 +47,7 @@ const ContactUsSection: React.FC = () => {
           <div className="absolute inset-0 z-0 overflow-hidden rounded-2xl">
             <div
               className="w-full h-full bg-cover bg-no-repeat bg-center [transform:scaleX(-1)]"
-              style={{ backgroundImage: `url(${ContactCardBg})` }}
+              style={{ backgroundImage: `url(${imgSrc(ContactCardBg)})` }}
             />
 
             <div className="absolute inset-0 bg-[linear-gradient(180deg,#0861AA_0%,#032744_100%)] opacity-70" />
@@ -86,11 +82,11 @@ const ContactUsSection: React.FC = () => {
             </div>
 
             <div className="hidden md:block absolute -right-30 lg:-right-50 bottom-10 lg:-bottom-15 w-4/5">
-              <img src={ContactImgBg} alt="Laptop" className="w-full h-full" />
+              <img src={imgSrc(ContactImgBg)} alt="Laptop" className="w-full h-full" />
             </div>
 
             <div className="flex md:hidden justify-center items-center relative w-full -mt-40 pb-8">
-              <img src={ContactImgBg} alt="Laptop" className="w-full h-full" />
+              <img src={imgSrc(ContactImgBg)} alt="Laptop" className="w-full h-full" />
             </div>
           </div>
         </div>

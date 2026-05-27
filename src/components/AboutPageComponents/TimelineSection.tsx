@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import TimelineBg from "../../assets/about-page/timeline-bg.webp";
+import { imgSrc } from "../../utils/imageUrl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -124,7 +125,7 @@ const TimelineSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${TimelineBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(TimelineBg)})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0] via-transparent to-[#F0F0F0] z-0 pointer-events-none" />
       </div>

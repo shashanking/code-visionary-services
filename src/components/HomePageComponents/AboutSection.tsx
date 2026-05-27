@@ -6,6 +6,7 @@ import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/about-page/home-about-bg.webp";
 import laptopImg from "../../assets/about-page/home-about-laptop.webp";
 import { useRouter } from "next/navigation";
+import { imgSrc } from "../../utils/imageUrl";
 
 const AboutSection: React.FC = () => {
   const router = useRouter();
@@ -23,11 +24,11 @@ const AboutSection: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="hidden md:block w-full h-full bg-cover bg-no-repeat bg-right"
-          style={{ backgroundImage: `url(${bgImg})` }}
+          style={{ backgroundImage: `url(${imgSrc(bgImg)})` }}
         />
         <div
           className="md:hidden w-full h-full bg-cover bg-no-repeat bg-bottom mobile-bg-rotate"
-          style={{ backgroundImage: `url(${bgImg})` }}
+          style={{ backgroundImage: `url(${imgSrc(bgImg)})` }}
         />
       </div>
 
@@ -64,7 +65,7 @@ const AboutSection: React.FC = () => {
 
           <div className="absolute right-[20%] sm:right-[33%] md:right-0 -bottom-10 md:bottom-0">
             <img
-              src={laptopImg}
+              src={imgSrc(laptopImg)}
               alt="Laptop"
               className="w-full max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md xl:max-w-lg"
               loading="lazy"

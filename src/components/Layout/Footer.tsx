@@ -7,6 +7,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import CVSLogoImg from "../../assets/cvs-logo/footer-logo.webp";
 import CVSLogoBg from "../../assets/cvs-logo/footer-bg.webp";
+import { imgSrc } from "../../utils/imageUrl";
 
 import {
   FacebookIcon,
@@ -83,7 +84,7 @@ const Footer: React.FC = () => {
             <div
               className="absolute inset-0 z-0"
               style={{
-                backgroundImage: `url(${CVSLogoBg})`,
+                backgroundImage: `url(${imgSrc(CVSLogoBg)})`,
                 backgroundSize: "contain",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
@@ -97,7 +98,7 @@ const Footer: React.FC = () => {
               <div className="w-full flex flex-wrap items-start justify-between">
                 <div className="flex flex-col items-left mb-8">
                   <img
-                    src={CVSLogoImg}
+                    src={imgSrc(CVSLogoImg)}
                     alt="CVS Logo"
                     className="h-12 w-auto mb-10"
                   />

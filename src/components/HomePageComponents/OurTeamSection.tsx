@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import bgImg from "../../assets/about-page/home-our-team-bg.webp";
 import { useSanityTeamMembers } from "../../hooks/Team/useSanityTeam";
+import { imgSrc } from "../../utils/imageUrl";
 
 const OurTeamSection: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(1);
@@ -29,7 +30,7 @@ const OurTeamSection: React.FC = () => {
       {/* Background */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center z-0"
-        style={{ backgroundImage: `url(${bgImg})` }}
+        style={{ backgroundImage: `url(${imgSrc(bgImg)})` }}
       />
 
       <ContentContainer

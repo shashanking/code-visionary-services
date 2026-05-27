@@ -5,6 +5,7 @@ import SectionContainer from "../shared/SectionContainer";
 import ContentContainer from "../shared/ContentContainer";
 import ReviewPageBg from "../../assets/review-page/hero-bg.webp";
 import { useSanityHeroReviewItems } from "../../hooks/Reviews/useSanityReviews";
+import { imgSrc } from "../../utils/imageUrl";
 
 // Loading Skeleton Component
 const HeroReviewsLoadingSkeleton: React.FC = () => {
@@ -98,7 +99,7 @@ const HeroReviewPage: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${ReviewPageBg})` }}
+          style={{ backgroundImage: `url(${imgSrc(ReviewPageBg)})` }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F0F0]/0 via-[#F0F0F0]/0 to-[#F0F0F0] z-0 pointer-events-none" />

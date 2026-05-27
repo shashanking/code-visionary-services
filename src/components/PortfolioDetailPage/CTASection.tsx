@@ -6,6 +6,7 @@ import ContentContainer from "../shared/ContentContainer";
 import CtaSectionBg from "../../assets/portfolio-page/cta-section-bg.webp";
 import CtaSectionElement from "../../assets/portfolio-page/cta-section-element.webp";
 import { useRouter } from "next/navigation";
+import { imgSrc } from "../../utils/imageUrl";
 
 const CTASection: React.FC = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const CTASection: React.FC = () => {
         <div className="relative w-full h-[80vh] md:h-[55vh]">
           <div
             className="w-full h-full bg-cover bg-no-repeat bg-bottom opacity-90"
-            style={{ backgroundImage: `url(${CtaSectionBg})` }}
+            style={{ backgroundImage: `url(${imgSrc(CtaSectionBg)})` }}
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/70 via-[#000000]/20 to-transparent z-0 pointer-events-none" />
@@ -36,7 +37,7 @@ const CTASection: React.FC = () => {
         <div
           className="absolute z-30 left-0 top-1/2 -translate-y-1/2 w-[30vh] h-[30vh] md:w-[40vh] md:h-[40vh] bg-cover bg-no-repeat bg-center opacity-40"
           style={{
-            backgroundImage: `url(${CtaSectionElement})`,
+            backgroundImage: `url(${imgSrc(CtaSectionElement)})`,
             clipPath: "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)",
             transform: "translateX(-52%)",
           }}
@@ -46,7 +47,7 @@ const CTASection: React.FC = () => {
         <div
           className="absolute z-30 right-0 top-1/2 -translate-y-1/2 w-[30vh] h-[30vh] md:w-[40vh] md:h-[40vh] bg-cover bg-no-repeat bg-center opacity-40"
           style={{
-            backgroundImage: `url(${CtaSectionElement})`,
+            backgroundImage: `url(${imgSrc(CtaSectionElement)})`,
             clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
             transform: "translateX(50%)",
           }}

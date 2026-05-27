@@ -3,6 +3,7 @@
 import React from "react";
 import { cn } from "../../lib/utils";
 import logo from "../../assets/cvs-logo-navbar.webp";
+import { imgSrc } from "../../utils/imageUrl";
 
 interface LogoProps {
   variant?: "navbar" | "footer" | "menubar" | "default";
@@ -57,7 +58,7 @@ const Logo: React.FC<LogoProps> = ({
       aria-label={onClick ? "CVS Logo - Click to go home" : "CVS Logo"}
     >
       <img
-        src={logo}
+        src={imgSrc(logo)}
         alt="CVS Logo"
         className={cn(getSizeClasses(), "w-auto max-w-full object-contain")}
         loading="eager" // Important for logo - load immediately
