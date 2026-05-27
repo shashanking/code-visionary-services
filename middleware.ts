@@ -4,7 +4,7 @@ export const config = {
   matcher: "/((?!_next|api|assets|\\..*$).*)",
 };
 
-const BOT_UA = /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|slackbot|vkshare|w3c_validator|redditbot|applebot|whatsapp|flipboard|tumblr|bitlybot|skypeuripreview|nuzzel|discordbot|google page speed|qwantify|pinterestbot|bitrix link preview|xing-contenttabreceiver|chrome-lighthouse|telegrambot|integration-test|petalbot|duckduckbot|seoptimer|ahrefsbot|semrushbot|mj12bot|dotbot|rogerbot|exabot|ia_archiver|screaming frog|sitebulb|magestic|cognitiveseo|deepcrawl|oncrawl|botify|lumar|woorank|nibbler|siteimprove/i;
+const BOT_UA = /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|slackbot|vkshare|w3c_validator|redditbot|applebot|whatsapp|flipboard|tumblr|bitlybot|skypeuripreview|nuzzel|discordbot|google page speed|qwantify|pinterestbot|bitrix link preview|xing-contenttabreceiver|chrome-lighthouse|telegrambot|integration-test|petalbot|duckduckbot/i;
 
 const ASSET_EXT = /\.(js|css|json|xml|png|jpg|jpeg|gif|webp|avif|svg|ico|woff|woff2|ttf|eot|mp4|webm|pdf|zip|txt|map)$/i;
 
