@@ -59,7 +59,7 @@ export class SanityReviewService {
 
   // Get review items by rating
   async getReviewItemsByRating(minRating: number = 4): Promise<ReviewItem[]> {
-    const query = `*[_type == "reviewItem" && rating >= $minRating] | order(date desc) {
+    const query = `*[_type == "reviewItem" && (!defined(rating) || rating >= $minRating)] | order(rating desc, date desc) {
       _id,
       reviewId,
       reviewer,
@@ -91,7 +91,7 @@ export class SanityReviewService {
     limit: number = 8,
     minRating: number = 4
   ): Promise<ReviewItem[]> {
-    const query = `*[_type == "reviewItem" && rating >= $minRating] | order(date desc, rating desc)[0...$limit] {
+    const query = `*[_type == "reviewItem" && (!defined(rating) || rating >= $minRating)] | order(rating desc, date desc)[0...$limit] {
       _id,
       reviewId,
       reviewer,
