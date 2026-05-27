@@ -5,19 +5,19 @@ import ReviewCardSection from '../../components/ReviewPageComponents/ReviewCardS
 const SITE_URL = 'https://codevisionaryservices.com';
 
 export const metadata: Metadata = {
-  title: 'Customer Stories & Testimonials | Code Visionary Services',
-  description: 'Read real customer stories and testimonials showcasing how Code Visionary Services helped businesses grow with web, app, and marketing solutions.',
+  title: 'Client Testimonials | Web Design, App Development & Digital Marketing Services | Code Visionary Services',
+  description: 'See what our clients say about Code Visionary Services. Real testimonials on web design, app development, branding, and digital marketing solutions that drive business growth.',
   alternates: { canonical: `${SITE_URL}/reviews` },
   openGraph: {
-    title: 'Customer Stories & Testimonials | Code Visionary Services',
-    description: 'Read real customer stories and testimonials showcasing how Code Visionary Services helped businesses grow with web, app, and marketing solutions.',
+    title: 'Client Testimonials | Web Design & App Development | Code Visionary Services',
+    description: 'See what our clients say about Code Visionary Services. Real testimonials on web design, app development, branding, and digital marketing solutions that drive business growth.',
     url: `${SITE_URL}/reviews`,
     images: [`${SITE_URL}/og-image.webp`],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Customer Stories & Testimonials | Code Visionary Services',
-    description: 'Read real customer stories and testimonials showcasing how Code Visionary Services helped businesses grow with web, app, and marketing solutions.',
+    title: 'Client Testimonials | Web Design & App Development | Code Visionary Services',
+    description: 'See what our clients say about Code Visionary Services. Real testimonials on web design, app development, branding, and digital marketing solutions that drive business growth.',
     images: [`${SITE_URL}/og-image.webp`],
   },
 };

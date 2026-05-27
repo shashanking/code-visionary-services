@@ -246,9 +246,9 @@ const ReviewCardSection: React.FC = () => {
                             {item.description}
                           </p>
                           <div className="flex flex-col items-start mt-4 gap-2">
-                            <h3 className="text-body1 font-sans font-bold">
+                            <p className="text-body1 font-sans font-bold">
                               {item.reviewer}
-                            </h3>
+                            </p>
                             <p className="text-body2 font-sans">
                               {item.clientType}
                             </p>
@@ -259,9 +259,9 @@ const ReviewCardSection: React.FC = () => {
                       {/* Hover info */}
                       {isHovered && (
                         <div className="absolute bottom-6 left-6 flex flex-col items-start gap-2 text-white z-10">
-                          <h3 className="text-body1 font-sans font-bold">
+                          <p className="text-body1 font-sans font-bold">
                             {item.reviewer}
-                          </h3>
+                          </p>
                           <p className="text-body2 font-sans">
                             {item.clientType}
                           </p>
