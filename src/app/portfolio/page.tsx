@@ -9,16 +9,18 @@ export const metadata: Metadata = {
   description: 'See how we transform ideas into results through web development, app solutions, branding, and performance-driven digital projects.',
   alternates: { canonical: `${SITE_URL}/portfolio` },
   openGraph: {
+    type: 'website',
+    siteName: 'Code Visionary Services',
     title: 'Our Digital Projects That Drive Results | Code Visionary Services',
     description: 'See how we transform ideas into results through web development, app solutions, branding, and performance-driven digital projects.',
     url: `${SITE_URL}/portfolio`,
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Our Digital Projects That Drive Results | Code Visionary Services',
     description: 'See how we transform ideas into results through web development, app solutions, branding, and performance-driven digital projects.',
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 

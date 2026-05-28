@@ -15,4 +15,7 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+User-agent: SEOptimerBot
+Allow: /
+
 Sitemap: https://codevisionaryservices.com/sitemap.xml

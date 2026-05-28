@@ -13,16 +13,18 @@ export const metadata: Metadata = {
   description: 'From vision to execution, Code Visionary Services builds scalable digital products through innovation, strategy, and a passionate expert team.',
   alternates: { canonical: `${SITE_URL}/about` },
   openGraph: {
+    type: 'website',
+    siteName: 'Code Visionary Services',
     title: 'About Code Visionary Services | Digital Innovation Team',
     description: 'From vision to execution, Code Visionary Services builds scalable digital products through innovation, strategy, and a passionate expert team.',
     url: `${SITE_URL}/about`,
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About Code Visionary Services | Digital Innovation Team',
     description: 'From vision to execution, Code Visionary Services builds scalable digital products through innovation, strategy, and a passionate expert team.',
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 

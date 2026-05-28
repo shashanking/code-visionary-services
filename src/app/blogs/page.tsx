@@ -9,16 +9,18 @@ export const metadata: Metadata = {
   description: 'Stay updated with the latest digital trends, marketing strategies, web technologies, and creative insights from our expert blog.',
   alternates: { canonical: `${SITE_URL}/blogs` },
   openGraph: {
+    type: 'website',
+    siteName: 'Code Visionary Services',
     title: 'Digital Innovation Blog | Code Visionary Services',
     description: 'Stay updated with the latest digital trends, marketing strategies, web technologies, and creative insights from our expert blog.',
     url: `${SITE_URL}/blogs`,
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Digital Innovation Blog | Code Visionary Services',
     description: 'Stay updated with the latest digital trends, marketing strategies, web technologies, and creative insights from our expert blog.',
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 

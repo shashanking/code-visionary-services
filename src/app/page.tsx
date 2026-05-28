@@ -10,6 +10,7 @@ import BannerSection from '../components/HomePageComponents/BannerSection';
 import ContactSection from '../components/HomePageComponents/ContactSection';
 import FAQSection from '../components/HomePageComponents/FAQSection';
 import { sanityReviewService } from '../services/ReviewService/sanityReviewService';
+import { sanityFAQService } from '../services/FaqService/sanityFAQService';
 
 const SITE_URL = 'https://codevisionaryservices.com';
 
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
   description: 'Hire dedicated developers for Python, React, and app development. Code Visionary Services delivers expert dev talent, AI insights & growth funnels.',
   alternates: { canonical: SITE_URL },
   openGraph: {
+    type: 'website',
+    siteName: 'Code Visionary Services',
     title: 'Hire the Best Developers | Code Visionary Services',
     description: 'Hire dedicated developers for Python, React, and app development. Code Visionary Services delivers expert dev talent, AI insights & growth funnels.',
     url: SITE_URL,
@@ -32,10 +35,32 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const reviewItems = await sanityReviewService.getTopRatedLatestReviews(8, 4);
+  const [reviewItems, faqs] = await Promise.all([
+    sanityReviewService.getTopRatedLatestReviews(8, 4),
+    sanityFAQService.getFAQs(),
+  ]);
+
+  const faqSchema = faqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  } : null;
 
   return (
     <div>
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <HeroSection />
       <ClientsMarqueeSection />
       <AboutSection />

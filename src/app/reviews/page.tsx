@@ -10,16 +10,18 @@ export const metadata: Metadata = {
   description: 'See what our clients say about Code Visionary Services. Real testimonials on web design, app development, branding, and digital marketing solutions that drive business growth.',
   alternates: { canonical: `${SITE_URL}/reviews` },
   openGraph: {
+    type: 'website',
+    siteName: 'Code Visionary Services',
     title: 'Client Testimonials | Web Design & App Development | Code Visionary Services',
     description: 'See what our clients say about Code Visionary Services. Real testimonials on web design, app development, branding, and digital marketing solutions that drive business growth.',
     url: `${SITE_URL}/reviews`,
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Client Testimonials | Web Design & App Development | Code Visionary Services',
     description: 'See what our clients say about Code Visionary Services. Real testimonials on web design, app development, branding, and digital marketing solutions that drive business growth.',
-    images: [`${SITE_URL}/og-image.webp`],
+    images: [`${SITE_URL}/og-image.png`],
   },
 };
 
