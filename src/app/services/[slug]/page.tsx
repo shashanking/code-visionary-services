@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { servicePageData } from '../../../data/servicePageData';
 import ServiceHero from '../../../components/ServiceDetailPage/ServiceHero';
 import ServiceOverview from '../../../components/ServiceDetailPage/ServiceOverview';
@@ -9,29 +10,46 @@ import ServiceWhyUs from '../../../components/ServiceDetailPage/ServiceWhyUs';
 import ServiceFAQ from '../../../components/ServiceDetailPage/ServiceFAQ';
 import ServiceCTABanner from '../../../components/ServiceDetailPage/ServiceCTABanner';
 
-const data = servicePageData['app-development'];
+interface PageProps {
+  params: { slug: string };
+}
 
-export const metadata: Metadata = {
-  title: data.metadata.title,
-  description: data.metadata.description,
-  alternates: { canonical: data.metadata.canonical },
-  openGraph: {
-    type: 'website',
-    siteName: 'Code Visionary Services',
-    title: data.metadata.title,
-    description: data.metadata.description,
-    url: data.metadata.canonical,
-    images: ['https://codevisionaryservices.com/og-image.png'],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: data.metadata.title,
-    description: data.metadata.description,
-    images: ['https://codevisionaryservices.com/og-image.png'],
-  },
-};
+export async function generateStaticParams() {
+  return Object.keys(servicePageData).map((slug) => ({ slug }));
+}
 
-export default function AppDevelopmentPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const data = servicePageData[params.slug];
+  if (!data) return { title: 'Service | Code Visionary Services' };
+
+  const { title, description, canonical } = data.metadata;
+  const SITE = 'https://codevisionaryservices.com';
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: 'website',
+      siteName: 'Code Visionary Services',
+      title,
+      description,
+      url: canonical,
+      images: [`${SITE}/og-image.png`],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${SITE}/og-image.png`],
+    },
+  };
+}
+
+export default function ServiceDetailPage({ params }: PageProps) {
+  const data = servicePageData[params.slug];
+  if (!data) notFound();
+
   return (
     <>
       <ServiceHero {...data.hero} />

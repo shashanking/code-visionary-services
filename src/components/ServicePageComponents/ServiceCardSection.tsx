@@ -95,13 +95,19 @@ const ServicesErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
   );
 };
 
+const SERVICE_SLUG_MAP: Record<string, string> = {
+  'web-development': 'web-app-development',
+  'mobile-development': 'mobile-app-development',
+  'android-development': 'android-app-development',
+  'custom-software': 'custom-software-development',
+  'software-dev': 'software-development',
+  'app-dev': 'app-development',
+};
+
 const ServiceCardSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(1);
 
   const router = useRouter();
-  const handleCtaClick = () => {
-    router.push(`/contact`);
-  };
 
   const { services, loading, error } = useSanityServices();
 
@@ -239,7 +245,11 @@ const ServiceCardSection: React.FC = () => {
                                 ? "bg-black text-white"
                                 : "bg-black text-white"
                             }`}
-                            onClick={handleCtaClick}
+                            onClick={() => {
+                              const slug = SERVICE_SLUG_MAP[service.serviceId];
+                              if (slug) router.push(`/services/${slug}`);
+                              else router.push('/contact');
+                            }}
                           >
                             Get Started
                           </CTAButton>
