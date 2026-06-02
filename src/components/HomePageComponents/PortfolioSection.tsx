@@ -61,7 +61,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
       {/* Content Overlay */}
       <div className="absolute bottom-0 left-0 w-full z-10 p-4 md:p-6">
         <h3
-          className={`text-white max-w-20 font-heading transition-all duration-350 ease-in-out uppercase tracking-wider ${
+          className={`text-white font-heading transition-all duration-350 ease-in-out uppercase tracking-wider ${
             isHovered
               ? "font-bold -translate-y-2 text-body1"
               : "font-semibold text-body1"
