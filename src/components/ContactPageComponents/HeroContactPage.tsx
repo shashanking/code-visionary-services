@@ -27,11 +27,11 @@ const HeroContactPage: React.FC = () => {
   }, []);
 
   const handleCallClick = () => {
-    router.push("/contact");
+    window.location.href = "tel:+918637515632";
   };
 
   const handleChatClick = () => {
-    router.push("/contact");
+    window.open("https://wa.me/918637515632", "_blank");
   };
 
   return (
