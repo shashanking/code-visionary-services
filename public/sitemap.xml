@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+
   <url>
     <loc>https://codevisionaryservices.com/</loc>
     <changefreq>weekly</changefreq>
@@ -16,6 +16,42 @@
   <url>
     <loc>https://codevisionaryservices.com/services</loc>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://codevisionaryservices.com/services/software-development</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://codevisionaryservices.com/services/custom-software-development</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://codevisionaryservices.com/services/mobile-app-development</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://codevisionaryservices.com/services/android-app-development</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://codevisionaryservices.com/services/web-app-development</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://codevisionaryservices.com/services/app-development</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
