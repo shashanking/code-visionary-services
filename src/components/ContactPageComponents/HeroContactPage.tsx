@@ -73,7 +73,7 @@ const HeroContactPage: React.FC = () => {
       </ContentContainer>
 
       <div
-        className="w-full max-w-[350px] h-10 flex flex-row items-center justify-between bg-[#161616] p-2 leading-none rounded-full relative overflow-hidden"
+        className="w-full max-w-[350px] h-10 flex flex-row items-center justify-between bg-[#161616] p-2 leading-none rounded-full relative z-10 overflow-hidden"
         style={{
           boxShadow: isHoveringCall
             ? "0px 0px 8px 0px #B5442C"
