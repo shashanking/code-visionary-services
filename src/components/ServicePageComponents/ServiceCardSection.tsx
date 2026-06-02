@@ -95,13 +95,15 @@ const ServicesErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
   );
 };
 
-const SERVICE_SLUG_MAP: Record<string, string> = {
-  'web-development': 'web-app-development',
-  'mobile-development': 'mobile-app-development',
-  'android-development': 'android-app-development',
-  'custom-software': 'custom-software-development',
-  'software-dev': 'software-development',
-  'app-dev': 'app-development',
+const getServiceSlug = (label: string): string | null => {
+  const l = label.toLowerCase();
+  if (l.includes('android')) return 'android-app-development';
+  if (l.includes('mobile')) return 'mobile-app-development';
+  if (l.includes('web app') || l.includes('web application') || l.includes('web dev')) return 'web-app-development';
+  if (l.includes('custom software')) return 'custom-software-development';
+  if (l.includes('software')) return 'software-development';
+  if (l.includes('app dev') || l.includes('app development')) return 'app-development';
+  return null;
 };
 
 const ServiceCardSection: React.FC = () => {
@@ -236,7 +238,20 @@ const ServiceCardSection: React.FC = () => {
                         </div>
 
                         {/* Button Section */}
-                        <div className="flex justify-center md:justify-start">
+                        <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                          {(() => {
+                            const slug = getServiceSlug(service.label);
+                            return slug ? (
+                              <CTAButton
+                                size="small"
+                                showIcon={false}
+                                className="w-fit border border-white/30 text-white hover:bg-white/10 transition-all duration-300"
+                                onClick={() => router.push(`/services/${slug}`)}
+                              >
+                                Learn More
+                              </CTAButton>
+                            ) : null;
+                          })()}
                           <CTAButton
                             size="small"
                             showIcon={false}
@@ -245,11 +260,7 @@ const ServiceCardSection: React.FC = () => {
                                 ? "bg-black text-white"
                                 : "bg-black text-white"
                             }`}
-                            onClick={() => {
-                              const slug = SERVICE_SLUG_MAP[service.serviceId];
-                              if (slug) router.push(`/services/${slug}`);
-                              else router.push('/contact');
-                            }}
+                            onClick={() => router.push('/contact')}
                           >
                             Get Started
                           </CTAButton>
