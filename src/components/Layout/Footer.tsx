@@ -219,12 +219,12 @@ const Footer: React.FC = () => {
                   </h6>
                   <div className="flex flex-wrap gap-3 mt-2">
                     <img
-                      src="/indusind-logo.webp"
+                      src="/indusind-logo.jpg"
                       alt="IndusInd Bank"
                       className="h-8 w-auto object-contain bg-white rounded p-1"
                     />
                     <img
-                      src="/psypal-logo.webp"
+                      src="/psypal-logo.png"
                       alt="PsyPal"
                       className="h-8 w-auto object-contain bg-white rounded p-1"
                     />
