@@ -180,7 +180,7 @@ const HeroSection: React.FC = () => {
         return (
           <div
             key={index}
-            className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-2000 ease-in-out z-0 ${
+            className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-2000 ease-in-out z-0 pointer-events-none ${
               isActive ? "opacity-100" : "opacity-0"
             }`}
             style={{ backgroundImage: `url(${imgSrc(bg)})` }}

@@ -16,7 +16,7 @@ const HeroServicePage: React.FC = () => {
       background="#e3e3e3"
       className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center text-center"
     >
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div
           className="w-full h-full bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: `url(${imgSrc(ServicePageBg)})` }}
@@ -28,7 +28,7 @@ const HeroServicePage: React.FC = () => {
         paddingX="lg"
         className="relative z-10 pt-30 pb-10 flex flex-col justify-center items-center text-center min-h-[55vh]"
       >
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <div
             className="w-full h-full bg-cover bg-no-repeat bg-center"
             style={{ backgroundImage: `url(${imgSrc(ServiceHeroBg)})` }}

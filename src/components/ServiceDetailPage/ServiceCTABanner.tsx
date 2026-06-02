@@ -16,9 +16,9 @@ export default function ServiceCTABanner({ serviceName }: ServiceCTABannerProps)
   return (
     <SectionContainer background="#161616" padding="lg" className="relative overflow-hidden">
 
-      <div className="absolute inset-0 bg-gradient-to-br from-[#B5442C] via-[#7a2510] to-[#4F1E13]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#B5442C] via-[#7a2510] to-[#4F1E13] pointer-events-none" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,#FF9C8720,transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,#FF9C8720,transparent_60%)] pointer-events-none" />
 
       <ContentContainer maxWidth="2xl" paddingX="lg" className="relative z-10 text-center">
 
