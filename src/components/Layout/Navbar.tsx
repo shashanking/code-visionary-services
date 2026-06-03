@@ -8,12 +8,15 @@ import { cn } from "../../lib/utils";
 import ContentContainer from "../shared/ContentContainer";
 
 const SERVICE_PAGES = [
-  { label: "Web App Development", href: "/services/web-app-development" },
-  { label: "Mobile App Development", href: "/services/mobile-app-development" },
-  { label: "Android App Development", href: "/services/android-app-development" },
-  { label: "Custom Software Development", href: "/services/custom-software-development" },
-  { label: "Software Development", href: "/services/software-development" },
-  { label: "App Development", href: "/services/app-development" },
+  { label: "UI/UX Design", href: "/services/ui-ux-design" },
+  { label: "Web Development", href: "/services/web-development" },
+  { label: "Application Development", href: "/services/application-development" },
+  { label: "Artificial Intelligence", href: "/services/artificial-intelligence" },
+  { label: "Enterprise Solutions", href: "/services/enterprise-solutions" },
+  { label: "Branding", href: "/services/branding" },
+  { label: "Performance Marketing", href: "/services/performance-marketing" },
+  { label: "Digital Funnel", href: "/services/digital-funnel" },
+  { label: "Web 3.0", href: "/services/web-3-0" },
 ];
 
 const Navbar: React.FC = () => {
@@ -87,7 +90,7 @@ const Navbar: React.FC = () => {
       {/* Drawer Panel */}
       <div
         className={cn(
-          "absolute top-0 left-0 h-full w-65 bg-gray-900 transform transition-transform duration-300 ease-in-out flex flex-col",
+          "absolute top-0 left-0 h-full w-[260px] bg-gray-900 transform transition-transform duration-300 ease-in-out flex flex-col",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >

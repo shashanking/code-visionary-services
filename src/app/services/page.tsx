@@ -26,12 +26,15 @@ export const metadata: Metadata = {
 };
 
 const SERVICE_PAGES = [
-  { label: 'Web App Development', href: '/services/web-app-development', icon: '🖥️', desc: 'SaaS, dashboards, e-commerce, PWAs' },
-  { label: 'Mobile App Development', href: '/services/mobile-app-development', icon: '📱', desc: 'iOS, Android & cross-platform apps' },
-  { label: 'Android App Development', href: '/services/android-app-development', icon: '🤖', desc: 'Native Kotlin & Jetpack Compose' },
-  { label: 'Custom Software Development', href: '/services/custom-software-development', icon: '⚙️', desc: 'ERP, CRM, automation & SaaS tools' },
-  { label: 'Software Development', href: '/services/software-development', icon: '💻', desc: 'Full-lifecycle software services' },
-  { label: 'App Development', href: '/services/app-development', icon: '🚀', desc: 'End-to-end app delivery for all platforms' },
+  { label: 'UI/UX Design', href: '/services/ui-ux-design', icon: '🎨', desc: 'User-centered interfaces & seamless experiences' },
+  { label: 'Web Development', href: '/services/web-development', icon: '🖥️', desc: 'Fast, responsive & scalable websites' },
+  { label: 'Application Development', href: '/services/application-development', icon: '📱', desc: 'Mobile & web apps for every platform' },
+  { label: 'Artificial Intelligence', href: '/services/artificial-intelligence', icon: '🤖', desc: 'AI automation & intelligent business systems' },
+  { label: 'Enterprise Solutions', href: '/services/enterprise-solutions', icon: '⚙️', desc: 'Custom software for complex business needs' },
+  { label: 'Branding', href: '/services/branding', icon: '✨', desc: 'Memorable brand identity & visual systems' },
+  { label: 'Performance Marketing', href: '/services/performance-marketing', icon: '📈', desc: 'Data-driven ads with measurable ROAS' },
+  { label: 'Digital Funnel', href: '/services/digital-funnel', icon: '🚀', desc: 'Conversion funnels that turn leads into customers' },
+  { label: 'Web 3.0', href: '/services/web-3-0', icon: '🔗', desc: 'Blockchain-powered decentralized web experiences' },
 ];
 
 export default function ServicePage() {
