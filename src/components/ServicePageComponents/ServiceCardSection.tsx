@@ -240,30 +240,47 @@ const ServiceCardSection: React.FC = () => {
                         {/* Button Section */}
                         <div className="flex flex-wrap justify-center md:justify-start gap-3">
                           {(() => {
+                            const isStaffing = service.label?.toLowerCase().includes('staffing');
+                            if (isStaffing) {
+                              return (
+                                <CTAButton
+                                  size="small"
+                                  showIcon={false}
+                                  className={`w-fit shadow-[0px_0px_8px_0px_#B5442C] hover:shadow-[0px_0px_12px_0px_#B5442C] hover:bg-gradient-to-r hover:from-[#B5442C80] hover:to-[#B5442C] transition-all duration-500 bg-black text-white`}
+                                  onClick={() => router.push('/hire-web-developers')}
+                                >
+                                  Learn More
+                                </CTAButton>
+                              );
+                            }
                             const slug = getServiceSlug(service.label);
-                            return slug ? (
-                              <CTAButton
-                                size="small"
-                                showIcon={false}
-                                className="w-fit border border-white/30 text-white hover:bg-white/10 transition-all duration-300"
-                                onClick={() => router.push(`/services/${slug}`)}
-                              >
-                                Learn More
-                              </CTAButton>
-                            ) : null;
+                            return (
+                              <>
+                                {slug && (
+                                  <CTAButton
+                                    size="small"
+                                    showIcon={false}
+                                    className="w-fit border border-white/30 text-white hover:bg-white/10 transition-all duration-300"
+                                    onClick={() => router.push(`/services/${slug}`)}
+                                  >
+                                    Learn More
+                                  </CTAButton>
+                                )}
+                                <CTAButton
+                                  size="small"
+                                  showIcon={false}
+                                  className={`w-fit shadow-[0px_0px_8px_0px_#B5442C] hover:shadow-[0px_0px_12px_0px_#B5442C] hover:bg-gradient-to-r hover:from-[#B5442C80] hover:to-[#B5442C] transition-all duration-500 ${
+                                    isActive
+                                      ? "bg-black text-white"
+                                      : "bg-black text-white"
+                                  }`}
+                                  onClick={() => router.push('/contact')}
+                                >
+                                  Get Started
+                                </CTAButton>
+                              </>
+                            );
                           })()}
-                          <CTAButton
-                            size="small"
-                            showIcon={false}
-                            className={`w-fit shadow-[0px_0px_8px_0px_#B5442C] hover:shadow-[0px_0px_12px_0px_#B5442C] hover:bg-gradient-to-r hover:from-[#B5442C80] hover:to-[#B5442C] transition-all duration-500 ${
-                              isActive
-                                ? "bg-black text-white"
-                                : "bg-black text-white"
-                            }`}
-                            onClick={() => router.push('/contact')}
-                          >
-                            Get Started
-                          </CTAButton>
                         </div>
                       </div>
                     </div>
