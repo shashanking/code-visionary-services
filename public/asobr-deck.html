@@ -259,6 +259,97 @@
   #s17 .tagline { font-size: 14px; color: #4a4a4a; letter-spacing: 3px; text-transform: uppercase; }
   #s17 .url { margin-top: 38px; font-size: 15px; color: var(--gold); letter-spacing: 1px; }
   #s17 .pillars { margin-top: 12px; font-size: 11px; color: #2e2e2e; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ── Mobile Responsive ── */
+  @media (max-width: 768px) {
+    .slide { padding: 36px 18px 56px; overflow-y: auto; }
+
+    .tag { font-size: 9px; margin-bottom: 8px; }
+    h2 { font-size: 24px; letter-spacing: -0.5px; }
+    .slide-header { margin-bottom: 12px; }
+    .nav-hint { display: none; }
+    .counter { bottom: 14px; right: 16px; }
+    .dot-nav { bottom: 12px; }
+
+    /* Cover */
+    #s1 .logo { font-size: 60px; letter-spacing: -3px; }
+    #s1 .line { margin: 20px 0; }
+    #s1 .tagline { font-size: 11px; letter-spacing: 2px; }
+    #s1 .pillars { flex-direction: column; gap: 0; margin-top: 28px; }
+    #s1 .pillar { padding: 10px 0; border-right: none; border-bottom: 1px solid #1e1e1e; }
+    #s1 .pillar:last-child { border: none; }
+
+    /* 2-col grids → 1-col */
+    .pain-grid,
+    .compare,
+    .fleet-grid,
+    .profit-types,
+    .compliance-cycle,
+    .tl-grid { grid-template-columns: 1fr; gap: 10px; }
+
+    /* 3-col grids → 1-col */
+    .sol-grid,
+    .arch-grid,
+    .sec-grid,
+    .mobile-grid { grid-template-columns: 1fr; gap: 10px; }
+
+    /* 4-col grids → 2-col */
+    .doc-flow,
+    .tech-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .doc-step::after { display: none; }
+
+    /* Card padding reduce */
+    .pain-card, .sol-card, .arch-card, .comp-card, .fleet-card,
+    .sec-card, .mobile-cat, .tech-card, .profit-type { padding: 16px; }
+    .sol-card { padding: 20px 16px; }
+    .doc-step { padding: 14px 10px; }
+
+    /* Pipeline: horizontal → vertical */
+    .pipeline { flex-direction: column; margin-top: 20px; }
+    .pipe-arrow { justify-content: center; transform: rotate(90deg); padding: 2px 0; }
+    .pipe-stage .box { margin: 0; padding: 12px 10px; }
+
+    /* Aria flow: horizontal → vertical */
+    .flow { flex-direction: column; }
+    .flow-sep { transform: rotate(90deg); justify-content: center; padding: 4px 0; }
+    .flow-step { padding: 14px; }
+
+    /* Finance flow: horizontal → vertical */
+    .finance-flow { flex-direction: column; align-items: stretch; gap: 0; }
+    .finance-arrow { flex-direction: row; justify-content: center; padding: 6px 0; }
+    .finance-arrow .arr { transform: rotate(90deg); }
+    .finance-arrow .lbl { display: none; }
+    .finance-node { min-width: unset; padding: 16px; }
+
+    /* Timeline */
+    .tl-right { gap: 10px; }
+    .tl-guards { padding: 14px; }
+
+    /* Roles */
+    .roles { gap: 6px; }
+    .role-chip { font-size: 11px; padding: 4px 10px; }
+
+    /* Closing */
+    #s17 .logo { font-size: 60px; letter-spacing: -3px; }
+    #s17 .line { margin: 18px auto; }
+    #s17 .url { margin-top: 24px; }
+
+    /* Formula */
+    .formula { font-size: 15px; }
+    .formula .op { margin: 0 6px; }
+    .formula-box { padding: 20px; }
+    .formula-eg { font-size: 12px; }
+
+    /* Chips */
+    .channels { flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .note-bar { font-size: 11px; padding: 8px 12px; }
+    .install-note { font-size: 11px; padding: 10px 14px; }
+    .pipe-note { font-size: 11px; }
+
+    /* Doc badges */
+    .doc-types { gap: 6px; }
+    .doc-badge { font-size: 11px; padding: 4px 10px; }
+  }
 </style>
 </head>
 <body>
