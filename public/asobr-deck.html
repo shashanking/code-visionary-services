@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asobr — AI-Powered Real Estate CRM</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #F0D060;
+    --gold-dim: #8B7420;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #161616;
+    --bg4: #1e1e1e;
+    --text: #f0f0f0;
+    --text-dim: #888;
+    --emerald: #34D399;
+    --amber: #FBBF24;
+    --blue: #60A5FA;
+    --red: #F87171;
+    --purple: #A78BFA;
+    --border: #252525;
+  }
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; overflow: hidden; }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding: 56px 80px 72px;
+    opacity: 0; pointer-events: none;
+    transform: translateY(14px);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+  }
+  .slide.active { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); transition: width 0.35s ease; z-index: 100; }
+  .counter { position: fixed; bottom: 26px; right: 40px; font-size: 11px; color: #383838; letter-spacing: 2px; z-index: 100; font-variant-numeric: tabular-nums; }
+  .nav-hint { position: fixed; bottom: 26px; left: 40px; font-size: 11px; color: #2a2a2a; letter-spacing: 1px; z-index: 100; }
+
+  .dot-nav { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 100; }
+  .dot-nav span { width: 5px; height: 5px; border-radius: 50%; background: #2a2a2a; transition: background 0.3s, transform 0.3s; cursor: pointer; }
+  .dot-nav span.active { background: var(--gold); transform: scale(1.5); }
+
+  /* Typography */
+  .tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  h2 { font-size: 44px; font-weight: 700; line-height: 1.1; letter-spacing: -1.5px; }
+  .gold { color: var(--gold); }
+  .slide-header { margin-bottom: 6px; }
+
+  /* Cover */
+  #s1 { background: radial-gradient(ellipse at 22% 60%, #1c1400 0%, var(--bg) 55%); justify-content: center; }
+  #s1 .logo { font-size: 108px; font-weight: 900; letter-spacing: -6px; line-height: 1; background: linear-gradient(130deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  #s1 .line { width: 90px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin: 32px 0; }
+  #s1 .tagline { font-size: 14px; color: #4a4a4a; letter-spacing: 3.5px; text-transform: uppercase; }
+  #s1 .pillars { display: flex; gap: 0; margin-top: 44px; }
+  #s1 .pillar { padding: 0 28px; border-right: 1px solid #1e1e1e; }
+  #s1 .pillar:first-child { padding-left: 0; }
+  #s1 .pillar:last-child { border: none; }
+  #s1 .p-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 5px; }
+  #s1 .p-val { font-size: 15px; color: #555; }
+
+  /* Problem */
+  #s2 { background: radial-gradient(ellipse at 85% 15%, #150500 0%, var(--bg) 50%); justify-content: center; }
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 34px; }
+  .pain-card { background: var(--bg3); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 10px; padding: 24px 28px; }
+  .pain-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); opacity: 0.55; margin-bottom: 10px; }
+  .pain-card h4 { font-size: 17px; font-weight: 600; margin-bottom: 10px; color: #eee; }
+  .pain-card p { font-size: 14px; color: #777; line-height: 1.65; }
+
+  /* Solution */
+  #s3 { background: radial-gradient(ellipse at 20% 85%, #001408 0%, var(--bg) 55%); justify-content: center; }
+  .sol-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; margin-top: 34px; }
+  .sol-card { background: var(--bg3); border: 1px solid var(--border); border-top: 2px solid var(--gold); border-radius: 10px; padding: 32px 26px; }
+  .sol-badge { display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; background: rgba(212,175,55,0.07); border: 1px solid rgba(212,175,55,0.18); color: var(--gold-dim); padding: 4px 10px; border-radius: 4px; margin-bottom: 18px; }
+  .sol-card h3 { font-size: 20px; color: var(--text); margin-bottom: 12px; font-weight: 600; }
+  .sol-card p { font-size: 13px; color: #777; line-height: 1.65; }
+
+  /* Architecture */
+  #s4 { justify-content: center; }
+  .arch-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 34px; }
+  .arch-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+  .arch-card .layer { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 14px; }
+  .arch-card h3 { font-size: 19px; color: var(--text); margin-bottom: 18px; font-weight: 600; }
+  .arch-card ul { list-style: none; }
+  .arch-card ul li { font-size: 13px; color: #888; padding: 6px 0; border-bottom: 1px solid #1a1a1a; }
+  .arch-card ul li:last-child { border: none; }
+  .arch-card ul li::before { content: '→ '; color: var(--gold-dim); }
+
+  /* Aria */
+  #s5 { background: radial-gradient(ellipse at 60% 90%, #001008 0%, var(--bg) 55%); justify-content: center; }
+  .channels { display: flex; gap: 8px; margin-bottom: 26px; }
+  .chip { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: 12px; color: #777; letter-spacing: 0.5px; }
+  .flow { display: flex; align-items: stretch; gap: 0; }
+  .flow-step { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 22px; flex: 1; }
+  .flow-sep { display: flex; align-items: center; padding: 0 14px; color: #2a2a2a; font-size: 18px; flex-shrink: 0; }
+  .flow-step .num { font-size: 10px; color: var(--gold-dim); letter-spacing: 2px; margin-bottom: 10px; }
+  .flow-step h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .flow-step p { font-size: 12px; color: #666; line-height: 1.6; }
+  .note-bar { margin-top: 20px; font-size: 12px; color: #555; background: var(--bg3); padding: 10px 18px; border-radius: 6px; border-left: 2px solid #2a2a2a; }
+
+  /* Assignment */
+  #s6 { justify-content: center; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 34px; }
+  .compare-col { border-radius: 12px; padding: 32px; }
+  .compare-col.old { background: #140808; border: 1px solid #2e1010; }
+  .compare-col.new { background: #081408; border: 1px solid #102e10; }
+  .col-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .compare-col.old .col-label { color: var(--red); opacity: 0.6; }
+  .compare-col.new .col-label { color: var(--emerald); opacity: 0.6; }
+  .compare-col h3 { font-size: 18px; margin-bottom: 22px; font-weight: 600; }
+  .compare-col.old h3 { color: #c88; }
+  .compare-col.new h3 { color: #8c8; }
+  .compare-col ul { list-style: none; }
+  .compare-col ul li { font-size: 14px; color: #aaa; padding: 9px 0; border-bottom: 1px solid #1e1e1e; }
+  .compare-col ul li:last-child { border: none; }
+  .compare-col.old ul li::before { content: '\2717  '; color: var(--red); }
+  .compare-col.new ul li::before { content: '\2713  '; color: var(--emerald); }
+
+  /* Pipeline */
+  #s7 { justify-content: center; }
+  .pipeline { display: flex; align-items: stretch; gap: 0; margin-top: 44px; }
+  .pipe-stage { flex: 1; }
+  .pipe-stage .box { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 22px 10px; margin: 0 6px; height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .pipe-stage .dot { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 14px; flex-shrink: 0; }
+  .pipe-stage h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .pipe-stage p { font-size: 11px; color: #666; line-height: 1.5; }
+  .pipe-arrow { display: flex; align-items: center; color: #252525; font-size: 16px; flex-shrink: 0; }
+  .dot-new { background: var(--blue); box-shadow: 0 0 8px rgba(96,165,250,0.35); }
+  .dot-qual { background: var(--amber); box-shadow: 0 0 8px rgba(251,191,36,0.35); }
+  .dot-assign { background: var(--gold); box-shadow: 0 0 8px rgba(212,175,55,0.35); }
+  .dot-prog { background: var(--purple); box-shadow: 0 0 8px rgba(167,139,250,0.35); }
+  .dot-closed { background: var(--emerald); box-shadow: 0 0 8px rgba(52,211,153,0.35); }
+  .pipe-note { margin-top: 20px; text-align: center; font-size: 12px; color: #3a3a3a; }
+
+  /* Follow-ups */
+  #s8 { justify-content: center; }
+  .tl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(180deg, var(--gold-dim), #1e1e1e); }
+  .tl-item { position: relative; margin-bottom: 18px; display: flex; gap: 16px; align-items: flex-start; }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); position: absolute; left: -36px; top: 5px; flex-shrink: 0; }
+  .tl-dot.dim { background: #2a2a2a; }
+  .tl-time { font-size: 12px; color: var(--gold); font-weight: 600; width: 72px; flex-shrink: 0; padding-top: 1px; }
+  .tl-content h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .tl-content p { font-size: 12px; color: #666; }
+  .tl-right { display: flex; flex-direction: column; gap: 14px; }
+  .tl-note { background: var(--bg3); border: 1px solid var(--border); border-left: 2px solid var(--emerald); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #777; }
+  .tl-guards { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+  .tl-guards h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dim); margin-bottom: 12px; }
+  .tl-guards ul { list-style: none; }
+  .tl-guards ul li { font-size: 13px; color: #777; padding: 5px 0; border-bottom: 1px solid #1a1a1a; }
+  .tl-guards ul li:last-child { border: none; }
+  .tl-guards ul li::before { content: '· '; color: #3a3a3a; }
+
+  /* Finance Flow */
+  #s9 { justify-content: center; }
+  .finance-flow { display: flex; align-items: center; justify-content: center; gap: 0; margin-top: 36px; }
+  .finance-node { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 26px 24px; text-align: center; min-width: 155px; }
+  .f-badge { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
+  .finance-node h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .finance-node p { font-size: 12px; color: #666; line-height: 1.55; }
+  .finance-arrow { display: flex; flex-direction: column; align-items: center; padding: 0 16px; flex-shrink: 0; }
+  .finance-arrow .arr { font-size: 18px; color: #333; }
+  .finance-arrow .lbl { font-size: 10px; color: #3a3a3a; margin-top: 6px; text-align: center; max-width: 70px; line-height: 1.4; }
+  .install-note { margin-top: 26px; background: var(--bg3); border: 1px solid var(--border); border-left: 2px solid var(--gold-dim); border-radius: 8px; padding: 12px 20px; font-size: 13px; color: #555; }
+
+  /* Profit */
+  #s10 { justify-content: center; background: radial-gradient(ellipse at 50% 40%, #0d0c00 0%, var(--bg) 65%); }
+  .formula-box { background: var(--bg3); border: 1px solid var(--gold-dim); border-radius: 14px; padding: 38px; margin-top: 34px; text-align: center; }
+  .formula { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.3; }
+  .formula .op { color: #3a3a3a; margin: 0 14px; font-weight: 400; }
+  .formula .dev { color: var(--emerald); }
+  .formula .agent { color: var(--red); }
+  .formula .profit { color: var(--gold); }
+  .formula-eg { margin-top: 22px; font-size: 14px; color: #555; line-height: 1.85; }
+  .profit-types { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+  .profit-type { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+  .profit-type .p-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .profit-type h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .profit-type p { font-size: 12px; color: #666; }
+
+  /* Compliance */
+  #s11 { justify-content: center; }
+  .compliance-cycle { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 30px; }
+  .comp-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; }
+  .comp-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
+  .comp-card h3 { font-size: 16px; color: var(--text); margin-bottom: 14px; font-weight: 600; }
+  .comp-card ul { list-style: none; }
+  .comp-card ul li { font-size: 13px; color: #777; padding: 5px 0; border-bottom: 1px solid #1a1a1a; }
+  .comp-card ul li:last-child { border: none; }
+  .comp-card ul li::before { content: '→ '; color: var(--gold-dim); }
+
+  /* Documents */
+  #s12 { justify-content: center; }
+  .doc-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 34px; }
+  .doc-step { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 24px 18px; text-align: center; position: relative; }
+  .doc-step::after { content: '\2192'; position: absolute; right: -9px; top: 50%; transform: translateY(-50%); color: #252525; font-size: 14px; z-index: 1; }
+  .doc-step:last-child::after { display: none; }
+  .doc-step .num { width: 30px; height: 30px; border-radius: 50%; background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.25); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; margin: 0 auto 14px; color: var(--gold); }
+  .doc-step h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .doc-step p { font-size: 11px; color: #666; line-height: 1.55; }
+  .doc-types { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .doc-badge { border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; font-size: 12px; background: var(--bg3); }
+  .doc-badge.mandatory { border-color: rgba(212,175,55,0.3); color: var(--gold); }
+  .doc-badge.optional { color: #555; }
+  .doc-note { margin-top: 12px; font-size: 12px; color: #3a3a3a; }
+
+  /* Fleet */
+  #s13 { justify-content: center; background: radial-gradient(ellipse at 18% 80%, #000818 0%, var(--bg) 55%); }
+  .fleet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 34px; }
+  .fleet-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 26px; }
+  .fleet-card-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
+  .fleet-card h3 { font-size: 16px; color: var(--text); margin-bottom: 16px; font-weight: 600; }
+  .fleet-stat { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a1a1a; font-size: 13px; color: #777; }
+  .fleet-stat:last-child { border: none; }
+  .fleet-stat .val { color: var(--gold); font-weight: 500; }
+  .fleet-note { margin-top: 18px; font-size: 12px; color: #3a3a3a; background: var(--bg3); padding: 10px 18px; border-radius: 6px; border-left: 2px solid #222; }
+
+  /* Security */
+  #s14 { justify-content: center; }
+  .sec-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 34px; }
+  .sec-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 26px; }
+  .sec-card-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
+  .sec-card h4 { font-size: 17px; font-weight: 600; margin-bottom: 16px; }
+  .sec-card ul { list-style: none; }
+  .sec-card ul li { font-size: 13px; color: #888; padding: 6px 0; border-bottom: 1px solid #1a1a1a; }
+  .sec-card ul li:last-child { border: none; }
+  .sec-card ul li::before { content: '→ '; color: var(--gold-dim); }
+  .roles-section { margin-top: 22px; }
+  .roles-label { font-size: 11px; color: #3a3a3a; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .roles { display: flex; flex-wrap: wrap; gap: 8px; }
+  .role-chip { border: 1px solid; border-radius: 6px; padding: 5px 14px; font-size: 12px; font-weight: 500; }
+
+  /* Mobile */
+  #s15 { justify-content: center; }
+  .mobile-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 30px; }
+  .mobile-cat { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 22px; }
+  .mobile-cat h4 { font-size: 10px; font-weight: 600; color: var(--gold-dim); margin-bottom: 14px; letter-spacing: 2px; text-transform: uppercase; }
+  .mobile-cat ul { list-style: none; }
+  .mobile-cat ul li { font-size: 13px; color: #888; padding: 6px 0; border-bottom: 1px solid #1a1a1a; }
+  .mobile-cat ul li:last-child { border: none; }
+  .mobile-cat ul li::before { content: '→ '; color: #2e2e2e; }
+
+  /* Tech Stack */
+  #s16 { justify-content: center; }
+  .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 34px; }
+  .tech-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 22px 18px; }
+  .tech-abbr { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: var(--gold); background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.15); padding: 3px 9px; border-radius: 4px; margin-bottom: 14px; }
+  .tech-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .tech-card p { font-size: 12px; color: #666; line-height: 1.5; }
+
+  /* Closing */
+  #s17 { background: radial-gradient(ellipse at 50% 50%, #1c1400 0%, var(--bg) 60%); justify-content: center; align-items: center; text-align: center; }
+  #s17 .logo { font-size: 92px; font-weight: 900; letter-spacing: -5px; line-height: 1; background: linear-gradient(130deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  #s17 .line { width: 56px; height: 1px; background: var(--gold-dim); margin: 28px auto; }
+  #s17 .tagline { font-size: 14px; color: #4a4a4a; letter-spacing: 3px; text-transform: uppercase; }
+  #s17 .url { margin-top: 38px; font-size: 15px; color: var(--gold); letter-spacing: 1px; }
+  #s17 .pillars { margin-top: 12px; font-size: 11px; color: #2e2e2e; letter-spacing: 2px; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter">01 / 17</div>
+<div class="nav-hint">arrow keys to navigate</div>
+<div class="dot-nav" id="dotNav"></div>
+
+<div class="deck">
+
+  <!-- 1. Cover -->
+  <div class="slide active" id="s1">
+    <div class="logo">ASOBR</div>
+    <div class="line"></div>
+    <div class="tagline">AI-Powered Real Estate CRM — UAE Market</div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="p-label">Platform</div>
+        <div class="p-val">Web CRM</div>
+      </div>
+      <div class="pillar">
+        <div class="p-label">Intelligence</div>
+        <div class="p-val">Aria AI Agent</div>
+      </div>
+      <div class="pillar">
+        <div class="p-label">Field</div>
+        <div class="p-val">Mobile App</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. The Problem -->
+  <div class="slide" id="s2">
+    <div class="slide-header">
+      <div class="tag">The Problem</div>
+      <h2>Real Estate Brokerages <span class="gold">Struggle With</span></h2>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-label">Lead Management</div>
+        <h4>Lead Chaos</h4>
+        <p>Leads pour in from WhatsApp, Instagram, Facebook, and LinkedIn simultaneously. Without a system, most leads go cold before anyone follows up.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-label">Operations</div>
+        <h4>Zero Agent Visibility</h4>
+        <p>Managers have no idea where agents are, who is working, or whether follow-ups are happening. Agent accountability is near impossible to enforce.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-label">Finance</div>
+        <h4>Commission Disputes</h4>
+        <p>Deals involve installment payments from developers. Tracking who gets paid how much, and when, is done in spreadsheets — leading to errors and disputes.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-label">Regulatory</div>
+        <h4>Compliance Gaps</h4>
+        <p>RERA Cards and Emirates IDs expire. Agents continue working with expired documents. There is no automated enforcement or alert system.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. The Solution -->
+  <div class="slide" id="s3">
+    <div class="slide-header">
+      <div class="tag">The Solution</div>
+      <h2>One Platform. <span class="gold">Three Layers.</span></h2>
+    </div>
+    <div class="sol-grid">
+      <div class="sol-card">
+        <div class="sol-badge">Web CRM</div>
+        <h3>Command Centre</h3>
+        <p>Full-featured CRM for Admin, Managers, Finance, and Office staff. Leads, deals, finance, compliance, and fleet — all in one dark-mode dashboard.</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-badge">AI Agent</div>
+        <h3>Aria Intelligence</h3>
+        <p>AI agent handles every incoming lead 24/7 across all channels. Qualifies intent, captures contact info, and only then assigns a human sales agent.</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-badge">Mobile</div>
+        <h3>Field Application</h3>
+        <p>Flutter app for sales agents in the field. Lead management, GPS tracking, document capture, voice memos, and offline support built in.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Architecture -->
+  <div class="slide" id="s4">
+    <div class="slide-header">
+      <div class="tag">Platform Architecture</div>
+      <h2>Built for <span class="gold">Scale &amp; Reliability</span></h2>
+    </div>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="layer">Frontend Layer</div>
+        <h3>Next.js 15 CRM</h3>
+        <ul>
+          <li>App Router + Turbopack</li>
+          <li>Role-based route guards</li>
+          <li>Dark mode throughout</li>
+          <li>Real-time data via REST</li>
+          <li>Inline document viewer</li>
+          <li>Deployed on EC2 + PM2</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <div class="layer">Backend Layer</div>
+        <h3>Node.js / Express</h3>
+        <ul>
+          <li>MongoDB / Mongoose</li>
+          <li>JWT + Passkey auth</li>
+          <li>50+ REST modules</li>
+          <li>Claude AI integration</li>
+          <li>Daily compliance crons</li>
+          <li>AWS S3 document storage</li>
+        </ul>
+      </div>
+      <div class="arch-card">
+        <div class="layer">Mobile Layer</div>
+        <h3>Flutter App</h3>
+        <ul>
+          <li>iOS and Android</li>
+          <li>Background GPS pings</li>
+          <li>Offline read cache</li>
+          <li>Write queue drain</li>
+          <li>Camera doc capture</li>
+          <li>Twilio voice calls</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Aria AI -->
+  <div class="slide" id="s5">
+    <div class="slide-header">
+      <div class="tag">AI Lead Management</div>
+      <h2>Aria Handles Every Lead <span class="gold">24/7</span></h2>
+    </div>
+    <div class="channels">
+      <div class="chip">WhatsApp</div>
+      <div class="chip">Instagram</div>
+      <div class="chip">Facebook</div>
+      <div class="chip">LinkedIn</div>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="num">STEP 01</div>
+        <h4>Spam Filter</h4>
+        <p>Reactions, emoji-only, shared posts — template reply sent. No AI tokens spent.</p>
+      </div>
+      <div class="flow-sep">&#8594;</div>
+      <div class="flow-step">
+        <div class="num">STEP 02</div>
+        <h4>Aria Responds</h4>
+        <p>Claude AI converses in the lead's language. Understands intent, captures details.</p>
+      </div>
+      <div class="flow-sep">&#8594;</div>
+      <div class="flow-step">
+        <div class="num">STEP 03</div>
+        <h4>Qualification</h4>
+        <p>Detects buying intent and captures phone or email. Sets lead to Qualified.</p>
+      </div>
+      <div class="flow-sep">&#8594;</div>
+      <div class="flow-step">
+        <div class="num">STEP 04</div>
+        <h4>Agent Assigned</h4>
+        <p>Human sales agent assigned only now — warm, qualified lead handed over.</p>
+      </div>
+    </div>
+    <div class="note-bar">
+      Spam pre-filter runs before any Claude API call — saving cost on every irrelevant message. Repeat offenders auto-moved to Not Interested.
+    </div>
+  </div>
+
+  <!-- 6. Smart Assignment -->
+  <div class="slide" id="s6">
+    <div class="slide-header">
+      <div class="tag">Agent Assignment</div>
+      <h2>Agents Only Get <span class="gold">Warm Leads</span></h2>
+    </div>
+    <div class="compare">
+      <div class="compare-col old">
+        <div class="col-label">Before</div>
+        <h3>Instant Assignment</h3>
+        <ul>
+          <li>Agent assigned on first message</li>
+          <li>Lead may be just browsing</li>
+          <li>No contact info captured yet</li>
+          <li>Agent time wasted on cold leads</li>
+          <li>High drop-off, low conversion</li>
+        </ul>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">After</div>
+        <h3>Qualify First</h3>
+        <ul>
+          <li>Aria handles lead until qualified</li>
+          <li>Buying intent detected via 20 keywords</li>
+          <li>Phone or email captured first</li>
+          <li>Agent receives a ready-to-close lead</li>
+          <li>Higher conversion, less wasted time</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Pipeline -->
+  <div class="slide" id="s7">
+    <div class="slide-header">
+      <div class="tag">Lead Pipeline</div>
+      <h2>From First Message to <span class="gold">Closed Deal</span></h2>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-stage">
+        <div class="box">
+          <div class="dot dot-new"></div>
+          <h4>New</h4>
+          <p>Lead entered CRM from any channel</p>
+        </div>
+      </div>
+      <div class="pipe-arrow">&#8594;</div>
+      <div class="pipe-stage">
+        <div class="box">
+          <div class="dot dot-qual"></div>
+          <h4>Qualified</h4>
+          <p>Intent detected or contact captured</p>
+        </div>
+      </div>
+      <div class="pipe-arrow">&#8594;</div>
+      <div class="pipe-stage">
+        <div class="box">
+          <div class="dot dot-assign"></div>
+          <h4>Assigned</h4>
+          <p>Sales agent allocated by system</p>
+        </div>
+      </div>
+      <div class="pipe-arrow">&#8594;</div>
+      <div class="pipe-stage">
+        <div class="box">
+          <div class="dot dot-prog"></div>
+          <h4>In Progress</h4>
+          <p>Agent nurturing, property matching</p>
+        </div>
+      </div>
+      <div class="pipe-arrow">&#8594;</div>
+      <div class="pipe-stage">
+        <div class="box">
+          <div class="dot dot-closed"></div>
+          <h4>Closed</h4>
+          <p>Deal signed, commission generated</p>
+        </div>
+      </div>
+    </div>
+    <div class="pipe-note">Parallel path: Not Interested — auto-moved when lead sends 2 irrelevant messages</div>
+  </div>
+
+  <!-- 8. Follow-ups -->
+  <div class="slide" id="s8">
+    <div class="slide-header">
+      <div class="tag">Automated Follow-ups</div>
+      <h2>Never Let a Lead <span class="gold">Go Cold</span></h2>
+    </div>
+    <div class="tl-grid">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">+1 hour</div>
+          <div class="tl-content">
+            <h4>Follow-up 1</h4>
+            <p>"Just checking in — did you get a chance to review?"</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">+2 hours</div>
+          <div class="tl-content">
+            <h4>Follow-up 2</h4>
+            <p>"We'd love to help you find the right property."</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">+22 hours</div>
+          <div class="tl-content">
+            <h4>Long-cycle begins</h4>
+            <p>"We're still here whenever you're ready."</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">+7 days</div>
+          <div class="tl-content">
+            <h4>Weekly reminder</h4>
+            <p>Gentle nudge — no pressure, stay top of mind.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dim"></div>
+          <div class="tl-time" style="color:#333;">+30 days</div>
+          <div class="tl-content">
+            <h4 style="color:#444;">Schedule cleared</h4>
+            <p style="color:#3a3a3a;">Follow-ups stop. Lead stays in CRM.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-note">
+          Auto-cancels the moment the lead replies — no robotic messaging to active conversations.
+        </div>
+        <div class="tl-guards">
+          <h4>Guard conditions</h4>
+          <ul>
+            <li>Skips Not Interested leads</li>
+            <li>Skips Closed deals</li>
+            <li>Skips Banned or Blocked leads</li>
+            <li>Cron checks every 10 minutes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Finance Flow -->
+  <div class="slide" id="s9">
+    <div class="slide-header">
+      <div class="tag">Finance &amp; Commission</div>
+      <h2>Installment-Based <span class="gold">Payment Tracking</span></h2>
+    </div>
+    <div class="finance-flow">
+      <div class="finance-node">
+        <div class="f-badge">Buyer</div>
+        <h4>Lead</h4>
+        <p>Pays developer in installments over the project timeline</p>
+      </div>
+      <div class="finance-arrow">
+        <div class="arr">&#8594;</div>
+        <div class="lbl">installment payments</div>
+      </div>
+      <div class="finance-node">
+        <div class="f-badge">Developer</div>
+        <h4>Developer</h4>
+        <p>Pays Asobr broker commission per payment received</p>
+      </div>
+      <div class="finance-arrow">
+        <div class="arr">&#8594;</div>
+        <div class="lbl">company commission recorded</div>
+      </div>
+      <div class="finance-node">
+        <div class="f-badge">Broker</div>
+        <h4>Asobr</h4>
+        <p>Auto-calculates agent's proportional share and creates installment</p>
+      </div>
+      <div class="finance-arrow">
+        <div class="arr">&#8594;</div>
+        <div class="lbl">agent installment created</div>
+      </div>
+      <div class="finance-node">
+        <div class="f-badge">Sales Agent</div>
+        <h4>Agent</h4>
+        <p>Receives commission proportionally as developer pays Asobr</p>
+      </div>
+    </div>
+    <div class="install-note">
+      Deal structure tracked per sale: Downpayment + Number of installments + Monthly or Quarterly schedule + Handover date
+    </div>
+  </div>
+
+  <!-- 10. Profit Formula -->
+  <div class="slide" id="s10">
+    <div class="slide-header">
+      <div class="tag">Finance Intelligence</div>
+      <h2>Real-time <span class="gold">Profit Tracking</span></h2>
+    </div>
+    <div class="formula-box">
+      <div class="formula">
+        <span class="dev">Developer Commission</span>
+        <span class="op">&#8722;</span>
+        <span class="agent">Agent Commission</span>
+        <span class="op">=</span>
+        <span class="profit">Company Profit</span>
+      </div>
+      <div class="formula-eg">
+        Example: AED 980K deal &nbsp;&middot;&nbsp; 8% developer commission &nbsp;&middot;&nbsp; 1.6% agent rate<br><br>
+        <span style="color:var(--emerald);">AED 78,400</span> (developer commission)
+        &nbsp;&#8722;&nbsp;
+        <span style="color:var(--red);">AED 15,680</span> (agent cut)
+        &nbsp;=&nbsp;
+        <span style="color:var(--gold);font-weight:700;">AED 62,720 net profit</span>
+      </div>
+    </div>
+    <div class="profit-types">
+      <div class="profit-type">
+        <div class="p-label" style="color:var(--emerald);">Actual — Cash</div>
+        <h4>Cash Profit</h4>
+        <p>Developer payments received minus agent installments actually paid out. Real money moved.</p>
+      </div>
+      <div class="profit-type">
+        <div class="p-label" style="color:var(--gold);">Projected — Accrual</div>
+        <h4>Total Deal Profit</h4>
+        <p>Full company earnings at deal close minus full agent entitlement. Complete picture of deal worth.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Compliance -->
+  <div class="slide" id="s11">
+    <div class="slide-header">
+      <div class="tag">Compliance Enforcement</div>
+      <h2>Automated <span class="gold">Regulatory Compliance</span></h2>
+    </div>
+    <div class="compliance-cycle">
+      <div class="comp-card">
+        <div class="comp-label">Requirements</div>
+        <h3>Documents Required</h3>
+        <ul>
+          <li>Signed Service Agreement (mandatory, no expiry)</li>
+          <li>RERA Card (mandatory within 7 days, has expiry)</li>
+          <li>Emirates ID (mandatory within 7 days, has expiry)</li>
+          <li>Other documents (optional)</li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Onboarding Rule</div>
+        <h3>7-Day Window</h3>
+        <ul>
+          <li>Agent can be approved with Service Agreement only</li>
+          <li>RERA and Emirates ID must be uploaded within 7 days</li>
+          <li>Daily cron checks all active agents</li>
+          <li>Either document missing after 7 days triggers auto temp-ban</li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Ongoing Monitoring</div>
+        <h3>Expiry Cycle</h3>
+        <ul>
+          <li>Admin or Office verifies docs with expiry date attached</li>
+          <li>Daily cron monitors all verified document expiries</li>
+          <li>Either document expires — account temp-banned</li>
+          <li>Agent sees upload screen on next login</li>
+          <li>After re-upload — waiting approval again</li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Threat Detection</div>
+        <h3>Lead Leakage</h3>
+        <ul>
+          <li>AI detects when agent shares own contact with a lead</li>
+          <li>Alert sent to Manager and Admin instantly</li>
+          <li>Leakage registered in the security log</li>
+          <li>Agent account auto temp-banned immediately</li>
+          <li>Agent must contact admin to restore access</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. Documents -->
+  <div class="slide" id="s12">
+    <div class="slide-header">
+      <div class="tag">Document Management</div>
+      <h2>Secure, Verified, <span class="gold">Inline Document Handling</span></h2>
+    </div>
+    <div class="doc-flow">
+      <div class="doc-step">
+        <div class="num">1</div>
+        <h4>Upload</h4>
+        <p>Agent uploads each document in its named field. Max 10MB per file.</p>
+      </div>
+      <div class="doc-step">
+        <div class="num">2</div>
+        <h4>Review</h4>
+        <p>Admin or Office views inline — PDF or image rendered directly in the page.</p>
+      </div>
+      <div class="doc-step">
+        <div class="num">3</div>
+        <h4>Verify</h4>
+        <p>Verified with expiry date attached for RERA and Emirates ID.</p>
+      </div>
+      <div class="doc-step">
+        <div class="num">4</div>
+        <h4>Monitor</h4>
+        <p>Daily cron watches expiry dates. Auto-bans on expiry.</p>
+      </div>
+    </div>
+    <div class="doc-types">
+      <div class="doc-badge mandatory">Service Agreement</div>
+      <div class="doc-badge mandatory">RERA Card</div>
+      <div class="doc-badge mandatory">Emirates ID</div>
+      <div class="doc-badge optional">Other Documents</div>
+    </div>
+    <div class="doc-note">Inline viewer + fullscreen popup &nbsp;&middot;&nbsp; Signed S3 proxy URLs &nbsp;&middot;&nbsp; Office Agents and Admin can verify</div>
+  </div>
+
+  <!-- 13. Fleet -->
+  <div class="slide" id="s13">
+    <div class="slide-header">
+      <div class="tag">Fleet Tracking</div>
+      <h2>Know Where Your <span class="gold">Team Is, Always</span></h2>
+    </div>
+    <div class="fleet-grid">
+      <div class="fleet-card">
+        <div class="fleet-card-label">Location</div>
+        <h3>Real-time GPS</h3>
+        <div class="fleet-stat"><span>Update frequency</span><span class="val">Every 2 minutes</span></div>
+        <div class="fleet-stat"><span>Source</span><span class="val">Mobile app GPS</span></div>
+        <div class="fleet-stat"><span>Data collection</span><span class="val">location_logs</span></div>
+        <div class="fleet-stat"><span>View</span><span class="val">Map with agent pins</span></div>
+        <div class="fleet-stat"><span>Status indicator</span><span class="val">Online / Offline badge</span></div>
+      </div>
+      <div class="fleet-card">
+        <div class="fleet-card-label">Intelligence</div>
+        <h3>Fleet Dashboard</h3>
+        <div class="fleet-stat"><span>Last seen</span><span class="val">Per agent</span></div>
+        <div class="fleet-stat"><span>Battery level</span><span class="val">Tracked per ping</span></div>
+        <div class="fleet-stat"><span>Location source</span><span class="val">GPS / Network / Passive</span></div>
+        <div class="fleet-stat"><span>History</span><span class="val">Full ping log retained</span></div>
+        <div class="fleet-stat"><span>Access</span><span class="val">Admin + Manager only</span></div>
+      </div>
+    </div>
+    <div class="fleet-note">
+      Fleet view aggregates latest position per agent using MongoDB aggregation — shows each agent's most recent ping on the live map.
+    </div>
+  </div>
+
+  <!-- 14. Security -->
+  <div class="slide" id="s14">
+    <div class="slide-header">
+      <div class="tag">Security</div>
+      <h2>Multi-Layer <span class="gold">Access Control</span></h2>
+    </div>
+    <div class="sec-grid">
+      <div class="sec-card">
+        <div class="sec-card-label">Identity</div>
+        <h4>Authentication</h4>
+        <ul>
+          <li>JWT session tokens</li>
+          <li>Passkey / WebAuthn support</li>
+          <li>WhatsApp OTP login</li>
+          <li>Session storage with fallback</li>
+        </ul>
+      </div>
+      <div class="sec-card">
+        <div class="sec-card-label">Authorization</div>
+        <h4>Role-Based Access</h4>
+        <ul>
+          <li>6 distinct roles</li>
+          <li>Route-level enforcement on every endpoint</li>
+          <li>Finance routes fully gated</li>
+          <li>Self-only data for agents</li>
+        </ul>
+      </div>
+      <div class="sec-card">
+        <div class="sec-card-label">Detection</div>
+        <h4>Threat Monitoring</h4>
+        <ul>
+          <li>Lead leakage auto-ban</li>
+          <li>Security audit log</li>
+          <li>Session monitoring</li>
+          <li>Alert to Admin and Manager</li>
+        </ul>
+      </div>
+    </div>
+    <div class="roles-section">
+      <div class="roles-label">Six role levels</div>
+      <div class="roles">
+        <div class="role-chip" style="border-color:rgba(248,113,113,0.35);color:var(--red);background:rgba(248,113,113,0.04);">Admin</div>
+        <div class="role-chip" style="border-color:rgba(212,175,55,0.35);color:var(--gold);background:rgba(212,175,55,0.04);">Manager</div>
+        <div class="role-chip" style="border-color:rgba(96,165,250,0.35);color:var(--blue);background:rgba(96,165,250,0.04);">Finance</div>
+        <div class="role-chip" style="border-color:rgba(167,139,250,0.35);color:var(--purple);background:rgba(167,139,250,0.04);">Office Agents</div>
+        <div class="role-chip" style="border-color:rgba(52,211,153,0.35);color:var(--emerald);background:rgba(52,211,153,0.04);">Sales Agent</div>
+        <div class="role-chip" style="border-color:#2a2a2a;color:#666;background:rgba(255,255,255,0.02);">Reference Agent</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. Mobile -->
+  <div class="slide" id="s15">
+    <div class="slide-header">
+      <div class="tag">Mobile App</div>
+      <h2>22 Features for <span class="gold">Agents in the Field</span></h2>
+    </div>
+    <div class="mobile-grid">
+      <div class="mobile-cat">
+        <h4>Lead Management</h4>
+        <ul>
+          <li>Hot / Warm / Cold filtering</li>
+          <li>4-tab lead detail view</li>
+          <li>AI next best actions</li>
+          <li>One-tap Twilio call</li>
+          <li>Voice memo (15s, auto-attach)</li>
+          <li>Deal pipeline swipe gestures</li>
+        </ul>
+      </div>
+      <div class="mobile-cat">
+        <h4>Field Operations</h4>
+        <ul>
+          <li>Background GPS (2-min pings)</li>
+          <li>Offline read cache</li>
+          <li>Write queue (auto-drain)</li>
+          <li>Camera document capture</li>
+          <li>Viewing scheduler</li>
+          <li>WhatsApp confirmation pre-fill</li>
+        </ul>
+      </div>
+      <div class="mobile-cat">
+        <h4>Management</h4>
+        <ul>
+          <li>Team dashboard (Manager)</li>
+          <li>Lead reassignment</li>
+          <li>Business metrics and charts</li>
+          <li>Commission tracker</li>
+          <li>Notification inbox</li>
+          <li>Staff chat (channels + DMs)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. Tech Stack -->
+  <div class="slide" id="s16">
+    <div class="slide-header">
+      <div class="tag">Technology</div>
+      <h2>Modern Stack, <span class="gold">Production Ready</span></h2>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-abbr">NX</div>
+        <h4>Next.js 15</h4>
+        <p>App Router, Turbopack, server components</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-abbr">TS</div>
+        <h4>Node.js / Express</h4>
+        <p>TypeScript, 50+ REST modules, PM2 on EC2</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-abbr">DB</div>
+        <h4>MongoDB</h4>
+        <p>Mongoose ODM, aggregation pipelines</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-abbr">FL</div>
+        <h4>Flutter</h4>
+        <p>iOS + Android, offline-first architecture</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-abbr">AI</div>
+        <h4>Claude AI</h4>
+        <p>Sonnet model, tool calls, conversation memory</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-abbr">WA</div>
+        <h4>WhatsApp API</h4>
+        <p>Inbound webhooks, outbound templates</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-abbr">S3</div>
+        <h4>AWS S3</h4>
+        <p>Document storage, signed proxy URLs</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-abbr">TW</div>
+        <h4>Twilio</h4>
+        <p>Voice calls, WhatsApp fallback channel</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. Closing -->
+  <div class="slide" id="s17">
+    <div class="logo">ASOBR</div>
+    <div class="line"></div>
+    <div class="tagline">Built for the UAE Real Estate Market</div>
+    <div class="url">crm.asobr.com</div>
+    <div class="pillars">AI-Powered &nbsp;&middot;&nbsp; Compliance-First &nbsp;&middot;&nbsp; Installment-Ready</div>
+  </div>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let animating = false;
+
+  const dotNav = document.getElementById('dotNav');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('span');
+    d.addEventListener('click', () => go(i));
+    dotNav.appendChild(d);
+  }
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function go(n) {
+    if (animating || n === current) return;
+    animating = true;
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, n));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = pad(current + 1) + ' / ' + pad(total);
+    document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+    dotNav.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === current));
+    setTimeout(() => { animating = false; }, 350);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(current - 1); }
+  });
+
+  let touchX = 0;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 48) dx < 0 ? go(current + 1) : go(current - 1);
+  });
+
+  document.querySelector('.deck').addEventListener('click', e => {
+    if (e.target.closest('#dotNav')) return;
+    e.clientX > window.innerWidth / 2 ? go(current + 1) : go(current - 1);
+  });
+
+  go(0);
+</script>
+</body>
+</html>
